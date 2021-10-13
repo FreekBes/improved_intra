@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "Dark Theme for Intra 42",
+	"short_name": "Dark Theme for Intra 42",
+	"version": "1.0.0",
+	"version_name": "1.0.0",
+	"description": "This extension adds a dark theme for 42's Intranet",
+	"permissions": [
+		"*://*.intra.42.fr/*"
+	],
+	"content_scripts": [
+		{
+			"matches": ["*://*.intra.42.fr/*"],
+			"js": [],
+			"css": ["dark.css"]
+		}
+	]
+}
