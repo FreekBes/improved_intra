@@ -31,6 +31,10 @@ h1, h2, h3, h4, h5 {
 	background-color: #292a2d !important;
 }
 
+.main-navbar .labelable .labeled[data-counter-count="0"] {
+	background-color: #4a4a4a !important;
+}
+
 #broadcasts-container,
 .broadcasts-filters-btn,
 .dropdown-menu,
@@ -207,6 +211,10 @@ hr,
 
 .correction-item .corrected-item .correction-comment-item {
 	background-color: #2a2a2a !important;
+}
+
+mark, .mark {
+	background: #3c3a31 !important
 }
 
 /* events */
