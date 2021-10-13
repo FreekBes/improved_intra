@@ -168,7 +168,9 @@ hr,
 	background-color: #5cb85c !important;
 }
 
-#project-show .project-status-box[data-status=fail] {
+#project-show .project-status-box[data-status=fail],
+#project-show .project-status-box[data-status=forbidden],
+#project-show .project-status-box[data-status=closed] {
 	background-color: #D8636F !important;
 }
 
@@ -215,6 +217,10 @@ hr,
 
 mark, .mark {
 	background: #3c3a31 !important
+}
+
+#project-show .project-summary-item {
+	border-color: #a4a4a4 !important;
 }
 
 /* events */
@@ -393,6 +399,12 @@ code {
 	color: #8a8a8a !important;
 }
 
+/* resume page */
+.resume {
+	background: #292a2d !important;
+	border-color: #292a2d !important;
+}
+
 /* API and applications */
 .app_container_3Fj {
 	border-color: #6a6a6a !important;
@@ -495,6 +507,11 @@ input:not(.search-input), select, .form-control, .Select-control, .Select-menu-o
 	color: #ffffff !important;
 	border-color: #6a6a6a !important;
 	border-radius: 3px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+	background-color: #2a2a2a !important;
+	color: #6a6a6a !important;
 }
 
 .Select-option,
