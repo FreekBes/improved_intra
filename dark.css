@@ -164,11 +164,12 @@ hr,
 }
 
 /* projects page */
-#project-show .project-status-box:not([data-status=success]) {
+#project-show .project-status-box {
 	background-color: #4a4a4a !important;
 }
 
-#project-show .project-status-box[data-status=subscribed] {
+#project-show .project-status-box[data-status=subscribed],
+#project-show .project-status-box[data-status=allowed] {
 	background-color: #00babc !important;
 }
 
