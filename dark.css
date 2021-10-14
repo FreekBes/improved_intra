@@ -413,8 +413,12 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background-color: #4a4a4a !important;
 }
 
-code {
+:not(pre) > code {
 	background-color: #4a4a4a !important;
+}
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+	background-color: #1A252F !important;
 }
 
 .current-article {
@@ -436,7 +440,112 @@ code {
 	border-color: #292a2d !important;
 }
 
-/* API and applications */
+/* auth page */
+.authorization-layout main {
+	color: #ededed !important;
+}
+
+.authorization-layout #container {
+	background-color: #292a2d !important;
+	border-color: #4a4a4a !important;
+}
+
+.authorization-layout a,
+.authorization-layout .text-info {
+	color: #6fabe6 !important;
+}
+
+.authorization-layout .header img {
+	filter: brightness(1.5) saturate(1.55) !important;
+	-webkit-filter: brightness(1.5) saturate(1.55) !important;
+	-moz-filter: brightness(1.5) saturate(1.55) !important;
+}
+
+.authorization-layout .user-name {
+	color: #9a9a9a !important;
+}
+
+.authorization-layout .actions > form > .btn.btn-success {
+	background-color: #6fabe6 !important;
+	border-color: #598dc2 !important;
+	color: #ffffff !important;
+}
+
+.authorization-layout .actions > form > .btn.btn-success:hover {
+	background-color: #81b4e7 !important;
+	border-color: #6fabe6 !important;
+}
+
+.authorization-layout .actions > form > .btn.btn-danger {
+	color: #E26060 !important;
+}
+
+.authorization-layout .actions > form > .btn.btn-danger:hover {
+	color: #ffffff !important;
+	background-color: #E26060 !important;
+}
+
+/* API page */
+.blue-background .main-content-container,
+.resource-item {
+	background-color: #202124 !important;
+}
+
+.main-column > footer {
+	background-color: #000000 !important;
+}
+
+.blue-background .main-content-container,
+header.main-page-header .logo small,
+.main-column > footer {
+	color: #6fabe6 !important;
+}
+
+.guides-menu li a {
+	color: #9a9a9a !important;
+}
+
+.documentation table > tbody > tr:nth-of-type(odd) {
+	background-color: #2a2a2a !important;
+}
+
+.documentation tr[style="background-color:rgb(255,255,255);"],
+.documentation tr[style="background-color:rgb(249,249,249);"] {
+	background-color: #3a3a3a !important;
+}
+
+.documentation table > thead > tr > th,
+.documentation table > tbody > tr > th,
+.documentation table > tfoot > tr > th,
+.documentation table > thead > tr > td,
+.documentation table > tbody > tr > td,
+.documentation table > tfoot > tr > td {
+	border-color: #4a4a4a !important;
+}
+
+.documentation pre {
+	background-color: #000000 !important;
+}
+
+.nav-tabs {
+	background: #4a4a4a !important;
+	border-color: #6a6a6a !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+	color: #ffffff !important;
+	background-color: #6a6a6a !important;
+	border-color: #6a6a6a !important;
+}
+
+.nav-tabs > li > a:hover {
+	border-color: #6a6a6a #6a6a6a #8a8a8a !important;
+}
+
+/* application page in settings */
+
 .app_container_3Fj {
 	border-color: #6a6a6a !important;
 }
