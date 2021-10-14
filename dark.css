@@ -436,6 +436,22 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-top-color: #4a4a4a !important;
 }
 
+.video-item-footer .video-item-views {
+	color: #6a6a6a !important;
+}
+
+.notion-grid > .notion-item .notion-title,
+.notion-grid > .notion-item .subnotion-title,
+.notion-grid > .subnotion-item .notion-title,
+.notion-grid > .subnotion-item .subnotion-title,
+.subnotion-grid > .notion-item .notion-title,
+.subnotion-grid > .notion-item .subnotion-title,
+.subnotion-grid > .subnotion-item .notion-title,
+.subnotion-grid > .subnotion-item .subnotion-title {
+	background-color: #4a4a4a !important;
+	color: #ffffff !important;
+}
+
 /* articles */
 .articles-routes {
 	background-color: #4a4a4a !important;
