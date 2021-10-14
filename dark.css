@@ -316,10 +316,6 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
-.profile-item .user-header-box {
-	border-radius: 0px !important;
-}
-
 .profile-menu .nav li.active a {
 	background-color: #4a4a4a !important;
 }
