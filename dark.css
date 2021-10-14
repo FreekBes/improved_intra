@@ -4,8 +4,20 @@ html, body {
 	color: #ffffff !important;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
 	color: #adadad !important;
+}
+
+.text-dark h1,
+.text-dark h2,
+.text-dark h3,
+.text-dark h4,
+.text-dark h5 {
+	color: #343a40 !important
 }
 
 .main-navbar,
@@ -125,6 +137,11 @@ hr,
 .list-group-item {
 	background-color: #202124 !important;
 	border-color: #4a4a4a !important;
+}
+
+.bg-white .list-group-item {
+	background-color: #ffffff !important;
+	border-color: #dddddd !important;
 }
 
 .feedback-comment-item {
