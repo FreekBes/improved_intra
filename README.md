@@ -13,14 +13,6 @@ Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hm
   <img src="https://raw.githubusercontent.com/FreekBes/dark_intra/master/promo/screenshot-2.png">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/FreekBes/dark_intra/master/promo/screenshot-3.png">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/FreekBes/dark_intra/master/promo/screenshot-4.png">
-</p>
-
 ## Contributing
 In case you find any white spots on Intra or would like to modify any of the styles, feel free to do so! Use the following steps:
 1. [Fork](https://github.com/FreekBes/dark_intra/fork) and clone the project
