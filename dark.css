@@ -40,7 +40,8 @@ h1, h2, h3, h4, h5 {
 .dropdown-menu,
 .broad-content,
 .notifications-container,
-.tt-menu {
+.tt-menu,
+.chosen-container .chosen-drop {
 	background-color: #292a2d !important;
 	color: #ffffff !important;
 	border-top-color: #292a2d !important;
@@ -65,9 +66,19 @@ h1, h2, h3, h4, h5 {
 	background: #3a3a3a !important;
 }
 
+.expertise-list .expertise-list-item:hover {
+	background: #3a3a3a !important;
+}
+
 #back-arrow,
 .broadcast-footer {
 	background: #4a4a4a !important;
+	border-color: #6a6a6a !important;
+}
+
+.chosen-container-multi .chosen-choices {
+	background: #4a4a4a !important;
+	color: #ffffff !important;
 	border-color: #6a6a6a !important;
 }
 
