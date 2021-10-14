@@ -1,7 +1,7 @@
 /* main elements (visible on every page */
 html, body {
 	background-color: #202124 !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 h1,
@@ -55,7 +55,7 @@ h5 {
 .tt-menu,
 .chosen-container .chosen-drop {
 	background-color: #292a2d !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	border-top-color: #292a2d !important;
 	border-bottom-color: #4a4a4a !important;
 }
@@ -90,7 +90,7 @@ h5 {
 
 .chosen-container-multi .chosen-choices {
 	background: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	border-color: #6a6a6a !important;
 }
 
@@ -98,7 +98,7 @@ h5 {
 .dropdown-menu > li > a,
 .dropdown-menu > li > a,
 .notifications-container .menu-drop-list .menu-drop-item.read {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	background-color: #292a2d !important
 }
 
@@ -107,13 +107,13 @@ h5 {
 .notifications-container .menu-drop-list .menu-drop-item > a:hover,
 .nav > li > a:hover,
 .nav > li > a:focus {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	background-color: #4a4a4a !important;
 }
 
 .notifications-container .menu-drop-list .menu-drop-item .menu-drop-text,
 .modal-header .close {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .btn:hover,
@@ -161,7 +161,7 @@ hr,
 .profile-title,
 .achievement-item .achievement-item--container .achievement-item--content h1,
 .event-modal .head h4, .exam-modal .head h4 {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .school-record-button {
@@ -235,7 +235,7 @@ hr,
 
 .input-group-addon:hover,
 .input-group-addon:focus {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .projects-list-container .projects-list--list-header .project-item:hover,
@@ -286,8 +286,8 @@ mark, .mark {
 }
 
 .highcharts-container svg > text {
-	color: #ffffff !important;
-	fill: #ffffff !important;
+	color: #f2f2f2 !important;
+	fill: #f2f2f2 !important;
 }
 
 .highcharts-tooltip path:not([fill="none"]) {
@@ -304,7 +304,7 @@ mark, .mark {
 }
 
 .tooltip {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 /* logtime overview */
@@ -326,7 +326,7 @@ mark, .mark {
 .changelogs-list .changelog-item .changelog-left span {
 	background-color: #4a4a4a !important;
 	border-color: #6a6a6a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .changelogs-list .changelog-item .changelog-main:hover,
@@ -372,7 +372,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select option,
 .profile-item .user-primary .user-infos .cursus-user-select option {
 	background-color: #292a2d !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 /* slots page */
@@ -449,7 +449,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 .subnotion-grid > .subnotion-item .notion-title,
 .subnotion-grid > .subnotion-item .subnotion-title {
 	background-color: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 /* articles */
@@ -466,12 +466,12 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 .current-article {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 /* companies */
 .container-fluid.main table.table > tbody > tr > th {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .like-count[data-liked=false] {
@@ -512,7 +512,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 .authorization-layout .actions > form > .btn.btn-success {
 	background-color: #6fabe6 !important;
 	border-color: #598dc2 !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .authorization-layout .actions > form > .btn.btn-success:hover {
@@ -525,7 +525,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 .authorization-layout .actions > form > .btn.btn-danger:hover {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	background-color: #E26060 !important;
 }
 
@@ -579,7 +579,7 @@ header.main-page-header .logo small,
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	background-color: #6a6a6a !important;
 	border-color: #6a6a6a !important;
 }
@@ -595,7 +595,7 @@ header.main-page-header .logo small,
 }
 
 .app_title_3CB {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .app_info_p_1C2 {
@@ -609,7 +609,7 @@ header.main-page-header .logo small,
 
 .application-item--detail label:not(.label-success) {
 	background: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 /* buttons */
@@ -671,11 +671,11 @@ header.main-page-header .logo small,
 .btn.btn-danger:active,
 .btn.btn-danger.active,
 .open > .btn.btn-danger.dropdown-toggle {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .login-container .login-main .btn-login {
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	background-color: #00babc !important;
 }
 
@@ -694,7 +694,7 @@ textarea,
 .Select-menu-outer,
 .Select-menu {
 	background-color: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 	border-color: #6a6a6a !important;
 	border-radius: 3px;
 }
@@ -712,12 +712,12 @@ select[disabled] {
 .Select-option,
 .Select-option-group-label {
 	background-color: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .Select-option.is-focused {
 	background-color: #6a6a6a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .panel {
@@ -731,7 +731,7 @@ select[disabled] {
 .panel-default > .panel-heading {
 	border-color: #4a4a4a !important;
 	background-color: #4a4a4a !important;
-	color: #ffffff !important;
+	color: #f2f2f2 !important;
 }
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
