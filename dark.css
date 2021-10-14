@@ -283,7 +283,8 @@ mark, .mark {
 	stroke: #292a2d !important;
 }
 
-#user-locations g[data-original-title="0h00"] > rect {
+#user-locations g[data-original-title="0h00"] > rect,
+#user-locations g > rect[fill="#fafafa"] {
 	fill: #343538 !important;
 }
 
