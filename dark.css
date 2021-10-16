@@ -1,5 +1,6 @@
 /* main elements (visible on every page */
-html, body {
+html,
+body {
 	background-color: #202124 !important;
 	color: #f2f2f2 !important;
 }
@@ -208,7 +209,7 @@ hr,
 #project-show .project-status-box[data-status=fail],
 #project-show .project-status-box[data-status=forbidden],
 #project-show .project-status-box[data-status=closed] {
-	background-color: #D8636F !important;
+	background-color: #d8636f !important;
 }
 
 .team-item .team-header .team-status-dot:not(.text-success) {
@@ -342,7 +343,7 @@ li.scaleteam-list-item {
 
 li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background: #523d3f !important;
-	color: #D8636F !important;
+	color: #d8636f !important;
 }
 
 /* profile page */
@@ -589,7 +590,6 @@ header.main-page-header .logo small,
 }
 
 /* application page in settings */
-
 .app_container_3Fj {
 	border-color: #6a6a6a !important;
 }
@@ -612,6 +612,11 @@ header.main-page-header .logo small,
 	color: #f2f2f2 !important;
 }
 
+/* eval sheet */
+.scale-question-answers {
+	background: rgba(0,0,0,0) !important;
+}
+
 /* buttons */
 .btn.btn-default,
 .btn-default.broadcasts-filters-btn,
@@ -620,6 +625,12 @@ header.main-page-header .logo small,
 	background-color: #4a4a4a !important;
 	border-color: #6a6a6a !important;
 	color: #00babc !important;
+}
+
+.btn.btn-success,
+.btn-success.broadcasts-filters-btn {
+	background-color: #5cb85c !important;
+	border-color: #5cb85c !important;
 }
 
 .btn.btn-default:hover,
@@ -631,20 +642,55 @@ header.main-page-header .logo small,
 	color: #00babc !important;
 }
 
-.pagination > li:not(.active) > a,
-.pagination > li:not(.active) > span {
-	background-color: #4a4a4a !important;
-	border-color: #6a6a6a !important;
-	color: #00babc !important;
+.btn.btn-success.on-active:not(.active),
+.btn-success.on-active.broadcasts-filters-btn:not(.active) {
+	color: #5cb85c !important;
+	background-color: rgba(92,184,92,0.2) !important;
+	border-color: rgba(92,184,92,0) !important;
 }
 
-.pagination > li:not(.active) > a:hover,
-.pagination > li:not(.active) > a:focus,
-.pagination > li:not(.active) > span:hover,
-.pagination > li:not(.active) > span:focus {
-	background-color: #3a3a3a !important;
-	border-color: #6a6a6a !important;
-	color: #00babc !important;
+.btn.btn-success.light-bg:hover:not(.active),
+.btn-success.light-bg.broadcasts-filters-btn:hover:not(.active) {
+	color: #5cb85c !important;
+	background-color: rgba(92,184,92,0.3) !important;
+}
+
+.btn.btn-danger.on-active:not(.active),
+.btn-danger.on-active.broadcasts-filters-btn:not(.active) {
+	color: #d8636f !important;
+	background-color: rgba(216,99,111,0.2) !important;
+	border-color: rgba(216,99,111,0) !important;
+}
+
+.btn.btn-danger.light-bg:hover:not(.active),
+.btn-danger.light-bg.broadcasts-filters-btn:hover:not(.active) {
+	color: #d8636f !important;
+	background-color: rgba(216,99,111,0.3) !important;
+}
+
+
+.btn.btn-success.light-bg,
+.btn-success.light-bg.broadcasts-filters-btn {
+	background-color: rgba(92,184,92,0.2) !important;
+	border-color: transparent !important;
+}
+
+.btn.btn-danger.light-bg,
+.btn-danger.light-bg.broadcasts-filters-btn {
+	background-color: rgba(216,99,111,0.2) !important;
+	border-color: transparent !important;
+}
+
+.checkbox-input:checked+.checkbox-label.btn-success,
+.checkbox-input:checked+.checkbox-label.btn-success:hover {
+	background-color: #5cb85c !important;
+	color: #ffffff !important;
+}
+
+.checkbox-input:checked+.checkbox-label.btn-danger,
+.checkbox-input:checked+.checkbox-label.btn-danger:hover {
+	background-color: #d8636f !important;
+	color: #ffffff !important;
 }
 
 .btn.btn-primary:hover,
@@ -685,8 +731,30 @@ header.main-page-header .logo small,
 	background-color: #00ecef !important;
 }
 
+.pagination > li:not(.active) > a,
+.pagination > li:not(.active) > span {
+	background-color: #4a4a4a !important;
+	border-color: #6a6a6a !important;
+	color: #00babc !important;
+}
+
+.pagination > li:not(.active) > a:hover,
+.pagination > li:not(.active) > a:focus,
+.pagination > li:not(.active) > span:hover,
+.pagination > li:not(.active) > span:focus {
+	background-color: #3a3a3a !important;
+	border-color: #6a6a6a !important;
+	color: #00babc !important;
+}
+
 /* forms and inputs */
-input:not(.search-input),
+input[type="text"]:not(.search-input),
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="email"],
 select,
 textarea,
 .form-control,
