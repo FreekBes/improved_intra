@@ -10,7 +10,7 @@ h2,
 h3,
 h4,
 h5 {
-	color: #adadad !important;
+	color: #f2f2f2 !important;
 }
 
 .text-dark h1,
@@ -58,7 +58,7 @@ h5 {
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
 	border-top-color: #292a2d !important;
-	border-bottom-color: #4a4a4a !important;
+	border-bottom-color: #292a2d !important;
 }
 
 .broadcasts-tag {
@@ -374,6 +374,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 .profile-item .user-primary .user-infos .cursus-user-select option {
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
+}
+
+.profile-on-users.profile-item .user-header-box.infos {
+	border-radius: 0px !important;
 }
 
 /* slots page */
