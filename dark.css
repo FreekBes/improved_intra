@@ -780,6 +780,11 @@ select[disabled] {
 	color: #6a6a6a !important;
 }
 
+.login-container .login-main .form-inputs .input-login input {
+	background-color: rgba(30,30,30,0.5) !important;
+	color: #c7c7c7 !important;
+}
+
 .Select-option,
 .Select-option-group-label {
 	background-color: #4a4a4a !important;
