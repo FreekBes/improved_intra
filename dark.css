@@ -432,6 +432,9 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	}
 }
 
+.profile-item .user-progress .progress {
+	background-color: rgba(32,32,38,0.75) !important;
+}
 
 /* slots page */
 .fc-unthemed th,
