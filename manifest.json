@@ -2,8 +2,8 @@
 	"manifest_version": 3,
 	"name": "Dark Theme for Intra 42",
 	"short_name": "Dark Intra 42",
-	"version": "1.1.2",
-	"version_name": "1.1.2",
+	"version": "1.1.3",
+	"version_name": "1.1.3",
 	"description": "This extension adds a dark theme for 42's Intranet",
 	"icons": {
 		"16": "images/logo16.png",

@@ -386,8 +386,14 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 .fc-event {
+	border-color: rgba(0,0,0,0.3) !important;
+}
+
+.fc-event:not([style*="background"]) {
 	background: #02807c !important;
-	border-color: #093d3e !important;
+}
+
+.fc-event:not([style*="color:"]) {
 	color: #093d3e !important;
 }
 
