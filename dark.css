@@ -38,6 +38,10 @@ h5 {
 	border-color: #4a4a4a !important
 }
 
+.modal-dialog .help-block {
+	color: #888888 !important;
+}
+
 #sidebarCollapse {
 	border-color: #292a2d !important;
 	background-color: #292a2d !important;
