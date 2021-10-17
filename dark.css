@@ -607,7 +607,8 @@ header.main-page-header .logo small,
 }
 
 /* eval sheet */
-.scale-question-answers {
+.scale-question-answers,
+.scale-div {
 	background: rgba(0,0,0,0) !important;
 }
 
