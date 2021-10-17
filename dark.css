@@ -685,6 +685,7 @@ header.main-page-header .logo small,
 	background: rgba(0, 0, 0, 0.5);
 }
 
+.btn-default.notification-btn,
 .btn-default.broadcasts-filters-btn,
 .fc-prev-button,
 .fc-next-button {
@@ -708,7 +709,7 @@ header.main-page-header .logo small,
 	border-color: #5cb85c !important;
 }
 
-.btn.btn-default:hover,
+.btn-default.notification-btn:hover,
 .btn-default.broadcasts-filters-btn:hover,
 .fc-prev-button:hover,
 .fc-next-button:hover {
