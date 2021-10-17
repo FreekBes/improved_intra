@@ -323,6 +323,14 @@ mark, .mark {
 	fill: #adadad !important;
 }
 
+.highcharts-grid > path {
+	stroke: #4a4a4a !important;
+}
+
+.highcharts-axis > path {
+	stroke: #434d54 !important;
+}
+
 /* project charts */
 .highcharts-background {
 	fill: #292a2d !important;
