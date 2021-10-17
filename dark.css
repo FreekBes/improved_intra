@@ -612,6 +612,15 @@ header.main-page-header .logo small,
 	color: #9a9a9a !important;
 }
 
+/* color fix for header inside of anchor */
+a h1,
+a h2,
+a h3,
+a h4,
+a h5 {
+	color: inherit !important;
+}
+
 .documentation table > tbody > tr:nth-of-type(odd) {
 	background-color: #2a2a2a !important;
 }
@@ -674,6 +683,14 @@ header.main-page-header .logo small,
 	color: #f2f2f2 !important;
 }
 
+/* A.G.U Panel */
+.text-agu:last-of-type::after {
+	content: '\A\APlease disable the Dark Theme for Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is highly likely they will contain errors, which might result in a wrongfully allocated freeze.' !important;
+	color: red !important;
+	white-space: pre-wrap !important;
+	font-weight: bold !important;
+}
+
 /* eval sheet */
 .scale-question-answers,
 .scale-div {
@@ -694,7 +711,6 @@ header.main-page-header .logo small,
 	color: #00babc !important;
 }
 
-.btn:hover,
 .broadcasts-filters-btn:hover,
 .btn:focus,
 .broadcasts-filters-btn:focus,
