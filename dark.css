@@ -60,6 +60,20 @@ h5 {
 	border-bottom-color: #292a2d !important;
 }
 
+.chosen-container .chosen-results {
+	color: #f2f2f2 !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+	background-color: #7a7a7a !important;
+	border-color: #9a9a9a !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+	box-shadow: 0 0 2px black inset, 0 1px 0 rgb(0 0 0 / 5%) !important;
+	color: #f2f2f2 !important;
+}
+
 .broadcasts-tag {
 	color: #000000 !important;
 }
