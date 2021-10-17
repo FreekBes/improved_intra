@@ -248,7 +248,7 @@ mark, .mark {
 }
 
 #project-show .project-summary-item {
-	border-color: #a4a4a4 !important;
+	border-color: #4a4a4a !important;
 }
 
 /* events */
@@ -399,6 +399,38 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 /* coalitions page */
 #coalition-scores .table-striped > tbody > tr:nth-of-type(odd) {
 	background: #2a2a2a !important;
+}
+
+/* search page */
+.search-item.search-user-item,
+.search-item:not(:last-child) {
+	border-color: #4a4a4a !important;
+}
+
+.search-item.search-user-item .search-item-main,
+.search-item.search-video-item .search-item-main {
+	background-color: #4a4a4a !important;
+	border-radius: 0px !important;
+}
+
+.search-item.search-user-item:hover,
+.search-item.search-video-item:hover {
+	transition: box-shadow 0.3s !important;
+	border-color: #5a5a5a !important;
+	box-shadow: 1px 1px 5px rgb(255 255 255 / 10%) !important;
+	-webkit-box-shadow: 1px 1px 5px rgb(255 255 255 / 10%) !important;
+}
+
+.search-item.search-user-item:hover .search-item-main,
+.search-item.search-video-item:hover .search-item-main {
+	background-color: #5a5a5a !important;
+	color: #f2f2f2 !important;
+}
+
+.search-item.search-user-item:hover > img,
+.search-item.search-video-item:hover > img {
+	color: #f2f2f2 !important;
+	text-decoration: none !important;
 }
 
 /* video page */
