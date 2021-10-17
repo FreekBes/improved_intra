@@ -336,9 +336,11 @@ mark, .mark {
 	fill: #292a2d !important;
 }
 
-.highcharts-container svg > text {
+.highcharts-container svg > text,
+.highcharts-data-labels > g > text {
 	color: #f2f2f2 !important;
 	fill: #f2f2f2 !important;
+	text-shadow: none !important;
 }
 
 .highcharts-tooltip path:not([fill="none"]) {
@@ -349,7 +351,8 @@ mark, .mark {
 .highcharts-tooltip > text,
 .highcharts-legend-item > text,
 .highcharts-axis-labels > text,
-.highcharts-axis-labels > text {
+.highcharts-axis-labels > text,
+.highcharts-axis > text {
 	color: #adadad !important;
 	fill: #adadad !important;
 }
