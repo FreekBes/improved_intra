@@ -196,9 +196,42 @@ hr,
 	background: #4a4a4a !important;
 }
 
+.achievement-item.stack .achievement-item--container[style="opacity: 0.4"] {
+	opacity: 0.6 !important;
+}
+
 /* broadcasts page */
 .broad2 {
 	border-color: #4a4a4a !important;
+}
+
+/* achievements page */
+.achievement-progress-item .progress-container .progress {
+	background-color: #4c4c58 !important;
+}
+
+.achievements-nav .achievements-nav-item input.kind-filter+label p {
+	border-color: rgba(0,0,0,0) !important;
+}
+
+.achievements-nav .achievements-nav-item input.kind-filter.active+label p {
+	border-color: #8a8a8a !important;
+}
+
+.achievements-nav--filters .checkbox-inline input[type="checkbox"]:checked+label span {
+	background: #8a8a8a !important;
+}
+
+.achievement-item .achievement-item--container {
+	border-color: #4a4a4a !important;
+}
+
+.achievement-item .achievement-item--container .achievement-item--content .iconf-trophy {
+	color: #6a6a6a !important;
+}
+
+.progress {
+	background-color: #4a4a4a !important;
 }
 
 /* projects page */
