@@ -173,9 +173,10 @@ hr,
 	background-color: initial !important;
 }
 
-.school-record-button:hover {
-	color: #5b5b60 !important;
-	border-color: #5b5b60 !important;
+.school-record-button:hover,
+.profile-title a:hover.simple-link {
+	color: #6a6a6a !important;
+	border-color: #6a6a6a !important;
 }
 
 .very-big-icon, .note-title {
@@ -665,10 +666,10 @@ header.main-page-header .logo small,
 }
 
 /* buttons */
-.btn-btn-default
-.btn-btn-default-dropdown-toggle {
+.btn-btn-default .btn-btn-default-dropdown-toggle {
 	background: rgba(0, 0, 0, 0.5);
 }
+
 .btn-default.broadcasts-filters-btn,
 .fc-prev-button,
 .fc-next-button {
@@ -762,7 +763,6 @@ header.main-page-header .logo small,
 .btn-primary.broadcasts-filters-btn:active,
 .btn.btn-primary.active,
 .btn-primary.active.broadcasts-filters-btn,
-
 .open > .btn.btn-primary.dropdown-toggle,
 .open > .btn-primary.dropdown-toggle.broadcasts-filters-btn,
 .btn.btn-success:hover,
