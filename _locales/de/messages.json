@@ -1,0 +1,18 @@
+{
+	"appName": {
+		"message": "Dunkles Thema für Intra 42",
+		"description": "The name of the extension"
+	},
+	"shortAppName": {
+		"message": "Dunkler Intra 42",
+		"description": "The short name of the extension"
+	},
+	"appDesc": {
+		"message": "Diese Browsererweiterung modifiziert das Intranet der 42: das helle Thema wird in eine dunkle Variante geändert",
+		"description": "The description of the extension"
+	},
+	"aguWarning": {
+		"message": "Please disable the Dark Theme for Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is highly likely they will contain errors, which might result in a wrongfully allocated freeze.",
+		"description": "The warning displayed on the A.G.U. Panel page in settings. Currently unused due to bugs: https://bugs.chromium.org/p/chromium/issues/detail?id=115800"
+	}
+}

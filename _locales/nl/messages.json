@@ -1,0 +1,18 @@
+{
+	"appName": {
+		"message": "Donker Thema voor Intra 42",
+		"description": "The name of the extension"
+	},
+	"shortAppName": {
+		"message": "Donker Intra 42",
+		"description": "The short name of the extension"
+	},
+	"appDesc": {
+		"message": "Deze extensie modificeert 42's Intranet, waarbij het lichte thema in een donkere variant wordt veranderd",
+		"description": "The description of the extension"
+	},
+	"aguWarning": {
+		"message": "Zet voordat je doorgaat de Donker Thema voor Intra 42 extensie uit. Ik heb de pagina's die na het klikken van de SET-UP-knop verschijnen niet getest, wat betekent dat deze pagina's hoogstwaarschijnlijk vol met fouten zitten, wat weer kan leiden tot een verkeerd ingestelde freeze.",
+		"description": "The warning displayed on the A.G.U. Panel page in settings. Currently unused due to bugs: https://bugs.chromium.org/p/chromium/issues/detail?id=115800"
+	}
+}

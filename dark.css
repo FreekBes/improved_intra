@@ -746,7 +746,7 @@ a h5 {
 	color: #f2f2f2 !important;
 }
 
-/* A.G.U Panel */
+/* A.G.U Panel (not translated sine that does not seem to work properly: https://bugs.chromium.org/p/chromium/issues/detail?id=115800) */
 .text-agu:last-of-type::after {
 	content: '\A\APlease disable the Dark Theme for Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is highly likely they will contain errors, which might result in a wrongfully allocated freeze.' !important;
 	color: red !important;
