@@ -42,6 +42,11 @@ h5 {
 	color: #888888 !important;
 }
 
+/* Windows Futura font family fix */
+.event-modal .head h4, .exam-modal .head h4 {
+	font-family: 'futura-bold', 'futuraBold';
+}
+
 #sidebarCollapse {
 	border-color: #292a2d !important;
 	background-color: #292a2d !important;
