@@ -196,6 +196,10 @@ hr,
 	background: #4a4a4a !important;
 }
 
+.achievement-item.stacked .achievement-item--container {
+	background-color: rgba(0,0,0,0) !important;
+}
+
 .achievement-item.stack .achievement-item--container[style="opacity: 0.4"] {
 	opacity: 0.6 !important;
 }
