@@ -8,7 +8,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+.notification-item--header {
 	color: #f2f2f2 !important;
 }
 
