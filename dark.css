@@ -70,6 +70,11 @@ h5,
 	border-bottom-color: #292a2d !important;
 }
 
+.main-navbar-user-nav .dropdown.open .dropdown-menu {
+	left: unset !important;
+	right: 0px !important;
+}
+
 .chosen-container .chosen-results {
 	color: #f2f2f2 !important;
 }
