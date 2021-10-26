@@ -404,6 +404,14 @@ mark, .mark {
 	border-color: #4a4a4a !important;
 }
 
+.changelogs-list .changelog-item .changelog-main p.title code {
+	background-color: rgba(255, 8, 78, 0.15) !important;
+}
+
+.changelogs-list .changelog-item .changelog-main p.title code[data-positive] {
+	background: rgba(0, 186, 188, 0.15) !important;
+}
+
 .table-list .table-list--header,
 li.scaleteam-list-item {
 	border-bottom-color: #4a4a4a !important;
