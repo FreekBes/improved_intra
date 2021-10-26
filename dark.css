@@ -135,6 +135,11 @@ h5,
 	background-color: #4a4a4a !important;
 }
 
+.notifications-container .menu-drop-list .menu-drop-item.unread {
+	color: #f2f2f2 !important;
+	background-color: #343538 !important;
+}
+
 .notifications-container .menu-drop-list .menu-drop-item .menu-drop-text,
 .modal-header .close {
 	color: #f2f2f2 !important;
