@@ -499,12 +499,18 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 .fc-event:not([style*="color:"]) {
-	color: #093d3e !important;
+	color: #cceced !important;
 }
 
 .fc-event.closed {
 	background: #5a5a5a !important;
 	border-color: rgba(0,0,0,0) !important;
+}
+
+.fc-event.reserved {
+	background-color: #bc1301 !important;
+	border-color: #781919 !important;
+	color: #f8d2d2 !important
 }
 
 /* coalitions page */
