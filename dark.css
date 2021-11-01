@@ -259,7 +259,8 @@ hr,
 }
 
 /* projects page */
-.projects-notifications:not(:empty):before, .project-notifications:not(:empty):before {
+.projects-notifications:not(:empty):before,
+.project-notifications:not(:empty):before {
 	color: #888888 !important;
 }
 
