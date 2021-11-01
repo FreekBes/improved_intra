@@ -259,6 +259,10 @@ hr,
 }
 
 /* projects page */
+.projects-notifications:not(:empty):before, .project-notifications:not(:empty):before {
+	color: #888888 !important;
+}
+
 #project-show .project-status-box {
 	background-color: #4a4a4a !important;
 }
@@ -803,7 +807,8 @@ a h5 {
 .btn-default.broadcasts-filters-btn,
 .fc-prev-button,
 .fc-next-button,
-.modal-footer .btn.btn-default {
+.modal-footer .btn.btn-default,
+.main-title.primary .btn.btn-default {
 	background-color: #4a4a4a !important;
 	border-color: #6a6a6a !important;
 	color: #00babc !important;
@@ -827,7 +832,8 @@ a h5 {
 .btn-default.broadcasts-filters-btn:hover,
 .fc-prev-button:hover,
 .fc-next-button:hover,
-.modal-footer .btn.btn-default:hover {
+.modal-footer .btn.btn-default:hover,
+.main-title.primary .btn.btn-default:hover {
 	background-color: #3a3a3a !important;
 	border-color: #4a4a4a !important;
 	color: #00babc !important;
