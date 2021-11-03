@@ -540,6 +540,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: #4a4a4a !important;
 }
 
+.search-item.search-user-item {
+	background-color: #292D39 !important;
+}
+
 .student-item {
 	background-color: #4a4a4a !important;
 }
@@ -1154,4 +1158,27 @@ mark {
 * {
 	scrollbar-color: #606060 #404040;
 	scrollbar-width: thin;
+}
+
+/* mobile */
+@media (max-width: 767px) {
+	.page .page-content.page-content-fluid {
+		background-color: #292a2d !important;
+	}
+
+	.event-list .event-item .event-left .date-month {
+		margin: 0 auto !important;
+		text-align: center !important;
+		overflow: hidden !important;
+		text-overflow: clip !important;
+		max-width: 3ch !important;
+	}
+}
+
+@media (max-width: 480px) {
+	body,
+	.page .page-content {
+		background: #202124 !important;
+		color: #f2f2f2 !important;
+	}
 }
