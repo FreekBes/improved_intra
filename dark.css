@@ -324,6 +324,10 @@ hr,
 	background-color: #2a2a2a !important;
 }
 
+.correction-item .corrected-item .correction-comment-item .correction-comment-body {
+	border-color: #4a4a4a !important;
+}
+
 mark, .mark {
 	background: #3c3a31 !important
 }
@@ -818,7 +822,8 @@ a h5 {
 .fc-prev-button,
 .fc-next-button,
 .modal-footer .btn.btn-default,
-.main-title.primary .btn.btn-default {
+.main-title.primary .btn.btn-default,
+.correction-item .btn.btn-block.btn-default {
 	background-color: #4a4a4a !important;
 	border-color: #6a6a6a !important;
 	color: #00babc !important;
@@ -843,7 +848,8 @@ a h5 {
 .fc-prev-button:hover,
 .fc-next-button:hover,
 .modal-footer .btn.btn-default:hover,
-.main-title.primary .btn.btn-default:hover {
+.main-title.primary .btn.btn-default:hover,
+.correction-item .btn.btn-block.btn-default:hover {
 	background-color: #3a3a3a !important;
 	border-color: #4a4a4a !important;
 	color: #00babc !important;
