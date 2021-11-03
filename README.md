@@ -14,7 +14,7 @@ Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hm
 </p>
 
 ## Contributing
-In case you find any white spots on Intra or would like to modify any of the styles, feel free to do so! Use the following steps:
+In case you find any white spots on Intra or would like to modify any of the styles, feel free to do so! Use GitHub's built-in editor in dark.css, or for more advanced stuff use the following steps:
 1. [Fork](https://github.com/FreekBes/dark_intra/fork) and clone the project
 2. Create a new branch: `git checkout -b branch-name` (to switch to this branch later on, remove the `-b` flag)
 3. Open [the extensions page](chrome://extensions/) in your web browser
