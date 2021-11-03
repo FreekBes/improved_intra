@@ -992,7 +992,11 @@ textarea,
 	background-color: #4a4a4a !important;
 	color: #f2f2f2 !important;
 	border-color: #6a6a6a !important;
-	border-radius: 3px;
+	border-radius: 3px !important;
+}
+
+textarea {
+	max-width: 100% !important;
 }
 
 .form-control[disabled],
