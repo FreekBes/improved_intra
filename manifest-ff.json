@@ -23,6 +23,11 @@
 			"matches": ["*://*.intra.42.fr/*"],
 			"css": ["dark.css"],
 			"run_at": "document_start"
+		},
+		{
+			"matches": ["*://*.intra.42.fr/*"],
+			"js": ["improv.js"],
+			"run_at": "document_end"
 		}
 	]
 }
