@@ -357,10 +357,6 @@ mark, .mark {
 	color: #adadad !important;
 }
 
-.event-list .event-item .event-main {
-	/* background-color: #343538 !important; */
-}
-
 /* skills chart */
 #skill-chart svg .highcharts-background,
 #logtime_goal svg .highcharts-background {
