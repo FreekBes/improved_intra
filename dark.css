@@ -362,7 +362,8 @@ mark, .mark {
 }
 
 /* skills chart */
-#skill-chart svg .highcharts-background {
+#skill-chart svg .highcharts-background,
+#logtime_goal svg .highcharts-background {
 	fill: rgba(255, 255, 255, 0) !important;
 }
 
