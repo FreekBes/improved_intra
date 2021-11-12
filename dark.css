@@ -413,6 +413,11 @@ mark, .mark {
 /* logtime overview */
 #user-locations g > rect {
 	stroke: #292a2d !important;
+	cursor: default !important;
+}
+
+#user-locations g > text {
+	cursor: default !important;
 }
 
 #user-locations g:not([data-original-title="0h00"]):not([data-nolog]) > text {
