@@ -405,11 +405,13 @@ mark, .mark {
 }
 
 #user-locations g[data-original-title="0h00"] > rect,
+#user-locations g[data-nolog] > rect,
 #user-locations g > rect[fill="#fafafa"] {
 	fill: #343538 !important;
 }
 
-#user-locations g:not([data-original-title="0h00"]) > text {
+#user-locations g:not([data-original-title="0h00"]) > text,
+#user-locations g:not([data-nolog]) > text {
 	color: #00ecef !important;
 	fill: #00ecef !important;
 }
