@@ -1,4 +1,4 @@
-# Contriuting Guidelines
+# Contributing Guidelines
 
 
 ## Notice
