@@ -25,7 +25,7 @@ function getCampus() {
 if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
 	var userPosteInfos = document.getElementsByClassName("user-poste-infos");
 
-	if (userPosteInfos.length > 0) {
+	if (userPosteInfos.length > 0 && userPosteInfos[0].innerText != "-") {
 		userPosteInfos[0].style.cursor = "pointer";
 		userPosteInfos[0].addEventListener("click", function(event) {
 			switch (getCampus()) {
