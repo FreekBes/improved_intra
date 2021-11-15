@@ -19,7 +19,7 @@ In case you find any white spots on Intra or would like to modify any of the sty
 2. Create a new branch: `git checkout -b branch-name` (to switch to this branch later on, remove the `-b` flag)
 3. Open [the extensions page](chrome://extensions/) in your web browser
 4. Click the *Load unpacked* button
-5. Make your changes and verify that they work as intended
+5. Make your changes and verify that they work as intended (also please read the [CONTRIBUTING.md](CONTRIBUTING.md) file)
 6. Push to your fork (`git push --set-upstream branch-name`) and [submit a pull request](https://github.com/FreekBes/dark_intra/compare)
 
 After having completed these steps, I will review your modifications to the code and decide on the implementation in the published extension.
