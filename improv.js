@@ -24,9 +24,8 @@ function getCampus() {
 
 if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
 	var userPosteInfos = document.getElementsByClassName("user-poste-infos");
-	var supportedCampuses = ["Amsterdam", "Paris"];
 
-	if (userPosteInfos.length > 0 && (supportedCampuses.indexOf(getCampus()) > -1 || userPosteInfos[0].textContent.indexOf(".codam.nl") > -1)) {
+	if (userPosteInfos.length > 0) {
 		userPosteInfos[0].style.cursor = "pointer";
 		userPosteInfos[0].addEventListener("click", function(event) {
 			switch (getCampus()) {
@@ -36,9 +35,15 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 				case "Paris":
 					window.open("https://stud42.fr/clusters#"+event.target.textContent);
 					break;
-			}
-			if (userPosteInfos[0].textContent.indexOf(".codam.nl") > -1) {
-				window.open("https://codamhero.dev/v2/clusters.php#"+event.target.textContent.split(".")[0]);
+				default: {
+					if (userPosteInfos[0].textContent.indexOf(".codam.nl") > -1) {
+						window.open("https://codamhero.dev/v2/clusters.php#"+event.target.textContent.split(".")[0]);
+					}
+					else {
+						window.open("https://meta.intra.42.fr/clusters#"+event.target.textContent);
+					}
+					break;
+				}
 			}
 		});
 	}
