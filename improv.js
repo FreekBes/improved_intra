@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/13 01:18:41 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/17 19:20:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,30 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 	if (userPosteInfos.length > 0 && userPosteInfos[0].innerText != "-") {
 		userPosteInfos[0].style.cursor = "pointer";
 		userPosteInfos[0].addEventListener("click", function(event) {
+			var win = null;
+			var url = null;
+
 			switch (getCampus()) {
 				case "Amsterdam":
-					window.open("https://codamhero.dev/v2/clusters.php#"+event.target.textContent.split(".")[0]);
+					url = "https://codamhero.dev/v2/clusters.php";
 					break;
 				case "Paris":
-					window.open("https://stud42.fr/clusters#"+event.target.textContent);
+					url = "https://stud42.fr/clusters";
 					break;
 				default: {
 					if (userPosteInfos[0].textContent.indexOf(".codam.nl") > -1) {
-						window.open("https://codamhero.dev/v2/clusters.php#"+event.target.textContent.split(".")[0]);
+						url = "https://codamhero.dev/v2/clusters.php";
 					}
 					else {
-						window.open("https://meta.intra.42.fr/clusters#"+event.target.textContent);
+						url = "https://meta.intra.42.fr/clusters";
 					}
 					break;
 				}
 			}
+			win = window.open(url);
+			setTimeout(function() {
+				win.location.href = url + "#" + event.target.textContent.split(".")[0];
+			}, 300);
 		});
 	}
 }
