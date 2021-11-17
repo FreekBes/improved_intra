@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/13 01:02:48 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/17 21:11:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,26 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
+.coalition-flag-mini .coalition-flag--flag {
+	transform: scaleY(1) !important;
+	transition: transform 0.2s ease-out !important;
+}
+
+.coalition-flag-mini .coalition-flag--icon {
+	transform: translateY(0px) !important;
+	transition: transform 0.2s ease-out !important;
+}
+
+.coalition-flag-mini:hover .coalition-flag--flag {
+	transform: scaleY(1.15) !important;
+	transition: transform 0.1s ease-in !important;
+}
+
+.coalition-flag-mini:hover .coalition-flag--icon {
+	transform: translateY(4px) !important;
+	transition: transform 0.1s ease-in !important;
+}
+
 .profile-menu .nav li.active a {
 	background-color: #4a4a4a !important;
 }
@@ -520,6 +540,11 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 
 .profile-item .user-progress .progress {
 	background-color: rgba(32,32,38,0.75) !important;
+}
+
+.profile-item .location .user-poste-infos.improved:hover {
+	text-decoration: underline !important;
+	color: #00babc !important;
 }
 
 /* slots page */
