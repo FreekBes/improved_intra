@@ -2,7 +2,9 @@
 A browser extension which adds a dark theme to 42's Intranet at https://intra.42.fr/.
 
 ## Installation
-Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/) and on [Mozilla Firefox Add-Ons](https://addons.mozilla.org/firefox/addon/dark-theme-for-intra-42/).
+Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/).
+
+For Firefox, please see the [Releases](https://github.com/FreekBes/dark_intra/releases) page. Mozilla has decided to no longer host this extension due to it being for a "limited/non-public audience" (your loss, Mozilla). The extension **should** still automatically update using GitHub.
 
 ## Screenshots
 <p align="center">

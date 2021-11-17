@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "__MSG_appName__",
 	"short_name": "__MSG_shortAppName__",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "__MSG_appDesc__",
 	"default_locale": "en",
 	"icons": {
@@ -14,6 +14,11 @@
 		"128": "images/logo128.png",
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"update_url": "https://raw.githubusercontent.com/FreekBes/dark_intra/main/updates.json"
+		}
 	},
 	"permissions": [
 		"*://*.intra.42.fr/*"
