@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/17 21:27:11 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/18 00:34:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,11 @@ hr,
 }
 
 /* dashboard page */
+.coalition-name a:hover,
+.profile-item .user-primary .user-infos .button-actions a:hover {
+	color: inherit !important;
+}
+
 .home-middle-td {
 	overflow: auto !important;
 }
@@ -556,7 +561,15 @@ a .coalition-flag:hover .coalition-flag--icon {
 
 .profile-item .location .user-poste-infos.improved:hover {
 	text-decoration: underline !important;
-	color: #00babc !important;
+}
+
+.correction-point-btn {
+	color: #f2f2f2;
+}
+
+.correction-point-btn:hover, .correction-point-btn:focus {
+	color: inherit !important;
+	text-decoration: none !important;
 }
 
 /* slots page */

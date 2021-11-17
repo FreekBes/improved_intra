@@ -6,11 +6,20 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/17 21:18:42 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/18 00:33:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 // this file is used for general improvements on the website
+
+function getCoalitionColor() {
+	try {
+		return (document.getElementsByClassName("coalition-span")[0].style.color);
+	}
+	catch (err) {
+		return ("#FF0000");
+	}
+}
 
 function getCampus() {
 	try {
@@ -28,6 +37,12 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 	if (userPosteInfos.length > 0 && userPosteInfos[0].innerText != "-") {
 		userPosteInfos[0].style.cursor = "pointer";
 		userPosteInfos[0].className += " improved";
+		userPosteInfos[0].addEventListener("mouseenter", function(event) {
+			event.target.style.color = getCoalitionColor();
+		});
+		userPosteInfos[0].addEventListener("mouseleave", function(event) {
+			event.target.style.color = null;
+		});
 		userPosteInfos[0].addEventListener("click", function(event) {
 			var win = null;
 			var url = null;
@@ -71,3 +86,17 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 		});
 	}
 }
+
+function setStyleIfExists(query, style, value, parentPlease) {
+	var elem = document.querySelector(query);
+	if (parentPlease) {
+		elem = elem.parentNode;
+	}
+	if (query) {
+		elem.style[style] = value;
+	}
+}
+
+setStyleIfExists(".button-actions", "color", getCoalitionColor());
+setStyleIfExists(".coalition-name", "color", getCoalitionColor());
+setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
