@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/17 21:11:02 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/17 21:25:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,11 +475,13 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
+.coalition-flag .coalition-flag--flag,
 .coalition-flag-mini .coalition-flag--flag {
 	transform: scaleY(1) !important;
 	transition: transform 0.2s ease-out !important;
 }
 
+.coalition-flag .coalition-flag--icon,
 .coalition-flag-mini .coalition-flag--icon {
 	transform: translateY(0px) !important;
 	transition: transform 0.2s ease-out !important;
@@ -492,6 +494,16 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 
 .coalition-flag-mini:hover .coalition-flag--icon {
 	transform: translateY(4px) !important;
+	transition: transform 0.1s ease-in !important;
+}
+
+.coalition-flag:hover .coalition-flag--flag {
+	transform: scaleY(1.05) !important;
+	transition: transform 0.1s ease-in !important;
+}
+
+.coalition-flag:hover .coalition-flag--icon {
+	transform: translateY(3px) !important;
 	transition: transform 0.1s ease-in !important;
 }
 
