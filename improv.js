@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/17 19:58:23 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/17 20:55:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 
 	if (userPosteInfos.length > 0 && userPosteInfos[0].innerText != "-") {
 		userPosteInfos[0].style.cursor = "pointer";
+		userPosteInfos[0].className += " improved";
 		userPosteInfos[0].addEventListener("click", function(event) {
 			var win = null;
 			var url = null;
@@ -48,10 +49,10 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 					break;
 				}
 			}
-			win = window.open(url);
+			win = window.open(url, "dark_intra_cluster_map_win");
 			setTimeout(function() {
 				win.location.href = url + "#" + event.target.textContent.split(".")[0];
-			}, 1000);
+			}, 550);
 		});
 	}
 }
