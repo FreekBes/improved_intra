@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/17 20:55:23 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/17 21:18:42 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,24 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 				}
 			}
 			win = window.open(url, "dark_intra_cluster_map_win");
+			// since we can no longer check when a window is loaded with an event
+			// for domains that are not of the same origin, we simply try and send
+			// the location ID multiple times to the opened cluster map window
 			setTimeout(function() {
 				win.location.href = url + "#" + event.target.textContent.split(".")[0];
-			}, 550);
+			}, 250);
+			setTimeout(function() {
+				win.location.href = url + "#";
+				win.location.href = url + "#" + event.target.textContent.split(".")[0];
+			}, 500);
+			setTimeout(function() {
+				win.location.href = url + "#";
+				win.location.href = url + "#" + event.target.textContent.split(".")[0];
+			}, 750);
+			setTimeout(function() {
+				win.location.href = url + "#";
+				win.location.href = url + "#" + event.target.textContent.split(".")[0];
+			}, 1000);
 		});
 	}
 }
