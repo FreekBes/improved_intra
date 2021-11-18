@@ -580,6 +580,22 @@ a .coalition-flag:hover .coalition-flag--icon {
 	text-decoration: none !important;
 }
 
+/* custom titles for contributors */
+a[data-tooltip-login="pde-bakk"]::before, 
+.profile-name span.login[data-login="pde-bakk"]::before,
+a[data-tooltip-login="lde-la-h"]::before, 
+.profile-name span.login[data-login="lde-la-h"]::before,
+a[data-tooltip-login="ieilat"]::before, 
+.profile-name span.login[data-login="ieilat"]::before {
+	content: 'Dark Intra Contributor ';
+}
+
+/* custom title for creator */
+a[data-tooltip-login="fbes"]::before, 
+.profile-name span.login[data-login="fbes"]::before {
+	content: 'Dark Intra Creator ';
+}
+
 /* profile page easter egg for fbes (me, le creator) */
 .container-inner-item.profile-item-top.profile-banner.egg {
 	background-blend-mode: multiply !important;
@@ -607,15 +623,6 @@ a .coalition-flag:hover .coalition-flag--icon {
 	75% { background-color: rgb(127,0,255); }
 	83% { background-color: rgb(255,0,255); }
 	91% { background-color: rgb(255,0,127); }
-}
-
-/* profile page easter egg for contributors */
-.profile-name span.login.egg::before {
-	content: 'Dark Intra Contributor ';
-}
-
-.profile-name span.login.egg[data-login="fbes"]::before {
-	content: 'Dark Intra Creator ';
 }
 
 /* slots page */
