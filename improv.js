@@ -31,19 +31,29 @@ function getCampus() {
 	}
 }
 
-if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
-	var userPosteInfos = document.getElementsByClassName("user-poste-infos");
+function setCoalitionTextColor(event) {
+	event.target.style.color = getCoalitionColor();
+}
 
-	if (userPosteInfos.length > 0 && userPosteInfos[0].innerText != "-") {
-		userPosteInfos[0].style.cursor = "pointer";
-		userPosteInfos[0].className += " improved";
-		userPosteInfos[0].addEventListener("mouseenter", function(event) {
-			event.target.style.color = getCoalitionColor();
-		});
-		userPosteInfos[0].addEventListener("mouseleave", function(event) {
-			event.target.style.color = null;
-		});
-		userPosteInfos[0].addEventListener("click", function(event) {
+function unsetCoalitionTextColor(event) {
+	event.target.style.color = null;
+}
+
+if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
+	var userPosteInfos = document.querySelector(".user-poste-infos");
+	var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
+
+	if (profileActions) {
+		profileActions.addEventListener("mouseenter", setCoalitionTextColor);
+		profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
+	}
+
+	if (userPosteInfos && userPosteInfos.innerText != "-") {
+		userPosteInfos.style.cursor = "pointer";
+		userPosteInfos.className += " improved";
+		userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
+		userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
+		userPosteInfos.addEventListener("click", function(event) {
 			var win = null;
 			var url = null;
 
@@ -55,7 +65,7 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 					url = "https://stud42.fr/clusters";
 					break;
 				default: {
-					if (userPosteInfos[0].textContent.indexOf(".codam.nl") > -1) {
+					if (userPosteInfos.textContent.indexOf(".codam.nl") > -1) {
 						url = "https://codamhero.dev/v2/clusters.php";
 					}
 					else {
@@ -97,7 +107,6 @@ function setStyleIfExists(query, style, value, parentPlease) {
 	}
 }
 
-setStyleIfExists(".button-actions", "color", getCoalitionColor());
 setStyleIfExists(".coalition-name", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
