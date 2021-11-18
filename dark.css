@@ -202,6 +202,10 @@ hr,
 	backdrop-filter: blur(4px) !important;
 }
 
+.profile-item .user-primary .user-infos .button-actions {
+	z-index: 1;
+}
+
 .coalition-name a:hover,
 .profile-item .user-primary .user-infos .button-actions a:hover {
 	color: inherit !important;
