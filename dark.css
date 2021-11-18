@@ -58,7 +58,9 @@ h5,
 }
 
 /* Windows Futura font family fix */
-.event-modal .head h4, .exam-modal .head h4 {
+.modal-v2 .modal-header,
+.event-modal .head h4,
+.exam-modal .head h4 {
 	font-family: 'futura-bold', 'futuraBold';
 }
 
