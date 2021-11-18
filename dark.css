@@ -192,6 +192,14 @@ hr,
 }
 
 /* dashboard page */
+.profile-item .user-progress .progress,
+.profile-item .user-header-box,
+.profile-item .user-primary .user-infos .user-infos-sub,
+.profile-item .user-primary .user-infos .button-actions {
+	background: rgba(32, 32, 38, 0.6) !important;
+	backdrop-filter: blur(4px) !important;
+}
+
 .coalition-name a:hover,
 .profile-item .user-primary .user-infos .button-actions a:hover {
 	color: inherit !important;
@@ -570,6 +578,44 @@ a .coalition-flag:hover .coalition-flag--icon {
 .correction-point-btn:hover, .correction-point-btn:focus {
 	color: inherit !important;
 	text-decoration: none !important;
+}
+
+/* profile page easter egg for fbes (me, le creator) */
+.container-inner-item.profile-item-top.profile-banner.egg {
+	background-blend-mode: multiply !important;
+	animation: rainbow-bg 16s linear !important;
+	animation-iteration-count: infinite !important;
+}
+
+.profile-item .egg .user-progress .progress,
+.profile-item .egg .user-header-box,
+.profile-item .egg .user-primary .user-infos .user-infos-sub,
+.profile-item .egg .user-primary .user-infos .button-actions {
+	background: rgba(0, 0, 0, 0.4) !important;
+}
+
+@keyframes rainbow-bg {
+	100%, 0% { background-color: rgb(255,0,0); }
+	8% { background-color: rgb(255,127,0); }
+	16% { background-color: rgb(255,255,0); }
+	25% { background-color: rgb(127,255,0); }
+	33% { background-color: rgb(0,255,0); }
+	41% { background-color: rgb(0,255,127); }
+	50% { background-color: rgb(0,255,255); }
+	58% { background-color: rgb(0,127,255); }
+	66% { background-color: rgb(0,0,255); }
+	75% { background-color: rgb(127,0,255); }
+	83% { background-color: rgb(255,0,255); }
+	91% { background-color: rgb(255,0,127); }
+}
+
+/* profile page easter egg for contributors */
+.profile-name span.login.egg::before {
+	content: 'Dark Intra Contributor ';
+}
+
+.profile-name span.login.egg[data-login="fbes"]::before {
+	content: 'Dark Intra Creator ';
 }
 
 /* slots page */

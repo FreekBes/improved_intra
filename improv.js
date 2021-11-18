@@ -100,3 +100,21 @@ function setStyleIfExists(query, style, value, parentPlease) {
 setStyleIfExists(".button-actions", "color", getCoalitionColor());
 setStyleIfExists(".coalition-name", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+
+// contributor easter eggs
+if (window.location.pathname.indexOf("/users/") == 0) {
+	var contributors = [ "fbes", "pde-bakk", "lde-la-h", "ieilat" ];
+	var userNameElem = document.querySelector(".profile-name span.login");
+	if (userNameElem) {
+		var userName = userNameElem.getAttribute("data-login");
+		if (contributors.indexOf(userName) > -1) {
+			userNameElem.className += " egg";
+		}
+		if (userName == contributors[0]) {
+			var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
+			if (banner) {
+				banner.className += " egg";
+			}
+		}
+	}
+}
