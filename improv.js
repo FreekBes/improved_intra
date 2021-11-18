@@ -89,10 +89,10 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 
 function setStyleIfExists(query, style, value, parentPlease) {
 	var elem = document.querySelector(query);
-	if (parentPlease) {
-		elem = elem.parentNode;
-	}
-	if (query) {
+	if (elem) {
+		if (parentPlease) {
+			elem = elem.parentNode;
+		}
 		elem.style[style] = value;
 	}
 }
