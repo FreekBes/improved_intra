@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/19 17:56:58 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/20 00:35:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ function getCoalitionColor() {
 	}
 	catch (err) {
 		return ("#FF0000");
+	}
+}
+
+function getUserName() {
+	try {
+		return (document.querySelector(".login[data-login]").getAttribute("data-login"));
+	}
+	catch (err) {
+		return (null);
 	}
 }
 
@@ -110,7 +119,7 @@ setStyleIfExists(".coalition-name", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
 // easter egg for user fbes
-if (window.location.pathname.indexOf("/users/fbes") == 0) {
+if (getUserName() == "fbes") {
 	var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 	if (banner) {
 		banner.className += " egg";
