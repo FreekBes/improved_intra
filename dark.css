@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/18 00:34:25 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/19 17:57:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,6 +573,10 @@ a .coalition-flag:hover .coalition-flag--icon {
 	background-color: rgba(32,32,38,0.75) !important;
 }
 
+.profile-item .location .user-poste-infos.improved {
+	cursor: pointer !important;
+}
+
 .profile-item .location .user-poste-infos.improved:hover {
 	text-decoration: underline !important;
 }
@@ -587,17 +591,17 @@ a .coalition-flag:hover .coalition-flag--icon {
 }
 
 /* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]::before, 
+a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]::before, 
+a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="ieilat"]::before, 
+a[data-tooltip-login="ieilat"]::before,
 .profile-name span.login[data-login="ieilat"]::before {
 	content: 'Dark Intra Contributor ';
 }
 
 /* custom title for creator */
-a[data-tooltip-login="fbes"]::before, 
+a[data-tooltip-login="fbes"]::before,
 .profile-name span.login[data-login="fbes"]::before {
 	content: 'Dark Intra Creator ';
 }

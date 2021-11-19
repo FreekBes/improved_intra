@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/18 00:33:47 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/19 17:56:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 	}
 
 	if (userPosteInfos && userPosteInfos.innerText != "-") {
-		userPosteInfos.style.cursor = "pointer";
 		userPosteInfos.className += " improved";
 		userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
 		userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
