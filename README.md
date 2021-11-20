@@ -2,7 +2,7 @@
 A browser extension which adds a dark theme to 42's Intranet at https://intra.42.fr/.
 
 ## Installation
-Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/).
+Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/). If you are using a Mac at Codam, you'll find that any extensions you install will get removed after logging out. I wrote a small script for this, which fixes this issue by forcefully installing the extension to your macOS profile. You can find this script [here](https://github.com/FreekBes/codam_auto_extension_installer).
 
 For Firefox, please see the [Releases](https://github.com/FreekBes/dark_intra/releases) page. Mozilla has decided to no longer host this extension due to it being for a "limited/non-public audience" (your loss, Mozilla). The extension **should** still automatically update using GitHub.
 
