@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/20 17:20:52 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/23 21:41:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,14 @@ hr,
 .profile-item .user-primary .user-infos .button-actions {
 	background: rgba(32, 32, 38, 0.6) !important;
 	backdrop-filter: blur(4px) !important;
+}
+
+/* worst code ever just for cetus, love you cetus */
+.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-progress .progress,
+.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-header-box,
+.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-primary .user-infos .user-infos-sub,
+.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-primary .user-infos .button-actions {
+	background: rgba(32, 32, 38, 0.75) !important;
 }
 
 .profile-item .user-primary .user-infos .button-actions {
