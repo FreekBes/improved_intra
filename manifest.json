@@ -20,7 +20,7 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.intra.42.fr/*"],
-			"css": ["dark.css"],
+			"css": ["dark.css", "animations.css"],
 			"run_at": "document_start"
 		},
 		{

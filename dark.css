@@ -6,11 +6,9 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 17:53:13 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 20:31:19 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 /* main elements (visible on every page */
 body {
@@ -86,7 +84,7 @@ h5,
 	border-bottom-color: #292a2d !important;
 }
 
-.main-navbar-user-nav .dropdown.open .dropdown-menu {
+.main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
 	right: 0px !important;
 }
@@ -200,6 +198,7 @@ hr,
 .profile-item .user-primary .user-infos .button-actions {
 	background: rgba(32, 32, 38, 0.6) !important;
 	backdrop-filter: blur(4px) !important;
+	border-radius: 4px !important;
 }
 
 /* worst code ever just for cetus, love you cetus */
@@ -234,13 +233,23 @@ hr,
 	color: #f2f2f2 !important;
 }
 
+.profile-name .login {
+	margin-top: 17px !important;
+}
+
 .profile-title {
 	text-align: center !important;
 	padding-top: 8px !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
 }
 
 .school-record-button {
 	background-color: initial !important;
+}
+
+.school-record-button::after {
+	content: ' ▾';
 }
 
 .school-record-button:hover,
@@ -515,35 +524,29 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 a .coalition-flag .coalition-flag--flag,
 a .coalition-flag-mini .coalition-flag--flag {
 	transform: scaleY(1) !important;
-	transition: transform 0.2s ease-out !important;
 }
 
 a .coalition-flag .coalition-flag--icon,
 a .coalition-flag-mini .coalition-flag--icon {
 	transform: translateY(0px) !important;
-	transition: transform 0.2s ease-out !important;
 }
 
 a .coalition-flag-mini:hover .coalition-flag--flag {
 	transform: scaleY(1.15) !important;
-	transition: transform 0.1s ease-in !important;
 }
 
 a .coalition-flag-mini:hover .coalition-flag--icon {
 	transform: translateY(4px) !important;
-	transition: transform 0.1s ease-in !important;
 }
 
 a .coalition-flag:hover .coalition-flag--flag,
 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag {
 	transform: scaleY(1.05) !important;
-	transition: transform 0.1s ease-in !important;
 }
 
 a .coalition-flag:hover .coalition-flag--icon,
 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
 	transform: translateY(3px) !important;
-	transition: transform 0.1s ease-in !important;
 }
 
 .coalitions-index-banner {
@@ -583,6 +586,14 @@ a .coalition-flag:hover .coalition-flag--icon,
 	border-radius: 0px !important;
 }
 
+.profile-item .location {
+	min-height: 183px !important;
+}
+
+.profile-item .user-progress .cursus-progress-item .progress-container {
+	margin-top: 10px !important;
+}
+
 @media (max-width: 992px) {
 	.profile-item .user-header-box {
 		border-radius: 4px 4px 0 0 !important;
@@ -606,7 +617,7 @@ a .coalition-flag:hover .coalition-flag--icon,
 }
 
 .correction-point-btn {
-	color: #f2f2f2;
+	color: #f2f2f2 !important;
 }
 
 .correction-point-btn:hover, .correction-point-btn:focus {
@@ -1374,7 +1385,17 @@ mark {
 	scrollbar-width: thin;
 }
 
+.tooltip {
+	cursor: default !important;
+}
+
 /* mobile */
+@media (max-width: 1900px) {
+	.profile-item .location {
+		min-height: 188px !important;
+	}
+}
+
 @media (max-width: 767px) {
 	.page .page-content.page-content-fluid {
 		background-color: #292a2d !important;

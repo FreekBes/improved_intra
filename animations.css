@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   animations.css                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/24 19:06:04 by fbes          #+#    #+#                 */
+/*   Updated: 2021/11/24 19:33:45 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* any transition on hover goes here */
+
+a .coalition-flag .coalition-flag--flag,
+a .coalition-flag-mini .coalition-flag--flag,
+a .coalition-flag .coalition-flag--icon,
+a .coalition-flag-mini .coalition-flag--icon {
+	transition: 0.2s ease-out !important;
+}
+
+a .coalition-flag-mini:hover .coalition-flag--flag,
+a .coalition-flag-mini:hover .coalition-flag--icon,
+a .coalition-flag:hover .coalition-flag--flag,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag,
+a .coalition-flag:hover .coalition-flag--icon,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
+	transition: 0.1s ease-in !important;
+}
+
+a,
+button,
+input,
+.user-poste-infos.improved,
+.school-record-button.dropdown-toggle,
+a.simple-link,
+.profile-item .user-primary .user-infos .button-actions a {
+	transition: 0.05s ease-out !important;
+}
+
+a:hover,
+button:hover,
+input:hover,
+input:focus,
+.user-poste-infos.improved:hover,
+.school-record-button.dropdown-toggle,
+a.simple-link:hover,
+.profile-item .user-primary .user-infos .button-actions a:hover {
+	transition: 0s ease-in !important;
+}
+
+.dropdown-menu,
+.tt-menu,
+.notifications-container {
+	transition: 0.05s ease-in !important;
+	display: block !important;
+	transform-origin: top;
+	transform: scaleY(0);
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+.open > .dropdown-menu,
+.tt-menu.tt-open,
+.notifications-container.open {
+	display: block !important;
+	transform: scaleY(1);
+	opacity: 1 !important;
+	pointer-events: all !important;
+}
+
+.tt-menu[aria-expanded="false"] {
+	display: block !important;
+	opacity: 0 !important;

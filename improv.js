@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 18:38:37 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 19:12:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ function setStyleIfExists(query, style, value, parentPlease) {
 
 setStyleIfExists(".coalition-name", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+setStyleIfExists(".profile-infos-item a[href*=\"tel:\"] .coalition-span", "color", getCoalitionColor(), true);
+setStyleIfExists(".profile-infos-item a[href*=\"mailto:\"] .coalition-span", "color", getCoalitionColor(), true);
 
 // easter egg for user fbes
 if (getUserName() == "fbes") {
