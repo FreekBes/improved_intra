@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 17:48:25 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 17:53:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,6 +507,11 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
+.profile-banner {
+	background-size: cover !important;
+	background-position: center center !important;
+}
+
 a .coalition-flag .coalition-flag--flag,
 a .coalition-flag-mini .coalition-flag--flag {
 	transform: scaleY(1) !important;
