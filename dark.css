@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 16:43:51 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 16:48:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -870,9 +870,15 @@ html.soft-background, body.authorization-layout {
 }
 
 /* API page */
+.main-summary,
+.intro-header h1 {
+	text-shadow: 0 0 3px #000000 !important;
+}
+
 .blue-background .main-content-container,
 .resource-item {
 	background-color: #202124 !important;
+	text-shadow: none !important;
 }
 
 .main-column > footer {
