@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 16:41:27 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 16:43:51 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -609,6 +609,8 @@ a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
 a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
+a[data-tooltip-login="jlensing"]::before,
+.profile-name span.login[data-login="jlensing"]::before,
 a[data-tooltip-login="ieilat"]::before,
 .profile-name span.login[data-login="ieilat"]::before {
 	content: 'Dark Intra Contributor ';
