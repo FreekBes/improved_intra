@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/24 19:06:04 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 20:38:49 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 20:50:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ input,
 .school-record-button.dropdown-toggle,
 a.simple-link,
 .profile-item .user-primary .user-infos .button-actions a {
-	transition: 0.05s ease-out !important;
+	transition: 0.075s ease-out !important;
 }
 
 a:hover,
