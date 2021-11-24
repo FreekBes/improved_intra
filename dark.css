@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 16:48:23 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 17:48:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,11 @@ hr,
 .achievement-item .achievement-item--container .achievement-item--content h1,
 .event-modal .head h4, .exam-modal .head h4 {
 	color: #f2f2f2 !important;
+}
+
+.profile-title {
+	text-align: center !important;
+	padding-top: 8px !important;
 }
 
 .school-record-button {
