@@ -892,6 +892,12 @@ header.main-page-header .logo small,
 	background-color: #34495E;
 }
 
+.documentation .alert.alert-warning
+{
+	background-color: rgb(58, 58, 58) !important;
+	color: #f2f2f2;
+}
+
 /* color fix for header inside of anchor */
 a h1,
 a h2,
