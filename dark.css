@@ -887,6 +887,12 @@ header.main-page-header .logo small,
 	color: #9a9a9a !important;
 }
 
+.documentation .btn.btn-default
+{
+	background-color: #34495E;
+}
+
+
 /* color fix for header inside of anchor */
 a h1,
 a h2,
