@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 20:31:19 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/24 20:42:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ hr,
 	margin-top: 17px !important;
 }
 
-.profile-title {
+.profile-title[data-toggle] {
 	text-align: center !important;
 	padding-top: 8px !important;
 	overflow: hidden !important;
