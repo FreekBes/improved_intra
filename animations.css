@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/24 19:06:04 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 20:50:47 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 16:27:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ a.simple-link:hover,
 
 .dropdown-menu,
 .tt-menu,
-.notifications-container {
+.notifications-container,
+.chosen-drop {
 	transition: 0.05s ease-in !important;
 	display: block !important;
 	transform-origin: top;
@@ -62,7 +63,8 @@ a.simple-link:hover,
 
 .open > .dropdown-menu,
 .tt-menu.tt-open,
-.notifications-container.open {
+.notifications-container.open,
+.chosen-container-active > .chosen-drop {
 	display: block !important;
 	transform: scaleY(1);
 	opacity: 1 !important;
