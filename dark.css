@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 20:42:40 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 16:25:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1028,6 +1028,11 @@ a h5 {
 }
 
 /* buttons */
+.btn[disabled],
+.fc-state-disabled {
+	cursor: not-allowed !important;
+}
+
 .btn-btn-default .btn-btn-default-dropdown-toggle {
 	background: rgba(0, 0, 0, 0.5);
 }
@@ -1163,9 +1168,25 @@ a h5 {
 	color: #ffffff !important;
 }
 
+.fc-today-button,
+.fc-month-button,
+.fc-agendaWeek-button,
 .login-container .login-main .btn-login {
 	color: #f2f2f2 !important;
 	background-color: #00babc !important;
+}
+
+.fc-today-button:not([disabled]):hover,
+.fc-month-button:not([disabled]):hover,
+.fc-agendaWeek-button:not([disabled]):hover,
+.fc-today-button:not([disabled]):focus,
+.fc-month-button:not([disabled]):focus,
+.fc-agendaWeek-button:not([disabled]):focus,
+.fc-today-button:not([disabled]):active,
+.fc-month-button:not([disabled]):active,
+.fc-agendaWeek-button:not([disabled]):active {
+	color: #ffffff !important;
+	opacity: 0.8 !important;
 }
 
 .login-container .login-main .btn-login:hover,
