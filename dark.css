@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/25 16:36:04 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 17:06:08 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,12 @@ h5,
 	background: #3a3a3a !important;
 }
 
+.expertises-user-list .expertises-user-list-header,
+.expertise-list .expertise-list-item {
+	border-color: #4a4a4a !important;
+}
+
+.expertises-user-list .expertises-user-list-header:hover, .expertises-user-list .expertises-user-list-item:hover,
 .expertise-list .expertise-list-item:hover {
 	background: #3a3a3a !important;
 }
