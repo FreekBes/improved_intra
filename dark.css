@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/25 16:25:15 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 16:29:51 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ h5,
 .chosen-container .chosen-drop {
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
-	border-top-color: #292a2d !important;
-	border-bottom-color: #292a2d !important;
+	border-color: #292a2d !important;
 }
 
 .main-navbar-user-nav .dropdown .dropdown-menu {
