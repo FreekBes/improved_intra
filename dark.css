@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/25 16:32:24 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 16:36:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,7 +412,7 @@ mark, .mark {
 }
 
 .topic-item {
-	border-color: #6a6a6a !important;
+	border-color: #4a4a4a !important;
 }
 
 /* skills chart */
@@ -836,6 +836,14 @@ a[data-tooltip-login="fbes"]::before,
 
 .like-count[data-liked=false] {
 	color: #8a8a8a !important;
+}
+
+/* quests page */
+.quests-list,
+.quest-item .quest-item-header,
+.quests-list .quests-header,
+.quest-status {
+	border-color: #4a4a4a !important;
 }
 
 /* resume page */
