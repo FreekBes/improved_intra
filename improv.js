@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/24 20:46:36 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/25 15:49:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ function openLocationMap(event) {
 if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
 	var userPosteInfos = document.querySelector(".user-poste-infos");
 	var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
+	var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
+	var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
 
 	if (profileActions) {
 		profileActions.addEventListener("mouseenter", setCoalitionTextColor);
@@ -111,6 +113,13 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 			}
 		});
 	}
+
+	if (telInfo) {
+		telInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	}
+	if (mailInfo) {
+		mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	}
 }
 
 function setStyleIfExists(query, style, value, parentPlease) {
@@ -125,8 +134,6 @@ function setStyleIfExists(query, style, value, parentPlease) {
 
 setStyleIfExists(".coalition-name", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
-setStyleIfExists(".profile-infos-item a[href*=\"tel:\"] .coalition-span", "color", getCoalitionColor(), true);
-setStyleIfExists(".profile-infos-item a[href*=\"mailto:\"] .coalition-span", "color", getCoalitionColor(), true);
 
 // easter egg for user fbes
 if (getUserName() == "fbes") {
