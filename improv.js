@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/25 15:49:15 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/26 21:06:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,19 @@ if (schoolRecordButton) {
 				broadcastNav.style.display = "none";
 			}
 		}
+	}
+}
+
+function randomIntFromInterval(min, max) { // min and max included
+	return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+// easter egg
+if (window.location.hash == "#haha") {
+	var elements = document.querySelectorAll("*");
+	for (var i = 0; i < elements.length; i++) {
+		elements[i].className += " funnyhaha";
+		elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
+		elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
 	}
 }
