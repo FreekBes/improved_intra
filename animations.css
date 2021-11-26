@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/24 19:06:04 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/26 21:06:15 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/26 21:11:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ a.simple-link:hover,
 	animation-timing-function: linear;
 }
 
+html.funnyhaha, body.funnyhaha {
+	overflow: hidden !important;
+	animation: none !important;
+}
+
 @keyframes funny {
-	0% { transform: rotate3d(-1, 1, 1, 0deg) }
-	100% { transform: rotate3d(-1, 1, 1, 360deg) }
+	0% { transform: rotate3d(-1, 1, 1, 0deg); }
+	100% { transform: rotate3d(-1, 1, 1, 360deg); }
 }
