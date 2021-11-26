@@ -1,0 +1,218 @@
+@font-face {
+	font-family: "Futura PT";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLight-e7a52027b9b5978e6a6f83b096aea906b0e79399145e65e19024f94967a2411f.otf) format("opentype");
+	font-weight: 200;
+	font-style: normal
+}
+
+@font-face{
+	font-family:"Futura PT";
+	src: url(/assets/ParaType-FuturaPTLightOblique-5212d3b9dd70f3017a3bd3478c96b37e8457b7d216a6f4658cbc0cdf15aea289.otf) format("opentype");
+	font-weight: 200;
+	font-style: italic
+}
+
+@font-face{
+	font-family: "Futura PT";
+	src: url(/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
+	font-weight: 400;
+	font-style: normal
+}
+
+@font-face{
+	font-family:"Futura PT";
+	src:url(/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
+	font-weight:400;
+	font-style:italic
+}
+@font-face{
+	font-family: "Futura PT";
+	src: url(/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
+	font-weight: 700;
+	font-style: normal
+}
+
+@font-face{
+	font-family: "Futura PT";
+	src: url(/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
+	font-weight: 700;
+	font-style: italic
+}
+
+@font-face{
+	font-family: "Noto Sans";
+	src: url(/assets/NotoSans-Regular-f1ce78a25f519ef928b5b8755ca230314e47f8821e7aa89ecf000f033f389a9f.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal
+}
+
+@font-face{
+	font-family: "Noto Sans";
+	src: url(/assets/NotoSans-Italic-1109c2749ec0feaae0a044638e6286d30a79bdeab917a56a8b35e76f6e8b53f2.ttf) format("truetype");
+	font-weight: 400;
+	font-style: italic
+}
+
+@font-face{
+	font-family: "Noto Sans";
+	src: url(/assets/NotoSans-Bold-7004fbb600bc491cb8ed9d86e2190cb2de6909d45844c9c7cbd44e72915779bf.ttf) format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+html,
+body {
+	display: block;
+	width: 100%;
+}
+
+html {
+	padding: 0px;
+	margin: 0px;
+	background-color: #202124;
+	height: 100%;
+}
+
+body,
+#contents {
+	background-color: #292a2d;
+	color: #f2f2f2;
+	caret-color: #f2f2f2;
+	font-family: "Futura PT", "Futura", "Helvetica", Verdana, Arial, Sans-Serif;
+	font-size: 16px;
+	padding: 0px;
+	cursor: default;
+	width: 100%;
+	min-height: 100%;
+	min-width: 360px;
+	max-width: 480px;
+	margin: 0 auto;
+	user-select: none;
+}
+
+body {
+	box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+
+a,
+a:visited {
+	color: #00babc;
+	text-decoration: none;
+	transition: 0.075s ease-out;
+}
+
+a:hover,
+a:focus {
+	color: #006e70;
+	text-decoration: underline;
+	transition: 0s ease-in;
+}
+
+header {
+	display: block;
+	position: relative;
+	height: 56px;
+	background-color: #202124;
+	color: #f2f2f2;
+	white-space: nowrap;
+	padding: 0px 8px;
+}
+
+h1 {
+	display: inline-block;
+	max-width: 80%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0px 8px;
+	margin: 0px;
+	line-height: 56px;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+header button {
+	float: right;
+	background-color: rgba(0,0,0,0);
+	cursor: pointer;
+	color: inherit;
+	transition: background-color 0.4s;
+	margin: 0px;
+	padding: 8px 28px;
+	border: none;
+	text-align: center;
+	font-weight: normal;
+	height: 100%;
+	width: 56px;
+	padding: 0px;
+}
+
+header button:hover,
+header button:focus {
+	background-color: rgba(0,0,0,0.1);
+	transition: background-color 0.05s;
+}
+
+main {
+	padding: 8px;
+	padding-bottom: 64px;
+}
+
+section {
+	padding: 16px 0px;
+	border-bottom: solid 1px #4a4a4a;
+}
+
+section:last-child {
+	border-bottom: none;
+}
+
+h2 {
+	margin: 0px 12px 12px 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-size: 0.9em;
+}
+
+fieldset {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 1fr auto;
+	grid-auto-rows: 56px;
+	grid-gap: 12px;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+fieldset > label {
+	text-align: left;
+	font-weight: 100;
+	font-size: 1em;
+	padding-left: 12px;
+}
+
+fieldset > label > span:last-child {
+	display: block;
+	font-size: 0.8em;
+	color: #9a9a9a;
+}
+
+fieldset > input,
+fieldset > select {
+	justify-self: end;
+	margin: 0px 12px;
+	background-color: #4a4a4a;
+	color: #f2f2f2;
+	border-color: #6a6a6a;
+	border-radius: 3px;
+	padding: 4px 8px;
+	min-width: 180px;
+	outline: 0;
+}
+
+fieldset > input[type="checkbox"] {
+	min-width: unset;
+	height: 16px;
+	width: 16px;
+}

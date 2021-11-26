@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Improved Intra 42 Settings</title>
+	<link rel="stylesheet" type="text/css" href="options.css" />
+</head>
+<body>
+	<div id="contents">
+		<header>
+			<h1><i>Work In Progress</i> Improved Intra 42 Settings</h1>
+		</header>
+		<main>
+			<section>
+				<h2>Appearance</h2>
+				<fieldset>
+					<label for="theme">Theme</label>
+					<select id="theme" name="theme">
+						<option value="system" selected>Follow system</option>
+						<option value="dark">Dark Mode</option>
+						<option value="light">Light Mode</option>
+					</select>
+				</fieldset>
+			</section>
+			<section>
+				<h2>General Improvements</h2>
+				<fieldset>
+					<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>The blue megaphone floating button on the dashboard</span></label>
+					<input type="checkbox" id="hide-broadcasts" name="hide-broadcasts" checked />
+				</fieldset>
+				<fieldset>
+					<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will show the cluster map</span></label>
+					<input type="checkbox" id="clustermap" name="clustermap" checked />
+				</fieldset>
+			</section>
+			<section>
+				<h2>Campus specific</h2>
+				<fieldset>
+					<label for="codam-monit"><span>Replace Black Hole with Codam's Monitoring Progress</span><span>Show user's progress towards Codam's Monitoring System in profile banners</span></label>
+					<input type="checkbox" id="codam-monit" name="codam-monit" checked />
+				</fieldset>
+			</section>
+		</main>
+	</div>
+</body>
+</html>

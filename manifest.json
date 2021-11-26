@@ -16,6 +16,7 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
+	"options_page": "options.html",
 	"permissions": [],
 	"content_scripts": [
 		{

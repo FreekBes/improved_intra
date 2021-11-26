@@ -20,6 +20,7 @@
 			"update_url": "https://raw.githubusercontent.com/FreekBes/dark_intra/main/updates.json"
 		}
 	},
+	"options_page": "options.html",
 	"permissions": [
 		"*://*.intra.42.fr/*"
 	],
