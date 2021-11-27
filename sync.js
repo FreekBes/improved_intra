@@ -19,5 +19,6 @@ function getUserName() {
 	}
 }
 
-chrome.storage.local.set({["intra-username"]: getUserName()});
-console.log("[ImprovedIntra] Intra username stored in local storage");
+chrome.storage.local.set({"username": getUserName()}, function() {
+	console.log("%c[Improved Intra]%c Intra username stored in local storage", "color: #00babc;", "");
+});

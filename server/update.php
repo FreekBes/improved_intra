@@ -26,14 +26,19 @@
 
 	// check client settings version
 	if (!isset($_GET["v"]) || empty($_GET["v"])) {
+		http_response_code(400);
 		respond("error", "GET key 'v' (version) is not set, but is required to continue");
 	}
 	else {
 		$client_version = intval($_GET["v"]);
 	}
 	if (!isset($version_specifics[$client_version])) {
+		http_response_code(400);
 		respond("error", "Invalid settings version");
 	}
+
+	// trim entire post array
+	$_POST = array_map("trim", $_POST);
 
 	// check if expected and required post fields are set
 	// save setting to variable if they exist, else get the default configuration
@@ -47,7 +52,8 @@
 		$keyReq = $key[1] == '*';
 		if ($keyReq) {
 			$key = substr($key, 2);
-			if (!isset($_POST[$key])) {
+			if (!isset($_POST[$key]) || empty($_POST[$key])) {
+				http_response_code(400);
 				respond("error", "POST key '".$key."' is not set, but is required to continue");
 			}
 		}
@@ -72,11 +78,20 @@
 		}
 	}
 
+	// do some security checks before modifiying files...
+	if (preg_match('/[^a-z\-]/', $userSettings["username"])) {
+		http_response_code(406);
+		respond("warning", "Are you proud of yourself?");
+		die();
+	}
+
 	// save settings for user
 	if (file_put_contents("settings/".strval($userSettings["username"]).".json", json_encode($userSettings, JSON_UNESCAPED_UNICODE)) === false) {
+		http_response_code(500);
 		respond("error", "Could not save settings");
 	}
 	else {
+		http_response_code(201);
 		respond(null, "Settings saved");
 	}
 ?>
