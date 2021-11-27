@@ -6,11 +6,14 @@
 	header("Pragma: no-cache");
 
 	// set respond function
-	function respond($type = "success", $msg) {
-		$data = array();
-		$data["type"] = $type;
-		$data["message"] = $msg;
-		echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+	function respond($type = "success", $msg, $data = null) {
+		$res = array();
+		$res["type"] = $type;
+		$res["message"] = $msg;
+		if (!empty($data)) {
+			$res["data"] = $data;
+		}
+		echo json_encode($res, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
 		die();
 	}
 
@@ -21,8 +24,8 @@
 	$latest_version = 1;
 	$version_specifics = array(null);
 	$version_defaults = array(null);
-	array_push($version_specifics, array("S*username", "B*sync", "Stheme", "Bshow-custom-profiles", "Bclustermap", "Bcodam-monit"));
-	array_push($version_defaults, array(null, true, "system", false, true, false));
+	array_push($version_specifics, array("S*username", "B*sync", "Stheme", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
+	array_push($version_defaults, array(null, true, "system", false, false, true, false));
 
 	// check client settings version
 	if (!isset($_GET["v"]) || empty($_GET["v"])) {
@@ -93,10 +96,10 @@
 	// save settings for user
 	if (file_put_contents("settings/".strval($userSettings["username"]).".json", json_encode($userSettings, JSON_UNESCAPED_UNICODE)) === false) {
 		http_response_code(500);
-		respond("error", "Could not save settings");
+		respond("error", "Could not save settings", $userSettings);
 	}
 	else {
 		http_response_code(201);
-		respond(null, "Settings saved");
+		respond(null, "Settings saved", $userSettings);
 	}
 ?>
