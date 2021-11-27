@@ -101,15 +101,19 @@ if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostnam
 		profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
 	}
 
-	if (userPosteInfos && userPosteInfos.innerText != "-") {
-		userPosteInfos.className += " improved";
-		userPosteInfos.setAttribute("tabindex", "0");
-		userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
-		userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
-		userPosteInfos.addEventListener("click", openLocationMap);
-		userPosteInfos.addEventListener("keyup", function(event) {
-			if (event.keyCode == 13) {
-				openLocationMap(event);
+	if (userPosteInfos) {
+		chrome.storage.local.get("clustermap", function(data) {
+			if ((data["clustermap"] === true || data["clustermap"] === "true") && userPosteInfos.innerText != "-") {
+				userPosteInfos.className += " improved";
+				userPosteInfos.setAttribute("tabindex", "0");
+				userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
+				userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
+				userPosteInfos.addEventListener("click", openLocationMap);
+				userPosteInfos.addEventListener("keyup", function(event) {
+					if (event.keyCode == 13) {
+						openLocationMap(event);
+					}
+				});
 			}
 		});
 	}
