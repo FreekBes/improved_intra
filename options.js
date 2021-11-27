@@ -81,6 +81,9 @@ function retrieveSettingsFromSync() {
 					try {
 						var res = JSON.parse(this.responseText);
 						didSyncBefore = true;
+						chrome.storage.local.set(res, function() {
+							console.log("Settings stored locally");
+						});
 						resolve(res);
 					}
 					catch (err) {
