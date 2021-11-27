@@ -22,18 +22,25 @@
 	},
 	"options_page": "options.html",
 	"permissions": [
-		"*://*.intra.42.fr/*"
+		"*://*.intra.42.fr/*",
+		"https://darkintra.freekb.es/*",
+		"storage"
 	],
 	"content_scripts": [
 		{
-			"matches": ["*://*.intra.42.fr/*"],
-			"css": ["dark.css", "animations.css"],
+			"matches": [ "*://*.intra.42.fr/*" ],
+			"css": [ "dark.css", "animations.css" ],
 			"run_at": "document_start"
 		},
 		{
-			"matches": ["*://*.intra.42.fr/*"],
-			"js": ["improv.js"],
+			"matches": [ "*://*.intra.42.fr/*" ],
+			"js": [ "improv.js" ],
 			"run_at": "document_end"
+		},
+		{
+			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*" ],
+			"js": [ "sync.js" ],
+			"run_at": "document_idle"
 		}
 	]
 }

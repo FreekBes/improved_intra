@@ -5,59 +5,61 @@
 	font-style: normal
 }
 
-@font-face{
+@font-face {
 	font-family:"Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLightOblique-5212d3b9dd70f3017a3bd3478c96b37e8457b7d216a6f4658cbc0cdf15aea289.otf) format("opentype");
 	font-weight: 200;
 	font-style: italic
 }
 
-@font-face{
+@font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
 	font-weight: 400;
 	font-style: normal
 }
 
-@font-face{
+@font-face {
 	font-family:"Futura PT";
 	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
-	font-weight:400;
+	font-weight: 400;
 	font-style:italic
 }
-@font-face{
+@font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
 	font-weight: 700;
 	font-style: normal
 }
 
-@font-face{
+@font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
 	font-weight: 700;
 	font-style: italic
 }
 
-@font-face{
+@font-face {
 	font-family: "Noto Sans";
 	src: url(https://profile.intra.42.fr/assets/NotoSans-Regular-f1ce78a25f519ef928b5b8755ca230314e47f8821e7aa89ecf000f033f389a9f.ttf) format("truetype");
 	font-weight: 400;
 	font-style: normal
 }
 
-@font-face{
-	font-family: "Noto Sans";
-	src: url(https://profile.intra.42.fr/assets/NotoSans-Italic-1109c2749ec0feaae0a044638e6286d30a79bdeab917a56a8b35e76f6e8b53f2.ttf) format("truetype");
-	font-weight: 400;
-	font-style: italic
+@font-face {
+	font-family: "streamline-filled";
+	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot);
+	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot?#iefix) format("embedded-opentype"), 
+			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-62fdf8602f56c68e259582d7ad3eb0e30b2808efaa03a074086faedcaf9017e2.woff) format("woff"), 
+			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-9c4de7ac5c05533207755509de4a14b25d1b8d7276ce055fe9ed3f43b38c8328.ttf) format("truetype"),
+			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-c547d434f0242cda67f4d0438ae132de5fe5794afd2366906e2f1d3480756732.svg#streamline-30px-filled-in) format("svg");
+	font-weight: normal;
+	font-style: normal
 }
 
-@font-face{
-	font-family: "Noto Sans";
-	src: url(https://profile.intra.42.fr/assets/NotoSans-Bold-7004fbb600bc491cb8ed9d86e2190cb2de6909d45844c9c7cbd44e72915779bf.ttf) format("truetype");
-	font-weight: 700;
-	font-style: normal;
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
 
 html,
@@ -83,15 +85,52 @@ body,
 	padding: 0px;
 	cursor: default;
 	width: 100%;
+	height: 100%;
 	min-height: 100%;
 	min-width: 360px;
-	max-width: 480px;
+	max-width: 540px;
 	margin: 0 auto;
 	user-select: none;
 }
 
 body {
+	position: relative;
 	box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+
+#loading {
+	opacity: 1;
+	z-index: 1000;
+	background-color: inherit;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.5s;
+}
+
+#loading.hidden {
+	opacity: 0;
+	pointer-events: none !important;
+}
+
+.spinner {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	padding: 0px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	
+	border: 7px solid rgba(0,0,0,0);
+	border-top: 7px solid;
+	border-top-color: #00babc;
+	transition: border-top-color 1s;
+	border-radius: 30px;
+	animation: spin 0.8s linear infinite;
 }
 
 a,
@@ -141,10 +180,35 @@ header button {
 	padding: 8px 28px;
 	border: none;
 	text-align: center;
-	font-weight: normal;
+	font-size: 26px;
 	height: 100%;
 	width: 56px;
 	padding: 0px;
+
+	font-family: "streamline-filled";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+header button#sync-button.syncing {
+	pointer-events: none;
+}
+
+header button#sync-button::after {
+	display: inline-block;
+	transform-origin: center;
+	content: '\e29b';
+}
+
+header button#sync-button.syncing::after {
+	animation: spin 1.3s linear infinite;
+	animation-direction: reverse;
 }
 
 header button:hover,
@@ -192,9 +256,9 @@ fieldset > label {
 	padding-left: 12px;
 }
 
-fieldset > label > span:last-child {
+fieldset > label > span:last-child:not(:first-child) {
 	display: block;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	color: #9a9a9a;
 }
 
@@ -204,15 +268,54 @@ fieldset > select {
 	margin: 0px 12px;
 	background-color: #4a4a4a;
 	color: #f2f2f2;
-	border-color: #6a6a6a;
+	border: solid 1px #6a6a6a;
 	border-radius: 3px;
 	padding: 4px 8px;
+	box-sizing: border-box;
+	height: 28px;
 	min-width: 180px;
 	outline: 0;
+}
+
+fieldset > input[type="text"],
+fieldset > input[type="number"] {
+	cursor: text;
+	user-select: all;
 }
 
 fieldset > input[type="checkbox"] {
 	min-width: unset;
 	height: 16px;
 	width: 16px;
+}
+
+fieldset > input:hover,
+fieldset > input:focus,
+fieldset > select:hover,
+fieldset > select:focus {
+	border-color: #00babc;
+}
+
+fieldset > input[disabled],
+fieldset > select[disabled],
+fieldset > input[readonly] {
+	border-color: #6a6a6a !important;
+	color: #b2b2b2;
+	opacity: 0.7;
+	user-select: none;
+	cursor: not-allowed;
+}
+
+label[for="sync"] span.failed::after {
+	font-family: Sans-Serif;
+	content: ' \2A2F';
+	color: red;
+	font-weight: bold;
+}
+
+label[for="sync"] span.success::after {
+	font-family: Sans-Serif;
+	content: ' \2714';
+	color: limegreen;
+	font-weight: bold;
 }
