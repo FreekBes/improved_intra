@@ -23,11 +23,17 @@
 	}
 	else {
 		// do some security checks before modifiying files...
+		if ($_POST["username"] == "null" || $_POST["username"] == "undefined") {
+			http_response_code(403);
+			respond("warning", "Invalid username");
+			die();
+		}
 		if (preg_match('/[^a-z\-]/', $_POST["username"])) {
 			http_response_code(406);
 			respond("warning", "Are you proud of yourself?");
 			die();
 		}
+
 		// delete settings of user
 		if (unlink("settings/".strval($_POST["username"]).".json") === true) {
 			http_response_code(200);

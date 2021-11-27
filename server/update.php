@@ -79,6 +79,11 @@
 	}
 
 	// do some security checks before modifiying files...
+	if ($userSettings["username"] == "null" || $userSettings["username"] == "undefined") {
+		http_response_code(403);
+		respond("warning", "Invalid username");
+		die();
+	}
 	if (preg_match('/[^a-z\-]/', $userSettings["username"])) {
 		http_response_code(406);
 		respond("warning", "Are you proud of yourself?");
