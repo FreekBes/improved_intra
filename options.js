@@ -70,41 +70,7 @@ function syncSettings(event) {
 	return false;
 }
 
-function retrieveSettingsFromSync() {
-	return new Promise(function(resolve, reject) {
-		chrome.storage.local.get("username", function(data) {
-			if (data["username"]) {
-				console.log("Retrieving settings of username " + data["username"]);
-				var req = new XMLHttpRequest();
-				req.open("GET", "https://darkintra.freekb.es/settings/" + data["username"] + ".json");
-				req.addEventListener("load", function(event) {
-					try {
-						var res = JSON.parse(this.responseText);
-						didSyncBefore = true;
-						chrome.storage.local.set(res, function() {
-							console.log("Settings stored locally");
-						});
-						resolve(res);
-					}
-					catch (err) {
-						reject(err);
-					}
-				});
-				req.addEventListener("error", function(err) {
-					reject(err);
-				});
-				req.send();
-			}
-			else {
-				document.getElementById("sync").checked = false;
-				document.getElementById("sync").disabled = true;
-				reject("Not retrieving settings from sync server, as no username was set in local storage");
-			}
-		});	
-	});
-}
-
-function retrieveSettingsFromLocal() {
+function retrieveSettings() {
 	return new Promise(function(resolve, reject) {
 		try {
 			var formElems = document.querySelectorAll("form select, form input");
@@ -167,17 +133,10 @@ window.onload = function() {
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
 
-	retrieveSettingsFromSync()
+	retrieveSettings()
 		.then(loadSettingsIntoForm)
 		.catch(function(err) {
-			console.warn("Could not retrieve settings from sync server, only saving settings locally!", err);
-			retrieveSettingsFromLocal()
-				.then(loadSettingsIntoForm)
-				.catch(function(err) {
-					console.error("Could not load settings from local storage.", err);
-				})
-				.finally(function() {
-					hideLoading();
-				});
+			console.error("Could not load settings from local storage.", err);
+			alert("Failed to load settings");
 		});
 };
