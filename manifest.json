@@ -35,6 +35,14 @@
 			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*" ],
 			"js": [ "sync.js" ],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
+			"js": [ "unsync.js" ],
+			"run_at": "document_start"
 		}
-	]
+	],
+	"background": {
+		"service_worker": "background.js"
+	}
 }
