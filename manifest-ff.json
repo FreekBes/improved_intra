@@ -20,7 +20,11 @@
 			"update_url": "https://raw.githubusercontent.com/FreekBes/dark_intra/main/updates.json"
 		}
 	},
-	"options_page": "options.html",
+	"options_ui": {
+		"page": "options.html",
+		"browser_style": false,
+		"open_in_tab": true
+	},
 	"permissions": [
 		"*://*.intra.42.fr/*",
 		"https://darkintra.freekb.es/*",
