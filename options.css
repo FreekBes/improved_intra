@@ -128,7 +128,7 @@ h1 {
 	margin: 0px;
 	line-height: 56px;
 	font-size: 18px;
-	font-weight: 400;
+	font-weight: 800;
 }
 
 header button {
@@ -169,7 +169,7 @@ section:last-child {
 
 h2 {
 	margin: 0px 12px 12px 12px;
-	font-weight: 400;
+	font-weight: 600;
 	text-transform: uppercase;
 	font-size: 0.9em;
 }
