@@ -703,6 +703,10 @@ header.main-page-header .logo small,
 	color: #9a9a9a !important;
 }
 
+.documentation header.main-page-header {
+	border-color: #4a4a4a !important;
+}
+
 .documentation .btn.btn-default,
 .documentation .btn.btn-info {
 	background-color: #34495e !important;
