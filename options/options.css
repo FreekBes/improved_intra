@@ -202,10 +202,11 @@ header button#sync-button.syncing {
 header button#sync-button::after {
 	display: inline-block;
 	transform-origin: center;
-	content: '\e29b';
+	content: '\e3b7';
 }
 
 header button#sync-button.syncing::after {
+	content: '\e29b';
 	animation: spin 1.3s linear infinite;
 	animation-direction: reverse;
 }
