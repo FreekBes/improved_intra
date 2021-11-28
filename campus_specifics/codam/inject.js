@@ -20,6 +20,5 @@ function addToolTip(query) {
 }
 
 document.addEventListener("add-tooltip", function(event) {
-	console.log(event);
 	addToolTip(event.detail);
 });
