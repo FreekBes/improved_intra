@@ -1,4 +1,6 @@
 <?PHP
+	session_start();
+
 	// set headers
 	header('Content-Type: application/json; charset=utf-8');
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -17,6 +19,16 @@
 		die();
 	}
 
+	// redirect to delete.php if sync == false, this request is probably a misdirected one then
+	if (isset($_POST["sync"]) && $_POST["sync"] === "false" || $_POST["sync"] === 0) {
+		http_response_code(307);
+		header("Location: delete.php");
+		die();
+	}
+
+	// include authorization methods
+	require_once("auth.php");
+
 	// set expected values per settings version (starts at version 1)
 	// values start with an identifier: S for string, B for boolean, N for number (integer)
 	// values with a * are required
@@ -24,8 +36,9 @@
 	$latest_version = 1;
 	$version_specifics = array(null);
 	$version_defaults = array(null);
-	array_push($version_specifics, array("S*username", "B*sync", "Stheme", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
+	array_push($version_specifics, array("S*access_token", "S*username", "B*sync", "S*expires_in", "S*created_at", "S*refresh_token", "Stheme", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
 	array_push($version_defaults, array(null, true, "system", false, false, true, true));
+	$neverSave = array("access_token", "expires_in", "created_at", "refresh_token");
 
 	// check client settings version
 	if (!isset($_GET["v"]) || empty($_GET["v"])) {
@@ -91,6 +104,22 @@
 		http_response_code(406);
 		respond("warning", "Are you proud of yourself?");
 		die();
+	}
+
+	// check if username matches the one found using the access token provided...
+	// refresh_access_token_if_needed($userSettings["refresh_token"], intval($userSettings["created_at"]), intval($userSettings["expires_in"]));
+	$userInfoFromIntra = get_user_info($userSettings["access_token"]);
+	if ($userSettings["username"] != $userInfoFromIntra["login"]) {
+		http_response_code(403);
+		respond("error", "Username does not match the one found using the access token provided");
+		die();
+	}
+
+	// remove keys that we do not want to save
+	for ($i = 0; $i < count($neverSave); $i++) {
+		if (isset($userSettings[$neverSave[$i]])) {
+			unset($userSettings[$neverSave[$i]]);
+		}
 	}
 
 	// save settings for user

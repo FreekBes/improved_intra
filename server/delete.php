@@ -1,4 +1,6 @@
 <?PHP
+	session_start();
+
 	// set headers
 	header('Content-Type: application/json; charset=utf-8');
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -13,6 +15,9 @@
 		echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
 		die();
 	}
+
+	// include authorization methods
+	require_once("auth.php");
 
 	// trim entire post array
 	$_POST = array_map("trim", $_POST);
@@ -31,6 +36,15 @@
 		if (preg_match('/[^a-z\-]/', $_POST["username"])) {
 			http_response_code(406);
 			respond("warning", "Are you proud of yourself?");
+			die();
+		}
+
+		// check if username matches the one found using the access token provided...
+		// refresh_access_token_if_needed($userSettings["refresh_token"], intval($userSettings["created_at"]), intval($userSettings["expires_in"]));
+		$userInfoFromIntra = get_user_info($userSettings["access_token"]);
+		if ($userSettings["username"] != $userInfoFromIntra["login"]) {
+			http_response_code(403);
+			respond("error", "Username does not match the one found using the access token provided");
 			die();
 		}
 

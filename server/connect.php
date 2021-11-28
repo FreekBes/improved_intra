@@ -127,7 +127,7 @@
 
 	// check code
 	if (isset($_GET["code"]) && !empty($_GET["code"])) {
-		$auth = exchange($_GET["code"]);
+		$auth = exchange($_GET["code"], "authorization_code");
 		if (empty($auth)) {
 			http_response_code(503);
 			respond("error", "Could not exchange Intra authorization code for access token: service unavailable");

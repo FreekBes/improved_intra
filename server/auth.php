@@ -26,6 +26,9 @@
 	function get_user_info($accessToken) {
 		global $clientID, $clientSecret, $redirectURL;
 
+		if (isset($_SESSION["user"]) && $accessToken == $_SESSION["user_from_access_token"]) {
+			return ($_SESSION["user"]);
+		}
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,"https://api.intra.42.fr/v2/me");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Bearer ".$accessToken ));
@@ -33,7 +36,11 @@
 		$response = curl_exec($ch);
 		if ($response !== false ) {
 			try {
-				return (json_decode($response, true));
+				$userInfo = json_decode($response, true);
+				$userInfo = reduce_user_info($userInfo);
+				$_SESSION["user"] = $userInfo;
+				$_SESSION["user_from_access_token"] = $accessToken;
+				return ($userInfo);
 			}
 			catch (Exception $e) {
 				return (null);
@@ -44,7 +51,22 @@
 		}
 	}
 
-	function exchange($code) {
+	function access_token_expired($createdAt, $expiresIn) {
+		$currentTimestamp = time();
+		return ($createdAt + $expiresIn >= $currentTimestamp - 7200);
+	}
+
+	// refresh access token if it expires within two hours
+	function refresh_access_token_if_needed($refreshToken, $createdAt, $expiresIn) {
+		if (access_token_expired($createdAt, $expiresIn)) {
+			return (exchange($refreshToken, "refresh_token"));
+		}
+		else {
+			return (false);
+		}
+	}
+
+	function exchange($code, $codeType = "authorization_code") {
 		global $clientID, $clientSecret, $redirectURL;
 
 		$ch = curl_init();
@@ -52,7 +74,7 @@
 			"client_id" => $clientID,
 			"client_secret" => $clientSecret,
 			"code" => $code,
-			"grant_type" => "authorization_code",
+			"grant_type" => $codeType,
 			"redirect_uri" => $redirectURL,
 			"state" => $_SESSION["state"]
 		);
@@ -68,7 +90,6 @@
 				$ret["auth"] = $jsonRes;
 				if (!isset($jsonRes["error"])) {
 					$ret["user"] = get_user_info($ret["auth"]["access_token"]);
-					$ret["user"] = reduce_user_info($ret["user"]);
 				}
 				return ($ret);
 			}

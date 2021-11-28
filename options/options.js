@@ -68,27 +68,27 @@ function syncSettings(event) {
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
-		syncBtn.className = "syncing";
 		chrome.storage.local.get(["user", "auth"], function(data) {
-			document.getElementById("username").value = data["user"]["login"];
-			formData.set("username", data["user"]["login"]);
-			formData.append("access_token", data["auth"]["access_token"]);
-			formData.append("created_at", data["auth"]["created_at"]);
-			formData.append("expires_in", data["auth"]["expires_in"]);
-			formData.append("refresh_token", data["auth"]["refresh_token"]);
-			var req = new XMLHttpRequest();
-			req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
-			req.addEventListener("load", function(event) {
-				syncBtn.className = "";
-				try {
-					var res = JSON.parse(this.responseText);
-					console.log("Settings sync result", res);
-				}
-				catch (err) {
-					console.error("Could not parse settings sync result!", err);
-				}
-			});
-			req.send(formData);
+			if (data["user"] && data["auth"]) {
+				syncBtn.className = "syncing";
+				formData.append("access_token", data["auth"]["access_token"]);
+				formData.append("created_at", data["auth"]["created_at"]);
+				formData.append("expires_in", data["auth"]["expires_in"]);
+				formData.append("refresh_token", data["auth"]["refresh_token"]);
+				var req = new XMLHttpRequest();
+				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
+				req.addEventListener("load", function(event) {
+					syncBtn.className = "";
+					try {
+						var res = JSON.parse(this.responseText);
+						console.log("Settings sync result", res);
+					}
+					catch (err) {
+						console.error("Could not parse settings sync result!", err);
+					}
+				});
+				req.send(formData);
+			}
 	
 			chrome.storage.local.set(settingsObj, function() {
 				console.log("Settings stored locally");
@@ -99,9 +99,16 @@ function syncSettings(event) {
 		});
 	}
 	else {
-		chrome.storage.local.get(["sync", "username"], function(data) {
-			document.getElementById("username").value = data["username"];
-			if (data["sync"] === true || data["sync"] === "true") {
+		chrome.storage.local.get(["sync", "auth"], function(data) {
+			if ((data["sync"] === true || data["sync"] === "true") && data["auth"]) {
+				syncBtn.className = "syncing";
+				formData = new FormData(form);
+				formData.set("username", document.getElementById("username").value);
+				formData.set("access_token", data["auth"]["access_token"]);
+				formData.set("created_at", data["auth"]["created_at"]);
+				formData.set("expires_in", data["auth"]["expires_in"]);
+				formData.set("refresh_token", data["auth"]["refresh_token"]);
+
 				var req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/delete.php");
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -115,7 +122,7 @@ function syncSettings(event) {
 						console.error("Could not parse settings deletion result!", err);
 					}
 				});
-				req.send("username="+data["username"]);
+				req.send(formData);
 			}
 
 			chrome.storage.local.set(settingsObj, function() {
