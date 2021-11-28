@@ -8,7 +8,7 @@
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
-		"message": "This extension adds many improvements to 42's Intranet, such as dark mode, links to cluster maps, and more!",
+		"message": "The ultimate browser extension for 42's Intranet, adding many improvements, such as a dark theme and links to cluster maps",
 		"description": "The description of the extension"
 	}
 }
