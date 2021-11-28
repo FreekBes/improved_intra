@@ -16,33 +16,33 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
-	"options_page": "options.html",
+	"options_page": "options/options.html",
 	"permissions": [
 		"storage"
 	],
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "improv.css", "dark.css", "animations.css" ],
+			"css": [ "css/improv.css", "css/dark.css", "css/animations.css" ],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": ["improv.js"],
+			"js": ["js/improv.js"],
 			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*" ],
-			"js": [ "sync.js" ],
+			"js": [ "options/sync.js" ],
 			"run_at": "document_idle"
 		},
 		{
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
-			"js": [ "unsync.js" ],
+			"js": [ "options/unsync.js" ],
 			"run_at": "document_start"
 		}
 	],
 	"background": {
-		"service_worker": "background.js"
+		"service_worker": "js/background.js"
 	}
 }
