@@ -186,11 +186,6 @@ hr,
 }
 
 /* dashboard page */
-.coalition-name a:hover,
-.profile-item .user-primary .user-infos .button-actions a:hover {
-	color: inherit !important;
-}
-
 .user-column,
 #coalition-score,
 #coalition-rank,

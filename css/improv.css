@@ -53,6 +53,11 @@ li.scaleteam-list-item .rating {
 	z-index: 1;
 }
 
+/* fix hover color for profile actions in profile banners */
+.profile-item .user-primary .user-infos .button-actions a:hover {
+	color: inherit !important;
+}
+
 /* fix vertical alignment for login name on user banners */
 .profile-name .login {
 	margin-top: 17px !important;

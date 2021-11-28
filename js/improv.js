@@ -136,7 +136,7 @@ function setStyleIfExists(query, style, value, parentPlease) {
 	}
 }
 
-setStyleIfExists(".coalition-name", "color", getCoalitionColor());
+setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
 setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
 // easter egg for user fbes
