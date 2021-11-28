@@ -16,6 +16,7 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
+	"incognito": "not_allowed",
 	"options_page": "options/options.html",
 	"permissions": [
 		"storage"
