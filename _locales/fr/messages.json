@@ -1,14 +1,14 @@
 {
 	"appName": {
-		"message": "Thème Sombre pour Intra 42",
+		"message": "Intra Amélioré (École 42)",
 		"description": "The name of the extension"
 	},
 	"shortAppName": {
-		"message": "Sombre Intra 42",
+		"message": "Intra Améliore (42)",
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
-		"message": "Cette extension modifie l'Intranet de 42, changeant le thème clair en un thème sombre",
+		"message": "Cette extension ajoute de nombreuses améliorations à l'Intranet de 42, telles que un thème sombre, liens vers des cartes de cluster, et plus encore !",
 		"description": "The description of the extension"
 	}
 }

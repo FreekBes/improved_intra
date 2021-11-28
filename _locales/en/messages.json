@@ -1,14 +1,14 @@
 {
 	"appName": {
-		"message": "Dark Theme for Intra 42",
+		"message": "Improved Intra 42",
 		"description": "The name of the extension"
 	},
 	"shortAppName": {
-		"message": "Dark Intra 42",
+		"message": "Improved Intra 42",
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
-		"message": "This extension modifies 42's Intranet, changing the light theme into a dark one",
+		"message": "This extension adds many improvements to 42's Intranet, such as dark mode, links to cluster maps, and more!",
 		"description": "The description of the extension"
 	}
 }

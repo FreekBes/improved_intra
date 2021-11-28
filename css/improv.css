@@ -217,13 +217,13 @@ a[data-tooltip-login="jlensing"]::before,
 .profile-name span.login[data-login="jlensing"]::before,
 a[data-tooltip-login="ieilat"]::before,
 .profile-name span.login[data-login="ieilat"]::before {
-	content: 'Dark Intra Contributor ';
+	content: 'Improved Intra Contributor ';
 }
 
 /* custom title for creator */
 a[data-tooltip-login="fbes"]::before,
 .profile-name span.login[data-login="fbes"]::before {
-	content: 'Dark Intra Creator ';
+	content: 'Improved Intra Creator ';
 }
 
 /* profile page easter egg for fbes (me, le creator) */
