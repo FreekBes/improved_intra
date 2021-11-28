@@ -21,7 +21,7 @@ function getUserName() {
 
 var syncPort = chrome.runtime.connect({ name: "sync_port" });
 syncPort.onDisconnect.addListener(function() {
-	console.warn("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
 });
 syncPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
