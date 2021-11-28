@@ -1,5 +1,3 @@
-var didSyncBefore = false;
-
 function showLoading() {
 	document.getElementById("loading").className = "";
 }
@@ -22,15 +20,12 @@ function syncSettings(event) {
 		formData.append(uncheckedCheckBoxes[i].getAttribute("name"), "false");
 	}
 
-	// store locally
+	// get js object version for storing in local storage later
 	var settingsObj = {};
 	formData.forEach(function(value, key) {
 		settingsObj[key] = value;
 	});
 	console.log(settingsObj);
-	chrome.storage.local.set(settingsObj, function() {
-		console.log("Settings stored locally");
-	});
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
@@ -49,23 +44,34 @@ function syncSettings(event) {
 			}
 		});
 		req.send(formData);
-	}
-	else if (didSyncBefore === true) {
-		var req = new XMLHttpRequest();
-		req.open("POST", "https://darkintra.freekb.es/delete.php");
-		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		req.addEventListener("load", function(event) {
-			syncBtn.className = "";
-			try {
-				var res = JSON.parse(this.responseText);
-				console.log("Settings deletion result", res);
-			}
-			catch (err) {
-				console.error("Could not parse settings deletion result!", err);
-			}
+
+		chrome.storage.local.set(settingsObj, function() {
+			console.log("Settings stored locally");
 		});
-		req.send("username="+document.getElementById("username").value);
-		didSyncBefore = false;
+	}
+	else {
+		chrome.storage.local.get("sync", function(data) {
+			if (data["sync"] === true || data["sync"] === "true") {
+				var req = new XMLHttpRequest();
+				req.open("POST", "https://darkintra.freekb.es/delete.php");
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				req.addEventListener("load", function(event) {
+					syncBtn.className = "";
+					try {
+						var res = JSON.parse(this.responseText);
+						console.log("Settings deletion result", res);
+					}
+					catch (err) {
+						console.error("Could not parse settings deletion result!", err);
+					}
+				});
+				req.send("username="+document.getElementById("username").value);
+			}
+
+			chrome.storage.local.set(settingsObj, function() {
+				console.log("Settings stored locally");
+			});
+		});
 	}
 	return false;
 }
