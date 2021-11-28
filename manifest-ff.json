@@ -31,7 +31,8 @@
 		"storage"
 	],
 	"web_accessible_resources": [
-		"css/dark.css"
+		"css/dark.css",
+		"campus_specifics/codam/inject.js"
 	],
 	"content_scripts": [
 		{

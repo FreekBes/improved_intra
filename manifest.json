@@ -22,7 +22,7 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources": [ "css/dark.css" ],
+			"resources": [ "css/dark.css", "campus_specifics/codam/inject.js" ],
 			"matches": [ "*://*.intra.42.fr/*" ]
 		}
 	],

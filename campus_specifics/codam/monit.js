@@ -269,11 +269,8 @@ var monit = {
 
 	addTooltip: function() {
 		// add bootstrap tooltip to holder
-		var actualCode = '$("#lt-holder").tooltip();';
-		var script = document.createElement('script');
-		script.appendChild(document.createTextNode(actualCode));
-		(document.head || document.documentElement).appendChild(script);
-		script.parentNode.removeChild(script);
+		var evt = new CustomEvent("add-tooltip", { detail: "#lt-holder" });
+		document.dispatchEvent(evt);
 	},
 
 	/**
@@ -386,8 +383,13 @@ var monit = {
 chrome.storage.local.get("codam-monit", function(data) {
 	if (data["codam-monit"] === true || data["codam-monit"] === "true") {
 		monit.init();
-		setTimeout(function() {
-			monit.getProgress();
-		}, 250);
+		var s = document.createElement('script');
+		s.src = chrome.runtime.getURL('campus_specifics/codam/inject.js');
+		(document.head || document.documentElement).appendChild(s);
+		s.onload = function() {
+			setTimeout(function() {
+				monit.getProgress();
+			}, 250);
+		};
 	}
 });
