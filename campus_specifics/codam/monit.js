@@ -382,14 +382,19 @@ var monit = {
 
 chrome.storage.local.get("codam-monit", function(data) {
 	if (data["codam-monit"] === true || data["codam-monit"] === "true") {
-		monit.init();
-		var s = document.createElement('script');
-		s.src = chrome.runtime.getURL('campus_specifics/codam/inject.js');
-		(document.head || document.documentElement).appendChild(s);
-		s.onload = function() {
-			setTimeout(function() {
-				monit.getProgress();
-			}, 250);
-		};
+		if (!document.getElementById("monit-progress-old")) {
+			monit.init();
+			var s = document.createElement('script');
+			s.src = chrome.runtime.getURL('campus_specifics/codam/inject.js');
+			(document.head || document.documentElement).appendChild(s);
+			s.onload = function() {
+				setTimeout(function() {
+					monit.getProgress();
+				}, 250);
+			};
+		}
+		else {
+			document.getElementById("codam_intra_monit_system_display_deprecation_notice").className = "upgraded";
+		}
 	}
 });
