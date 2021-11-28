@@ -39,6 +39,10 @@ syncPort.onMessage.addListener(function(msg) {
 			break;
 	}
 });
+setInterval(function() {
+	syncPort.disconnect();
+	syncPort = chrome.runtime.connect({ name: "sync_port" });
+}, 250000);
 
 function syncSettings(event) {
 	console.log("Syncing settings...");
@@ -53,6 +57,7 @@ function syncSettings(event) {
 	for (var i = 0; i < uncheckedCheckBoxes.length; i++) {
 		formData.append(uncheckedCheckBoxes[i].getAttribute("name"), "false");
 	}
+	formData.append("sync", "true");
 
 	// get js object version for storing in local storage later
 	var settingsObj = {};

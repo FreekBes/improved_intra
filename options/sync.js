@@ -33,6 +33,10 @@ syncPort.onMessage.addListener(function(msg) {
 			break;
 	}
 });
+setInterval(function() {
+	syncPort.disconnect();
+	syncPort = chrome.runtime.connect({ name: "sync_port" });
+}, 250000);
 
 chrome.storage.local.get("username", function(data) {
 	var curUsername = getUserName();
