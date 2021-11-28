@@ -47,6 +47,12 @@
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
 			"js": [ "options/unsync.js" ],
 			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
+			"js": [ "campus_specifics/codam/monit.js" ],
+			"css": [ "campus_specifics/codam/monit.css" ],
+			"run_at": "document_idle"
 		}
 	],
 	"background": {

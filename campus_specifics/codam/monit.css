@@ -1,0 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   monit.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/11 19:23:10 by fbes          #+#    #+#                 */
+/*   Updated: 2021/11/28 02:22:44 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#monit-progress .mb-1 {
+	text-align: center;
+}
+
+#monit-progress-text {
+	text-align: center;
+	font-size: xx-large;
+}
+
+.profile-item #lt-emote {
+	vertical-align: middle;
+	margin-right: 0.5ch;
+}
