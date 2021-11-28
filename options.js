@@ -29,7 +29,6 @@ function syncSettings(event) {
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
-		didSyncBefore = true;
 		syncBtn.className = "syncing";
 		var req = new XMLHttpRequest();
 		req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
