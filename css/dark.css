@@ -149,7 +149,7 @@ h5,
 .nav > li > a:hover,
 .nav > li > a:focus {
 	color: #f2f2f2 !important;
-	background-color: #4a4a4a !important;
+	background-color: #3a3a3a !important;
 }
 
 .notifications-container .menu-drop-list .menu-drop-item.unread {
@@ -303,7 +303,7 @@ hr,
 
 .projects-list-container .projects-list--list-header .project-item:hover,
 .projects-list-container .projects-list--list .project-item:hover {
-	background-color: #4a4a4a !important;
+	background-color: #3a3a3a !important;
 }
 
 #projectuser-list-container ul.projects-list--list-header li.project-item > div[class*='project-user'] {
@@ -460,7 +460,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 
 #partnerships .partnership-item:hover,
 #accreditations .partnership-item:hover {
-	background-color: #4a4a4a !important;
+	background-color: #3a3a3a !important;
 }
 
 /* slots page */
@@ -1034,7 +1034,7 @@ select[disabled] {
 }
 
 .quest-item .quest-item-header:hover {
-	background: #4a4a4a !important;
+	background: #3a3a3a !important;
 }
 
 mark {
