@@ -30,10 +30,14 @@
 		"https://darkintra.freekb.es/*",
 		"storage"
 	],
+	"web_accessible_resources": [
+		"css/dark.css"
+	],
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "css/improv.css", "css/dark.css", "css/animations.css" ],
+			"css": [ "css/improv.css", "css/animations.css" ],
+			"js": [ "js/theme.js" ],
 			"run_at": "document_start"
 		},
 		{
