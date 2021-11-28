@@ -28,7 +28,7 @@
 		},
 		{
 			"resources": [ "options/options.html" ],
-			"matches": [ "*://darkintra.freekb.es/*" ]
+			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ]
 		}
 	],
 	"content_scripts": [

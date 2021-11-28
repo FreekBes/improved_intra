@@ -26,6 +26,7 @@
 .main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
 	right: 0px !important;
+	text-align: right !important;
 }
 
 /* account dropdown menu color fix */

@@ -104,30 +104,7 @@ function setStyleIfExists(query, style, value, parentPlease) {
 	}
 }
 
-function randomIntFromInterval(min, max) { // min and max included
-	return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-// easter egg
-if (window.location.hash == "#haha") {
-	var elements = document.querySelectorAll("*");
-	for (var i = 0; i < elements.length; i++) {
-		elements[i].className += " funnyhaha";
-		elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
-		elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
-	}
-}
-
-// easter egg for user fbes
-if (getUserName() == "fbes") {
-	var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
-	if (banner) {
-		banner.className += " egg";
-	}
-}
-
-// set optional settings
-function setOptionalSettings() {
+function setOptionalImprovements() {
 	var broadcastNav = document.querySelector(".broadcast-nav");
 	if (broadcastNav) {
 		chrome.storage.local.get("hide-broadcasts", function(data) {
@@ -158,29 +135,77 @@ function setOptionalSettings() {
 	}
 }
 
-setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
-setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+function randomIntFromInterval(min, max) { // min and max included
+	return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
-if (hasProfileBanner()) {
-	var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
-	var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
-	var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
-
-	if (profileActions) {
-		profileActions.addEventListener("mouseenter", setCoalitionTextColor);
-		profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
+function setGeneralImprovements() {
+	// easter egg
+	if (window.location.hash == "#haha") {
+		var elements = document.querySelectorAll("*");
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].className += " funnyhaha";
+			elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
+			elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
+		}
 	}
 
-	if (telInfo) {
-		telInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	// easter egg for user fbes
+	if (getUserName() == "fbes") {
+		var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
+		if (banner) {
+			banner.className += " egg";
+		}
 	}
-	if (mailInfo) {
-		mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
+
+	// fix coalition colored links
+	setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
+	setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+
+	// fix things on profile banners
+	if (hasProfileBanner()) {
+		var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
+		var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
+		var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
+
+		if (profileActions) {
+			profileActions.addEventListener("mouseenter", setCoalitionTextColor);
+			profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
+		}
+
+		if (telInfo) {
+			telInfo.addEventListener("mouseenter", setCoalitionTextColor);
+		}
+		if (mailInfo) {
+			mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
+		}
+	}
+
+	// add link to options in account/user menu
+	var userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
+	if (userMenu) {
+		var intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
+		if (intraSettingsOption) {
+			intraSettingsOption.innerHTML = "Intranet Settings";
+		}
+		var extensionSettings = document.createElement("li");
+		var extensionSettingsLink = document.createElement("a");
+		extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
+		extensionSettingsLink.setAttribute("target", "_blank");
+		extensionSettingsLink.innerHTML = "Improved Intra Settings";
+		extensionSettings.appendChild(extensionSettingsLink);
+		userMenu.insertBefore(extensionSettings, userMenu.children[userMenu.children.length - 1]);
 	}
 }
 
-setOptionalSettings();
+// enable general improvements
+setGeneralImprovements();
 
+// enable optional improvements
+// can be enabled in extension options
+setOptionalImprovements();
+
+// communication between background.js and this script
 var syncPort = chrome.runtime.connect({ name: "sync_port" });
 syncPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
@@ -194,7 +219,7 @@ syncPort.onMessage.addListener(function(msg) {
 		case "prefers-color-scheme-change":
 		case "options-changed":
 			console.log("%c[Improved Intra]%c Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.", "color: #00babc;", "");
-			setOptionalSettings();
+			setOptionalImprovements();
 			checkThemeSetting();
 			break;
 		case "error":
@@ -202,6 +227,8 @@ syncPort.onMessage.addListener(function(msg) {
 			break;
 	}
 });
+
+// reconnect every 4-5 minutes to keep service worker running in background
 setInterval(function() {
 	syncPort.disconnect();
 	syncPort = chrome.runtime.connect({ name: "sync_port" });
