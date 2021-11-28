@@ -69,7 +69,7 @@ function openLocationMap(event) {
 			break;
 		}
 	}
-	win = window.open(url, "dark_intra_cluster_map_win");
+	win = window.open(url, "improved_intra_cluster_map_win");
 	// since we can no longer check when a window is loaded with an event
 	// for domains that are not of the same origin, we simply try and send
 	// the location ID multiple times to the opened cluster map window

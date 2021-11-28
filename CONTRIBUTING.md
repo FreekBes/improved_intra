@@ -8,12 +8,12 @@ Try to only make changes to the styling by using the CSS file. Only use Javascri
 
 ## Steps to contribute
 1. Read the contributing guidelines in this file (thank you!)
-2. [Fork](https://github.com/FreekBes/dark_intra/fork) and clone this repository
+2. [Fork](https://github.com/FreekBes/improved_intra/fork) and clone this repository
 3. Create a new branch: `git checkout -b branch-name` (to switch to this branch later on, remove the `-b` flag)
 4. Open [the extensions page](chrome://extensions/) in your web browser
 5. Click the *Load unpacked* button
 6. Make your changes and verify that they work as intended
-7. Push to your fork (`git push --set-upstream branch-name`) and [submit a pull request](https://github.com/FreekBes/dark_intra/compare)
+7. Push to your fork (`git push --set-upstream branch-name`) and [submit a pull request](https://github.com/FreekBes/improved_intra/compare)
 8. Wait for the pull request to be merged, and make changes if necessary or asked by the community.
 
 
