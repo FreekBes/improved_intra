@@ -443,10 +443,24 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	color: #adadad !important;
 }
 
+.profile-menu {
+	border-color: #4a4a4a !important;
+}
+
 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select option,
 .profile-item .user-primary .user-infos .cursus-user-select option {
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
+}
+
+#partnerships .partnership-item,
+#accreditations .partnership-item {
+	border-color: #4a4a4a !important;
+}
+
+#partnerships .partnership-item:hover,
+#accreditations .partnership-item:hover {
+	background-color: #4a4a4a !important;
 }
 
 /* slots page */
