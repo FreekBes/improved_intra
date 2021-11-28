@@ -795,6 +795,12 @@ header.main-page-header .logo small,
 	color: #f2f2f2 !important;
 }
 
+.application-item--detail pre {
+	color: #f2f2f2 !important;
+	border-color: #4a4a4a !important;
+	background-color: #3a3a3a !important;
+}
+
 /* buttons */
 .btn-btn-default .btn-btn-default-dropdown-toggle {
 	background: rgba(0, 0, 0, 0.5);
