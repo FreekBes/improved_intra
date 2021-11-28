@@ -2,3 +2,4 @@
 *.zip
 *.xpi
 *.crx
+server/nogit.php

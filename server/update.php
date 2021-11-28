@@ -37,7 +37,7 @@
 	}
 	if (!isset($version_specifics[$client_version])) {
 		http_response_code(400);
-		respond("error", "Invalid settings version");
+		respond("error", "Invalid value for GET key 'settings'");
 	}
 
 	// trim entire post array

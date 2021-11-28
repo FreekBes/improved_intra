@@ -1,0 +1,6 @@
+<?php
+	$clientID = "your_client_id_or_uid_here";
+	$clientSecret = "your_client_secret_here";
+	$redirectURL = "your_redirect_url_here";
+	$scopes = array("public");
+?>
