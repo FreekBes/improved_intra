@@ -100,6 +100,6 @@
 	}
 	else {
 		http_response_code(201);
-		respond(null, "Settings saved", $userSettings);
+		respond("success", "Settings saved", $userSettings);
 	}
 ?>

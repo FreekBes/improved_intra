@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-var sPort = null;
-
 var defaultSettings = {
 	"clustermap": "true",
 	"codam-monit": "true",
@@ -75,6 +73,10 @@ function removeUnusedSettings() {
 	}
 }
 
+function resetSettings() {
+	return (chrome.storage.local.set(defaultSettings));
+}
+
 function setSettingsIfUnset() {
 	// get set settings
 	chrome.storage.local.get(Object.keys(defaultSettings), function(data) {
@@ -89,32 +91,46 @@ function setSettingsIfUnset() {
 }
 
 function getSettingsFromSyncServer(username) {
-	console.log("Retrieving settings of username " + username);
-	fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
-		.then(function(response) {
-			if (response.status == 404) {
-				console.log("No settings found on the sync server for this username");
-				return null;
-			}
-			else if (!response.ok) {
-				throw new Error("Not signed in on Intra, cannot fetch username");
-			}
-			return response.json();
-		})
-		.then(function(json) {
-			if (json == null) {
-				return;
-			}
-			chrome.storage.local.set(json, function() {
-				console.log("Settings successfully retrieved from sync server. Stored a copy locally.", json);
+	return new Promise(function(resolve, reject) {
+		console.log("Retrieving settings of username " + username);
+		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
+			.then(function(response) {
+				if (response.status == 404) {
+					console.log("No settings found on the sync server for this username");
+					return null;
+				}
+				else if (!response.ok) {
+					throw new Error("Not signed in on Intra, cannot fetch username");
+				}
+				return response.json();
+			})
+			.then(function(json) {
+				if (json == null) {
+					reject();
+				}
+				else {
+					chrome.storage.local.set(json, function() {
+						resolve(json);
+					});
+				}
+			})
+			.catch(function(err) {
+				reject(err);
 			});
-		})
-		.catch(function(err) {
-			console.error("Could not retrieve settings from sync server", err);
-		});
+	});
 }
 
+var ports = [];
+function messageAllPorts(msg) {
+	for (var i = 0; i < ports.length; i++) {
+		ports[i].postMessage(msg);
+	}
+}
 chrome.runtime.onConnect.addListener(function(port) {
+	ports.push(port);
+	port.onDisconnect.addListener(function(port) {
+		ports.splice(ports.indexOf(port), 1);
+	});
 	port.onMessage.addListener(function(msg) {
 		switch(msg["action"]) {
 			case "ping":
@@ -123,19 +139,30 @@ chrome.runtime.onConnect.addListener(function(port) {
 			case "resync":
 				chrome.storage.local.get("username", function(data) {
 					if (data["username"]) {
-						getSettingsFromSyncServer(data["username"]);
+						getSettingsFromSyncServer(data["username"])
+							.then(function() {
+								console.log("Settings successfully retrieved from server. Stored a copy locally.");
+								messageAllPorts({ action: "resynced" });
+							})
+							.catch(function(err) {
+								resetSettings().then(function() {
+									messageAllPorts({ action: "resynced" });
+								});
+							});
 					}
 					else {
 						console.warn("Could not resync, as no username was given to sync from");
 					}
 				});
 				break;
+			case "options-changed":
+				messageAllPorts({ action: "options-changed" });
+				break;
 			default:
 				console.log("Unknown action received over port: ", msg["action"]);
 				break;
 		}
 	});
-	sPort = port;
 });
 
 chrome.runtime.onInstalled.addListener(function(details) {

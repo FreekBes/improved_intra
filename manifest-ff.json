@@ -31,6 +31,7 @@
 		"storage"
 	],
 	"web_accessible_resources": [
+		"options/options.html",
 		"css/dark.css",
 		"campus_specifics/codam/inject.js"
 	],
@@ -55,6 +56,11 @@
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
 			"js": [ "options/unsync.js" ],
 			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://darkintra.freekb.es/connect.php*" ],
+			"js": [ "options/auth.js" ],
+			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],

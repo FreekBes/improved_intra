@@ -24,6 +24,10 @@
 		{
 			"resources": [ "css/dark.css", "campus_specifics/codam/inject.js" ],
 			"matches": [ "*://*.intra.42.fr/*" ]
+		},
+		{
+			"resources": [ "options/options.html" ],
+			"matches": [ "*://darkintra.freekb.es/*" ]
 		}
 	],
 	"content_scripts": [
@@ -47,6 +51,11 @@
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
 			"js": [ "options/unsync.js" ],
 			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://darkintra.freekb.es/connect.php*" ],
+			"js": [ "options/auth.js" ],
+			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],

@@ -37,7 +37,7 @@
 		// delete settings of user
 		if (unlink("settings/".strval($_POST["username"]).".json") === true) {
 			http_response_code(200);
-			respond(null, "User settings have been deleted");
+			respond("success", "User settings have been deleted");
 		}
 		else {
 			http_response_code(500);

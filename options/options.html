@@ -4,6 +4,7 @@
 	<meta charset='utf-8' />
 	<title>Improved Intra 42 Settings</title>
 	<link rel="stylesheet" type="text/css" href="options.css" />
+	<link rel="stylesheet" type="text/css" href="../css/animations.css" />
 	<script src="options.js"></script>
 </head>
 <body>
@@ -20,12 +21,12 @@
 				<section>
 					<h2>Synchronization</h2>
 					<fieldset>
-						<label for="username"><span>Intra username</span><span>Automatically fetched upon visiting Intra</span></label>
+						<label for="username"><span>Currently logged in user</span><span>Automatically fetched from Intra</span></label>
 						<input type="text" id="username" name="username" value="" readonly />
 					</fieldset>
 					<fieldset>
-						<label for="sync"><span>Synchronize my settings</span><span>Synchronize this extension's settings using your Intra's user ID</span></label>
-						<input type="checkbox" value="true" id="sync" name="sync" checked />
+						<label for="sync"><span>Synchronize my settings</span><span>Synchronize your settings using your Intra's username</span></label>
+						<input type="checkbox" value="true" id="sync" name="sync" checked readonly />
 					</fieldset>
 				</section>
 				<section>
@@ -46,11 +47,11 @@
 				<section>
 					<h2>General Improvements</h2>
 					<fieldset>
-						<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>The blue megaphone floating button on the dashboard</span></label>
+						<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>Hide the blue megaphone floating button on the dashboard</span></label>
 						<input type="checkbox" value="true" id="hide-broadcasts" name="hide-broadcasts" checked />
 					</fieldset>
 					<fieldset>
-						<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will show the cluster map</span></label>
+						<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will open the cluster map</span></label>
 						<input type="checkbox" value="true" id="clustermap" name="clustermap" checked />
 					</fieldset>
 				</section>

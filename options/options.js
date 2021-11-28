@@ -18,6 +18,28 @@ function hideLoading() {
 	document.getElementById("loading").className = "hidden";
 }
 
+var syncPort = chrome.runtime.connect({ name: "sync_port" });
+syncPort.onDisconnect.addListener(function() {
+	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+});
+syncPort.onMessage.addListener(function(msg) {
+	switch (msg["action"]) {
+		case "pong":
+			console.log("pong");
+			break;
+		case "options-changed":
+			console.log("Sent out options-changed event to all open Intra tabs");
+			break;
+		case "resynced":
+			console.log("Options resynced.");
+			window.location.reload();
+			break;
+		case "error":
+			console.error(msg["message"]);
+			break;
+	}
+});
+
 function syncSettings(event) {
 	console.log("Syncing settings...");
 	event.preventDefault();
@@ -58,6 +80,9 @@ function syncSettings(event) {
 
 		chrome.storage.local.set(settingsObj, function() {
 			console.log("Settings stored locally");
+			if (syncPort) {
+				syncPort.postMessage({ action: "options-changed" });
+			}
 		});
 	}
 	else {
@@ -81,6 +106,9 @@ function syncSettings(event) {
 
 			chrome.storage.local.set(settingsObj, function() {
 				console.log("Settings stored locally");
+				if (syncPort) {
+					syncPort.postMessage({ action: "options-changed" });
+				}
 			});
 		});
 	}
@@ -141,7 +169,7 @@ function loadSettingsIntoForm(settings) {
 }
 
 window.onload = function() {
-	console.log("Setting up events...");
+	console.log("Initializing options page...");
 	var i;
 
 	var formElems = document.querySelectorAll("form select, form input");
@@ -150,10 +178,18 @@ window.onload = function() {
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
 
-	retrieveSettings()
-		.then(loadSettingsIntoForm)
-		.catch(function(err) {
-			console.error("Could not load settings from local storage.", err);
-			alert("Failed to load settings");
-		});
+	chrome.storage.local.get(["username", "access_token", "token_type", "expires_in", "refresh_token", "scope", "created_at", "user"], function(data) {
+		if (data["username"] === undefined || data["access_token"] === undefined || data["user"] == undefined || data["user"]["login"] != data["username"]) {
+			// authorize user on Intra, link below redirects to the correct auth page
+			window.location.href = "https://darkintra.freekb.es/connect.php";
+		}
+		else {
+			retrieveSettings()
+				.then(loadSettingsIntoForm)
+				.catch(function(err) {
+					console.error("Could not load settings from local storage.", err);
+					alert("Failed to load settings");
+				});
+		}
+	});
 };

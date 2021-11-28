@@ -273,7 +273,7 @@ fieldset > select {
 	padding: 4px 8px;
 	box-sizing: border-box;
 	height: 28px;
-	min-width: 180px;
+	width: 180px;
 	outline: 0;
 }
 
@@ -289,11 +289,24 @@ fieldset > input[type="checkbox"] {
 	width: 16px;
 }
 
+fieldset > input[type="button"] {
+	background-color: #00babc;
+	border-color: #00babc;
+	cursor: pointer;
+	font-weight: bold;
+}
+
 fieldset > input:hover,
 fieldset > input:focus,
 fieldset > select:hover,
 fieldset > select:focus {
 	border-color: #00babc;
+}
+
+fieldset > input[type="button"]:hover,
+fieldset > input[type="button"]:focus {
+	background-color: #00ecef;
+	border-color: #00ecef;
 }
 
 fieldset > input[disabled],

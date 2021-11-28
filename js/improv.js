@@ -48,6 +48,10 @@ function unsetCoalitionTextColor(event) {
 	event.target.style.color = null;
 }
 
+function hasProfileBanner() {
+	return (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/"));
+}
+
 function openLocationMap(event) {
 	var win = null;
 	var url = null;
@@ -90,42 +94,6 @@ function openLocationMap(event) {
 	}, 1000);
 }
 
-if (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/")) {
-	var userPosteInfos = document.querySelector(".user-poste-infos");
-	var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
-	var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
-	var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
-
-	if (profileActions) {
-		profileActions.addEventListener("mouseenter", setCoalitionTextColor);
-		profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
-	}
-
-	if (userPosteInfos) {
-		chrome.storage.local.get("clustermap", function(data) {
-			if ((data["clustermap"] === true || data["clustermap"] === "true") && userPosteInfos.innerText != "-") {
-				userPosteInfos.className += " improved";
-				userPosteInfos.setAttribute("tabindex", "0");
-				userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
-				userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
-				userPosteInfos.addEventListener("click", openLocationMap);
-				userPosteInfos.addEventListener("keyup", function(event) {
-					if (event.keyCode == 13) {
-						openLocationMap(event);
-					}
-				});
-			}
-		});
-	}
-
-	if (telInfo) {
-		telInfo.addEventListener("mouseenter", setCoalitionTextColor);
-	}
-	if (mailInfo) {
-		mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
-	}
-}
-
 function setStyleIfExists(query, style, value, parentPlease) {
 	var elem = document.querySelector(query);
 	if (elem) {
@@ -136,29 +104,9 @@ function setStyleIfExists(query, style, value, parentPlease) {
 	}
 }
 
-setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
-setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
-
-// easter egg for user fbes
-if (getUserName() == "fbes") {
-	var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
-	if (banner) {
-		banner.className += " egg";
-	}
-}
-
-var broadcastNav = document.querySelector(".broadcast-nav");
-if (broadcastNav) {
-	chrome.storage.local.get("hide-broadcasts", function(data) {
-		if (data["hide-broadcasts"] === true || data["hide-broadcasts"] === "true") {
-			broadcastNav.style.display = "none";
-		}
-	});
-}
-
 function randomIntFromInterval(min, max) { // min and max included
 	return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+}
 
 // easter egg
 if (window.location.hash == "#haha") {
@@ -169,3 +117,88 @@ if (window.location.hash == "#haha") {
 		elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
 	}
 }
+
+// easter egg for user fbes
+if (getUserName() == "fbes") {
+	var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
+	if (banner) {
+		banner.className += " egg";
+	}
+}
+
+// set optional settings
+function setOptionalSettings() {
+	var broadcastNav = document.querySelector(".broadcast-nav");
+	if (broadcastNav) {
+		chrome.storage.local.get("hide-broadcasts", function(data) {
+			if (data["hide-broadcasts"] === true || data["hide-broadcasts"] === "true") {
+				broadcastNav.style.display = "none";
+			}
+		});
+	}
+	
+	if (hasProfileBanner()) {
+		var userPosteInfos = document.querySelector(".user-poste-infos");
+		if (userPosteInfos) {
+			chrome.storage.local.get("clustermap", function(data) {
+				if ((data["clustermap"] === true || data["clustermap"] === "true") && userPosteInfos.innerText != "-") {
+					userPosteInfos.className += " improved";
+					userPosteInfos.setAttribute("tabindex", "0");
+					userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
+					userPosteInfos.addEventListener("mouseleave", unsetCoalitionTextColor);
+					userPosteInfos.addEventListener("click", openLocationMap);
+					userPosteInfos.addEventListener("keyup", function(event) {
+						if (event.keyCode == 13) {
+							openLocationMap(event);
+						}
+					});
+				}
+			});
+		}
+	}
+}
+
+setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
+setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+
+if (hasProfileBanner()) {
+	var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
+	var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
+	var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
+
+	if (profileActions) {
+		profileActions.addEventListener("mouseenter", setCoalitionTextColor);
+		profileActions.addEventListener("mouseleave", unsetCoalitionTextColor);
+	}
+
+	if (telInfo) {
+		telInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	}
+	if (mailInfo) {
+		mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	}
+}
+
+setOptionalSettings();
+
+var syncPort = chrome.runtime.connect({ name: "sync_port" });
+syncPort.onDisconnect.addListener(function() {
+	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+});
+syncPort.onMessage.addListener(function(msg) {
+	switch (msg["action"]) {
+		case "pong":
+			console.log("pong");
+			break;
+		case "resynced":
+		case "prefers-color-scheme-change":
+		case "options-changed":
+			console.log("%c[Improved Intra]%c Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.", "color: #00babc;", "");
+			setOptionalSettings();
+			checkThemeSetting();
+			break;
+		case "error":
+			console.error(msg["message"]);
+			break;
+	}
+});
