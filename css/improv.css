@@ -22,10 +22,21 @@
 	font-family: 'futura-bold', 'futuraBold' !important;
 }
 
-/* Off-screen user dropdown menu fix for short usernames */
+/* off-screen account dropdown menu fix for short usernames */
 .main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
 	right: 0px !important;
+}
+
+/* account dropdown menu color fix */
+.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
+.main-navbar .main-navbar-user-nav > .dropdown.open > a > span {
+	color: #00babc !important;
+}
+
+/* notifications button hover color fix */
+.user-action.labelable:hover {
+	color: #00babc !important;
 }
 
 /* fix 100 % scores on ratings on feedback page */

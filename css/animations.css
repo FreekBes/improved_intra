@@ -19,7 +19,8 @@ input,
 .user-poste-infos.improved,
 .school-record-button.dropdown-toggle,
 a.simple-link,
-.profile-item .user-primary .user-infos .button-actions a {
+.profile-item .user-primary .user-infos .button-actions a,
+.main-navbar .main-navbar-user-nav > .dropdown > a > span {
 	transition: 0.075s ease-out !important;
 }
 
@@ -31,7 +32,8 @@ input:focus,
 .user-poste-infos.improved:hover,
 .school-record-button.dropdown-toggle,
 a.simple-link:hover,
-.profile-item .user-primary .user-infos .button-actions a:hover {
+.profile-item .user-primary .user-infos .button-actions a:hover,
+.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span {
 	transition: 0s ease-in !important;
 }
 
