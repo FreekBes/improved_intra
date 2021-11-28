@@ -10,9 +10,5 @@
 	"appDesc": {
 		"message": "This extension modifies 42's Intranet, changing the light theme into a dark one",
 		"description": "The description of the extension"
-	},
-	"aguWarning": {
-		"message": "Please disable the Dark Theme for Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is highly likely they will contain errors, which might result in a wrongfully allocated freeze.",
-		"description": "The warning displayed on the A.G.U. Panel page in settings. Currently unused due to bugs: https://bugs.chromium.org/p/chromium/issues/detail?id=115800"
 	}
 }
