@@ -14,7 +14,7 @@ var sPort = null;
 
 var defaultSettings = {
 	"clustermap": "true",
-	"codam-monit": "false",
+	"codam-monit": "true",
 	"hide-broadcasts": "false",
 	"show-custom-profiles": "false",
 	"sync": "true",

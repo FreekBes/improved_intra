@@ -25,7 +25,7 @@
 	$version_specifics = array(null);
 	$version_defaults = array(null);
 	array_push($version_specifics, array("S*username", "B*sync", "Stheme", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
-	array_push($version_defaults, array(null, true, "system", false, false, true, false));
+	array_push($version_defaults, array(null, true, "system", false, false, true, true));
 
 	// check client settings version
 	if (!isset($_GET["v"]) || empty($_GET["v"])) {
