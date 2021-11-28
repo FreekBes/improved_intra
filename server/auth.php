@@ -12,6 +12,7 @@
 		exit();
 	}
 
+	// below function removes any user info we do not with to store locally in the extension
 	function reduce_user_info($userInfo) {
 		unset($userInfo["achievements"]);
 		unset($userInfo["cursus_users"]);
@@ -62,12 +63,14 @@
 		$response = curl_exec($ch);
 		if ($response !== false ) {
 			try {
+				$ret = array();
 				$jsonRes = json_decode($response, true);
+				$ret["auth"] = $jsonRes;
 				if (!isset($jsonRes["error"])) {
-					$jsonRes["user"] = get_user_info($jsonRes["access_token"]);
-					$jsonRes["user"] = reduce_user_info($jsonRes["user"]);
+					$ret["user"] = get_user_info($ret["auth"]["access_token"]);
+					$ret["user"] = reduce_user_info($ret["user"]);
 				}
-				return ($jsonRes);
+				return ($ret);
 			}
 			catch (Exception $e) {
 				return (null);
