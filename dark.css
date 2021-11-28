@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * This CSS file is only loaded when dark mode is enabled.
+ * It overrules improv.css.
+ */
+
 /* main elements (visible on every page */
 body {
 	background-color: #202124 !important;
@@ -55,13 +60,6 @@ h5,
 	color: #888888 !important;
 }
 
-/* Windows Futura font family fix */
-.modal-v2 .modal-header,
-.event-modal .head h4,
-.exam-modal .head h4 {
-	font-family: 'futura-bold', 'futuraBold';
-}
-
 #sidebarCollapse {
 	border-color: #292a2d !important;
 	background-color: #292a2d !important;
@@ -81,11 +79,6 @@ h5,
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
 	border-color: #292a2d !important;
-}
-
-.main-navbar-user-nav .dropdown .dropdown-menu {
-	left: unset !important;
-	right: 0px !important;
 }
 
 .chosen-container .chosen-results {
@@ -192,43 +185,10 @@ hr,
 	background-color: #4a4a4a !important;
 }
 
-li.scaleteam-list-item .rating {
-	flex-basis: 50px !important;
-}
-
-.user-profile-picture {
-	background-size: cover !important;
-}
-
 /* dashboard page */
-.profile-item .user-progress .progress,
-.profile-item .user-header-box,
-.profile-item .user-primary .user-infos .user-infos-sub,
-.profile-item .user-primary .user-infos .button-actions {
-	background: rgba(32, 32, 38, 0.6) !important;
-	backdrop-filter: blur(4px) !important;
-	border-radius: 4px !important;
-}
-
-/* worst code ever just for cetus, love you cetus */
-.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-progress .progress,
-.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-header-box,
-.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-primary .user-infos .user-infos-sub,
-.profile-item-top[style="background-image: url(https://cdn.intra.42.fr/coalition/cover/59/Cetus_small.jpg)"] .user-primary .user-infos .button-actions {
-	background: rgba(32, 32, 38, 0.75) !important;
-}
-
-.profile-item .user-primary .user-infos .button-actions {
-	z-index: 1;
-}
-
 .coalition-name a:hover,
 .profile-item .user-primary .user-infos .button-actions a:hover {
 	color: inherit !important;
-}
-
-.home-middle-td {
-	overflow: auto !important;
 }
 
 .user-column,
@@ -240,25 +200,6 @@ li.scaleteam-list-item .rating {
 .achievement-item .achievement-item--container .achievement-item--content h1,
 .event-modal .head h4, .exam-modal .head h4 {
 	color: #f2f2f2 !important;
-}
-
-.profile-name .login {
-	margin-top: 17px !important;
-}
-
-.profile-title[data-toggle] {
-	text-align: center !important;
-	padding-top: 8px !important;
-	overflow: hidden !important;
-	text-overflow: ellipsis !important;
-}
-
-.school-record-button {
-	background-color: initial !important;
-}
-
-.school-record-button::after {
-	content: ' ▾';
 }
 
 .school-record-button:hover,
@@ -280,10 +221,6 @@ li.scaleteam-list-item .rating {
 	background: #4a4a4a !important;
 }
 
-.achievement-item.stacked .achievement-item--container {
-	background-color: rgba(0,0,0,0) !important;
-}
-
 .achievement-item.stack .achievement-item--container[style="opacity: 0.4"] {
 	opacity: 0.6 !important;
 }
@@ -296,10 +233,6 @@ li.scaleteam-list-item .rating {
 /* achievements page */
 .achievement-progress-item .progress-container .progress {
 	background-color: #4c4c58 !important;
-}
-
-.achievements-nav .achievements-nav-item input.kind-filter+label p {
-	border-color: rgba(0,0,0,0) !important;
 }
 
 .achievements-nav .achievements-nav-item input.kind-filter.active+label p {
@@ -362,22 +295,10 @@ li.scaleteam-list-item .rating {
 	color: #adadad !important;
 }
 
-.input-group .form-control:first-child,
-.input-group-addon:first-child,
-.input-group-btn:first-child > .btn,
-.input-group-btn:first-child > .btn-group>.btn,
-.input-group-btn:first-child > .dropdown-toggle,
-.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
-	border-bottom-right-radius: 0 !important;
-	border-top-right-radius: 0 !important;
-}
-
 .input-group-addon {
 	background-color: #6a6a6a !important;
 	border-color: #6a6a6a !important;
 	color: #adadad !important;
-	cursor: pointer !important;
 }
 
 .input-group-addon:hover,
@@ -390,7 +311,7 @@ li.scaleteam-list-item .rating {
 	background-color: #4a4a4a !important;
 }
 
-#projectuser-list-container ul.projects-list--list-header li.project-item>div[class*='project-user'] {
+#projectuser-list-container ul.projects-list--list-header li.project-item > div[class*='project-user'] {
 	color: #adadad !important;
 	background: initial !important;
 }
@@ -412,10 +333,6 @@ mark, .mark {
 	border-color: #4a4a4a !important;
 }
 
-.team-actions .btn.btn-block.btn-danger {
-	white-space: normal !important;
-}
-
 /* events */
 .event-subname {
 	color: #adadad !important;
@@ -426,11 +343,6 @@ mark, .mark {
 }
 
 /* skills chart */
-#skill-chart svg .highcharts-background,
-#logtime_goal svg .highcharts-background {
-	fill: rgba(255, 255, 255, 0) !important;
-}
-
 #skill-chart .highcharts-axis-labels text,
 #skill-chart .highcharts-xaxis-labels text {
 	color: #adadad !important;
@@ -454,7 +366,6 @@ mark, .mark {
 .highcharts-data-labels > g > text {
 	color: #f2f2f2 !important;
 	fill: #f2f2f2 !important;
-	text-shadow: none !important;
 }
 
 .highcharts-tooltip path:not([fill="none"]) {
@@ -478,11 +389,6 @@ mark, .mark {
 /* logtime overview */
 #user-locations g > rect {
 	stroke: #292a2d !important;
-	cursor: default !important;
-}
-
-#user-locations g > text {
-	cursor: default !important;
 }
 
 #user-locations g:not([data-original-title="0h00"]):not([data-nolog]) > text {
@@ -529,43 +435,6 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
-.profile-banner {
-	background-size: cover !important;
-	background-position: center center !important;
-}
-
-a .coalition-flag .coalition-flag--flag,
-a .coalition-flag-mini .coalition-flag--flag {
-	transform: scaleY(1) !important;
-}
-
-a .coalition-flag .coalition-flag--icon,
-a .coalition-flag-mini .coalition-flag--icon {
-	transform: translateY(0px) !important;
-}
-
-a .coalition-flag-mini:hover .coalition-flag--flag {
-	transform: scaleY(1.15) !important;
-}
-
-a .coalition-flag-mini:hover .coalition-flag--icon {
-	transform: translateY(4px) !important;
-}
-
-a .coalition-flag:hover .coalition-flag--flag,
-.coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag {
-	transform: scaleY(1.05) !important;
-}
-
-a .coalition-flag:hover .coalition-flag--icon,
-.coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
-	transform: translateY(3px) !important;
-}
-
-.coalitions-index-banner {
-	overflow: hidden !important;
-}
-
 .profile-menu .nav li.active a {
 	background-color: #4a4a4a !important;
 }
@@ -579,110 +448,10 @@ a .coalition-flag:hover .coalition-flag--icon,
 	color: #adadad !important;
 }
 
-.profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select {
-	background-color: rgba(0,0,0,0) !important;
-	padding-right: 8px !important;
-}
-
-.profile-item .user-primary .user-infos .cursus-user-select {
-	background-color: rgba(0,0,0,0) !important;
-	text-align: center !important;
-}
-
 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select option,
 .profile-item .user-primary .user-infos .cursus-user-select option {
 	background-color: #292a2d !important;
 	color: #f2f2f2 !important;
-}
-
-.profile-on-users.profile-item .user-header-box.infos {
-	border-radius: 0px !important;
-}
-
-.profile-item .location {
-	min-height: 183px !important;
-}
-
-.profile-item .user-progress .cursus-progress-item .progress-container {
-	margin-top: 10px !important;
-}
-
-@media (max-width: 992px) {
-	.profile-item .user-header-box {
-		border-radius: 4px 4px 0 0 !important;
-	}
-
-	.profile-item .user-header-box:last-of-type {
-		border-radius: 0 0 4px 4px !important;
-	}
-}
-
-.profile-item .user-progress .progress {
-	background-color: rgba(32,32,38,0.75) !important;
-}
-
-.profile-item .location .user-poste-infos.improved {
-	cursor: pointer !important;
-}
-
-.profile-item .location .user-poste-infos.improved:hover {
-	text-decoration: underline !important;
-}
-
-.correction-point-btn {
-	color: #f2f2f2 !important;
-}
-
-.correction-point-btn:hover, .correction-point-btn:focus {
-	color: inherit !important;
-	text-decoration: none !important;
-}
-
-/* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]::before,
-.profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]::before,
-.profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="jlensing"]::before,
-.profile-name span.login[data-login="jlensing"]::before,
-a[data-tooltip-login="ieilat"]::before,
-.profile-name span.login[data-login="ieilat"]::before {
-	content: 'Dark Intra Contributor ';
-}
-
-/* custom title for creator */
-a[data-tooltip-login="fbes"]::before,
-.profile-name span.login[data-login="fbes"]::before {
-	content: 'Dark Intra Creator ';
-}
-
-/* profile page easter egg for fbes (me, le creator) */
-.container-inner-item.profile-item-top.profile-banner.egg {
-	background-blend-mode: multiply !important;
-	animation: rainbow-bg 16s linear !important;
-	animation-iteration-count: infinite !important;
-}
-
-.profile-item .egg .user-progress .progress,
-.profile-item .egg .user-header-box,
-.profile-item .egg .user-primary .user-infos .user-infos-sub,
-.profile-item .egg .user-primary .user-infos .button-actions {
-	background: rgba(0, 0, 0, 0.4) !important;
-}
-
-@keyframes rainbow-bg {
-	100%, 0% { background-color: rgb(255,0,0); }
-	8% { background-color: rgb(255,127,0); }
-	16% { background-color: rgb(255,255,0); }
-	25% { background-color: rgb(127,255,0); }
-	33% { background-color: rgb(0,255,0); }
-	41% { background-color: rgb(0,255,127); }
-	50% { background-color: rgb(0,255,255); }
-	58% { background-color: rgb(0,127,255); }
-	66% { background-color: rgb(0,0,255); }
-	75% { background-color: rgb(127,0,255); }
-	83% { background-color: rgb(255,0,255); }
-	91% { background-color: rgb(255,0,127); }
 }
 
 /* slots page */
@@ -747,7 +516,6 @@ a[data-tooltip-login="fbes"]::before,
 .search-item.search-user-item .search-item-main,
 .search-item.search-video-item .search-item-main {
 	background-color: #4a4a4a !important;
-	border-radius: 0px !important;
 }
 
 .search-item.search-user-item:hover,
@@ -769,7 +537,6 @@ a[data-tooltip-login="fbes"]::before,
 .search-item.search-video-item:hover > img,
 .student-item .student-login {
 	color: #f2f2f2 !important;
-	text-decoration: none !important;
 }
 
 /* video page */
@@ -863,10 +630,6 @@ a[data-tooltip-login="fbes"]::before,
 }
 
 /* auth page */
-html.soft-background, body.authorization-layout {
-	height: 100%;
-}
-
 .authorization-layout main {
 	color: #ededed !important;
 }
@@ -912,15 +675,9 @@ html.soft-background, body.authorization-layout {
 }
 
 /* API page */
-.main-summary,
-.intro-header h1 {
-	text-shadow: 0 0 3px #000000 !important;
-}
-
 .blue-background .main-content-container,
 .resource-item {
 	background-color: #202124 !important;
-	text-shadow: none !important;
 }
 
 .main-column > footer {
@@ -961,15 +718,6 @@ header.main-page-header .logo small,
 .documentation .alert.alert-warning {
 	background-color: #3a3a3a !important;
 	color: #f2f2f2 !important;
-}
-
-/* color fix for header inside of anchor */
-a h1,
-a h2,
-a h3,
-a h4,
-a h5 {
-	color: inherit !important;
 }
 
 .documentation table > tbody > tr:nth-of-type(odd) {
@@ -1034,26 +782,7 @@ a h5 {
 	color: #f2f2f2 !important;
 }
 
-/* A.G.U Panel (not translated sine that does not seem to work properly: https://bugs.chromium.org/p/chromium/issues/detail?id=115800) */
-.text-agu:last-of-type::after {
-	content: '\A\APlease disable the Dark Theme for Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is highly likely they will contain errors, which might result in a wrongfully allocated freeze.' !important;
-	color: red !important;
-	white-space: pre-wrap !important;
-	font-weight: bold !important;
-}
-
-/* eval sheet */
-.scale-question-answers,
-.scale-div {
-	background: rgba(0,0,0,0) !important;
-}
-
 /* buttons */
-.btn[disabled],
-.fc-state-disabled {
-	cursor: not-allowed !important;
-}
-
 .btn-btn-default .btn-btn-default-dropdown-toggle {
 	background: rgba(0, 0, 0, 0.5);
 }
@@ -1249,11 +978,6 @@ textarea,
 	background-color: #4a4a4a !important;
 	color: #f2f2f2 !important;
 	border-color: #6a6a6a !important;
-	border-radius: 3px !important;
-}
-
-textarea {
-	max-width: 100% !important;
 }
 
 .form-control[disabled],
@@ -1427,28 +1151,10 @@ mark {
 	scrollbar-width: thin;
 }
 
-.tooltip {
-	cursor: default !important;
-}
-
 /* mobile */
-@media (max-width: 1900px) {
-	.profile-item .location {
-		min-height: 188px !important;
-	}
-}
-
 @media (max-width: 767px) {
 	.page .page-content.page-content-fluid {
 		background-color: #292a2d !important;
-	}
-
-	.event-list .event-item .event-left .date-month {
-		margin: 0 auto !important;
-		text-align: center !important;
-		overflow: hidden !important;
-		text-overflow: clip !important;
-		max-width: 3ch !important;
 	}
 }
 

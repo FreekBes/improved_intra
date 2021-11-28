@@ -10,24 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* any transition on hover goes here */
+/* This CSS file is used for all sorts of animations on the website */
 
-a .coalition-flag .coalition-flag--flag,
-a .coalition-flag-mini .coalition-flag--flag,
-a .coalition-flag .coalition-flag--icon,
-a .coalition-flag-mini .coalition-flag--icon {
-	transition: 0.2s ease-out !important;
-}
-
-a .coalition-flag-mini:hover .coalition-flag--flag,
-a .coalition-flag-mini:hover .coalition-flag--icon,
-a .coalition-flag:hover .coalition-flag--flag,
-.coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag,
-a .coalition-flag:hover .coalition-flag--icon,
-.coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
-	transition: 0.1s ease-in !important;
-}
-
+/* transition timing for hover end */
 a,
 button,
 input,
@@ -38,6 +23,7 @@ a.simple-link,
 	transition: 0.075s ease-out !important;
 }
 
+/* transition timing for hover start */
 a:hover,
 button:hover,
 input:hover,
@@ -49,6 +35,7 @@ a.simple-link:hover,
 	transition: 0s ease-in !important;
 }
 
+/* START DROPDOWN MENU ANIMATION */
 .dropdown-menu,
 .tt-menu,
 .notifications-container,
@@ -75,7 +62,59 @@ a.simple-link:hover,
 	display: block !important;
 	opacity: 0 !important;
 }
+/* END DROPDOWN MENU ANIMATION */
 
+/* START ANIMATIONS FOR COALITION FLAGS */
+a .coalition-flag .coalition-flag--flag,
+a .coalition-flag-mini .coalition-flag--flag,
+a .coalition-flag .coalition-flag--icon,
+a .coalition-flag-mini .coalition-flag--icon {
+	transition: 0.2s ease-out !important;
+}
+
+a .coalition-flag-mini:hover .coalition-flag--flag,
+a .coalition-flag-mini:hover .coalition-flag--icon,
+a .coalition-flag:hover .coalition-flag--flag,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag,
+a .coalition-flag:hover .coalition-flag--icon,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
+	transition: 0.1s ease-in !important;
+}
+
+a .coalition-flag .coalition-flag--flag,
+a .coalition-flag-mini .coalition-flag--flag {
+	transform: scaleY(1) !important;
+}
+
+a .coalition-flag .coalition-flag--icon,
+a .coalition-flag-mini .coalition-flag--icon {
+	transform: translateY(0px) !important;
+}
+
+a .coalition-flag-mini:hover .coalition-flag--flag {
+	transform: scaleY(1.15) !important;
+}
+
+a .coalition-flag-mini:hover .coalition-flag--icon {
+	transform: translateY(4px) !important;
+}
+
+a .coalition-flag:hover .coalition-flag--flag,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag {
+	transform: scaleY(1.05) !important;
+}
+
+a .coalition-flag:hover .coalition-flag--icon,
+.coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
+	transform: translateY(3px) !important;
+}
+
+.coalitions-index-banner {
+	overflow: hidden !important;
+}
+/* END ANIMATIONS FOR COALITION FLAGS */
+
+/* START LITTLE EASTER EGG */
 .funnyhaha {
 	animation: funny;
 	animation-iteration-count: infinite;
@@ -91,3 +130,4 @@ html.funnyhaha, body.funnyhaha {
 	0% { transform: rotate3d(-1, 1, 1, 0deg); }
 	100% { transform: rotate3d(-1, 1, 1, 360deg); }
 }
+/* END LITTLE EASTER EGG */
