@@ -36,7 +36,7 @@ syncPort.onMessage.addListener(function(msg) {
 
 chrome.storage.local.get("username", function(data) {
 	var curUsername = getUserName();
-	if (curUsername != data["username"]) {
+	if (curUsername != data["username"] && curUsername != null) {
 		// a new user logged in!
 		chrome.storage.local.set({"username": curUsername}, function() {
 			console.log("%c[Improved Intra]%c Intra username stored in local storage", "color: #00babc;", "");
