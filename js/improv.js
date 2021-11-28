@@ -147,21 +147,13 @@ if (getUserName() == "fbes") {
 	}
 }
 
-// remove broadcasts button for codam
-// if you see this, I'm wondering if any campuses actually use this ugly looking
-// broadcasts feature. if not, I'll disable it for everyone. let me know!
-var schoolRecordButton = document.querySelector(".school-record-button");
-if (schoolRecordButton) {
-	var srFormData = document.getElementsByName("sr_id");
-	if (srFormData.length > 0) {
-		var formData = srFormData[0].lastChild;
-		if (formData && formData.textContent.indexOf("Codam") > -1) {
-			var broadcastNav = document.querySelector(".broadcast-nav");
-			if (broadcastNav) {
-				broadcastNav.style.display = "none";
-			}
+var broadcastNav = document.querySelector(".broadcast-nav");
+if (broadcastNav) {
+	chrome.storage.local.get("hide-broadcasts", function(data) {
+		if (data["hide-broadcasts"] === true || data["hide-broadcasts"] === "true") {
+			broadcastNav.style.display = "none";
 		}
-	}
+	});
 }
 
 function randomIntFromInterval(min, max) { // min and max included
