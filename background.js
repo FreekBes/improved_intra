@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/27 23:25:07 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:29:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ function tryFetchIntraUsername() {
 				var _consumerAddress = body.indexOf("this._consumer_address");
 				console.log("Now trying to parse username from meta.intra.42.fr...");
 				if (_userIndex > -1) {
-					var toParse = body.substr(_userIndex, _consumerAddress - _userIndex);
+					var toParse = body.substring(_userIndex, _consumerAddress - _userIndex);
 					var startOfObj = toParse.indexOf("{");
 					var endOfObj = toParse.indexOf("}");
-					toParse = toParse.substr(startOfObj, endOfObj - startOfObj + 1);
+					toParse = toParse.substring(startOfObj, endOfObj - startOfObj + 1);
 					var jsonUser = JSON.parse(toParse);
 					console.log(jsonUser);
 					if ("login" in jsonUser) {
