@@ -3,6 +3,11 @@
 		"{56d1b2d9-ceba-435d-b8a5-b89dd0d1f9ef}" : {
 			"updates": [
 				{
+					"version": "2.0.1",
+					"update_link": "https://github.com/FreekBes/improved_intra/releases/download/v2.0.1/firefox-v2.0.1.xpi",
+					"update_info_url": "https://github.com/FreekBes/improved_intra/releases/tag/v2.0.1"
+				},
+				{
 					"version": "2.0.0",
 					"update_link": "https://github.com/FreekBes/improved_intra/releases/download/v2.0.0/firefox-v2.0.0.xpi",
 					"update_info_url": "https://github.com/FreekBes/improved_intra/releases/tag/v2.0.0"
