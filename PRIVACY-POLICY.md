@@ -111,6 +111,10 @@ that server logs are exempted from this approach: here our server software
 (Apache2) will select what to store or not. The Sync Server is set to only log
 warnings and errors. General access to resources is and will never be logged.
 
+Data stored on the Sync Server will never be sold to third parties, nor to
+anyone or any entity that has no goal related to the goal The Extension tries to
+achieve: to improve Intranet.
+
 
 ### Usage of user data stored on the Sync Server
 The user data stored on the Sync Server is used to synchronize User's settings
