@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	
+
 	// set headers
 	header('Content-Type: text/html; charset=utf-8');
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -109,7 +109,7 @@
 		<h1>An error occurred</h1>
 		<p>An error occurred while authorizing with your Intranet 42 account.</p>
 		<details>
-			<summary><?php echo $data["error_description"]; ?></summary>
+			<summary><?php echo $data["auth"]["error_description"]; ?></summary>
 			<code><?php echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT); ?></code>
 		</details>
 <?php
@@ -127,14 +127,14 @@
 
 	// check code
 	if (isset($_GET["code"]) && !empty($_GET["code"])) {
-		$auth = exchange($_GET["code"], "authorization_code");
-		if (empty($auth)) {
+		$res = exchange($_GET["code"], "authorization_code");
+		if (empty($res)) {
 			http_response_code(503);
 			respond("error", "Could not exchange Intra authorization code for access token: service unavailable");
 		}
 		else {
-			if (isset($auth["error"])) {
-				switch ($auth["error"]) {
+			if (isset($res["auth"]["error"])) {
+				switch ($res["auth"]["error"]) {
 					case "invalid_scope":
 						http_response_code(400);
 						break;
@@ -149,11 +149,11 @@
 						http_response_code(500);
 						break;
 				}
-				respond("error", $auth["error"], $auth);
+				respond("error", $res["auth"]["error"], $res);
 			}
 			else {
 				http_response_code(200);
-				respond("success", "Access code retrieved", $auth);
+				respond("success", "Access code retrieved", $res);
 			}
 		}
 	}

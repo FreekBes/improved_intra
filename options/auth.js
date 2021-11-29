@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 20:22:10 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 20:22:10 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 16:23:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ var authResElem = document.getElementById("result");
 if (authResElem) {
 	try {
 		var authRes = JSON.parse(authResElem.innerText);
-		if (!("error" in authRes)) {
+		if (!("error" in authRes["auth"])) {
 			chrome.storage.local.set(authRes, function() {
 				chrome.storage.local.set({"username": authRes["user"]["login"]}, function() {
 					console.log("%c[Improved Intra]%c Authentication details saved in local storage!", "color: #00babc;", "");
