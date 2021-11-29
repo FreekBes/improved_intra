@@ -186,13 +186,13 @@ function setGeneralImprovements() {
 	if (userMenu) {
 		var intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
 		if (intraSettingsOption) {
-			intraSettingsOption.innerHTML = "Intranet Settings";
+			intraSettingsOption.innerText = "Intranet Settings";
 		}
 		var extensionSettings = document.createElement("li");
 		var extensionSettingsLink = document.createElement("a");
 		extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
 		extensionSettingsLink.setAttribute("target", "_blank");
-		extensionSettingsLink.innerHTML = "Improved Intra Settings";
+		extensionSettingsLink.innerText = "Improved Intra Settings";
 		extensionSettings.appendChild(extensionSettingsLink);
 		userMenu.insertBefore(extensionSettings, userMenu.children[userMenu.children.length - 1]);
 	}

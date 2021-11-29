@@ -12,7 +12,7 @@
 
 var action = document.getElementById("action");
 if (action) {
-	action.innerHTML = "Please wait while we redirect you to the Improved Intra 42 options page...";
+	action.innerText = "Please wait while we redirect you to the Improved Intra 42 options page...";
 }
 
 var syncPort = chrome.runtime.connect({ name: "sync_port" });
