@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/26 21:06:06 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:33:07 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ function setOptionalImprovements() {
 			}
 		});
 	}
-	
+
 	if (hasProfileBanner()) {
 		var userPosteInfos = document.querySelector(".user-poste-infos");
 		if (userPosteInfos) {
@@ -191,7 +191,7 @@ function setGeneralImprovements() {
 		var extensionSettings = document.createElement("li");
 		var extensionSettingsLink = document.createElement("a");
 		extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
-		extensionSettingsLink.setAttribute("target", "_blank");
+		extensionSettingsLink.setAttribute("target", "improved_intra_settings");
 		extensionSettingsLink.innerText = "Improved Intra Settings";
 		extensionSettings.appendChild(extensionSettingsLink);
 		userMenu.insertBefore(extensionSettings, userMenu.children[userMenu.children.length - 1]);
