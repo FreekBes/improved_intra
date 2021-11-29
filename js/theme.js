@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 01:49:05 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:24:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,10 @@ function checkThemeSetting() {
 		}
 	});
 }
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function() {
+	console.log("%c[Improved Intra]%c @media rule prefers-color-scheme changed", "color: #00babc;", "");
+	checkThemeSetting();
+});
 
 checkThemeSetting();
