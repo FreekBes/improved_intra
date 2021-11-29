@@ -286,7 +286,8 @@ var monit = {
 
 		var progressTitle = document.createElement("div");
 		progressTitle.setAttribute("class", "mb-1");
-		progressTitle.innerHTML = '<span class="coalition-span" style="color: '+monit.getCoalitionColor()+';">Monitoring System progress</span>';
+		var prTitle = '<span class="coalition-span" style="color: '+monit.getCoalitionColor()+';">Monitoring System progress</span>';
+		progressTitle.innerHTML = prTitle;
 		progressNode.appendChild(progressTitle);
 
 		var progressText = document.createElement("div");
@@ -302,7 +303,8 @@ var monit = {
 		var smiley = document.createElement("span");
 		smiley.setAttribute("id", "lt-emote");
 		var progressPerc = document.createElement("span");
-		progressPerc.innerHTML = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
+		var progText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
+		progressPerc.innerHTML = progText;
 		if (monit.logTimesTotal < monit.requirements.today) {
 			smiley.setAttribute("class", "icon-smiley-sad-1");
 			smiley.setAttribute("style", "color: rgb(238, 97, 115);");
