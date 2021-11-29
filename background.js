@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 17:29:46 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:35:28 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 				});
 				break;
 			case "options-changed":
-				messageAllPorts({ action: "options-changed" });
+				messageAllPorts({ action: "options-changed", settings: msg["settings"] });
 				break;
 			default:
 				console.log("Unknown action received over port: ", msg["action"]);

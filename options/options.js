@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 02:23:39 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:35:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ syncPort.onMessage.addListener(function(msg) {
 			console.log("pong");
 			break;
 		case "options-changed":
+			loadSettingsIntoForm(msg["settings"]);
 			console.log("Sent out options-changed event to all open Intra tabs");
 			break;
 		case "resynced":
@@ -47,7 +48,7 @@ setInterval(function() {
 function syncSettings(event) {
 	console.log("Syncing settings...");
 	event.preventDefault();
-	
+
 	var syncBtn = document.getElementById("sync-button");
 	var form = document.querySelector('form');
 	var formData = new FormData(form);
@@ -89,11 +90,11 @@ function syncSettings(event) {
 				});
 				req.send(formData);
 			}
-	
+
 			chrome.storage.local.set(settingsObj, function() {
 				console.log("Settings stored locally");
 				if (syncPort) {
-					syncPort.postMessage({ action: "options-changed" });
+					syncPort.postMessage({ action: "options-changed", settings: settingsObj });
 				}
 			});
 		});
@@ -128,7 +129,7 @@ function syncSettings(event) {
 			chrome.storage.local.set(settingsObj, function() {
 				console.log("Settings stored locally");
 				if (syncPort) {
-					syncPort.postMessage({ action: "options-changed" });
+					syncPort.postMessage({ action: "options-changed", settings: settingsObj });
 				}
 			});
 		});
