@@ -323,6 +323,7 @@ mark, .mark {
 	background: #3c3a31 !important
 }
 
+.project-list-item.project-item:not(:first-child),
 #project-show .project-summary-item,
 #project-show .project-notifications .project-item.reminder {
 	border-color: #4a4a4a !important;
