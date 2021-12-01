@@ -33,13 +33,14 @@
 	],
 	"web_accessible_resources": [
 		"options/options.html",
-		"css/dark.css",
+		"css/colors-light.css",
+		"css/colors-dark.css",
 		"campus_specifics/codam/inject.js"
 	],
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "css/improv.css", "css/animations.css" ],
+			"css": [ "css/improv.css", "css/animations.css", "css/theme-apply.css" ],
 			"js": [ "js/theme.js" ],
 			"run_at": "document_start"
 		},

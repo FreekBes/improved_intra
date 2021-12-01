@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   colors-light.css                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
+/*   Updated: 2021/11/29 22:06:21 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * This CSS file contains all variable colors for light theme
+ */
+
+ :root {
+	/* main colors */
+	--pure-white: #ffffff;
+	--pure-black: #000000;
+	--theme-color: #00babc;
+	--theme-color-dark: #02807c;
+	--theme-color-light: #00ecef;
+	--success-color: #5cb85c;
+	--fail-color: #d8636f;
+	--danger-color: #e26060;
+	--default-color: #cccccc;
+
+	/* background colors */
+	--body-background-color: #fafafa;
+	--container-background-color: #ffffff;
+	--list-odd-background-color: #f7f7f7;
+	--list-hover-background-color: #f2f2f2;
+	--choice-background-color: #ffffff;
+	--search-user-no-image-background-color: #eeeeee;
+	--achievement-progress-color: #c8c8c8;
+	--input-background-color: #ffffff;
+	--input-background-color-disabled: #eeeeee;
+	--input-background-color-transparent: rgba(30, 30, 30, 0.5);
+	--mark-background-color: #c2c2c2;
+	--article-language-background-color: #eeeeee;
+	--nav-active-color: #fefefe;
+	--nav-hover-color: #ededed;
+
+	/* border colors */
+	--general-border-color: #f7f7f7;
+	--general-border-colorless: rgba(0, 0, 0, 0.3);
+	--choice-border-color: #cccccc;
+	--search-user-video-border-color: #eeeeee;
+	--input-border-color: #cccccc;
+	--input-border-color-light: #adadad;
+	--light-border-color: #dddddd;
+
+	/* text colors */
+	--text-color: #2c2c34;
+	--secondary-text-color: #41414d;
+	--tertiary-text-color: #565664;
+	--quaternary-text-color: #8a8a8a;
+	--input-text-color: #555555;
+	--note-title-text-color: rgba(0, 0, 0, 0.2);
+
+	/* box shadows */
+	--choice-box-shadow: 0 0 2px white inset, 0 1px 0 rgb(0 0 0 / 5%);
+	--search-user-video-box-shadow: 1px 1px 5px rgb(0 0 0 / 10%);
+
+	/* button styling */
+	--success-button-background: rgba(92, 184, 92, 0.1);
+	--success-button-background-active: rgba(92, 184, 92, 0.1);
+	--success-button-border: rgba(92, 184, 92, 0);
+	--danger-button-background: rgba(216, 99, 111, 0.1);
+	--danger-button-background-active: rgba(216, 99, 111, 0.2);
+	--danger-button-border: rgba(216, 99, 111, 0);
+
+	/* highcharts styling */
+	--highcharts-axis-label-color: #333333;
+	--highcharts-axis-path-color: #c0d0e0;
+	--highcharts-grid-path-color: #dddddd;
+	--highcharts-data-label-color: #2c2c34;
+	--highcharts-tooltip-background-color: rgba(255, 255, 255, 0.85);
+	--highcharts-tooltip-text-color: #333333;
+
+	/* logtime chart styling */
+	--logtime-chart-24h-color: #007b7C;
+	--logtime-chart-00h-color: #fafafa;
+
+	/* historics page styling */
+	--historics-rating-background-success: rgba(0, 186, 188, 0.15);
+	--historics-rating-background-fail: rgba(255, 8, 78, 0.1);
+	--scaleteam-rating-text-color-normal: #4a4a4a;
+	--scaleteam-rating-background-fail: #523d3f;
+	--scaleteam-rating-text-color-fail: #d8636f;
+
+	/* events styling (slots) */
+	--event-default-text-color: #02c4c7;
+	--event-unthemed-border-color: #cccccc;
+	--event-open-background: #C9E9E8;
+	--event-closed-background: #e6e6e6;
+	--event-reserved-background: #e4bdbd;
+	--event-reserved-border-color: #bc1301;
+	--event-reserved-text-color: #bc1301;
+
+	/* api and auth page styling */
+	--api-logo-filter: brightness(1) saturate(1);
+	--api-user-name-text-color: #666666;
+	--api-theme-color: #34495e;
+	--api-theme-border-color: #34495e;
+	--api-theme-color-light: #4a647e;
+	--api-button-background-color: #34495e;
+	--api-button-background-color-hover: #5dade2;
+	--api-button-background-color-focus: #2c81ba;
+	--api-documentation-warning-background: #3a3a3a;
+	--api-documentation-list-background: #3a3a3a;
+	--api-documentation-list-odd-background: #2a2a2a;
+
+	/* scrollbar styling */
+	--scrollbar-background-color: #fafafa;
+	--scrollbar-thumb-color: #c1c1c1;
+	--scrollbar-thumb-color-hover: #b1b1b1;
+	--scrollbar-thumb-color-active: #a1a1a1;
+}

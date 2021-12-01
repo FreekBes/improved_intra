@@ -6,28 +6,28 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 17:24:54 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 16:36:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-var themeLink = null;
+var themeColorsLink = null;
 
 function disableTheme() {
-	if (themeLink) {
-		themeLink.remove();
-		themeLink = null;
+	if (themeColorsLink) {
+		themeColorsLink.remove();
+		themeColorsLink = null;
 	}
 }
 
 function enableTheme(theme) {
 	console.log("Enabling dark mode...");
-	if (!themeLink) {
-		themeLink = document.createElement("link");
-		themeLink.setAttribute("type", "text/css");
-		themeLink.setAttribute("rel", "stylesheet");
-		document.getElementsByTagName("head")[0].appendChild(themeLink);
+	if (!themeColorsLink) {
+		themeColorsLink = document.createElement("link");
+		themeColorsLink.setAttribute("type", "text/css");
+		themeColorsLink.setAttribute("rel", "stylesheet");
+		document.getElementsByTagName("head")[0].appendChild(themeColorsLink);
 	}
-	themeLink.setAttribute("href", chrome.runtime.getURL("css/"+theme+".css"));
+	themeColorsLink.setAttribute("href", chrome.runtime.getURL("css/colors-"+theme+".css"));
 }
 
 function checkThemeSetting() {
@@ -39,7 +39,7 @@ function checkThemeSetting() {
 			}
 			else {
 				console.log("%c[Improved Intra]%c Following system settings for dark mode, but system is set to light mode", "color: #00babc;", "");
-				disableTheme();
+				enableTheme("light");
 			}
 		}
 		else if (data["theme"] == "dark") {
@@ -47,7 +47,7 @@ function checkThemeSetting() {
 			console.log("%c[Improved Intra]%c Enabled dark mode because of extension settings", "color: #00babc;", "");
 		}
 		else {
-			disableTheme();
+			enableTheme("light");
 			console.log("%c[Improved Intra]%c Disabled theme because of extension settings", "color: #00babc;", "");
 		}
 	});
