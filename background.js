@@ -36,12 +36,16 @@ function tryFetchIntraUsername() {
 				var _consumerAddress = body.indexOf("this._consumer_address");
 				console.log("Now trying to parse username from meta.intra.42.fr...");
 				if (_userIndex > -1) {
-					var toParse = body.substring(_userIndex, _consumerAddress - _userIndex);
+					var toParse = body.substring(_userIndex, _consumerAddress);
+					console.log(toParse);
 					var startOfObj = toParse.indexOf("{");
 					var endOfObj = toParse.indexOf("}");
-					toParse = toParse.substring(startOfObj, endOfObj - startOfObj + 1);
+					if (startOfObj < -1) {
+						reject("Could not find start of _user object");
+					}
+					toParse = toParse.substring(startOfObj, endOfObj + 1);
+					console.log(toParse);
 					var jsonUser = JSON.parse(toParse);
-					console.log(jsonUser);
 					if ("login" in jsonUser) {
 						console.log("Hooray, found logged in user! Hello, " + jsonUser["login"] + "!");
 						chrome.storage.local.set({username: jsonUser["login"]}, function() {
