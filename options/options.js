@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 20:32:41 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 22:09:07 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ function syncSettings(event) {
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
 				var req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
-				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
