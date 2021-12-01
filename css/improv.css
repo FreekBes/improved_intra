@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 01:00:01 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 16:47:38 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 .main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
 	right: 0px !important;
-	text-align: right !important;
 }
 
 /* account dropdown menu color fix */
