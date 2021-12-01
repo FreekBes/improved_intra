@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 16:47:38 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 20:43:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,18 +254,18 @@ a[data-tooltip-login="fbes"]::before,
 
 /* profile page easter egg for fbes (me, le creator) */
 @keyframes rainbow-bg {
-	100%, 0% { background-color: rgb(255,0,0); }
-	8% { background-color: rgb(255,127,0); }
-	16% { background-color: rgb(255,255,0); }
-	25% { background-color: rgb(127,255,0); }
-	33% { background-color: rgb(0,255,0); }
-	41% { background-color: rgb(0,255,127); }
-	50% { background-color: rgb(0,255,255); }
-	58% { background-color: rgb(0,127,255); }
-	66% { background-color: rgb(0,0,255); }
-	75% { background-color: rgb(127,0,255); }
-	83% { background-color: rgb(255,0,255); }
-	91% { background-color: rgb(255,0,127); }
+	100%, 0% { background-color: rgb(127,0,255); }
+	8% { background-color: rgb(255,0,255); }
+	16% { background-color: rgb(255,0,127); }
+	25% { background-color: rgb(255,0,0); }
+	33% { background-color: rgb(255,127,0); }
+	41% { background-color: rgb(255,255,0); }
+	50% { background-color: rgb(127,255,0); }
+	58% { background-color: rgb(0,255,0); }
+	66% { background-color: rgb(0,255,127); }
+	75% { background-color: rgb(0,255,255); }
+	83% { background-color: rgb(0,127,255); }
+	91% { background-color: rgb(0,0,255); }
 }
 
 /* remove border radius from search page results (only user and video items) */
