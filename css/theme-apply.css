@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 22:16:18 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 16:43:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -716,6 +716,8 @@ header.main-page-header .logo small,
 	color: var(--api-user-name-text-color) !important;
 }
 
+.documentation blockquote,
+.documentation .page-header,
 .documentation header.main-page-header {
 	border-color: var(--general-border-color) !important;
 }
@@ -743,6 +745,7 @@ header.main-page-header .logo small,
 
 .documentation .alert.alert-warning {
 	background-color: var(--api-documentation-warning-background) !important;
+	border-color: var(--general-border-color) !important;
 	color: var(--text-color) !important;
 }
 
@@ -766,6 +769,11 @@ header.main-page-header .logo small,
 
 .documentation pre {
 	background-color: var(--pure-white) !important;
+	border-color: var(--general-border-color) !important;
+}
+
+.documentation #method-params span.delimiter {
+	background-color: var(--general-border-color) !important;
 }
 
 .nav-tabs {
