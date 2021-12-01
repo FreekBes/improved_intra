@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 02:22:54 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/29 17:52:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,6 +356,10 @@ var monit = {
 			case "pde-bakk":
 				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
 				smiley.setAttribute("class", "iconf-crown-1");
+				break;
+			case "pvan-dij":
+				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+				smiley.setAttribute("class", "iconf-milk");
 				break;
 		}
 		smiley.addEventListener("click", function() {
