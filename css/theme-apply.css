@@ -328,6 +328,7 @@ mark,
 	background: var(--mark-background-color) !important
 }
 
+.project-list-item.project-item:not(:first-child),
 #project-show .project-summary-item,
 #project-show .project-notifications .project-item.reminder {
 	border-color: var(--general-border-color) !important;

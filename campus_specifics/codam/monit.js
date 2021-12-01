@@ -240,6 +240,8 @@ var monit = {
 	 */
 	getProgress: function() {
 		if (window.location.pathname.indexOf("/users/") == 0) {
+			// user profile. check if user loaded is from Amsterdam campus
+			// if not, do not display monitoring system progress (return)
 			var iconLocation = document.getElementsByClassName("icon-location");
 			if (iconLocation.length == 0) {
 				return;
@@ -251,6 +253,27 @@ var monit = {
 		this.bhContainer = document.getElementById("goals_container");
 		if (!this.bhContainer) {
 			return;
+		}
+		if (window.location.pathname == "/") {
+			// dashboard page. check if user logged in is from Amsterdam campus
+			// if not, do not display monitoring system progress (return)
+			// check by checking the school record button, should contain Codam
+			// also stop running if no school record button is present, as it for sure is there at Codam
+			var schoolRecordButton = document.querySelector(".school-record-button");
+			if (schoolRecordButton) {
+				var srFormData = document.getElementsByName("sr_id");
+				if (srFormData.length > 0) {
+					if (srFormData[0].textContent.indexOf("Codam") == -1) {
+						return;
+					}
+				}
+				else {
+					return;
+				}
+			}
+			else {
+				return;
+			}
 		}
 		this.username = this.getUserName();
 		for (var i = 0; i < this.bhContainer.children.length; i++) {
