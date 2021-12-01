@@ -64,7 +64,7 @@ function openLocationMap(event) {
 			url = "https://stud42.fr/clusters";
 			break;
 		default: {
-			if (userPosteInfos.textContent.indexOf(".codam.nl") > -1) {
+			if (event.target.textContent.indexOf(".codam.nl") > -1) {
 				url = "https://codamhero.dev/v2/clusters.php";
 			}
 			else {
