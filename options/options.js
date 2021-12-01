@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 17:35:12 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 16:54:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ syncPort.onMessage.addListener(function(msg) {
 			break;
 		case "options-changed":
 			loadSettingsIntoForm(msg["settings"]);
-			console.log("Sent out options-changed event to all open Intra tabs");
 			break;
 		case "resynced":
 			console.log("Options resynced.");
@@ -157,7 +156,7 @@ function retrieveSettings() {
 }
 
 function loadSettingsIntoForm(settings) {
-	console.log("Settings retrieved", settings);
+	console.log("Settings fetched somewhere", settings);
 	var key, settingElem;
 	for (key in settings) {
 		settingElem = document.getElementsByName(key);

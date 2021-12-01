@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 17:35:28 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 16:53:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,15 +169,22 @@ chrome.runtime.onConnect.addListener(function(port) {
 	});
 });
 
+function fetchUserSettings() {
+	tryFetchIntraUsername()
+			.then(getSettingsFromSyncServer)
+			.then(function(settings) {
+				messageAllPorts({ action: "options-changed", settings: settings });
+			})
+			.catch(function(err) {
+				console.error("Could not parse username and synchronize settings", err);
+			});
+}
+
 chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
 		console.log("First install.");
 		setSettingsIfUnset();
-		tryFetchIntraUsername()
-			.then(getSettingsFromSyncServer)
-			.catch(function(err) {
-				console.error("Could not parse username and synchronize settings", err);
-			});
+		fetchUserSettings();
 	}
 	else if (details.reason == "update") {
 		console.log("An update has been installed. Run getSettingsFromSyncServer(username) to force synchronization with the sync server.");
