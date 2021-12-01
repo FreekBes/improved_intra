@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 16:43:56 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 20:36:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,26 @@ h5:not(.profile-name),
 	color: #343a40 !important
 }
 
-.main-navbar,
+.main-navbar {
+	background: var(--top-navbar-background-color) !important;
+}
+
+.main-left-navbar {
+	background: var(--left-navbar-background-color) !important;
+}
+
+.main-left-navbar li a {
+	color: var(--left-navbar-icon-color) !important;
+}
+
+.main-left-navbar li a:hover:not(.active) {
+	color: var(--left-navbar-icon-color-hover) !important;
+}
+
+.main-left-navbar li a.active {
+	color: var(--left-navbar-icon-color-active) !important;
+}
+
 .modal-backdrop {
 	background: var(--body-background-color) !important;
 }

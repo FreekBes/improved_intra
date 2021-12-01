@@ -1,0 +1,7 @@
+A reminder for developers on how to add options, to not forget any steps
+
+1. Add option to options/options.html and set default value
+2. Add option to server/update.php as an expected value
+3. Add default value to option in server/update.php
+4. Add default value to background.js
+5. If a theme or color scheme, add CSS file to web_accessible_resources in both manifests

@@ -37,6 +37,9 @@
 		if ($response !== false ) {
 			try {
 				$userInfo = json_decode($response, true);
+				if (isset($userInfo["error"])) {
+					return (null);
+				}
 				$userInfo = reduce_user_info($userInfo);
 				$_SESSION["user"] = $userInfo;
 				$_SESSION["user_from_access_token"] = $accessToken;

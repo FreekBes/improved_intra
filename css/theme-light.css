@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   colors-light.css                                   :+:    :+:            */
+/*   theme-light.css                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 22:06:21 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 20:39:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@
 	/* box shadows */
 	--choice-box-shadow: 0 0 2px white inset, 0 1px 0 rgb(0 0 0 / 5%);
 	--search-user-video-box-shadow: 1px 1px 5px rgb(0 0 0 / 10%);
+
+	/* navbar styling */
+	--top-navbar-background-color: #ffffff;
+	--left-navbar-background-color: #292D39;
+	--left-navbar-icon-color: #666e80;
+	--left-navbar-icon-color-hover: #ffffff;
+	--left-navbar-icon-color-active: #ffffff;
 
 	/* button styling */
 	--success-button-background: rgba(92, 184, 92, 0.1);

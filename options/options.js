@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 16:54:14 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/01 20:32:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,29 @@ function showLoading() {
 
 function hideLoading() {
 	document.getElementById("loading").className = "hidden";
+}
+
+function checkIfKeyStillWorks(access_token) {
+	return new Promise(function(it_works, it_does_not_work) {
+		var req = new XMLHttpRequest();
+		req.open("POST", "https://darkintra.freekb.es/testkey.php?nc="+encodeURIComponent(Math.random()));
+		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		req.addEventListener("load", function(event) {
+			try {
+				var res = JSON.parse(this.responseText);
+				if (res["type"] == "error") {
+					it_does_not_work(res);
+				}
+				else {
+					it_works();
+				}
+			}
+			catch (err) {
+				it_does_not_work(null);
+			}
+		});
+		req.send("access_token="+access_token);
+	});
 }
 
 var syncPort = chrome.runtime.connect({ name: "sync_port" });
@@ -77,11 +100,17 @@ function syncSettings(event) {
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
 				var req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
 						var res = JSON.parse(this.responseText);
-						console.log("Settings sync result", res);
+						if (res["type"] == "error") {
+							console.error("Settings sync result", res);
+						}
+						else {
+							console.log("Settings sync result", res);
+						}
 					}
 					catch (err) {
 						console.error("Could not parse settings sync result!", err);
@@ -200,16 +229,27 @@ window.onload = function() {
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
 
 	chrome.storage.local.get(["username", "auth", "user"], function(data) {
-		if (data["username"] === undefined || data["auth"] === undefined || data["user"] == undefined || data["user"]["login"] != data["username"]) {
+		console.log(data);
+		if (data["username"] === undefined || data["auth"] === undefined
+			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {
 			// authorize user on Intra, link below redirects to the correct auth page
 			window.location.href = "https://darkintra.freekb.es/connect.php";
 		}
 		else {
-			retrieveSettings()
-				.then(loadSettingsIntoForm)
-				.catch(function(err) {
-					console.error("Could not load settings from local storage.", err);
-					alert("Failed to load settings");
+			checkIfKeyStillWorks(data["auth"]["access_token"])
+				.then(function() {
+					console.log("Access token still works.");
+					retrieveSettings()
+						.then(loadSettingsIntoForm)
+						.catch(function(err) {
+							console.error("Could not load settings from local storage.", err);
+							alert("Failed to load settings");
+						});
+				})
+				.catch(function(res) {
+					console.log("Access token no longer works!", res);
+					// authorize user again on Intra, link below redirects to the correct auth page
+					window.location.href = "https://darkintra.freekb.es/connect.php";
 				});
 		}
 	});

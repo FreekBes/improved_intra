@@ -36,8 +36,8 @@
 	$latest_version = 1;
 	$version_specifics = array(null);
 	$version_defaults = array(null);
-	array_push($version_specifics, array("S*access_token", "S*username", "B*sync", "S*expires_in", "S*created_at", "S*refresh_token", "Stheme", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
-	array_push($version_defaults, array(null, null, true, null, null, null, "system", false, false, true, true));
+	array_push($version_specifics, array("S*access_token", "S*username", "B*sync", "S*expires_in", "S*created_at", "S*refresh_token", "Stheme", "Scolors", "Bshow-custom-profiles", "Bhide-broadcasts", "Bclustermap", "Bcodam-monit"));
+	array_push($version_defaults, array(null, null, true, null, null, null, "system", "default", false, false, true, true));
 	$neverSave = array("access_token", "expires_in", "created_at", "refresh_token");
 
 	// check client settings version
@@ -111,7 +111,7 @@
 	$userInfoFromIntra = get_user_info($userSettings["access_token"]);
 	if ($userSettings["username"] != $userInfoFromIntra["login"]) {
 		http_response_code(403);
-		respond("error", "Username does not match the one found using the access token provided");
+		respond("error", "Username does not match the one found using the access token provided", $userInfoFromIntra);
 		die();
 	}
 

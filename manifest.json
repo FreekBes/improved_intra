@@ -26,8 +26,8 @@
 			"resources": [
 				"campus_specifics/codam/inject.js",
 				"css/theme-apply.css",
-				"css/colors-light.css",
-				"css/colors-dark.css"
+				"css/theme-light.css",
+				"css/theme-dark.css"
 			],
 			"matches": [ "*://*.intra.42.fr/*" ]
 		},
