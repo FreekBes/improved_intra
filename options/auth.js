@@ -51,7 +51,7 @@ if (authResElem) {
 			});
 		}
 		else {
-			console.error("Error " + authRes["error"] + ":", authRes["error_description"]);
+			console.error("Error " + authRes["auth"]["error"] + ":", authRes["auth"]["error_description"]);
 		}
 	}
 	catch (err) {
