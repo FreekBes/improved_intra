@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 19:29:35 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:10:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,25 +425,27 @@ mark,
 }
 
 /* skills chart */
-#skill-chart .highcharts-axis-labels text,
-#skill-chart .highcharts-xaxis-labels text {
+.highcharts-axis-labels text,
+.highcharts-xaxis-labels text {
 	color: var(--highcharts-axis-label-color) !important;
 	fill: var(--highcharts-axis-label-color) !important;
 }
 
-#skill-chart .highcharts-series > path:not([fill="none"]) {
+.highcharts-legend-item > path[fill="#00BABC"],
+.highcharts-series > path[fill="#00BABC"] {
 	fill: var(--theme-color) !important;
 }
 
-#skill-chart .highcharts-series > path[fill="none"]:not(.highcharts-tracker) {
+.highcharts-legend-item > path[fill="none"][stroke="#00BABC"]:not(.highcharts-tracker),
+.highcharts-series > path[fill="none"][stroke="#00BABC"]:not(.highcharts-tracker) {
 	stroke: var(--theme-color) !important;
 }
 
-#skill-chart .highcharts-series-group > path {
+.highcharts-series-group > path {
 	fill: var(--theme-color) !important;
 }
 
-#skill-chart .highcharts-series-group .highcharts-markers > path {
+.highcharts-series-group .highcharts-markers > path {
 	fill: var(--theme-color) !important;
 }
 
@@ -468,6 +470,7 @@ mark,
 
 .highcharts-tooltip path:not([fill="none"]) {
 	fill: var(--highcharts-tooltip-background-color) !important;
+	stroke: var(--theme-color) !important;
 }
 
 .highcharts-tooltip > span,
@@ -478,6 +481,10 @@ mark,
 .highcharts-axis > text {
 	color: var(--highcharts-tooltip-text-color) !important;
 	fill: var(--highcharts-tooltip-text-color) !important;
+}
+
+.highcharts-tooltip > text > tspan[style="fill:#00BABC"] {
+	fill: var(--theme-color) !important;
 }
 
 .tooltip {
@@ -516,10 +523,12 @@ mark,
 
 .changelogs-list .changelog-item .changelog-main p.title code {
 	background-color: var(--historics-rating-background-fail) !important;
+	color: var(--fail-color) !important;
 }
 
 .changelogs-list .changelog-item .changelog-main p.title code[data-positive] {
-	background: var(--historics-rating-background-success) !important;
+	background-color: var(--historics-rating-background-success) !important;
+	color: var(--success-color) !important;
 }
 
 .table-list .table-list--header,
