@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 20:43:03 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 16:04:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,16 @@ li.scaleteam-list-item .rating {
 	border-radius: 4px !important;
 }
 
+/* fix padding on profile name etc. */
+.user-primary .user-infos.padding-left-30 {
+	padding-left: 15px !important;
+}
+
+
 /* fix z-index for tooltips on action buttons in user banners */
 .profile-item .user-primary .user-infos .button-actions {
 	z-index: 1;
+	margin-right: 10px !important;
 }
 
 /* fix hover color for profile actions in profile banners */
@@ -165,6 +172,11 @@ li.scaleteam-list-item .rating {
 	text-align: center !important;
 }
 
+/* fix coalition banner vertical alignment */
+.profile-name .mini-banner {
+	align-self: start !important;
+}
+
 /* remove border radius on right info box in profile banner */
 .profile-on-users.profile-item .user-header-box.infos {
 	border-radius: 0px !important;
@@ -190,10 +202,14 @@ li.scaleteam-list-item .rating {
 /* fix border radius on smaller screens */
 @media (max-width: 992px) {
 	.profile-item .user-header-box {
+		border-radius: 4px 4px 4px 4px !important;
+	}
+
+	.profile-item .user-header-box:not(:last-of-type):first-of-type {
 		border-radius: 4px 4px 0 0 !important;
 	}
 
-	.profile-item .user-header-box:last-of-type {
+	.profile-item .user-header-box:not(:first-of-type):last-of-type {
 		border-radius: 0 0 4px 4px !important;
 	}
 }
@@ -354,13 +370,31 @@ textarea {
 	cursor: default !important;
 }
 
-/* fix month overview on smaller screens */
-@media (max-width: 767px) {
+/* remove weird margin from profile banner containers */
+@media (max-width: 991px) {
+	.profile-item .profile-item-top.home-banner .profile-right-box {
+		margin: 10px 15px 0 15px !important;
+	}
+
+	.profile-item .user-progress,
+	.profile-item .user-primary .user-infos .button-actions,
+	.profile-item .user-header-box {
+		margin-right: 0px !important;
+	}
+}
+
+@media (max-width: 768px) {
+	/* fix month overview on smaller screens */
 	.event-list .event-item .event-left .date-month {
 		margin: 0 auto !important;
 		text-align: center !important;
 		overflow: hidden !important;
 		text-overflow: clip !important;
 		max-width: 3ch !important;
+	}
+
+	/* fix padding-top on user-infos (looks bad with coalition banner) */
+	.user-primary .user-infos {
+		padding-top: 0px !important;
 	}
 }
