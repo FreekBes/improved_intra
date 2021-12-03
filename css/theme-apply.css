@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:31:53 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:37:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1025,8 +1025,8 @@ header.main-page-header .logo small,
 .modal-footer .btn.btn-default,
 .main-title.primary .btn.btn-default,
 .correction-item .btn.btn-block.btn-default {
-	background-color: var(--nav-hover-color) !important;
-	border-color: var(--nav-hover-color) !important;
+	background-color: var(--general-border-color) !important;
+	border-color: var(--general-border-color) !important;
 	color: var(--theme-color) !important;
 }
 
@@ -1207,6 +1207,17 @@ header.main-page-header .logo small,
 	background-color: var(--list-hover-background-color) !important;
 	border-color: var(--nav-hover-color) !important;
 	color: var(--theme-color) !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+	background-color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
+	color: #ffffff !important;
 }
 
 /* forms and inputs */
