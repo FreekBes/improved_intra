@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/29 17:52:13 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 15:48:18 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,8 @@ var monit = {
 			// dashboard page. check if user logged in is from Amsterdam campus
 			// if not, do not display monitoring system progress (return)
 			// check by checking the school record button, should contain Codam
-			// also stop running if no school record button is present, as it for sure is there at Codam
-			var schoolRecordButton = document.querySelector(".school-record-button");
+			// if the button is not there (before handing in Libft), check coalition
+			var schoolRecordButton = document.querySelector(".school-record-buttona");
 			if (schoolRecordButton) {
 				var srFormData = document.getElementsByName("sr_id");
 				if (srFormData.length > 0) {
@@ -272,7 +272,15 @@ var monit = {
 				}
 			}
 			else {
-				return;
+				var coalitionName = document.querySelector(".coalition-name .coalition-span");
+				if (coalitionName) {
+					if (["Pyxis", "Vela", "Cetus"].indexOf(coalitionName.textContent) == -1) {
+						return;
+					}
+				}
+				else {
+					return;
+				}
 			}
 		}
 		this.username = this.getUserName();
