@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 17:31:24 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 18:12:37 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ function setStyleIfExists(query, style, value, parentPlease) {
 }
 
 function colorizeLogtimeChart(event) {
-	var ltSvg = event.target;
 	setTimeout(function() {
+		var ltSvg = document.getElementById("user-locations");
 		var ltDays = ltSvg.getElementsByTagName("rect");
 		var fill = null;
 		var opacity = 0;
@@ -260,8 +260,9 @@ syncPort.onMessage.addListener(function(msg) {
 		case "prefers-color-scheme-change":
 		case "options-changed":
 			console.log("%c[Improved Intra]%c Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.", "color: #00babc;", "");
-			setOptionalImprovements();
 			checkThemeSetting();
+			setOptionalImprovements();
+			colorizeLogtimeChart();
 			break;
 		case "error":
 			console.error(msg["message"]);
