@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 17:02:45 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:54:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,11 @@ a h5:not(.profile-name) {
 	color: red !important;
 	white-space: pre-wrap !important;
 	font-weight: bold !important;
+}
+
+/* hide double black hole date */
+#blackhole-date:last-of-type {
+	display: none !important;
 }
 
 /* remove eval sheet background */
