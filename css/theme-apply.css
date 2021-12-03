@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:37:17 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:39:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1011,6 +1011,11 @@ header.main-page-header .logo small,
 
 .table > thead > tr > th {
 	border-color: var(--general-border-color) !important;
+}
+
+.application-item--detail label.label-primary {
+	color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
 }
 
 /* buttons */
