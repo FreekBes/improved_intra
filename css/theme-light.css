@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 20:39:53 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 17:54:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 	--highcharts-tooltip-text-color: #333333;
 
 	/* logtime chart styling */
-	--logtime-chart-24h-color: #007b7C;
+	--logtime-chart-24h-color: #007b7c;
 	--logtime-chart-00h-color: #fafafa;
 
 	/* historics page styling */

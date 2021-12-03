@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 20:36:30 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 18:07:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@ body {
 	color: var(--text-color) !important;
 }
 
+a:not(.btn),
+a.btn-lg {
+	color: var(--theme-color) !important;
+}
+
+a:not(.btn) {
+	color: var(--theme-color) !important;
+}
+
+a.btn-lg:hover,
+a.btn-lg:focus,
+a:not(.btn):hover,
+a:not(.btn):focus {
+	color: var(--theme-color-dark) !important;
+}
+
 h1:not(.profile-name),
 h2:not(.profile-name),
 h3:not(.profile-name),
@@ -30,11 +46,16 @@ h5:not(.profile-name),
 	color: var(--text-color) !important;
 }
 
+h6:not(.profile-name) {
+	color: var(--theme-color) !important;
+}
+
 .text-dark h1,
 .text-dark h2,
 .text-dark h3,
 .text-dark h4,
-.text-dark h5 {
+.text-dark h5,
+.text-dark h6 {
 	color: #343a40 !important
 }
 
@@ -42,8 +63,9 @@ h5:not(.profile-name),
 	background: var(--top-navbar-background-color) !important;
 }
 
+.main-navbar .main-navbar-logo,
 .main-left-navbar {
-	background: var(--left-navbar-background-color) !important;
+	background-color: var(--left-navbar-background-color) !important;
 }
 
 .main-left-navbar li a {
@@ -66,6 +88,12 @@ h5:not(.profile-name),
 .main-navbar .main-navbar-search:before,
 .main-navbar .main-navbar-search input.search-input {
 	color: var(--tertiary-text-color) !important;
+}
+
+.user-action.labelable:hover,
+.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
+.main-navbar .main-navbar-user-nav > .dropdown.open > a > span {
+	color: var(--theme-color) !important;
 }
 
 .container-fullsize .container-inner-item,
@@ -209,14 +237,32 @@ hr,
 	background-color: var(--input-background-color) !important;
 }
 
+.text-info {
+	color: var(--theme-color-dark) !important;
+}
+
 /* dashboard page */
+.profile-item .user-primary .user-infos .button-actions a {
+	color: #ffffff !important;
+}
+
 .achievement-item .achievement-item--container .achievement-item--content h1 {
 	color: var(--text-color) !important;
+}
+
+.achievement-item .achievement-item--container .achievement-item--content .icon.icon-check-4 {
+	background: var(--theme-color) !important;
 }
 
 .event-modal .head h4,
 .exam-modal .head h4 {
 	color: #ffffff !important;
+}
+
+.school-record-button,
+.profile-title a.simple-link {
+	color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
 }
 
 .school-record-button:hover,
@@ -347,10 +393,22 @@ mark,
 	background: var(--mark-background-color) !important
 }
 
+.projects-list-container .projects-list--header,
+#projectuser-list-container ul.projects-list--list-header,
 .project-list-item.project-item:not(:first-child),
 #project-show .project-summary-item,
 #project-show .project-notifications .project-item.reminder {
 	border-color: var(--general-border-color) !important;
+}
+
+.projects-list-container .projects-list--header .btn--action.asc,
+.projects-list-container .projects-list--header .btn--action.desc,
+.projects-list-container .projects-list--header .btn--action.active {
+	color: var(--theme-color) !important;
+}
+
+.projects-list-container .projects-list--header .btn--action:hover {
+	color: var(--theme-color-dark) !important;
 }
 
 /* events */
@@ -367,6 +425,22 @@ mark,
 #skill-chart .highcharts-xaxis-labels text {
 	color: var(--highcharts-axis-label-color) !important;
 	fill: var(--highcharts-axis-label-color) !important;
+}
+
+#skill-chart .highcharts-series > path:not([fill="none"]) {
+	fill: var(--theme-color) !important;
+}
+
+#skill-chart .highcharts-series > path[fill="none"]:not(.highcharts-tracker) {
+	stroke: var(--theme-color) !important;
+}
+
+#skill-chart .highcharts-series-group > path {
+	fill: var(--theme-color) !important;
+}
+
+#skill-chart .highcharts-series-group .highcharts-markers > path {
+	fill: var(--theme-color) !important;
 }
 
 .highcharts-grid > path {
@@ -812,6 +886,10 @@ header.main-page-header .logo small,
 	border-color: var(--nav-hover-color) var(--nav-hover-color) var(--input-border-color-light) !important;
 }
 
+.documentation .text-info {
+	color: var(--api-theme-color) !important;
+}
+
 /* application page in settings */
 .app_container_3Fj {
 	border-color: var(--input-border-color) !important;
@@ -880,6 +958,23 @@ header.main-page-header .logo small,
 .btn-success.broadcasts-filters-btn {
 	background-color: var(--success-color) !important;
 	border-color: var(--success-color) !important;
+}
+
+.btn.btn-info,
+.btn-info.broadcasts-filters-btn,
+.btn.btn-primary,
+.btn-primary.broadcasts-filters-btn {
+	background-color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
+}
+
+.btn.btn-info:hover,
+.btn-info.broadcasts-filters-btn:hover,
+.btn.btn-primary:hover,
+.btn-primary.broadcasts-filters-btn:hover {
+	background-color: var(--theme-color-dark) !important;
+	border-color: var(--theme-color-dark) !important;
+	color: #ffffff !important;
 }
 
 .btn-default.notification-btn:hover,

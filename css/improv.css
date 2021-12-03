@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 16:32:02 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 17:02:45 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
  * This CSS file is used for general improvements on Intra. It is always loaded,
  * whether in dark or light mode does not matter.
  */
+
+/* remove horizontal scrollbar, as it causes visual glitches anyways */
+html {
+	overflow-x: hidden !important;
+}
 
 /* Windows Futura font family fix */
 .modal-v2 .modal-header,
@@ -26,17 +31,6 @@
 .main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
 	right: 0px !important;
-}
-
-/* account dropdown menu color fix */
-.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
-.main-navbar .main-navbar-user-nav > .dropdown.open > a > span {
-	color: #00babc !important;
-}
-
-/* notifications button hover color fix */
-.user-action.labelable:hover {
-	color: #00babc !important;
 }
 
 /* fix 100 % scores on ratings on feedback page */

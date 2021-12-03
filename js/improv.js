@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 16:46:14 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 17:31:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ function getCampus() {
 	catch (err) {
 		return (null);
 	}
+}
+
+// from https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function hexToRgb(hex) {
+	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+	  return r + r + g + g + b + b;
+	});
+
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? {
+		r: parseInt(result[1], 16),
+		g: parseInt(result[2], 16),
+		b: parseInt(result[3], 16)
+	} : null;
 }
 
 function setCoalitionTextColor(event) {
@@ -102,6 +118,26 @@ function setStyleIfExists(query, style, value, parentPlease) {
 		}
 		elem.style[style] = value;
 	}
+}
+
+function colorizeLogtimeChart(event) {
+	var ltSvg = event.target;
+	setTimeout(function() {
+		var ltDays = ltSvg.getElementsByTagName("rect");
+		var fill = null;
+		var opacity = 0;
+		var col24 = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+		if (col24 != "") {
+			col24 = hexToRgb(col24.trim());
+			for (var i = 0; i < ltDays.length; i++) {
+				fill = ltDays[i].getAttribute("fill");
+				if (fill.indexOf("rgba") > -1) {
+					opacity = fill.replace(/^.*,(.+)\)/, '$1');
+					ltDays[i].setAttribute("fill", "rgba("+col24.r+","+col24.g+","+col24.b+","+opacity+")");
+				}
+			}
+		}
+	}, 100);
 }
 
 function setOptionalImprovements() {
@@ -195,6 +231,11 @@ function setGeneralImprovements() {
 		extensionSettingsLink.innerText = "Improved Intra Settings";
 		extensionSettings.appendChild(extensionSettingsLink);
 		userMenu.insertBefore(extensionSettings, userMenu.children[userMenu.children.length - 1]);
+	}
+
+	var ltSvg = document.getElementById("user-locations");
+	if (ltSvg) {
+		ltSvg.addEventListener("load", colorizeLogtimeChart);
 	}
 }
 

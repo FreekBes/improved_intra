@@ -1,0 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   colors-vela.css                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/12/03 16:39:11 by fbes          #+#    #+#                 */
+/*   Updated: 2021/12/03 17:40:44 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+:root {
+	/* main colors */
+	--theme-color: #e52a2d;
+	--theme-color-dark: #942729;
+	--theme-color-light: #e45355;
+
+	/* logtime chart styling */
+	--logtime-chart-24h-color: #e45355;
+}

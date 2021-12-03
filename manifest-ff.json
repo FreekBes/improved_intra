@@ -36,6 +36,7 @@
 		"css/theme-apply.css",
 		"css/theme-light.css",
 		"css/theme-dark.css",
+		"css/colors-vela.css",
 		"campus_specifics/codam/inject.js"
 	],
 	"content_scripts": [
