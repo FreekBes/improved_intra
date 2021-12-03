@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 19:26:35 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:45:59 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ var defaultSettings = {
 	"codam-monit": "true",
 	"colors": "default",
 	"hide-broadcasts": "false",
+	"hide-goals": "false",
 	"show-custom-profiles": "false",
 	"sync": "true",
 	"theme": "system"
