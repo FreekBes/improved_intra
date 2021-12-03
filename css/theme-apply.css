@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:29:09 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:31:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -802,6 +802,14 @@ pre[class*="language-"] {
 .quests-list .quests-header,
 .quest-status {
 	border-color: var(--general-border-color) !important;
+}
+
+.quest-wrapper.main .quest-item-header {
+	color: var(--tertiary-text-color) !important;
+}
+
+.quest-wrapper.validated .quest-item-header {
+	color: var(--theme-color) !important;
 }
 
 /* resume page */
