@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 17:39:48 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 18:52:24 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:14:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@
 	--historics-rating-background-fail: rgba(255, 8, 78, 0.15);
 	--scaleteam-rating-text-color-normal: #4a4a4a;
 	--scaleteam-rating-background-fail: #523d3f;
-	--scaleteam-rating-text-color-fail: #d8636f;
 
 	/* events styling (slots) */
 	--event-default-text-color: #cceced;
