@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:01:59 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:55:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,13 @@ var monit = {
 			return;
 		}
 
+		var partTimeProj = false;
+		var partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
+		if (partTimeCheck.length > 0) {
+			console.log("User is working on Part-Time project, emote will be at least relaxed");
+			partTimeProj = true;
+		}
+
 		for (var i = 0; i < monit.bhContainer.children.length; i++) {
 			monit.bhContainer.children[i].style.display = "none";
 		}
@@ -346,12 +353,12 @@ var monit = {
 		smiley.setAttribute("id", "lt-emote");
 		var progressPerc = document.createElement("span");
 		progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
-		if (monit.logTimesTotal < monit.requirements.today) {
+		if (monit.logTimesTotal < monit.requirements.today && !partTimeProj) {
 			smiley.setAttribute("class", "icon-smiley-sad-1");
 			smiley.setAttribute("style", "color: rgb(238, 97, 115);");
 			progressPerc.setAttribute("style", "color: rgb(238, 97, 115);");
 		}
-		else if (monit.logTimesTotal < monit.requirements.min) {
+		else if ((partTimeProj && monit.logTimesTotal < monit.requirements.min) || (!partTimeProj && monit.logTimesTotal < monit.requirements.min)) {
 			smiley.setAttribute("class", "icon-smiley-relax");
 			smiley.setAttribute("style", "color: rgb(223, 149, 57);");
 			progressPerc.setAttribute("style", "color: rgb(223, 149, 57);");
