@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 15:48:18 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:53:38 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,9 +284,6 @@ var monit = {
 			}
 		}
 		this.username = this.getUserName();
-		for (var i = 0; i < this.bhContainer.children.length; i++) {
-			this.bhContainer.children[i].style.display = "none";
-		}
 		this.getLogTimes()
 			.then(this.writeProgress)
 			.catch(function(err) {
@@ -311,6 +308,15 @@ var monit = {
 		monit.setExpected();
 		console.log("Logtimes", monit.logTimes);
 		console.log("Total minutes", monit.logTimesTotal);
+
+		var aguDate = document.getElementById("agu-date");
+		if (aguDate && aguDate.className.indexOf("hidden") == -1) {
+			return;
+		}
+
+		for (var i = 0; i < monit.bhContainer.children.length; i++) {
+			monit.bhContainer.children[i].style.display = "none";
+		}
 
 		var progressNode = document.createElement("div");
 		progressNode.setAttribute("id", "monit-progress");
