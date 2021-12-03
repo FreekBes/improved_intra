@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 19:46:48 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 21:23:07 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ function colorizeLogtimeChart(event) {
 		var fill = null;
 		var opacity = 0;
 		var col24 = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
-		if (col24 != "") {
+		if (col24 !== "") {
 			col24 = hexToRgb(col24.trim());
 			for (var i = 0; i < ltDays.length; i++) {
 				fill = ltDays[i].getAttribute("fill");
@@ -140,7 +140,7 @@ function colorizeLogtimeChart(event) {
 				}
 			}
 		}
-	}, 100);
+	}, 250);
 }
 
 function setOptionalImprovements() {
@@ -247,6 +247,7 @@ function setGeneralImprovements() {
 
 	var ltSvg = document.getElementById("user-locations");
 	if (ltSvg) {
+		colorizeLogtimeChart();
 		ltSvg.addEventListener("load", colorizeLogtimeChart);
 	}
 }
