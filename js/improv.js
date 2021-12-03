@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 18:12:37 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:26:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ function setStyleIfExists(query, style, value, parentPlease) {
 function colorizeLogtimeChart(event) {
 	setTimeout(function() {
 		var ltSvg = document.getElementById("user-locations");
+		if (!ltSvg) {
+			return;
+		}
 		var ltDays = ltSvg.getElementsByTagName("rect");
 		var fill = null;
 		var opacity = 0;

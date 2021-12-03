@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 18:07:56 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:26:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,15 @@ body {
 	color: var(--text-color) !important;
 }
 
-a:not(.btn),
-a.btn-lg {
+a:not([style*="color:"]):not(.btn),
+a.btn-lg:not([style*="color:"]) {
 	color: var(--theme-color) !important;
 }
 
-a:not(.btn) {
-	color: var(--theme-color) !important;
-}
-
-a.btn-lg:hover,
-a.btn-lg:focus,
-a:not(.btn):hover,
-a:not(.btn):focus {
+a.btn-lg:not([style*="color:"]):hover,
+a.btn-lg:not([style*="color:"]):focus,
+a:not([style*="color:"]):not(.btn):hover,
+a:not([style*="color:"]):not(.btn):focus {
 	color: var(--theme-color-dark) !important;
 }
 
@@ -68,15 +64,15 @@ h6:not(.profile-name) {
 	background-color: var(--left-navbar-background-color) !important;
 }
 
-.main-left-navbar li a {
+.main-left-navbar li a:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color) !important;
 }
 
-.main-left-navbar li a:hover:not(.active) {
+.main-left-navbar li a:hover:not(.active):not([style*="color:"]){
 	color: var(--left-navbar-icon-color-hover) !important;
 }
 
-.main-left-navbar li a.active {
+.main-left-navbar li a.active:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color-active) !important;
 }
 
@@ -146,6 +142,10 @@ h6:not(.profile-name) {
 	color: var(--text-color) !important;
 }
 
+.chosen-container .chosen-results li.highlighted {
+	background-color: var(--theme-color) !important;
+}
+
 .broadcasts-tag {
 	color: var(--pure-white) !important;
 }
@@ -188,18 +188,18 @@ h6:not(.profile-name) {
 }
 
 .content-style,
-.dropdown-menu > li > a,
-.dropdown-menu > li > a,
+.dropdown-menu > li > a:not([style*="color:"]),
+.dropdown-menu > li > a:not([style*="color:"]),
 .notifications-container .menu-drop-list .menu-drop-item.read {
 	color: var(--text-color) !important;
 	background-color: var(--container-background-color) !important
 }
 
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.notifications-container .menu-drop-list .menu-drop-item > a:hover,
-.nav > li > a:hover,
-.nav > li > a:focus {
+.dropdown-menu > li > a:not([style*="color:"]):hover,
+.dropdown-menu > li > a:not([style*="color:"]):focus,
+.notifications-container .menu-drop-list .menu-drop-item > a:not([style*="color:"]):hover,
+.nav > li > a:not([style*="color:"]):hover,
+.nav > li > a:not([style*="color:"]):focus {
 	color: var(--text-color) !important;
 	background-color: var(--list-hover-background-color) !important;
 }
@@ -239,6 +239,10 @@ hr,
 
 .text-info {
 	color: var(--theme-color-dark) !important;
+}
+
+.title-bar {
+	border-color: var(--general-border-color) !important;
 }
 
 /* dashboard page */
@@ -529,7 +533,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* profile page */
-.profile-menu .nav li.active a {
+.profile-menu .nav li.active a:not([style*="color:"]) {
 	background-color: var(--nav-active-color) !important;
 	color: var(--text-color) !important;
 }
@@ -539,12 +543,12 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	color: var(--text-color) !important;
 }
 
-.nav-pills.nav-stacked > li:not(.active) a {
+.nav-pills.nav-stacked > li:not(.active) a:not([style*="color:"]) {
 	color: var(--secondary-text-color) !important;
 }
 
 .marked-title,
-.project-item[data-project-occurence] .marked-title a {
+.project-item[data-project-occurence] .marked-title a:not([style*="color:"]) {
 	color: var(--secondary-text-color) !important;
 }
 
@@ -579,6 +583,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--event-unthemed-border-color) !important;
 }
 
+.fc-unthemed {
+	color: var(--theme-color) !important;
+}
+
 .fc-slats td {
 	border-top-color: var(--general-border-color) !important;
 }
@@ -591,7 +599,9 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background: var(--event-open-background) !important;
 }
 
-.fc-event:not([style*="color:"]) {
+.fc-event:not([style*="color:"]):not(.btn),
+.fc-event:not([style*="color:"]):not(.btn):hover,
+.fc-event:not([style*="color:"]):not(.btn):focus {
 	color: var(--event-default-text-color) !important;
 }
 
@@ -609,6 +619,12 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 /* coalitions page */
 #coalition-scores .table-striped > tbody > tr:nth-of-type(odd) {
 	background: var(--list-odd-background-color) !important;
+}
+
+/* shop page */
+.shop-wallet span.icon-piggy-bank,
+.shop-nav-title {
+	color: var(--theme-color) !important;
 }
 
 /* search page */
@@ -656,9 +672,9 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 /* video page */
 .container-breadcrumb .breadcrumb,
 .container-item-nav-tab .nav-tabs,
-.container-item-nav-tab .nav-tabs > li.active > a,
-.container-item-nav-tab .nav-tabs > li.active > a:hover,
-.container-item-nav-tab .nav-tabs > li.active > a:focus,
+.container-item-nav-tab .nav-tabs > li.active > a:not([style*="color:"]),
+.container-item-nav-tab .nav-tabs > li.active > a:not([style*="color:"]):hover,
+.container-item-nav-tab .nav-tabs > li.active > a:not([style*="color:"]):focus,
 .container-item-nav-tab .tab-content,
 .notion-grid > .notion-item,
 .notion-grid > .subnotion-item,
@@ -668,8 +684,18 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
+.page-header {
+	border-color: var(--general-border-color) !important;
+}
+
 .notion-title {
 	background-color: var(--general-border-color) !important;
+}
+
+a.label:not([style*="color:"]),
+a.label:not([style*="color:"]):hover,
+a.label:not([style*="color:"]):focus {
+	color: #ffffff !important;
 }
 
 .notion-grid > .notion-item .subnotions-list .subnotion-item:not(:first-child),
@@ -685,6 +711,11 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 
 .video-item-footer .video-item-views {
 	color: var(--quaternary-text-color) !important;
+}
+
+.prima,
+.video-item-footer .video-item-name {
+	color: var(--theme-color) !important;
 }
 
 .notion-grid > .notion-item .notion-title,
@@ -704,6 +735,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* articles */
+.articles-childrens-group {
+	border-color: var(--general-border-color) !important;
+}
+
 .articles-routes {
 	background-color: var(--input-background-color) !important;
 }
@@ -754,7 +789,7 @@ pre[class*="language-"] {
 	border-color: var(--general-border-color) !important;
 }
 
-.authorization-layout a,
+.authorization-layout a:not([style*="color:"]),
 .authorization-layout .text-info {
 	color: var(--api-theme-color) !important;
 }
@@ -805,7 +840,7 @@ header.main-page-header .logo small,
 	color: var(--api-theme-color) !important;
 }
 
-.guides-menu li a {
+.guides-menu li a:not([style*="color:"]) {
 	color: var(--api-user-name-text-color) !important;
 }
 
@@ -815,6 +850,7 @@ header.main-page-header .logo small,
 	border-color: var(--general-border-color) !important;
 }
 
+.documentation .btn.btn-primary,
 .documentation .btn.btn-default,
 .documentation .btn.btn-info {
 	background-color: var(--api-button-background-color) !important;
@@ -822,18 +858,23 @@ header.main-page-header .logo small,
 	color: var(--text-color) !important;
 }
 
+
+.documentation .btn.btn-primary:focus,
+.documentation .btn.btn-primary:hover,
 .documentation .btn.btn-default:focus,
 .documentation .btn.btn-default:hover,
 .documentation .btn.btn-info:focus,
 .documentation .btn.btn-info:hover {
 	background-color: var(--api-button-background-color-hover) !important;
 	border-color: var(--api-button-background-color-hover) !important;
+	color: #ffffff !important;
 }
 
 .documentation .btn.btn-default:active,
 .documentation .btn.btn-info:active {
 	background-color: var(--api-button-background-color-focus) !important;
 	border-color: var(--api-button-background-color-focus) !important;
+	color: #ffffff !important;
 }
 
 .documentation .alert.alert-warning {
@@ -874,9 +915,9 @@ header.main-page-header .logo small,
 	border-color: var(--nav-hover-color) !important;
 }
 
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
+.nav-tabs > li.active > a:not([style*="color:"]),
+.nav-tabs > li.active > a:not([style*="color:"]):hover,
+.nav-tabs > li.active > a:not([style*="color:"]):focus {
 	color: var(--text-color) !important;
 	background-color: var(--nav-hover-color) !important;
 	border-color: var(--nav-hover-color) !important;

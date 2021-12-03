@@ -6,12 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 17:54:06 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 18:52:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * This CSS file contains all variable colors for light theme
+ * This CSS file contains all variable colors for light theme.
+ * Use the variables in any color scheme file. Unused variables will use either
+ * dark or light theme's CSS as its base theme, depending on the settings.
  */
 
  :root {

@@ -28,6 +28,8 @@
 				"css/theme-apply.css",
 				"css/theme-light.css",
 				"css/theme-dark.css",
+				"css/colors-cetus.css",
+				"css/colors-pyxis.css",
 				"css/colors-vela.css"
 			],
 			"matches": [ "*://*.intra.42.fr/*" ]
