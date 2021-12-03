@@ -49,8 +49,8 @@
 @font-face {
 	font-family: "streamline-filled";
 	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot);
-	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot?#iefix) format("embedded-opentype"), 
-			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-62fdf8602f56c68e259582d7ad3eb0e30b2808efaa03a074086faedcaf9017e2.woff) format("woff"), 
+	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot?#iefix) format("embedded-opentype"),
+			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-62fdf8602f56c68e259582d7ad3eb0e30b2808efaa03a074086faedcaf9017e2.woff) format("woff"),
 			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-9c4de7ac5c05533207755509de4a14b25d1b8d7276ce055fe9ed3f43b38c8328.ttf) format("truetype"),
 			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-c547d434f0242cda67f4d0438ae132de5fe5794afd2366906e2f1d3480756732.svg#streamline-30px-filled-in) format("svg");
 	font-weight: normal;
@@ -124,7 +124,7 @@ body {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	
+
 	border: 7px solid rgba(0,0,0,0);
 	border-top: 7px solid;
 	border-top-color: #00babc;
@@ -263,7 +263,8 @@ fieldset > label > span:last-child:not(:first-child) {
 }
 
 fieldset > input,
-fieldset > select {
+fieldset > select,
+fieldset > button {
 	justify-self: end;
 	margin: 0px 12px;
 	background-color: #4a4a4a;
@@ -289,7 +290,8 @@ fieldset > input[type="checkbox"] {
 	width: 16px;
 }
 
-fieldset > input[type="button"] {
+fieldset > input[type="button"],
+fieldset > button {
 	background-color: #00babc;
 	border-color: #00babc;
 	cursor: pointer;
@@ -304,7 +306,9 @@ fieldset > select:focus {
 }
 
 fieldset > input[type="button"]:hover,
-fieldset > input[type="button"]:focus {
+fieldset > input[type="button"]:focus,
+fieldset > button:hover,
+fieldset > button:focus {
 	background-color: #00ecef;
 	border-color: #00ecef;
 }

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 22:09:07 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 21:11:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,9 @@ window.onload = function() {
 		formElems[i].addEventListener("change", syncSettings);
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
+	document.getElementById("bug-report").addEventListener("click", function(event) {
+		window.location.href = "https://github.com/FreekBes/improved_intra/issues?q=";
+	});
 
 	chrome.storage.local.get(["username", "auth", "user"], function(data) {
 		console.log(data);
