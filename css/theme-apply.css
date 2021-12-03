@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:15:20 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 20:29:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ body {
 }
 
 a:not([style*="color:"]):not(.btn),
-a.btn-lg:not([style*="color:"]) {
+a.iconf-setting-gear:not([style*="color:"]) {
 	color: var(--theme-color) !important;
 }
 
-a.btn-lg:not([style*="color:"]):hover,
-a.btn-lg:not([style*="color:"]):focus,
+a.iconf-setting-gear:not([style*="color:"]):hover,
+a.iconf-setting-gear:not([style*="color:"]):focus,
 a:not([style*="color:"]):not(.btn):hover,
 a:not([style*="color:"]):not(.btn):focus {
 	color: var(--theme-color-dark) !important;
@@ -324,6 +324,14 @@ hr,
 }
 
 /* projects page */
+.projects-menu-list a.project-item:not([style*="color:"]) {
+	color: var(--left-navbar-icon-color) !important;
+}
+
+.projects-menu-list a.project-item:hover:not([style*="color:"]) {
+	color: #ffffff !important;
+}
+
 .projects-notifications:not(:empty):before,
 .project-notifications:not(:empty):before {
 	color: var(--tertiary-text-color) !important;
@@ -397,6 +405,7 @@ mark,
 	background: var(--mark-background-color) !important
 }
 
+#project-show .skill-list,
 .projects-list-container .projects-list--header,
 #projectuser-list-container ul.projects-list--list-header,
 .project-list-item.project-item:not(:first-child),
@@ -696,6 +705,14 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 .subnotion-grid > .subnotion-item {
 	background-color: var(--container-background-color) !important;
 	border-color: var(--general-border-color) !important;
+}
+
+.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:not([style*="color:"]) {
+	color: var(--left-navbar-icon-color) !important;
+}
+
+.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:hover:not([style*="color:"]) {
+	color: #ffffff !important;
 }
 
 .page-header {
