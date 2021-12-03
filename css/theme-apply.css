@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 19:26:09 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 19:29:35 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -850,6 +850,7 @@ header.main-page-header .logo small,
 	border-color: var(--general-border-color) !important;
 }
 
+.application-item--detail .btn-default,
 .documentation .btn.btn-primary,
 .documentation .btn.btn-default,
 .documentation .btn.btn-info {
@@ -858,7 +859,8 @@ header.main-page-header .logo small,
 	color: var(--text-color) !important;
 }
 
-
+.application-item--detail .btn-default:focus,
+.application-item--detail .btn-default:hover,
 .documentation .btn.btn-primary:focus,
 .documentation .btn.btn-primary:hover,
 .documentation .btn.btn-default:focus,
@@ -870,6 +872,8 @@ header.main-page-header .logo small,
 	color: #ffffff !important;
 }
 
+.application-item--detail .btn-default:active,
+.documentation .btn.btn-primary:active,
 .documentation .btn.btn-default:active,
 .documentation .btn.btn-info:active {
 	background-color: var(--api-button-background-color-focus) !important;
