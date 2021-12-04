@@ -15,6 +15,13 @@
  * It overrules improv.css.
  */
 
+/* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
+@media (prefers-color-scheme: dark) {
+	html {
+		background-color: #202124 !important;
+	}
+}
+
 /* main elements (visible on every page */
 body {
 	background-color: var(--body-background-color) !important;
