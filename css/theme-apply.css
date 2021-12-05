@@ -44,6 +44,8 @@ a.no-color:not(.btn),
 a.no-color:not(.btn):hover,
 a.no-color:not(.btn):focus {
 	color: inherit !important;
+	background-color: inherit !important;
+	background: inherit !important;
 }
 
 h1:not(.profile-name),
