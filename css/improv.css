@@ -230,6 +230,12 @@ li.scaleteam-list-item .rating {
 	text-decoration: none !important;
 }
 
+/* fix pool donation amount selector cursor */
+.rb-spot,
+.rb-spot > * {
+	cursor: pointer !important;
+}
+
 /* custom titles for contributors */
 a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,

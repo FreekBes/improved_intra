@@ -260,6 +260,14 @@ hr,
 	border-color: var(--general-border-color) !important;
 }
 
+.rb-spot {
+	border-color: var(--theme-color) !important;
+}
+
+.rb-tab-active .rb-spot {
+	background: var(--theme-color) !important;
+}
+
 /* dashboard page */
 .profile-item .user-primary .user-infos .button-actions a {
 	color: #ffffff !important;
