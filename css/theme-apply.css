@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 21:00:37 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/05 17:32:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,15 @@ h6:not(.profile-name) {
 	background: var(--body-background-color) !important;
 }
 
+.user-action.labelable:not([style*="color:"]),
 .main-navbar .main-navbar-user-nav > .dropdown > a > span,
 .main-navbar .main-navbar-search:before,
 .main-navbar .main-navbar-search input.search-input {
 	color: var(--tertiary-text-color) !important;
 }
 
-.user-action.labelable:hover,
+.user-action.labelable:not([style*="color:"]):hover,
+.user-action.labelable:not([style*="color:"]):focus,
 .main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
 .main-navbar .main-navbar-user-nav > .dropdown.open > a > span {
 	color: var(--theme-color) !important;
