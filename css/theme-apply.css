@@ -40,6 +40,12 @@ a:not([style*="color:"]):not(.btn):focus {
 	color: var(--theme-color-dark) !important;
 }
 
+a.no-color:not(.btn),
+a.no-color:not(.btn):hover,
+a.no-color:not(.btn):focus {
+	color: inherit !important;
+}
+
 h1:not(.profile-name),
 h2:not(.profile-name),
 h3:not(.profile-name),
