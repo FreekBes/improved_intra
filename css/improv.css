@@ -220,12 +220,12 @@ li.scaleteam-list-item .rating {
 }
 
 /* fix color of pool donation button */
-.correction-point-btn {
+.correction-point-btn:not([style*="color:"]):not(.btn) {
 	color: #f2f2f2 !important;
 }
 
 /* remove underline from pool donation button */
-.correction-point-btn:hover, .correction-point-btn:focus {
+.correction-point-btn:not([style*="color:"]):not(.btn):hover, .correction-point-btn:not([style*="color:"]):not(.btn):focus {
 	color: inherit !important;
 	text-decoration: none !important;
 }
