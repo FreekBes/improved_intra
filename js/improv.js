@@ -215,6 +215,7 @@ function setGeneralImprovements() {
 		var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
 		var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
 		var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
+		var cursusSelector = document.querySelector(".cursus-user-select");
 
 		if (profileActions) {
 			profileActions.addEventListener("mouseenter", setCoalitionTextColor);
@@ -226,6 +227,16 @@ function setGeneralImprovements() {
 		}
 		if (mailInfo) {
 			mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
+		}
+		if (cursusSelector) {
+			cursusSelector.addEventListener("change", function(event) {
+				setTimeout(function() {
+					var titleSelectorCaret = document.querySelector(".caret[style*='color:']");
+					if (titleSelectorCaret) {
+						titleSelectorCaret.style.color = getCoalitionColor();
+					}
+				}, 250);
+			});
 		}
 	}
 
