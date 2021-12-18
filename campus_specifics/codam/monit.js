@@ -302,128 +302,171 @@ var monit = {
 	},
 
 	/**
+	 * Get the status of the monitoring system from the server.
+	 * Monitoring system could be disabled.
+	 * See server/campus_specifics/codam/monit_status.php
+	 */
+	getStatus: function() {
+		return new Promise(function(resolve, reject) {
+			if (monit.httpReq != null) {
+				monit.httpReq.abort();
+			}
+			monit.httpReq = new XMLHttpRequest();
+			monit.httpReq.addEventListener("load", function() {
+				try {
+					var status = JSON.parse(this.responseText);
+					resolve(status);
+				}
+				catch (err) {
+					reject(err);
+				}
+			});
+			monit.httpReq.addEventListener("error", function(err) {
+				reject(err);
+			});
+			monit.httpReq.open("GET", "https://darkintra.freekb.es/campus_specifics/codam/monit_status.json");
+			monit.httpReq.send();
+		});
+	},
+
+	/**
 	 * Write the progress data to the Black Hole box
 	 */
 	writeProgress: function() {
-		monit.setExpected();
-		console.log("Logtimes", monit.logTimes);
-		console.log("Total minutes", monit.logTimesTotal);
+		monit.getStatus().then(function(status) {
+			monit.setExpected();
+			console.log("Logtimes", monit.logTimes);
+			console.log("Total minutes", monit.logTimesTotal);
 
-		var aguDate = document.getElementById("agu-date");
-		if (aguDate && aguDate.className.indexOf("hidden") == -1) {
-			return;
-		}
-
-		var partTimeProj = false;
-		var partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
-		if (partTimeCheck.length > 0) {
-			console.log("User is working on Part-Time project, emote will be at least relaxed");
-			partTimeProj = true;
-		}
-
-		for (var i = 0; i < monit.bhContainer.children.length; i++) {
-			monit.bhContainer.children[i].style.display = "none";
-		}
-
-		var progressNode = document.createElement("div");
-		progressNode.setAttribute("id", "monit-progress");
-
-		var progressTitle = document.createElement("div");
-		progressTitle.setAttribute("class", "mb-1");
-
-		var coalitionSpan = document.createElement("span");
-		coalitionSpan.setAttribute("class", "coalition-span");
-		coalitionSpan.style.color = monit.getCoalitionColor();
-		coalitionSpan.innerText = "Monitoring System progress";
-
-		progressTitle.appendChild(coalitionSpan);
-		progressNode.appendChild(progressTitle);
-
-		var progressText = document.createElement("div");
-		progressText.setAttribute("id", "monit-progress-text");
-
-		var emoteHolder = document.createElement("div");
-		emoteHolder.setAttribute("id", "lt-holder");
-		emoteHolder.setAttribute("class", "emote-lt");
-		emoteHolder.setAttribute("data-toggle", "tooltip");
-		emoteHolder.setAttribute("data-original-title", "Logtime this week: " + monit.logTimeToString(monit.logTimesTotal));
-		emoteHolder.setAttribute("title", "");
-
-		var smiley = document.createElement("span");
-		smiley.setAttribute("id", "lt-emote");
-		var progressPerc = document.createElement("span");
-		progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
-		if (monit.logTimesTotal < monit.requirements.today && !partTimeProj) {
-			smiley.setAttribute("class", "icon-smiley-sad-1");
-			smiley.setAttribute("style", "color: rgb(238, 97, 115);");
-			progressPerc.setAttribute("style", "color: rgb(238, 97, 115);");
-		}
-		else if ((partTimeProj && monit.logTimesTotal < monit.requirements.min) || (!partTimeProj && monit.logTimesTotal < monit.requirements.min)) {
-			smiley.setAttribute("class", "icon-smiley-relax");
-			smiley.setAttribute("style", "color: rgb(223, 149, 57);");
-			progressPerc.setAttribute("style", "color: rgb(223, 149, 57);");
-		}
-		else if (monit.logTimesTotal < monit.requirements.achievement1) {
-			smiley.setAttribute("class", "icon-smiley-happy-3");
-			smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-			progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
-		}
-		else if (monit.logTimesTotal < monit.requirements.achievement2) {
-			smiley.setAttribute("class", "icon-smiley-happy-5");
-			smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-			progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
-		}
-		else {
-			smiley.setAttribute("class", "icon-smiley-surprise");
-			smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-			progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
-		}
-
-		// profile easter egg: use a certain emote on certain user pages
-		switch (monit.username) {
-			case "fbes":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-canon");
-				break;
-			case "lde-la-h":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-cactus");
-				break;
-			case "jgalloni":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-bug-1");
-				break;
-			case "ieilat":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-pacman-ghost");
-				break;
-			case "pde-bakk":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-crown-1");
-				break;
-			case "pvan-dij":
-				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-				smiley.setAttribute("class", "iconf-milk");
-				break;
-		}
-		smiley.addEventListener("click", function() {
-			if (!smiley.getAttribute("data-oclass")) {
+			var aguDate = document.getElementById("agu-date");
+			if (aguDate && aguDate.className.indexOf("hidden") == -1) {
 				return;
 			}
-			var tempClass = smiley.getAttribute("class");
-			smiley.setAttribute("class", smiley.getAttribute("data-oclass"));
-			smiley.setAttribute("data-oclass", tempClass);
+
+			var atLeastRelaxed = false;
+			var partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
+			if (partTimeCheck.length > 0 || status["monitoring_system_active"] === false) {
+				console.log("User is working on Part-Time project or monitoring system is currently disabled, emote will be at least relaxed");
+				atLeastRelaxed = true;
+			}
+
+			for (var i = 0; i < monit.bhContainer.children.length; i++) {
+				monit.bhContainer.children[i].style.display = "none";
+			}
+
+			var progressNode = document.createElement("div");
+			progressNode.setAttribute("id", "monit-progress");
+
+			var progressTitle = document.createElement("div");
+			progressTitle.setAttribute("class", "mb-1");
+
+			var coalitionSpan = document.createElement("span");
+			coalitionSpan.setAttribute("class", "coalition-span");
+			coalitionSpan.style.color = monit.getCoalitionColor();
+			coalitionSpan.innerText = "Monitoring System progress";
+
+			progressTitle.appendChild(coalitionSpan);
+			progressNode.appendChild(progressTitle);
+
+			var progressText = document.createElement("div");
+			progressText.setAttribute("id", "monit-progress-text");
+
+			var ltHolder = document.createElement("div");
+			ltHolder.setAttribute("id", "lt-holder");
+			ltHolder.setAttribute("class", "emote-lt");
+			ltHolder.setAttribute("data-toggle", "tooltip");
+			ltHolder.setAttribute("title", "");
+
+			var smiley = document.createElement("span");
+			smiley.setAttribute("id", "lt-emote");
+
+			var progressPerc = document.createElement("span");
+			if (status["monitoring_system_active"]) {
+				progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
+				ltHolder.setAttribute("data-original-title", "Logtime this week: " + monit.logTimeToString(monit.logTimesTotal));
+			}
+			else if (status["work_from_home_required"] && !status["monitoring_system_active"]) {
+				// covid-19 message
+				progressPerc.innerText = "Don't give up!";
+				ltHolder.setAttribute("data-original-title", "You can do this! Codam will at some point reopen again. I'm sure of it! Times will get better.");
+			}
+			else if (!status["monitoring_system_active"]) {
+				progressPerc.innerText = monit.logTimeToString(monit.logTimesTotal);
+				ltHolder.setAttribute("data-original-title", "Logtime this week (Monitoring System is currently disabled)");
+			}
+
+			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
+				smiley.setAttribute("class", "icon-smiley-sad-1");
+				smiley.setAttribute("style", "color: rgb(238, 97, 115);");
+				progressPerc.setAttribute("style", "color: rgb(238, 97, 115);");
+			}
+			else if ((atLeastRelaxed && monit.logTimesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.logTimesTotal < monit.requirements.min)) {
+				smiley.setAttribute("class", "icon-smiley-relax");
+				smiley.setAttribute("style", "color: rgb(223, 149, 57);");
+				progressPerc.setAttribute("style", "color: rgb(223, 149, 57);");
+			}
+			else if (monit.logTimesTotal < monit.requirements.achievement1) {
+				smiley.setAttribute("class", "icon-smiley-happy-3");
+				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
+				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+			}
+			else if (monit.logTimesTotal < monit.requirements.achievement2) {
+				smiley.setAttribute("class", "icon-smiley-happy-5");
+				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
+				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+			}
+			else {
+				smiley.setAttribute("class", "icon-smiley-surprise");
+				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
+				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+			}
+
+			// profile easter egg: use a certain emote on certain user pages
+			switch (monit.username) {
+				case "fbes":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-canon");
+					break;
+				case "lde-la-h":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-cactus");
+					break;
+				case "jgalloni":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-bug-1");
+					break;
+				case "ieilat":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-pacman-ghost");
+					break;
+				case "pde-bakk":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-crown-1");
+					break;
+				case "pvan-dij":
+					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+					smiley.setAttribute("class", "iconf-milk");
+					break;
+			}
+			smiley.addEventListener("click", function() {
+				if (!smiley.getAttribute("data-oclass")) {
+					return;
+				}
+				var tempClass = smiley.getAttribute("class");
+				smiley.setAttribute("class", smiley.getAttribute("data-oclass"));
+				smiley.setAttribute("data-oclass", tempClass);
+			});
+			ltHolder.appendChild(smiley);
+			ltHolder.appendChild(progressPerc);
+
+			progressText.appendChild(ltHolder);
+
+			progressNode.appendChild(progressText);
+
+			monit.bhContainer.appendChild(progressNode);
+			monit.bhContainer.className = monit.bhContainer.className.replace("hidden", "");
+			monit.addTooltip();
 		});
-		emoteHolder.appendChild(smiley);
-		emoteHolder.appendChild(progressPerc);
-
-		progressText.appendChild(emoteHolder);
-
-		progressNode.appendChild(progressText);
-
-		monit.bhContainer.appendChild(progressNode);
-		monit.bhContainer.className = monit.bhContainer.className.replace("hidden", "");
-		monit.addTooltip();
 	},
 
 	init: function() {
