@@ -301,8 +301,8 @@ hr,
 	border-color: var(--tertiary-text-color) !important;
 }
 
-.very-big-icon,
-.note-title {
+.very-big-icon:not(.profile-name),
+.note-title:not(.profile-name) {
 	color: var(--note-title-text-color) !important;
 }
 
