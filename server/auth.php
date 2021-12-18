@@ -3,7 +3,7 @@
 	require_once("nogit.php");
 
 	// setup session
-	session_start();
+	@session_start();
 	if (!isset($_SESSION["state"]) || !isset($_GET["state"])) {
 		$_SESSION["state"] = hash("sha256", strval(rand(100, 999)));
 	}

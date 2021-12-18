@@ -1,5 +1,5 @@
 <?PHP
-	session_start();
+	@session_start();
 
 	// set headers
 	header('Content-Type: application/json; charset=utf-8');
