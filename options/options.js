@@ -218,7 +218,7 @@ function loadSettingsIntoForm(settings) {
 			continue;
 		}
 		if (settingElem.nodeName == "SELECT") {
-			settingElem.setAttribute("value", settings[key]);
+			settingElem.value = settings[key];
 		}
 		else if (settingElem.nodeName == "INPUT") {
 			switch (settingElem.getAttribute("type")) {
