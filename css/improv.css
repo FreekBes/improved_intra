@@ -163,6 +163,13 @@ li.scaleteam-list-item .rating {
 	background-position: center center !important;
 }
 
+/* make text without background more readable in profile banners */
+.profile-banner .coalition-name,
+.profile-banner .name,
+.profile-banner .login {
+	text-shadow: 0 0 3px #000000 !important;
+}
+
 /* bugfix for dropdown menu cursus select in dashboard banner */
 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select {
 	background-color: rgba(0,0,0,0) !important;
