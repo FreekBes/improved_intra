@@ -128,7 +128,7 @@
 		$imgurId = substr($imgurId, 0, strpos($imgurId, '.'));
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,"https://api.imgur.com/3/image/" . $imgurId);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Client-ID ".$imgurClientId));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Client-ID ".$imgurClientID));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
 		if ($response !== false) {
