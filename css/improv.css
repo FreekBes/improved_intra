@@ -20,11 +20,6 @@ html {
 	overflow-x: hidden !important;
 }
 
-/* set height of html and body to at least the height of the screen to prevent login page background glitches */
-html, body {
-	height: 100% !important;
-}
-
 /* Windows Futura font family fix */
 .modal-v2 .modal-header,
 .event-modal .head h4,
