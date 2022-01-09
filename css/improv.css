@@ -335,7 +335,7 @@ a h5:not(.profile-name) {
 	color: inherit !important;
 }
 
-/* A.G.U Panel (not translated sine that does not seem to work properly: https://bugs.chromium.org/p/chromium/issues/detail?id=115800) */
+/* A.G.U Panel (not translated since that does not seem to work properly: https://bugs.chromium.org/p/chromium/issues/detail?id=115800) */
 .text-agu:last-of-type::after {
 	content: '\A\APlease disable the Improved Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is likely they will contain errors, which could result in a wrongfully allocated freeze.' !important;
 	color: red !important;
