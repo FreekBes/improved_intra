@@ -67,6 +67,14 @@ setInterval(function() {
 	syncPort = chrome.runtime.connect({ name: "sync_port" });
 }, 250000);
 
+function storeSettingsAndUpdateForm(newSettings) {
+	chrome.storage.local.set(newSettings, function() {
+		if (syncPort) {
+			syncPort.postMessage({ action: "options-changed", settings: newSettings });
+		}
+	});
+}
+
 function syncSettings(event) {
 	console.log("Syncing settings...");
 	event.preventDefault();
@@ -119,20 +127,24 @@ function syncSettings(event) {
 						else {
 							console.log("Settings sync result", res);
 						}
+						if (res["data"]) {
+							storeSettingsAndUpdateForm(res["data"]);
+						}
+						else {
+							storeSettingsAndUpdateForm(settingsObj);
+						}
 					}
 					catch (err) {
 						console.error("Could not parse settings sync result!", err);
+						storeSettingsAndUpdateForm(settingsObj);
 					}
+				});
+				req.addEventListener("error", function(err) {
+					console.error("Could not sync settings", err);
+					storeSettingsAndUpdateForm(settingsObj);
 				});
 				req.send(formData);
 			}
-
-			chrome.storage.local.set(settingsObj, function() {
-				console.log("Settings stored locally");
-				if (syncPort) {
-					syncPort.postMessage({ action: "options-changed", settings: settingsObj });
-				}
-			});
 		});
 	}
 	else {
@@ -206,14 +218,14 @@ function loadSettingsIntoForm(settings) {
 			continue;
 		}
 		if (settingElem.nodeName == "SELECT") {
-			settingElem.value = settings[key];
+			settingElem.setAttribute("value", settings[key]);
 		}
 		else if (settingElem.nodeName == "INPUT") {
 			switch (settingElem.getAttribute("type")) {
 				case "text":
 				case "number":
 				case "url":
-					settingElem.setAttribute("value", settings[key]);
+					settingElem.value = settings[key];
 					break;
 				case "checkbox":
 					settingElem.checked = (settings[key] === true || settings[key] === "true");
