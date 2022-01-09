@@ -21,15 +21,6 @@ function getCoalitionColor() {
 	}
 }
 
-function getProfileUserName() {
-	try {
-		return (document.querySelector(".profile-item .profile-name .login[data-login]").getAttribute("data-login"));
-	}
-	catch (err) {
-		return (null);
-	}
-}
-
 function getCampus() {
 	try {
 		var iconLocation = document.getElementsByClassName("icon-location");
@@ -195,14 +186,6 @@ function setGeneralImprovements() {
 			elements[i].className += " funnyhaha";
 			elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
 			elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
-		}
-	}
-
-	// easter egg for user fbes
-	if (getProfileUserName() == "fbes") {
-		var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
-		if (banner) {
-			banner.className += " egg";
 		}
 	}
 

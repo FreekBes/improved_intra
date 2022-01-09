@@ -70,6 +70,7 @@ function setCustomBanner(profileBanner, imageUrl, imagePos) {
 				profileBanner.style.backgroundPosition = "center bottom";
 				break;
 		}
+		console.log("Custom banner set!");
 		return (true);
 	}
 	return (false);
@@ -79,15 +80,16 @@ function unsetCustomBannerIfRequired(profileBanner) {
 	if (profileBanner.getAttribute("data-old-bg")) {
 		profileBanner.style.backgroundImage = profileBanner.getAttribute("data-old-bg");
 		profileBanner.removeAttribute("data-old-bg");
+		console.log("Custom banner unset");
 	}
 }
 
 function setCustomProfile() {
+	var uName = getProfileUserName();
+	var profileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 	chrome.storage.local.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos"], function(data) {
 		if (data["show-custom-profiles"] === true || data["show-custom-profiles"] === "true") {
-			var profileBanner = document.querySelector(".profile-banner");
 			if (profileBanner) {
-				var uName = getProfileUserName();
 				if (uName == data["username"]) {
 					if (!setCustomBanner(profileBanner, data["custom-banner-url"], data["custom-banner-pos"])) {
 						unsetCustomBannerIfRequired(profileBanner);
@@ -106,7 +108,17 @@ function setCustomProfile() {
 				}
 			}
 		}
+
+		// easter egg for user fbes, even when customized profiles are disabled
+		if (uName == "fbes") {
+			if (profileBanner) {
+				profileBanner.className += " egg";
+			}
+		}
 	});
 }
 
-setCustomProfile();
+// set custom profile with timeout, as sometimes the coalition banner takes a while to load
+setTimeout(function() {
+	setCustomProfile();
+}, 150);
