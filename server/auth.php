@@ -34,7 +34,7 @@
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Bearer ".$accessToken ));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
-		if ($response !== false ) {
+		if ($response !== false) {
 			try {
 				$userInfo = json_decode($response, true);
 				if (isset($userInfo["error"])) {
@@ -86,7 +86,7 @@
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
-		if ($response !== false ) {
+		if ($response !== false) {
 			try {
 				$ret = array();
 				$jsonRes = json_decode($response, true);
