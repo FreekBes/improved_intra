@@ -91,7 +91,7 @@ function syncSettings(event) {
 	console.log(settingsObj);
 
 	// setting validation
-	if (settingsObj["custom-banner-url"] != "" && !settingsObj["custom-banner-url"].match(/^(http|https):\/\/i.imgur.com\/[a-zA-Z0-9]*\.gif$/g)) {
+	if (settingsObj["custom-banner-url"] != "" && !settingsObj["custom-banner-url"].match(/^(http|https):\/\/i.imgur.com\/[a-zA-Z0-9]*\.(gif|jpeg|jpg|png)$/g)) {
 		alert("Invalid Imgur link set for custom banner URL. Ommitting this value.");
 		settingsObj["custom-banner-url"] = "";
 		formData.set("custom-banner-url", "");
