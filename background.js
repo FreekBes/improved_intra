@@ -14,6 +14,8 @@ var defaultSettings = {
 	"clustermap": "true",
 	"codam-monit": "true",
 	"colors": "default",
+	"custom-banner-url": "",
+	"custom-banner-pos": "center-center",
 	"hide-broadcasts": "false",
 	"hide-goals": "false",
 	"show-custom-profiles": "false",
@@ -106,7 +108,7 @@ function getSettingsFromSyncServer(username) {
 					return null;
 				}
 				else if (!response.ok) {
-					throw new Error("Not signed in on Intra, cannot fetch username");
+					throw new Error("Could not fetch settings from server due to an error");
 				}
 				return response.json();
 			})

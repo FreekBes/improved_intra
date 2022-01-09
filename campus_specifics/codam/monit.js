@@ -45,7 +45,7 @@ var monit = {
 	 */
 	getUserName: function() {
 		try {
-			return (document.querySelector(".login[data-login]").getAttribute("data-login"));
+			return (document.querySelector(".profile-item .profile-name .login[data-login]").getAttribute("data-login"));
 		}
 		catch (err) {
 			return (null);

@@ -85,9 +85,18 @@ function syncSettings(event) {
 	// get js object version for storing in local storage later
 	var settingsObj = {};
 	formData.forEach(function(value, key) {
-		settingsObj[key] = value;
+		settingsObj[key] = value.trim();
+		formData.set(key, value.trim());
 	});
 	console.log(settingsObj);
+
+	// setting validation
+	if (settingsObj["custom-banner-url"] != "" && !settingsObj["custom-banner-url"].match(/^(http|https):\/\/i.imgur.com\/[a-zA-Z0-9]*\.gif$/g)) {
+		alert("Invalid Imgur link set for custom banner URL. Ommitting this value.");
+		settingsObj["custom-banner-url"] = "";
+		formData.set("custom-banner-url", "");
+		document.getElementById("custom-banner-url").value = "";
+	}
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
@@ -203,6 +212,7 @@ function loadSettingsIntoForm(settings) {
 			switch (settingElem.getAttribute("type")) {
 				case "text":
 				case "number":
+				case "url":
 					settingElem.setAttribute("value", settings[key]);
 					break;
 				case "checkbox":

@@ -55,7 +55,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>General Improvements</h2>
+					<h2>General improvements</h2>
 					<fieldset>
 						<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>Hide the blue megaphone floating button on the dashboard</span></label>
 						<input type="checkbox" value="true" id="hide-broadcasts" name="hide-broadcasts" checked />
@@ -67,6 +67,21 @@
 					<fieldset>
 						<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will open the cluster map</span></label>
 						<input type="checkbox" value="true" id="clustermap" name="clustermap" checked />
+					</fieldset>
+				</section>
+				<section>
+					<h2>Customize your profile</h2>
+					<fieldset>
+						<label for="custom-banner-url"><span>Custom profile banner image</span><span>Override profile's banner with an image from Imgur</span></label>
+						<input type="url" value="" id="custom-banner-url" name="custom-banner-url" placeholder="https://i.imgur.com/..." title="The URL must be from Imgur specifically. Leave empty to use default." />
+					</fieldset>
+					<fieldset>
+						<label for="custom-banner-pos"><span>Custom banner image position</span><span>The background position of your custom banner image</span></label>
+						<select id="custom-banner-pos" name="custom-banner-pos">
+							<option value="center-top">Top</option>
+							<option value="center-center" selected>Centered (default)</option>
+							<option value="center-bottom">Bottom</option>
+						</select>
 					</fieldset>
 				</section>
 				<section>

@@ -72,7 +72,6 @@ html {
 	padding: 0px;
 	margin: 0px;
 	background-color: #202124;
-	height: 100%;
 }
 
 body,
@@ -279,6 +278,7 @@ fieldset > button {
 }
 
 fieldset > input[type="text"],
+fieldset > input[type="url"],
 fieldset > input[type="number"] {
 	cursor: text;
 	user-select: all;

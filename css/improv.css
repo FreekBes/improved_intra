@@ -156,6 +156,10 @@ li.scaleteam-list-item .rating {
 /* fix background banner repeating on small screens */
 .profile-banner {
 	background-size: cover !important;
+}
+
+/* fix background position of background banner, but not on customized profiles */
+.profile-banner:not(.customized) {
 	background-position: center center !important;
 }
 

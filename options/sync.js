@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-function getUserName() {
+function getLoggedInUserName() {
 	try {
 		return (document.querySelector(".main-navbar [data-login]").getAttribute("data-login"));
 	}
@@ -39,7 +39,7 @@ setInterval(function() {
 }, 250000);
 
 chrome.storage.local.get("username", function(data) {
-	var curUsername = getUserName();
+	var curUsername = getLoggedInUserName();
 	if (curUsername != data["username"] && curUsername != null) {
 		// a new user logged in!
 		chrome.storage.local.set({"username": curUsername}, function() {

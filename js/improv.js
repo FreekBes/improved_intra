@@ -21,9 +21,9 @@ function getCoalitionColor() {
 	}
 }
 
-function getUserName() {
+function getProfileUserName() {
 	try {
-		return (document.querySelector(".login[data-login]").getAttribute("data-login"));
+		return (document.querySelector(".profile-item .profile-name .login[data-login]").getAttribute("data-login"));
 	}
 	catch (err) {
 		return (null);
@@ -199,7 +199,7 @@ function setGeneralImprovements() {
 	}
 
 	// easter egg for user fbes
-	if (getUserName() == "fbes") {
+	if (getProfileUserName() == "fbes") {
 		var banner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 		if (banner) {
 			banner.className += " egg";
@@ -287,6 +287,9 @@ syncPort.onMessage.addListener(function(msg) {
 			checkThemeSetting();
 			setOptionalImprovements();
 			colorizeLogtimeChart();
+			if (typeof setCustomProfile != "undefined") {
+				setCustomProfile();
+			}
 			break;
 		case "error":
 			console.error(msg["message"]);
