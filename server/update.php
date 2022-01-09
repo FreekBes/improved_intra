@@ -122,6 +122,42 @@
 		}
 	}
 
+	// check imgur link if banner is set, if it doesn't meet criteria, unset the setting
+	if (isset($userSettings["custom-banner-url"]) && !empty($userSettings["custom-banner-url"])) {
+		$imgurId = substr($userSettings["custom-banner-url"], strrpos($userSettings["custom-banner-url"], '/') + 1);
+		$imgurId = substr($imgurId, 0, strpos($imgurId, '.'));
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,"https://api.imgur.com/3/image/" . $imgurId);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Client-ID ".$imgurClientId));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+		if ($response !== false) {
+			try {
+				$imgurInfo = json_decode($response, true);
+				if (isset($imgurInfo["success"]) && $imgurInfo["success"] == true && isset($imgurInfo["data"])) {
+					if ((isset($imgurInfo["data"]["nsfw"]) && $imgurInfo["data"]["nsfw"] == true) || $imgurInfo["data"]["section"] == "HotStuffNSFW") {
+						$userSettings["custom-banner-url"] = "https://i.imgur.com/f2ZShFE.png";	// use NSFW icon instead of the NSFW image
+						$userSettings["custom-banner-pos"] = "center-center";
+					}
+				}
+				else {
+					$userSettings["custom-banner-url"] = "https://i.imgur.com/bfXbqZt.png";	// blue screen of death image, something went wrong
+					$userSettings["custom-banner-pos"] = "center-top";
+				}
+			}
+			catch (Exception $e) {
+				$userSettings["custom-banner-url"] = "https://i.imgur.com/3jVqJEx.gif";	// win98 fish tank
+				$userSettings["custom-banner-pos"] = "center-top";
+			}
+		}
+		else {
+			// imgur seems down, do not allow changing of background image at this point
+			// use Imgur's downbeing image or whatever it's called
+			$userSettings["custom-banner-url"] = "https://i.imgur.com/itdJINZ.png";
+			$userSettings["custom-banner-pos"] = "center-top";
+		}
+	}
+
 	// save settings for user
 	if (file_put_contents("settings/".strval($userSettings["username"]).".json", json_encode($userSettings, JSON_UNESCAPED_UNICODE)) === false) {
 		http_response_code(500);

@@ -3,4 +3,6 @@
 	$clientSecret = "your_client_secret_here";
 	$redirectURL = "your_redirect_url_here";
 	$scopes = array("public");
+
+	$imgurClientId = "your_imgur_client_id_here";
 ?>
