@@ -108,16 +108,20 @@ function setCustomProfile() {
 				}
 			}
 		}
-
-		// easter egg for user fbes, even when customized profiles are disabled
-		if (uName == "fbes") {
-			if (profileBanner) {
-				profileBanner.className += " egg";
-			}
-		}
 	});
 }
 
+function immediateProfileChanges() {
+	// easter egg for user fbes, even when customized profiles are disabled
+	if (getProfileUserName() == "fbes") {
+		var profileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
+		if (profileBanner) {
+			profileBanner.className += " egg";
+		}
+	}
+}
+
+immediateProfileChanges();
 // set custom profile with timeout, as sometimes the coalition banner takes a while to load
 setTimeout(function() {
 	setCustomProfile();
