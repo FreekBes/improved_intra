@@ -103,7 +103,7 @@ function setCustomProfile() {
 							}
 						})
 						.catch(function(err) {
-							console.error("Could not retrieve custom profile settings for user", err);
+							// no custom profile settings found
 						});
 				}
 			}
