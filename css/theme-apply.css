@@ -17,7 +17,7 @@
 
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
 @media (prefers-color-scheme: dark) {
-	html {
+	body {
 		background-color: #202124 !important;
 	}
 }
@@ -1441,15 +1441,15 @@ mark {
 
 /* mobile */
 @media (max-width: 767px) {
-	.page .page-content.page-content-fluid {
+	.page .page-content.page-content-fluid:not(.login-page) {
 		background-color: var(--container-background-color) !important;
 	}
 }
 
 @media (max-width: 480px) {
 	body,
-	.page .page-content {
-		background: var(--body-background-color) !important;
+	.page .page-content:not(.login-page) {
+		background-color: var(--body-background-color) !important;
 		color: var(--text-color) !important;
 	}
 }
