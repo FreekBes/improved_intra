@@ -43,7 +43,7 @@ li.scaleteam-list-item .rating {
 	background-size: cover !important;
 }
 
-/* add blur to user banners behind containers */
+/* add blur to profile banners behind containers */
 .profile-item .user-progress .progress,
 .profile-item .user-header-box,
 .profile-item .user-primary .user-infos .user-infos-sub,
@@ -51,6 +51,14 @@ li.scaleteam-list-item .rating {
 	background: rgba(32, 32, 38, 0.75) !important;
 	backdrop-filter: blur(4px) !important;
 	border-radius: 4px !important;
+}
+
+/* slightly changed opacity for customized profiles */
+.profile-item .profile-banner.customized .user-progress .progress,
+.profile-item .profile-banner.customized .user-header-box,
+.profile-item .profile-banner.customized .user-primary .user-infos .user-infos-sub,
+.profile-item .profile-banner.customized .user-primary .user-infos .button-actions {
+	background: rgba(32, 32, 38, 0.6) !important;
 }
 
 /* fix padding on profile name etc. */
@@ -273,10 +281,10 @@ a[data-tooltip-login="fbes"]::before,
 }
 
 /* profile page easter egg for fbes (me, le creator) */
-.profile-item .egg .user-progress .progress,
-.profile-item .egg .user-header-box,
-.profile-item .egg .user-primary .user-infos .user-infos-sub,
-.profile-item .egg .user-primary .user-infos .button-actions {
+.profile-item .profile-banner.egg .user-progress .progress,
+.profile-item .profile-banner.egg .user-header-box,
+.profile-item .profile-banner.egg .user-primary .user-infos .user-infos-sub,
+.profile-item .profile-banner.egg .user-primary .user-infos .button-actions {
 	background: rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -413,5 +421,17 @@ textarea {
 	/* fix padding-top on user-infos (looks bad with coalition banner) */
 	.user-primary .user-infos {
 		padding-top: 0px !important;
+	}
+}
+
+/* fix backdrop-filter not being supported in Firefox for the blurry containers in front of profile banners */
+/* includes the .profile-item-top rule to work around the importance of customized profile rules */
+@supports not (backdrop-filter: none) {
+	.profile-item .profile-banner.profile-item-top .user-progress .progress,
+	.profile-item .profile-banner.profile-item-top .user-header-box,
+	.profile-item .profile-banner.profile-item-top .user-primary .user-infos .user-infos-sub,
+	.profile-item .profile-banner.profile-item-top .user-primary .user-infos .button-actions {
+		background: rgba(32, 32, 38, 0.8) !important;
+		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
 	}
 }
