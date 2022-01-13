@@ -150,7 +150,6 @@
 						if (isset($imgurInfo["success"]) && $imgurInfo["success"] == true && isset($imgurInfo["data"])) {
 							if ((isset($imgurInfo["data"]["nsfw"]) && $imgurInfo["data"]["nsfw"] == true) || $imgurInfo["data"]["section"] == "HotStuffNSFW") {
 								$userSettings["custom-banner-url"] = "https://i.imgur.com/f2ZShFE.png";	// use NSFW icon instead of the NSFW image
-								$userSettings["custom-banner-pos"] = "center-center";
 							}
 							else {
 								// we're good to go! image is safe. hopefully
@@ -159,19 +158,16 @@
 						}
 						else {
 							$userSettings["custom-banner-url"] = "https://i.imgur.com/bfXbqZt.png";	// blue screen of death image, something went wrong
-							$userSettings["custom-banner-pos"] = "center-top";
 						}
 					}
 					catch (Exception $e) {
 						$userSettings["custom-banner-url"] = "https://i.imgur.com/3jVqJEx.gif";	// win98 fish tank
-						$userSettings["custom-banner-pos"] = "center-top";
 					}
 				}
 				else {
 					// imgur seems down, do not allow changing of background image at this point
 					// use Imgur's downbeing image or whatever it's called
 					$userSettings["custom-banner-url"] = "https://i.imgur.com/itdJINZ.png";
-					$userSettings["custom-banner-pos"] = "center-top";
 				}
 			}
 		}
