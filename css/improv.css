@@ -431,7 +431,7 @@ textarea {
 	.profile-item .profile-banner.profile-item-top .user-header-box,
 	.profile-item .profile-banner.profile-item-top .user-primary .user-infos .user-infos-sub,
 	.profile-item .profile-banner.profile-item-top .user-primary .user-infos .button-actions {
-		background: rgba(32, 32, 38, 0.8) !important;
+		background: rgba(32, 32, 38, 0.88) !important;
 		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
 	}
 }
