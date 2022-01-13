@@ -81,3 +81,10 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fun
 });
 
 checkThemeSetting();
+
+// fix sign in page issue with background image
+window.addEventListener("DOMContentLoaded", function() {
+	if (window.location.pathname == "/users/sign_in") {
+		document.getElementsByTagName("html")[0].setAttribute("style", "background-color: unset !important;");
+	}
+});

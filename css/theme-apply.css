@@ -17,7 +17,7 @@
 
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
 @media (prefers-color-scheme: dark) {
-	body {
+	html, body {
 		background-color: #202124 !important;
 	}
 }
