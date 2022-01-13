@@ -122,40 +122,57 @@
 		}
 	}
 
+	// setup cache for imgur image checking
+	// the cache might be overwritten by a simultanious call to update.php by other users
+	// but that's okay, it's only to reduce pressure from Imgur's API in the end
+	// after another request from the same user, the cache will hopefully get updated again anyways
+	$imgurCache = array();
+	if (file_exists("imgur_cache.txt")) {
+		$imgurCache = explode(",", file_get_contents("imgur_cache.txt"));
+	}
+
 	// check imgur link if banner is set, if it doesn't meet criteria, unset the setting
 	if (isset($userSettings["custom-banner-url"]) && !empty($userSettings["custom-banner-url"])) {
 		if (filter_var($userSettings["custom-banner-url"], FILTER_VALIDATE_URL)) {
 			$imgurId = substr($userSettings["custom-banner-url"], strrpos($userSettings["custom-banner-url"], '/') + 1);
 			$imgurId = substr($imgurId, 0, strpos($imgurId, '.'));
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL,"https://api.imgur.com/3/image/" . $imgurId);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Client-ID ".$imgurClientID));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			$response = curl_exec($ch);
-			if ($response !== false) {
-				try {
-					$imgurInfo = json_decode($response, true);
-					if (isset($imgurInfo["success"]) && $imgurInfo["success"] == true && isset($imgurInfo["data"])) {
-						if ((isset($imgurInfo["data"]["nsfw"]) && $imgurInfo["data"]["nsfw"] == true) || $imgurInfo["data"]["section"] == "HotStuffNSFW") {
-							$userSettings["custom-banner-url"] = "https://i.imgur.com/f2ZShFE.png";	// use NSFW icon instead of the NSFW image
-							$userSettings["custom-banner-pos"] = "center-center";
+			if (!in_array($imgurId, $imgurCache)) {
+				// image being used hasn't been checked and marked as SFW before
+				// let's check it using the Imgur API
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL,"https://api.imgur.com/3/image/" . $imgurId);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" , "Authorization: Client-ID ".$imgurClientID));
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$response = curl_exec($ch);
+				if ($response !== false) {
+					try {
+						$imgurInfo = json_decode($response, true);
+						if (isset($imgurInfo["success"]) && $imgurInfo["success"] == true && isset($imgurInfo["data"])) {
+							if ((isset($imgurInfo["data"]["nsfw"]) && $imgurInfo["data"]["nsfw"] == true) || $imgurInfo["data"]["section"] == "HotStuffNSFW") {
+								$userSettings["custom-banner-url"] = "https://i.imgur.com/f2ZShFE.png";	// use NSFW icon instead of the NSFW image
+								$userSettings["custom-banner-pos"] = "center-center";
+							}
+							else {
+								// we're good to go! image is safe. hopefully
+								array_push($imgurCache, $imgurId);
+							}
+						}
+						else {
+							$userSettings["custom-banner-url"] = "https://i.imgur.com/bfXbqZt.png";	// blue screen of death image, something went wrong
+							$userSettings["custom-banner-pos"] = "center-top";
 						}
 					}
-					else {
-						$userSettings["custom-banner-url"] = "https://i.imgur.com/bfXbqZt.png";	// blue screen of death image, something went wrong
+					catch (Exception $e) {
+						$userSettings["custom-banner-url"] = "https://i.imgur.com/3jVqJEx.gif";	// win98 fish tank
 						$userSettings["custom-banner-pos"] = "center-top";
 					}
 				}
-				catch (Exception $e) {
-					$userSettings["custom-banner-url"] = "https://i.imgur.com/3jVqJEx.gif";	// win98 fish tank
+				else {
+					// imgur seems down, do not allow changing of background image at this point
+					// use Imgur's downbeing image or whatever it's called
+					$userSettings["custom-banner-url"] = "https://i.imgur.com/itdJINZ.png";
 					$userSettings["custom-banner-pos"] = "center-top";
 				}
-			}
-			else {
-				// imgur seems down, do not allow changing of background image at this point
-				// use Imgur's downbeing image or whatever it's called
-				$userSettings["custom-banner-url"] = "https://i.imgur.com/itdJINZ.png";
-				$userSettings["custom-banner-pos"] = "center-top";
 			}
 		}
 		else {
@@ -163,6 +180,9 @@
 			unset($userSettings["custom-banner-url"]);
 		}
 	}
+
+	// save imgur cache
+	file_put_contents("imgur_cache.txt", implode(",", $imgurCache));
 
 	// save settings for user
 	if (file_put_contents("settings/".strval($userSettings["username"]).".json", json_encode($userSettings, JSON_UNESCAPED_UNICODE)) === false) {
