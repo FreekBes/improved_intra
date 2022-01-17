@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 21:19:17 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 21:39:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,6 +405,13 @@ textarea {
 	width: 60px !important;
 	height: 60px !important;
 	border-radius: 30px !important;
+}
+
+/* fix vertical alignment of coalition name in user profile banner */
+@media (min-width: 1600px) {
+	.profile-banner .coalition-name {
+		margin-top: 8px !important;
+	}
 }
 
 /* remove weird margin from profile banner containers */
