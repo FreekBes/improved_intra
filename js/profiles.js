@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/09 01:01:42 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 21:45:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,17 +130,30 @@ function immediateProfileChanges() {
 	}
 }
 
+// check if the custom profile is kept in an interval for 5 seconds
+// sometimes things get overruled by coalition stuff, such as banners
+function confirmProfileUpdatedForFiveSeconds() {
+	if (!gInterval) {
+		gInterval = setInterval(setCustomProfile, 150);
+		setTimeout(function() {
+			clearInterval(gInterval);
+			gInterval = null;
+		}, 5000);
+	}
+}
+
 gUName = getProfileUserName();
 gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 immediateProfileChanges();
 chrome.storage.local.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos"], function(data) {
 	gExtSettings = data;
 	setCustomProfile();
-	// check if the custom profile is kept in an interval for 5 seconds
-	// sometimes things get overruled by coalition stuff, such as banners
-	gInterval = setInterval(setCustomProfile, 150);
-	setTimeout(function() {
-		clearInterval(gInterval);
-		gInterval = null;
-	}, 5000);
+	confirmProfileUpdatedForFiveSeconds();
 });
+
+var cursusSelector = document.querySelector(".cursus-user-select");
+if (cursusSelector) {
+	cursusSelector.addEventListener("change", function(event) {
+		confirmProfileUpdatedForFiveSeconds();
+	});
+}
