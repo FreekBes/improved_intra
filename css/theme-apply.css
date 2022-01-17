@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/05 17:32:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 17:58:48 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -554,6 +554,10 @@ mark,
 .table-list li.table-item:hover {
 	background-color: var(--list-hover-background-color) !important;
 	border-color: var(--general-border-color) !important;
+}
+
+.changelogs-list .changelog-item .changelog-middle {
+	background-color: var(--theme-color) !important;
 }
 
 .changelogs-list .changelog-item .changelog-main p.title code {
