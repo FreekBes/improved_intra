@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 20:55:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 20:57:21 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,6 +428,13 @@ textarea {
 	/* fix padding-top on user-infos (looks bad with coalition banner) */
 	.user-primary .user-infos {
 		padding-top: 0px !important;
+	}
+}
+
+@media (max-width: 480px) {
+	/* fix padding on profile name etc. */
+	.user-primary .user-infos.padding-left-30 {
+		padding-left: 15px !important;
 	}
 }
 
