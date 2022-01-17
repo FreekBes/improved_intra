@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 19:54:31 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 20:55:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ li.scaleteam-list-item .rating {
 .profile-item .profile-banner.customized .user-primary .user-infos .button-actions {
 	background: rgba(32, 32, 38, 0.6) !important;
 }
-
-/* fix padding on profile name etc. */
-.user-primary .user-infos.padding-left-30 {
-	padding-left: 15px !important;
-}
-
 
 /* fix z-index for tooltips on action buttons in user banners */
 .profile-item .user-primary .user-infos .button-actions {
