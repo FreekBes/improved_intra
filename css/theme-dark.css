@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 17:39:48 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:14:24 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 18:05:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,8 @@
 	--scrollbar-thumb-color: #606060;
 	--scrollbar-thumb-color-hover: #707070;
 	--scrollbar-thumb-color-active: #808080;
+
+	/* override event colors */
+	--event-meet: var(--theme-color);
+	--event-dark-meet: var(--theme-color-dark);
 }
