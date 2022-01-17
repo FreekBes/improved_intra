@@ -6,9 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 20:55:17 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/17 16:24:42 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+// for checking if user has corrected anything
+// implement in the future
+// '/users/{user_id}/scale_teams/as_corrected'
+// https://github.com/troplolBE/bettercorrectors#sample-1
 
 function sum(prevVal, curVal) {
 	return (prevVal + curVal);
