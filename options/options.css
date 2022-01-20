@@ -100,8 +100,10 @@ body {
 #loading {
 	opacity: 1;
 	z-index: 1000;
-	background-color: inherit;
-	position: absolute;
+	background-color: #202124;
+	position: fixed;
+	left: 0;
+	top: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
