@@ -176,7 +176,7 @@ header button {
 	background-color: rgba(0,0,0,0);
 	cursor: pointer;
 	color: inherit;
-	transition: background-color 0.4s;
+	transition: 0.4s;
 	margin: 0px;
 	padding: 8px 28px;
 	border: none;
@@ -194,6 +194,11 @@ header button {
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+header button#back-button {
+	float: left;
+	padding-bottom: 4px;
 }
 
 header button#sync-button.syncing {
@@ -216,6 +221,11 @@ header button:hover,
 header button:focus {
 	background-color: rgba(0,0,0,0.1);
 	transition: background-color 0.05s;
+}
+
+header button#back-button:hover,
+header button#back-button:focus {
+	padding-right: 4px;
 }
 
 main {
