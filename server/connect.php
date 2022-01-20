@@ -101,7 +101,7 @@
 		case "success":
 ?>
 		<h1>Authentication succesful</h1>
-		<p>Improved Intra 42 is now connected to your Intranet account.<br><span id="action">You can safely close this tab.</span></p>
+		<p>Improved Intra 42 is now connected to your Intranet account.<br><span id="action">You can safely close this tab.</span><br><small id="clicker" style="display: none;">Or click <a id="redir_link" href="#" target="_self">here</a> if you are not being redirected...</small></p>
 <?php
 			break;
 		case "error":
