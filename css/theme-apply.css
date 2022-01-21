@@ -350,6 +350,12 @@ hr,
 }
 
 /* projects page */
+.graph-elem,
+#graph_description {
+	border-color: var(--general-border-color) !important;
+	background-color: var(--input-background-color-transparent) !important;
+}
+
 .projects-menu-list a.project-item:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color) !important;
 }
@@ -1272,6 +1278,18 @@ textarea,
 	background-color: var(--input-background-color) !important;
 	color: var(--text-color) !important;
 	border-color: var(--input-border-color) !important;
+}
+
+#graph_cursus,
+#graph_search_icon,
+#graph_search_icon+.twitter-typeahead .tt-input {
+	background-color: var(--input-background-color-transparent) !important;
+	border-color: var(--input-border-color) !important;
+}
+
+#graph_search_icon+.twitter-typeahead .tt-input:hover,
+#graph_search_icon+.twitter-typeahead .tt-input:focus {
+	border-color: var(--input-border-color-light) !important;
 }
 
 .login-container .login-main .form-inputs .input-login input {
