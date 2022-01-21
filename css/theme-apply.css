@@ -1274,16 +1274,6 @@ textarea,
 	border-color: var(--input-border-color) !important;
 }
 
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] .form-control,
-input[disabled],
-textarea[disabled],
-select[disabled] {
-	background-color: var(--input-background-color-disabled) !important;
-	color: var(--input-border-color) !important;
-}
-
 .login-container .login-main .form-inputs .input-login input {
 	background-color: var(--input-background-color-transparent) !important;
 	color: var(--input-text-color) !important;
@@ -1338,6 +1328,16 @@ select[disabled] {
 
 .quest-item .quest-item-header:hover {
 	background: var(--list-hover-background-color) !important;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control,
+input:not(.search-input):not(.bg-lighten)[disabled],
+textarea[disabled],
+select[disabled] {
+	background-color: var(--input-background-color-disabled) !important;
+	color: var(--input-border-color) !important;
 }
 
 mark {
