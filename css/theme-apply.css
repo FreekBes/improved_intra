@@ -1295,6 +1295,24 @@ select[disabled] {
 	color: var(--text-color) !important;
 }
 
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single {
+	background: var(--input-background-color) !important;
+	box-shadow: none !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.chosen-container-single .chosen-drop {
+	background: var(--input-background-color) !important;
+	box-shadow: none !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.chosen-container .chosen-results li.no-results {
+	background-color: var(--input-border-color) !important;
+	color: var(--text-color) !important;
+}
+
 .Select-option.is-focused {
 	background-color: var(--input-border-color) !important;
 	color: var(--text-color) !important;
