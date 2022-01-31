@@ -447,4 +447,5 @@ input[type="file"]:active::after {
 	border-radius: 3px;
 	z-index: 999;
 	transition: 0.2s ease-in-out;
+	text-align: center;
 }
