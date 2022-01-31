@@ -4,4 +4,5 @@
 *.crx
 server/nogit.php
 server/settings/*
+server/banners/*
 temp.js
