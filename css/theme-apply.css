@@ -350,6 +350,12 @@ hr,
 }
 
 /* projects page */
+.graph-elem,
+#graph_description {
+	border-color: var(--general-border-color) !important;
+	background-color: var(--input-background-color-transparent) !important;
+}
+
 .projects-menu-list a.project-item:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color) !important;
 }
@@ -1274,14 +1280,16 @@ textarea,
 	border-color: var(--input-border-color) !important;
 }
 
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] .form-control,
-input[disabled],
-textarea[disabled],
-select[disabled] {
-	background-color: var(--input-background-color-disabled) !important;
-	color: var(--input-border-color) !important;
+#graph_cursus,
+#graph_search_icon,
+#graph_search_icon+.twitter-typeahead .tt-input {
+	background-color: var(--input-background-color-transparent) !important;
+	border-color: var(--input-border-color) !important;
+}
+
+#graph_search_icon+.twitter-typeahead .tt-input:hover,
+#graph_search_icon+.twitter-typeahead .tt-input:focus {
+	border-color: var(--input-border-color-light) !important;
 }
 
 .login-container .login-main .form-inputs .input-login input {
@@ -1292,6 +1300,24 @@ select[disabled] {
 .Select-option,
 .Select-option-group-label {
 	background-color: var(--input-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single {
+	background: var(--input-background-color) !important;
+	box-shadow: none !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.chosen-container-single .chosen-drop {
+	background: var(--input-background-color) !important;
+	box-shadow: none !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.chosen-container .chosen-results li.no-results {
+	background-color: var(--input-border-color) !important;
 	color: var(--text-color) !important;
 }
 
@@ -1320,6 +1346,16 @@ select[disabled] {
 
 .quest-item .quest-item-header:hover {
 	background: var(--list-hover-background-color) !important;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control,
+input:not(.search-input):not(.bg-lighten)[disabled],
+textarea[disabled],
+select[disabled] {
+	background-color: var(--input-background-color-disabled) !important;
+	color: var(--input-border-color) !important;
 }
 
 mark {

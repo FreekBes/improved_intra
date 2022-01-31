@@ -384,6 +384,11 @@ textarea,
 	border-radius: 3px !important;
 }
 
+/* fix for holy graph dropdown menu text partially out of boundaries */
+#graph_cursus {
+	padding-top: 2px !important;
+}
+
 /* add max width to textareas to make them unable to be resized outside of their container */
 textarea {
 	max-width: 100% !important;

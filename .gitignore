@@ -3,4 +3,5 @@
 *.xpi
 *.crx
 server/nogit.php
+server/settings/*
 temp.js
