@@ -123,8 +123,19 @@
 	}
 
 	// check if banner image URL is gone, if so remove it from server
-	if (isset($userSettings["custom-banner-url"]) && empty($userSettings["custom-banner-url"])) {
-		delete_old_user_banner($userSettings["username"]);
+	if (isset($userSettings["custom-banner-url"])) {
+		if (empty($userSettings["custom-banner-url"])) {
+			delete_old_user_banner($userSettings["username"]);
+		}
+		else if (!filter_var($userSettings["custom-banner-url"], FILTER_VALIDATE_URL)) {
+			$userSettings["custom-banner-url"] = "";
+		}
+		else {
+			$hostName = parse_url($userSettings["custom-banner-url"], PHP_URL_HOST);
+			if ($hostName != $_SERVER["SERVER_NAME"]) {
+				delete_old_user_banner($userSettings["username"]);
+			}
+		}
 	}
 
 	// check if banner image needs to be updated from a file
