@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 21:32:12 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/31 18:54:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ function checkIfKeyStillWorks(access_token) {
 	});
 }
 
+var savedNotifHider = null;
+function showSettingsSavedNotif() {
+	document.getElementById("saved-notif").style.top = "12px";
+	if (savedNotifHider) {
+		clearTimeout(savedNotifHider);
+	}
+	savedNotifHider = setTimeout(function() {
+		document.getElementById("saved-notif").style.top = "-80px";
+		savedNotifHider = null;
+	}, 2000);
+}
+
 var syncPort = chrome.runtime.connect({ name: "sync_port" });
 syncPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
@@ -73,11 +85,15 @@ function storeSettingsAndUpdateForm(newSettings) {
 			syncPort.postMessage({ action: "options-changed", settings: newSettings });
 		}
 	});
+	document.getElementById("custom-banner-upload").value = "";
+	showSettingsSavedNotif();
 }
 
 function syncSettings(event) {
 	console.log("Syncing settings...");
-	event.preventDefault();
+	if (event) {
+		event.preventDefault();
+	}
 
 	var syncBtn = document.getElementById("sync-button");
 	var form = document.querySelector('form');
@@ -90,21 +106,24 @@ function syncSettings(event) {
 	}
 	formData.set("sync", "true");
 
+	// check file size limits
+	var bannerUpload = formData.get("custom-banner-upload");
+	if (bannerUpload && bannerUpload.size > 10000000) {
+		alert("The file you're trying to upload as your custom banner is too big. The file limit is 10MB.");
+		document.getElementById("custom-banner-upload").value = "";
+		formData.delete("custom-banner-upload");
+		return;
+	}
+
 	// get js object version for storing in local storage later
 	var settingsObj = {};
 	formData.forEach(function(value, key) {
-		settingsObj[key] = value.trim();
-		formData.set(key, value.trim());
+		if (typeof(value) == "string") {
+			settingsObj[key] = value.trim();
+			formData.set(key, value.trim());
+		}
 	});
 	console.log(settingsObj);
-
-	// setting validation
-	if (settingsObj["custom-banner-url"] != "" && !settingsObj["custom-banner-url"].match(/^(http|https):\/\/i.imgur.com\/[a-zA-Z0-9]*\.(gif|jpeg|jpg|png)$/g)) {
-		alert("Invalid Imgur link set for custom banner URL. Ommitting this value.");
-		settingsObj["custom-banner-url"] = "";
-		formData.set("custom-banner-url", "");
-		document.getElementById("custom-banner-url").value = "";
-	}
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
@@ -236,6 +255,13 @@ function loadSettingsIntoForm(settings) {
 			continue;
 		}
 	}
+	document.getElementById("current-custom-banner").setAttribute("src", settings["custom-banner-url"]);
+	if (!settings["custom-banner-url"]) {
+		document.getElementById("custom-header-preview").style.display = "none";
+	}
+	else {
+		document.getElementById("custom-header-preview").style.display = "block";
+	}
 	hideLoading();
 }
 
@@ -250,6 +276,13 @@ window.onload = function() {
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
 	document.getElementById("back-button").addEventListener("click", function(event) {
 		window.location.href = "https://intra.42.fr/";
+	});
+	document.getElementById("rem-custom-banner").addEventListener("click", function(event) {
+		var con = confirm("Are you sure you want to remove the custom banner from your profile?");
+		if (con) {
+			document.getElementById("custom-banner-url").value = "";
+			syncSettings(null);
+		}
 	});
 	document.getElementById("bug-report").addEventListener("click", function(event) {
 		window.location.href = "https://github.com/FreekBes/improved_intra/issues?q=";

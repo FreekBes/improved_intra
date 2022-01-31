@@ -11,6 +11,7 @@
 	<div id="loading">
 		<div class="spinner"></div>
 	</div>
+	<div id="saved-notif">Settings saved!</div>
 	<div id="contents">
 		<header>
 			<button id="back-button">&#x2B05;</button>
@@ -72,9 +73,22 @@
 				</section>
 				<section>
 					<h2>Customize your profile</h2>
+					<fieldset style="display: none;">
+						<label for="custom-banner-url"><span>Custom profile banner background</span><span>Override banner image with a custom one</span></label>
+						<input type="url" value="" id="custom-banner-url" name="custom-banner-url" placeholder="Leave empty to use default header" title="Leave empty to use default header" />
+					</fieldset>
+					<div id="custom-header-preview" style="display: none;">
+						<figure>
+							<img id="current-custom-banner" src="https://i.imgur.com/2dxaFs9.jpeg" />
+							<figcaption>Current custom header image</figcaption>
+						</figure>
+						<div class="options-buttons">
+							<button type="button" id="rem-custom-banner" class="danger-btn">Remove custom banner</button>
+						</div>
+					</div>
 					<fieldset>
-						<label for="custom-banner-url"><span>Custom profile banner background</span><span>Override banner image with a custom one from Imgur</span></label>
-						<input type="url" value="" id="custom-banner-url" name="custom-banner-url" placeholder="https://i.imgur.com/..." title="The URL must point directly to an image source on Imgur, so it must be from the i.imgur.com subdomain (copy image URL when right clicking). Leave empty to use default." />
+						<label for="custom-banner-upload"><span>Upload a new custom banner</span><span>Upload an image to use as a custom banner</span></label>
+						<input type="file" id="custom-banner-upload" name="custom-banner-upload" accept="image/*" />
 					</fieldset>
 					<fieldset>
 						<label for="custom-banner-pos"><span>Custom banner image position</span><span>The main focus of your custom banner image</span></label>
@@ -96,7 +110,7 @@
 					<h2>Help</h2>
 					<fieldset>
 						<label for="bug-report"><span>Report a bug or give feedback</span><span>Bugs and feedbacks are reported using GitHub Issues</span></label>
-						<button type="button" id="bug-report">Open GitHub Issues</button>
+						<button type="button" id="bug-report" class="non-important-btn">Open GitHub Issues</button>
 					</fieldset>
 				</section>
 			</form>

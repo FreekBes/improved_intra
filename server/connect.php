@@ -95,7 +95,7 @@
 		case "redirect":
 ?>
 		<h1>Redirecting...</h1>
-		<p>If you are not redirected automatically, click here: <a href="<?php echo getAuthPageURL(); ?>" target="_self"><?php echo getAuthPageURL(); ?></a></p>
+		<p>If you are not redirected automatically, click here: <a href="<?php echo get_auth_page_url(); ?>" target="_self"><?php echo get_auth_page_url(); ?></a></p>
 <?php
 			break;
 		case "success":
@@ -159,7 +159,7 @@
 	}
 	else {
 		http_response_code(302);
-		header("Location: ".getAuthPageURL());
+		header("Location: ".get_auth_page_url());
 		respond("redirect", "Redirecting to authorization page... See Location field in header for URL");
 	}
 ?>

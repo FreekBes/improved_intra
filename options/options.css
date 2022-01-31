@@ -260,22 +260,22 @@ fieldset {
 	margin: 0px;
 }
 
-fieldset > label {
+label {
 	text-align: left;
 	font-weight: 100;
 	font-size: 1em;
 	padding-left: 12px;
 }
 
-fieldset > label > span:last-child:not(:first-child) {
+label > span:last-child:not(:first-child) {
 	display: block;
 	font-size: 0.9em;
 	color: #9a9a9a;
 }
 
-fieldset > input,
-fieldset > select,
-fieldset > button {
+input,
+select,
+button {
 	justify-self: end;
 	margin: 0px 12px;
 	background-color: #4a4a4a;
@@ -289,45 +289,67 @@ fieldset > button {
 	outline: 0;
 }
 
-fieldset > input[type="text"],
-fieldset > input[type="url"],
-fieldset > input[type="number"] {
+input[type="text"],
+input[type="url"],
+input[type="number"] {
 	cursor: text;
 	user-select: all;
 }
 
-fieldset > input[type="checkbox"] {
+input[type="checkbox"] {
 	min-width: unset;
 	height: 16px;
 	width: 16px;
 }
 
-fieldset > input[type="button"],
-fieldset > button {
+input[type="button"],
+button {
 	background-color: #00babc;
 	border-color: #00babc;
 	cursor: pointer;
 	font-weight: bold;
 }
 
-fieldset > input:hover,
-fieldset > input:focus,
-fieldset > select:hover,
-fieldset > select:focus {
+.non-important-btn {
+	background-color: #7a7a7a;
+	border-color: #7a7a7a;
+}
+
+.danger-btn {
+	background-color: #d8636f;
+	border-color: #d8636f;
+}
+
+input:hover,
+input:focus,
+select:hover,
+select:focus {
 	border-color: #00babc;
 }
 
-fieldset > input[type="button"]:hover,
-fieldset > input[type="button"]:focus,
-fieldset > button:hover,
-fieldset > button:focus {
-	background-color: #00ecef;
-	border-color: #00ecef;
+input[type="button"]:hover,
+input[type="button"]:focus,
+button:hover,
+button:focus {
+	background-color: #00d9db;
+	border-color: #00d9db;
 }
 
-fieldset > input[disabled],
-fieldset > select[disabled],
-fieldset > input[readonly] {
+.non-important-btn:hover,
+.non-important-btn:focus {
+	background-color: #9a9a9a;
+	border-color: #9a9a9a;
+}
+
+.danger-btn:hover,
+.danger-btn:focus {
+	background-color: #e26060;
+	border-color: #e26060;
+}
+
+input[disabled],
+select[disabled],
+input[readonly] {
 	border-color: #6a6a6a !important;
 	color: #b2b2b2;
 	opacity: 0.7;
@@ -347,4 +369,82 @@ label[for="sync"] span.success::after {
 	content: ' \2714';
 	color: limegreen;
 	font-weight: bold;
+}
+
+figure {
+	margin: 0px 12px 12px 12px;
+}
+
+figcaption {
+	display: block;
+	font-size: 0.8em;
+	font-style: italic;
+	font-weight: 600;
+	margin: 6px 0px 0px 0px;
+}
+
+img#current-custom-banner {
+	display: block;
+	width: 100%;
+	border-radius: 3px;
+}
+
+.options-buttons {
+	text-align: right;
+}
+
+.options-buttons > input[type="button"],
+.options-buttons > button {
+	display: inline-block;
+}
+
+/* overrule file input field */
+input[type="file"] {
+	position: relative;
+	border: none;
+	cursor: pointer;
+}
+
+::-webkit-file-upload-button {
+	cursor: pointer;
+}
+
+input[type="file"]::after {
+	content: "Choose file...";
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	background-color: #00babc;
+	border-radius: 3px;
+	pointer-events: none;
+	text-align: center;
+	line-height: 28px;
+	font-weight: bold;
+	box-sizing: border-box;
+	outline: 0;
+	transition: background-color 0.05s;
+}
+
+input[type="file"]:hover::after,
+input[type="file"]:active::after {
+	background-color: #00d9db;
+}
+
+#saved-notif {
+	position: fixed;
+	top: -80px;
+	left: 50%;
+	width: 120px;
+	padding: 4px 12px;
+	margin-left: -60px;
+	background-color: #5cb85c;
+	color: #1A1A1A;
+	border: solid 1px rgba(0,0,0,.14);
+	box-shadow: 0px 0px 6px 1px #000;
+	border-radius: 3px;
+	z-index: 999;
+	transition: 0.2s ease-in-out;
 }
