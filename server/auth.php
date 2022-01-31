@@ -112,7 +112,7 @@
 	}
 
 	function delete_old_user_banner($username) {
-		foreach (glob("banners/".$username.".*") as $filename) {
+		foreach (glob("banners/".$username."*.*") as $filename) {
 			if (exif_imagetype($filename) !== false) {
 				unlink($filename);
 			}
