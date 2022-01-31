@@ -143,7 +143,7 @@
 		$mime = exif_imagetype($_FILES["custom-banner-upload"]["tmp_name"]);
 		if ($mime !== false) {
 			delete_old_user_banner($userSettings["username"]);
-			$newFileName = "banners/" . $userSettings["username"] . "." . get_image_ext(null, $mime);
+			$newFileName = "banners/" . $userSettings["username"] . "-" . time() . "." . get_image_ext(null, $mime);
 			move_uploaded_file($_FILES["custom-banner-upload"]["tmp_name"], $newFileName);
 			$userSettings["custom-banner-url"] = "https://" . $_SERVER["SERVER_NAME"] . substr($_SERVER["REQUEST_URI"], 0, strrpos($_SERVER["REQUEST_URI"], '/') + 1) . $newFileName;
 		}
