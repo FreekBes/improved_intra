@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 17:58:48 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/02 17:23:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ a.no-color:not(.btn):focus {
 	color: inherit !important;
 	background-color: inherit !important;
 	background: inherit !important;
+}
+
+.reminder .project-item-actions a:not([style*="color:"]):not(.btn).missing-user {
+	color: var(--fail-color) !important;
 }
 
 h1:not(.profile-name),
