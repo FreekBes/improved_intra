@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 21:39:25 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 17:57:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,54 @@ li.scaleteam-list-item .rating {
 /* hide border from p element in achievements */
 .achievements-nav .achievements-nav-item input.kind-filter + label p {
 	border-color: rgba(0,0,0,0) !important;
+}
+
+/* fix achievement container size issues */
+.achievement-item .achievement-item--container .achievement-item--content {
+	width: 75% !important;
+}
+
+/* fix achievement name overflow on wide screens */
+.achievement-item .achievement-item--container .achievement-item--content h1 {
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+/* fix achievement description overflow */
+.achievement-item .achievement-item--container .achievement-item--content p {
+	overflow: hidden !important;
+	display: -webkit-box !important;
+	-webkit-line-clamp: 2 !important;
+	line-clamp: 2 !important;
+	-webkit-box-orient: vertical !important;
+	text-overflow: ellipsis !important;
+}
+
+/* fix achievement image container issues */
+.achievement-item .achievement-item--container .achievement-item--image {
+	max-width: 25% !important;
+	overflow: hidden !important;
+}
+
+/* fix achievement image container issues but only on acievement page */
+#achievement-list--container .achievement-item .achievement-item--container .achievement-item--image {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	text-align: center !important;
+}
+
+/* limit achievement image sizes */
+.achievement-item--image img {
+	min-width: 28px !important;
+	max-width: 36px !important;
+}
+
+/* fix position of trophy icon on achievements */
+.achievement-item .achievement-item--container .achievement-item--content .iconf-trophy {
+	position: absolute !important;
+	top: 14px !important;
+	right: 10px !important;
 }
 
 /* fix border radius on buttons that have an element to the right of it */
@@ -412,10 +460,16 @@ textarea {
 	border-radius: 30px !important;
 }
 
-/* fix vertical alignment of coalition name in user profile banner */
 @media (min-width: 1600px) {
+	/* fix vertical alignment of coalition name in user profile banner on screens >1600px wide */
 	.profile-banner .coalition-name {
 		margin-top: 8px !important;
+	}
+
+	/* fix achievement image size on screens >1600px wide */
+	.achievement-item .achievement-item--container .achievement-item--image {
+		padding-left: 10px !important;
+		padding-right: 10px !important;
 	}
 }
 
