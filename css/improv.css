@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 18:03:24 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 19:16:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ li.scaleteam-list-item .rating {
 /* fix achievement container size issues */
 .achievement-item .achievement-item--container .achievement-item--content {
 	width: 75% !important;
+}
+
+.achievement-item .achievement-item--container.mini .achievement-item--content {
+	width: 81% !important;
 }
 
 /* fix achievement name overflow on wide screens */
