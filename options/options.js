@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/31 18:54:41 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 21:01:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,21 @@ window.onload = function() {
 	});
 	document.getElementById("bug-report").addEventListener("click", function(event) {
 		window.location.href = "https://github.com/FreekBes/improved_intra/issues?q=";
+	});
+	document.getElementById("link-github").addEventListener("paste", function(event) {
+		let paste = (event.clipboardData || window.clipboardData).getData("text");
+		if (paste.indexOf("http://") == 0 || paste.indexOf("https://") == 0) {
+			if (paste.endsWith("/")) {
+				paste = paste.split("/");
+				paste = paste[paste.length - 2];
+			}
+			else {
+				paste = paste.split("/").pop();
+			}
+		}
+		event.target.value = paste;
+		syncSettings(event);
+		event.preventDefault();
 	});
 
 	chrome.storage.local.get(["username", "auth", "user"], function(data) {
