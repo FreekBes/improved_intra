@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 20:54:39 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 21:05:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ function immediateProfileChanges() {
 			gitHubItem.style.display = "none";
 
 			var gitHubIcon = document.createElement("span");
-			gitHubIcon.className = "icon-file-zip";
+			gitHubIcon.className = "fa fa-github";
 			gitHubItem.appendChild(gitHubIcon);
 
 			var gitHubLink = document.createElement("a");
