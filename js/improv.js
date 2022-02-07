@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 21:23:07 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 18:02:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,20 @@ function setGeneralImprovements() {
 	if (ltSvg) {
 		colorizeLogtimeChart();
 		ltSvg.addEventListener("load", colorizeLogtimeChart);
+	}
+
+	// add titles to achievement names and descriptions for better readability
+	var achievementItemContents = document.getElementsByClassName("achievement-item--content");
+	for (var i = 0; i < achievementItemContents.length; i++) {
+		var achName = achievementItemContents[i].querySelector("h1");
+		var achDesc = achievementItemContents[i].querySelector("p");
+
+		if (achName) {
+			achName.setAttribute("title", achName.textContent.replaceAll("\n", ""));
+		}
+		if (achDesc) {
+			achDesc.setAttribute("title", achDesc.textContent);
+		}
 	}
 }
 

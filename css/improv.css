@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 17:57:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 18:03:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ li.scaleteam-list-item .rating {
 .achievement-item--image img {
 	min-width: 28px !important;
 	max-width: 36px !important;
+	display: block !important;
+	margin: 0 auto !important;
 }
 
 /* fix position of trophy icon on achievements */
