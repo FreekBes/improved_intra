@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 21:45:12 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 17:21:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,17 @@ function immediateProfileChanges() {
 	if (gUName == "fbes") {
 		if (gProfileBanner) {
 			gProfileBanner.className += " egg";
+		}
+	}
+
+	// improvements to profile boxes
+	if (window.location.pathname.indexOf("/users/") == 0) {
+		var locations = document.getElementById("locations");
+		if (locations) {
+			var logTimesHeader = document.createElement("h4");
+			logTimesHeader.className = "profile-title";
+			logTimesHeader.innerText = "Logtime";
+			locations.parentNode.parentNode.prepend(logTimesHeader);
 		}
 	}
 }
