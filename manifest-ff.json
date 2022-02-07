@@ -39,7 +39,7 @@
 		"css/colors-cetus.css",
 		"css/colors-pyxis.css",
 		"css/colors-vela.css",
-		"campus_specifics/codam/inject.js"
+		"js/inject.js"
 	],
 	"content_scripts": [
 		{

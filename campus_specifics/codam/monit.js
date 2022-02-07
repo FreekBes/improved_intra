@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 18:04:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 20:46:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,7 @@ chrome.storage.local.get("codam-monit", function(data) {
 		if (!document.getElementById("monit-progress-old")) {
 			monit.init();
 			var s = document.createElement('script');
-			s.src = chrome.runtime.getURL('campus_specifics/codam/inject.js');
+			s.src = chrome.runtime.getURL('js/inject.js');
 			(document.head || document.documentElement).appendChild(s);
 			s.onload = function() {
 				setTimeout(function() {

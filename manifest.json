@@ -24,7 +24,7 @@
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"campus_specifics/codam/inject.js",
+				"js/inject.js",
 				"css/theme-apply.css",
 				"css/theme-light.css",
 				"css/theme-dark.css",

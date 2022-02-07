@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 18:02:13 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 19:34:48 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ function setGeneralImprovements() {
 		var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
 		var telInfo = document.querySelector(".profile-infos-item a[href*=\"tel:\"]");
 		var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
+		var gitHubInfo = document.querySelector("#ii-profile-link-github");
 		var cursusSelector = document.querySelector(".cursus-user-select");
 
 		if (profileActions) {
@@ -211,12 +212,19 @@ function setGeneralImprovements() {
 		if (mailInfo) {
 			mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
 		}
+		if (gitHubInfo) {
+			gitHubInfo.addEventListener("mouseenter", setCoalitionTextColor);
+		}
 		if (cursusSelector) {
 			cursusSelector.addEventListener("change", function(event) {
 				setTimeout(function() {
 					var titleSelectorCaret = document.querySelector(".caret[style*='color:']");
 					if (titleSelectorCaret) {
 						titleSelectorCaret.style.color = getCoalitionColor();
+					}
+					var gitHubInfo = document.querySelector("#ii-profile-link-github");
+					if (gitHubInfo) {
+						gitHubInfo.parentNode.style.color = getCoalitionColor();
 					}
 				}, 250);
 			});
