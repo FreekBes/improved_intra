@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 16:24:42 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/07 18:04:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ var monit = {
 			// if not, do not display monitoring system progress (return)
 			// check by checking the school record button, should contain Codam
 			// if the button is not there (before handing in Libft), check coalition
-			var schoolRecordButton = document.querySelector(".school-record-buttona");
+			var schoolRecordButton = document.querySelector(".school-record-button");
 			if (schoolRecordButton) {
 				var srFormData = document.getElementsByName("sr_id");
 				if (srFormData.length > 0) {
