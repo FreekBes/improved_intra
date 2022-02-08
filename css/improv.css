@@ -357,6 +357,19 @@ a[data-tooltip-login="fbes"]::before,
 	91% { background-color: rgb(0,0,255); }
 }
 
+/* fix width of user profile infos box */
+.profile-item .user-header-box.infos .profile-infos-bottom {
+	width: 100% !important;
+}
+
+/* fix profile infos item text overflow */
+.profile-item .profile-infos-item {
+	width: 100% !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: hidden !important;
+}
+
 /* remove border radius from search page results (only user and video items) */
 .search-item.search-user-item .search-item-main,
 .search-item.search-video-item .search-item-main {
