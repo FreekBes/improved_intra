@@ -125,16 +125,12 @@ function setGitHubLink(gitHubName) {
 	}
 }
 
-function setCustomProfile() {
+function setCustomBannerWrapper() {
 	if (gExtSettings["show-custom-profiles"] === true || gExtSettings["show-custom-profiles"] === "true") {
 		if (gProfileBanner) {
 			if (gUName == gExtSettings["username"]) {
 				if (!setCustomBanner(gExtSettings["custom-banner-url"], gExtSettings["custom-banner-pos"])) {
 					unsetCustomBannerIfRequired();
-				}
-
-				if (gExtSettings["link-github"] && gExtSettings["link-github"].trim() != "") {
-					setGitHubLink(gExtSettings["link-github"]);
 				}
 			}
 			else {
@@ -143,9 +139,28 @@ function setCustomProfile() {
 						if (!setCustomBanner(uSettings["custom-banner-url"], uSettings["custom-banner-pos"])) {
 							unsetCustomBannerIfRequired();
 						}
+					})
+					.catch(function(err) {
+						// no custom profile settings found
+					});
+			}
+		}
+	}
+}
 
+function setCustomProfile() {
+	if (gExtSettings["show-custom-profiles"] === true || gExtSettings["show-custom-profiles"] === "true") {
+		if (gProfileBanner) {
+			if (gUName == gExtSettings["username"]) {
+				if (gExtSettings["link-github"] && gExtSettings["link-github"].trim() != "") {
+					setGitHubLink(gExtSettings["link-github"]);
+				}
+			}
+			else {
+				getUserSettings(gUName)
+					.then(function(uSettings) {
 						if (uSettings["link-github"] && uSettings["link-github"].trim() != "") {
-							setGitHubLink(gExtSettings["link-github"]);
+							setGitHubLink(uSettings["link-github"]);
 						}
 					})
 					.catch(function(err) {
@@ -219,7 +234,7 @@ function immediateProfileChanges() {
 // sometimes things get overruled by coalition stuff, such as banners
 function confirmProfileUpdatedForFiveSeconds() {
 	if (!gInterval) {
-		gInterval = setInterval(setCustomProfile, 150);
+		gInterval = setInterval(setCustomBannerWrapper, 150);
 		setTimeout(function() {
 			clearInterval(gInterval);
 			gInterval = null;
@@ -237,6 +252,7 @@ s2.onload = function() {
 };
 chrome.storage.local.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github"], function(data) {
 	gExtSettings = data;
+	setCustomBannerWrapper();
 	setCustomProfile();
 	confirmProfileUpdatedForFiveSeconds();
 });
