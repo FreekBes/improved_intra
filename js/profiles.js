@@ -249,13 +249,13 @@ s2.src = chrome.runtime.getURL('js/inject.js');
 (document.head || document.documentElement).appendChild(s2);
 s2.onload = function() {
 	immediateProfileChanges();
+	chrome.storage.local.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github"], function(data) {
+		gExtSettings = data;
+		setCustomBannerWrapper();
+		setCustomProfile();
+		confirmProfileUpdatedForFiveSeconds();
+	});
 };
-chrome.storage.local.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github"], function(data) {
-	gExtSettings = data;
-	setCustomBannerWrapper();
-	setCustomProfile();
-	confirmProfileUpdatedForFiveSeconds();
-});
 
 var cursusSelector = document.querySelector(".cursus-user-select");
 if (cursusSelector) {
