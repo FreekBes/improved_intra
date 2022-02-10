@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/10 15:49:49 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/10 15:53:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -481,6 +481,15 @@ textarea {
 	.achievement-item .achievement-item--container .achievement-item--image {
 		padding-left: 10px !important;
 		padding-right: 10px !important;
+	}
+}
+
+/* fix profile infos bottom box width on smaller screens */
+@media (max-width: 1120px) {
+	.profile-item .user-header-box.infos .profile-infos-bottom {
+		width: 60% !important;
+		max-width: 400px !important;
+		min-width: 250px !important;
 	}
 }
 
