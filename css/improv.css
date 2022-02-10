@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 21:13:06 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/10 15:49:49 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,14 +394,6 @@ a h3:not(.profile-name),
 a h4:not(.profile-name),
 a h5:not(.profile-name) {
 	color: inherit !important;
-}
-
-/* A.G.U Panel (not translated since that does not seem to work properly: https://bugs.chromium.org/p/chromium/issues/detail?id=115800) */
-.text-agu:last-of-type::after {
-	content: '\A\APlease disable the Improved Intra 42 extension before continuing. I did not test the pages after clicking the SET-UP-button and it is likely they will contain errors, which could result in a wrongfully allocated freeze.' !important;
-	color: red !important;
-	white-space: pre-wrap !important;
-	font-weight: bold !important;
 }
 
 /* hide double black hole date */
