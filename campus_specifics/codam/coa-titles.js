@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/12 16:49:41 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/12 17:30:23 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/12 17:32:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ function autoEquipCoaTitle(loggedInUserName) {
 		return;
 	}
 
+	// if no title equipped, the element's text content will just be the user's username
+	// otherwise, the textContent will include the title. if a title is present, we do not override it
 	if (headerLoginName.textContent == headerLoginName.getAttribute("data-login")) {
 		var userTitles = titleSelectDropdown.querySelectorAll("a[href*=\"/titles_users/\"]");
 		for (var i = 0; i < userTitles.length; i++) {
