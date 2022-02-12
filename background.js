@@ -6,12 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 18:31:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/12 17:19:26 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 var defaultSettings = {
 	"clustermap": "true",
+	"codam-auto-equip-coa-title": "false",
 	"codam-monit": "true",
 	"colors": "default",
 	"custom-banner-url": "",

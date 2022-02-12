@@ -73,7 +73,7 @@
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"js": [ "campus_specifics/codam/monit.js" ],
+			"js": [ "campus_specifics/codam/monit.js", "campus_specifics/codam/coa-titles.js" ],
 			"css": [ "campus_specifics/codam/monit.css" ],
 			"run_at": "document_idle"
 		}
