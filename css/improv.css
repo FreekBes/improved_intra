@@ -181,6 +181,11 @@ li.scaleteam-list-item .rating {
 	cursor: pointer !important;
 }
 
+/* fix project attachment names causing overflow */
+.project-attachment-item .attachment-name {
+	white-space: nowrap !important;
+}
+
 /* fix give up button stretching the project page */
 .team-actions .btn.btn-block.btn-danger {
 	white-space: normal !important;
