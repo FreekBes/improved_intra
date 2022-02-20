@@ -78,6 +78,17 @@
 			"js": [ "campus_specifics/codam/monit.js" ],
 			"css": [ "campus_specifics/codam/monit.css" ],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": [
+				"https://projects.intra.42.fr/projects/cub3d",
+				"https://projects.intra.42.fr/projects/minirt",
+				"https://projects.intra.42.fr/projects/so_long",
+				"https://projects.intra.42.fr/projects/42cursus-fdf",
+				"https://projects.intra.42.fr/projects/42cursus-fract-ol"
+			],
+			"js": [ "js/mlx42.js" ],
+			"run_at": "document_end"
 		}
 	],
 	"background": {
