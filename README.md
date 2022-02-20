@@ -1,4 +1,4 @@
-# Improved Intra 42
+<h1 align="center"><img src="https://raw.githubusercontent.com/FreekBes/improved_intra/master/promo/logo-wide.png" height="192" alt="Improved Intra 42"></h1>
 A browser extension which adds many improvements to 42's Intranet at https://intra.42.fr/, such as a dark theme and links to clusters when a user is available.
 
 ## Quick Download
