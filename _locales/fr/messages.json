@@ -8,7 +8,7 @@
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
-		"message": "Cette extension ajoute de nombreuses améliorations à l'Intranet de 42, telles que un thème sombre, liens vers des cartes de cluster, et plus encore !",
+		"message": "L'extension ultime pour l'intranet de 42, ajoutant beaucoup, telles que un thème sombre, personnalisation des profils & plus encore!",
 		"description": "The description of the extension"
 	}
 }
