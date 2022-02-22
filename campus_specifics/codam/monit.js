@@ -355,6 +355,12 @@ var monit = {
 				atLeastRelaxed = true;
 			}
 
+			var availableStatus = document.querySelector(".user-poste-status");
+			if (availableStatus && availableStatus.innerText == "Available") {
+				console.log("User is currently available, emote will be at least relaxed");
+				atLeastRelaxed = true;
+			}
+
 			for (var i = 0; i < monit.bhContainer.children.length; i++) {
 				monit.bhContainer.children[i].style.display = "none";
 			}
