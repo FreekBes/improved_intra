@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/10 15:53:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/22 17:21:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,11 @@ li.scaleteam-list-item .rating {
 #user-locations g > rect,
 #user-locations g > text {
 	cursor: default !important;
+}
+
+/* fix vertical text spacing of evaluation points amount in profile banner */
+.user-correction-point-value {
+	height: 1.5em !important;
 }
 
 /* fix background banner repeating on small screens */
