@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 20:46:01 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/22 16:17:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ var monit = {
 			for (i = 0; i <= monit.dayOfWeek; i++) {
 				ltDay = ltDays[ltDays.length - i - 1];
 				if (!ltDay) {
-					resolve();
+					reject("Failed to read data from SVG logtime chart");
 				}
 				monit.logTimes.push(monit.parseLogTime(ltDay.getAttribute("data-original-title")));
 			}
