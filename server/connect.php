@@ -15,6 +15,8 @@
 	<head>
 		<meta charset='utf-8' />
 		<title>Connect Improved Intra 42 with your Intranet account</title>
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="icon" type="image/ico" href="favicon.ico" />
 		<style>
 			html {
 				display: block;

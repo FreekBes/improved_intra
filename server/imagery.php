@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<title>Custom imagery used by Improved Intra Users on Intranet</title>
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="icon" type="image/ico" href="favicon.ico" />
 		<style>
 			html, body {
 				display: block;
