@@ -380,6 +380,11 @@ a[data-tooltip-login="fbes"]::before,
 	text-overflow: hidden !important;
 }
 
+/* fix link text overflowing outside of modal in modal bodies */
+.modal-body p {
+	overflow-wrap: break-word !important;
+}
+
 /* remove border radius from search page results (only user and video items) */
 .search-item.search-user-item .search-item-main,
 .search-item.search-video-item .search-item-main {
