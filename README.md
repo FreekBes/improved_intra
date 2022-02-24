@@ -13,15 +13,23 @@ Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hm
 For Firefox, please see the [Releases](https://github.com/FreekBes/improved_intra/releases) page. Mozilla has decided to no longer host this extension due to it being for a "limited/non-public audience" (your loss, Mozilla). The extension **should** still automatically update using GitHub.
 
 
+## Contributing
+If you wish to contribute to this extension, please follow the contributing guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+
 ## Screenshots
 <p align="center">
   <img src="https://raw.githubusercontent.com/FreekBes/improved_intra/master/promo/screenshot-1.png">
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/FreekBes/improved_intra/master/promo/screenshot-5.png">
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/FreekBes/improved_intra/master/promo/screenshot-2.png">
 </p>
 
-
-## Contributing
-If you wish to contribute to this extension, please follow the contributing guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
+<p align="center">
+  <img src="https://raw.githubusercontent.com/FreekBes/improved_intra/master/promo/screenshot-4.png">
+</p>
