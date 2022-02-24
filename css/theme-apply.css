@@ -244,6 +244,10 @@ hr,
 	border-top-color: var(--general-border-color) !important;
 }
 
+.underlined {
+	border-bottom-color: var(--general-border-color) !important;
+}
+
 .list-group-item {
 	background-color: var(--body-background-color) !important;
 	border-color: var(--general-border-color) !important;
