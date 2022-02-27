@@ -225,6 +225,13 @@ h6:not(.profile-name) {
 	background-color: var(--list-hover-background-color) !important;
 }
 
+.dropdown-menu > .active > a:not([style*="color:"]),
+.dropdown-menu > .active > a:not([style*="color:"]):hover,
+.dropdown-menu > .active > a:not([style*="color:"]):focus {
+	color: var(--text-color) !important;
+	background-color: var(--theme-color) !important;
+}
+
 .notifications-container .menu-drop-list .menu-drop-item.unread {
 	color: var(--text-color) !important;
 	background-color: var(--logtime-chart-00h-color) !important;
