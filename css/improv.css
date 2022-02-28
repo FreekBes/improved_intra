@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/22 17:21:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/28 18:31:43 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ li.scaleteam-list-item .rating {
 	padding-top: 8px !important;
 	overflow: hidden !important;
 	text-overflow: ellipsis !important;
+}
+
+/* custom day name element styling for agenda events on dashboard */
+.event-list .event-item .event-left .date-day-name {
+	color: #fff;
+	font-size: 1em;
+	line-height: 1em;
 }
 
 /* reset school record button background */

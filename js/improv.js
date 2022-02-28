@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 19:34:48 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/28 18:28:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,23 @@ function setGeneralImprovements() {
 		if (achDesc) {
 			achDesc.setAttribute("title", achDesc.textContent);
 		}
+	}
+
+	// add day names to agenda overview on dashboard
+	var currentDate = new Date();
+	var eventLefts = document.getElementsByClassName("event-left");
+	var jsDate, date, month;
+	for (var i = 0; i < eventLefts.length; i++) {
+		date = eventLefts[i].querySelector(".date-day").textContent;
+		month = eventLefts[i].querySelector(".date-month").textContent;
+		jsDate = new Date(date + " " + month + " " + currentDate.getFullYear());
+		if (jsDate.getMonth() < currentDate.getMonth()) {
+			jsDate = new Date(date + " " + month + " " + (currentDate.getFullYear() + 1));
+		}
+		var dayNameElem = document.createElement("div");
+		dayNameElem.className = "date-day-name";
+		dayNameElem.innerText = jsDate.toLocaleString("en", { weekday: 'short' });
+		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
 	}
 }
 
