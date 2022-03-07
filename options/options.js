@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 21:01:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/07 04:16:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ window.onload = function() {
 		if (data["username"] === undefined || data["auth"] === undefined
 			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {
 			// authorize user on Intra, link below redirects to the correct auth page
-			window.location.href = "https://darkintra.freekb.es/connect.php";
+			window.location.replace("https://darkintra.freekb.es/connect.php");
 		}
 		else {
 			checkIfKeyStillWorks(data["auth"]["access_token"])
@@ -324,7 +324,7 @@ window.onload = function() {
 				.catch(function(res) {
 					console.log("Access token no longer works!", res);
 					// authorize user again on Intra, link below redirects to the correct auth page
-					window.location.href = "https://darkintra.freekb.es/connect.php";
+					window.location.replace("https://darkintra.freekb.es/connect.php");
 				});
 		}
 	});

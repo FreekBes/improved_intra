@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 20:22:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 21:00:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/07 04:14:21 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ syncPort.onMessage.addListener(function(msg) {
 			break;
 		case "resynced":
 			console.log("Options resynced.");
-			window.location.href = optionsURL;
+			window.location.replace(optionsURL);
 			break;
 		case "error":
 			console.error(msg["message"]);
