@@ -18,7 +18,7 @@
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
 @media (prefers-color-scheme: dark) {
 	html, body {
-		background-color: #202124 !important;
+		background-color: #12141a !important;
 	}
 }
 
@@ -630,6 +630,11 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
+.profile-item .profile-item-top.home-banner,
+.profile-item .profile-item-top.profile-banner {
+	background-color: var(--theme-color-dark) !important;
+}
+
 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select option,
 .profile-item .user-primary .user-infos .cursus-user-select option {
 	background-color: var(--container-background-color) !important;
@@ -695,10 +700,18 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background: var(--list-odd-background-color) !important;
 }
 
+.title-surline {
+	border-color: var(--general-border-color) !important;
+}
+
 /* shop page */
 .shop-wallet span.icon-piggy-bank,
 .shop-nav-title {
 	color: var(--theme-color) !important;
+}
+
+.shop-wallet {
+	border-color: var(--general-border-color) !important;
 }
 
 /* search page */
@@ -1023,6 +1036,12 @@ header.main-page-header .logo small,
 
 .documentation .text-info {
 	color: var(--api-theme-color) !important;
+}
+
+/* settings page */
+.languages-lists ul.js-connected-lang li,
+.selected-languages ol.js-connected-lang li {
+	background-color: var(--list-odd-background-color) !important;
 }
 
 /* application page in settings */

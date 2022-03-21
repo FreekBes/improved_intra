@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 17:39:48 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/17 18:05:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/19 17:09:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,38 @@
 	--success-color: #5cb85c;
 	--fail-color: #d8636f;
 	--danger-color: #e26060;
-	--default-color: #4a4a4a;
+	--default-color: #373c48;
 
 	/* background colors */
-	--body-background-color: #202124;
-	--container-background-color: #292a2d;
-	--list-odd-background-color: #2a2a2a;
-	--list-hover-background-color: #3a3a3a;
-	--choice-background-color: #7a7a7a;
+	--body-background-color: #12141a;
+	--container-background-color: #1d2028;
+	--list-odd-background-color: #1a1e28;
+	--list-hover-background-color: #272b34;
+	--choice-background-color: #7a8192;
 	--search-user-no-image-background-color: #292D39;
 	--achievement-progress-color: #4c4c58;
-	--input-background-color: #4a4a4a;
-	--input-background-color-disabled: #323232;
+	--input-background-color: #373c48;
+	--input-background-color-disabled: #242830;
 	--input-background-color-transparent: rgba(30, 30, 30, 0.5);
 	--mark-background-color: #3c3a31;
 	--article-language-background-color: #1A252F;
-	--nav-active-color: #4a4a4a;
-	--nav-hover-color: #6a6a6a;
+	--nav-active-color: #373c48;
+	--nav-hover-color: #474b54;
 
 	/* border colors */
-	--general-border-color: #4a4a4a;
+	--general-border-color: #2d313c;
 	--general-border-colorless: rgba(0, 0, 0, 0.3);
-	--choice-border-color: #9a9a9a;
-	--search-user-video-border-color: #5a5a5a;
-	--input-border-color: #6a6a6a;
+	--choice-border-color: #878fa1;
+	--search-user-video-border-color: #575c68;
+	--input-border-color: #474b54;
 	--input-border-color-light: #8a8a8a;
-	--light-border-color: #dddddd;
+	--light-border-color: #b3b9ce;
 
 	/* text colors */
 	--text-color: #f2f2f2;
-	--secondary-text-color: #adadad;
-	--tertiary-text-color: #888888;
-	--quaternary-text-color: #6a6a6a;
+	--secondary-text-color: #a8aeb9;
+	--tertiary-text-color: #878c95;
+	--quaternary-text-color: #6e737c;
 	--input-text-color: #c7c7c7;
 	--note-title-text-color: rgba(223, 223, 223, 0.2);
 
@@ -66,7 +66,7 @@
 	--search-user-video-box-shadow: 1px 1px 5px rgb(255 255 255 / 10%);
 
 	/* navbar styling */
-	--top-navbar-background-color: #202124;
+	--top-navbar-background-color: #1e212a;
 	--left-navbar-background-color: #292D39;
 	--left-navbar-icon-color: #666e80;
 	--left-navbar-icon-color-hover: #ffffff;
@@ -83,26 +83,26 @@
 	/* highcharts styling */
 	--highcharts-axis-label-color: #adadad;
 	--highcharts-axis-path-color: #434d54;
-	--highcharts-grid-path-color: #4a4a4a;
+	--highcharts-grid-path-color: #373c48;
 	--highcharts-data-label-color: #f2f2f2;
 	--highcharts-tooltip-background-color: rgba(25, 26, 28, 0.85);
 	--highcharts-tooltip-text-color: #adadad;
 
 	/* logtime chart styling */
 	--logtime-chart-24h-color: #00ecef;
-	--logtime-chart-00h-color: #343538;
+	--logtime-chart-00h-color: #252932;
 
 	/* historics page styling */
 	--historics-rating-background-success: rgba(0, 186, 188, 0.15);
 	--historics-rating-background-fail: rgba(255, 8, 78, 0.15);
-	--scaleteam-rating-text-color-normal: #4a4a4a;
+	--scaleteam-rating-text-color-normal: #373c48;
 	--scaleteam-rating-background-fail: #523d3f;
 
 	/* events styling (slots) */
 	--event-default-text-color: #cceced;
-	--event-unthemed-border-color: #6a6a6a;
+	--event-unthemed-border-color: #474b54;
 	--event-open-background: #02807c;
-	--event-closed-background: #5a5a5a;
+	--event-closed-background: #040810;
 	--event-reserved-background: #bc1301;
 	--event-reserved-border-color: #781919;
 	--event-reserved-text-color: #f8d2d2;
@@ -121,10 +121,10 @@
 	--api-documentation-list-odd-background: #2a2a2a;
 
 	/* scrollbar styling */
-	--scrollbar-background-color: #404040;
-	--scrollbar-thumb-color: #606060;
-	--scrollbar-thumb-color-hover: #707070;
-	--scrollbar-thumb-color-active: #808080;
+	--scrollbar-background-color: #2d313c;
+	--scrollbar-thumb-color: #474b54;
+	--scrollbar-thumb-color-hover: #555a66;
+	--scrollbar-thumb-color-active: #5f646e;
 
 	/* override event colors */
 	--event-meet: var(--theme-color);
