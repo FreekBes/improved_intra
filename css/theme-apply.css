@@ -727,6 +727,37 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
+/* issues page */
+@keyframes fade-improved {
+	0% { background: var(--theme-color); }
+	100% { background: rgba(0,0,0,0) }
+}
+
+.message-item.targeted {
+	animation: fade-improved 0.5s ease-in !important;
+}
+
+.message-item:not(:last-of-type) {
+	border-color: var(--general-border-color) !important;
+}
+
+.topic-item .topic-content .topic-metadata,
+.message-item .message-corner .message-corner-item,
+.message-item .message-corner-left .message-corner-item,
+.message-item .message-reply-corner .message-corner-item {
+	color: var(--secondary-text-color) !important;
+}
+
+.message-item .message-corner .message-corner-item [class^="icon-"]:before,
+.message-item .message-corner-left .message-corner-item [class^="icon-"]:before,
+.message-item .message-reply-corner .message-corner-item [class^="icon-"]:before {
+	color: var(--secondary-text-color) !important;
+}
+
+.issue-state {
+	color: var(--text-color) !important;
+}
+
 /* search page */
 .search-item.search-user-item,
 .student-item,
