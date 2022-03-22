@@ -434,6 +434,11 @@ a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 	text-decoration: none !important;
 }
 
+/* fix staff page graphs overflow */
+.container-fluid:first-of-type {
+	height: 500px !important;
+}
+
 /* fix auth page height, useful for background colors */
 html.soft-background, body.authorization-layout {
 	height: 100%;
