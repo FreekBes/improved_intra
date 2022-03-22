@@ -74,6 +74,11 @@
 			"run_at": "document_idle"
 		},
 		{
+			"matches": [ "https://admin.intra.42.fr/*" ],
+			"js": [ "js/admin.js" ],
+			"run_at": "document_end"
+		},
+		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
 			"js": [ "campus_specifics/codam/monit.js" ],
 			"css": [ "campus_specifics/codam/monit.css" ],
