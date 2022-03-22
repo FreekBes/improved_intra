@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/28 18:31:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/22 18:42:30 by codam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,34 @@
  * This CSS file is used for general improvements on Intra. It is always loaded,
  * whether in dark or light mode does not matter.
  */
+
+@font-face {
+	font-family: "futura";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family:"futura";
+	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "futura-bold";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "futura-bold";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
+	font-weight: 700;
+	font-style: italic;
+}
 
 /* remove horizontal scrollbar, as it causes visual glitches anyways */
 html {
@@ -23,7 +51,8 @@ html {
 /* Windows Futura font family fix */
 .modal-v2 .modal-header,
 .event-modal .head h4,
-.exam-modal .head h4 {
+.exam-modal .head h4,
+#admin-user h3 {
 	font-family: 'futura-bold', 'futuraBold' !important;
 }
 
@@ -326,19 +355,19 @@ li.scaleteam-list-item .rating {
 }
 
 /* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]::before,
+a[data-tooltip-login="pde-bakk"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]::before,
+a[data-tooltip-login="lde-la-h"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="jlensing"]::before,
+a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="jlensing"]::before,
-a[data-tooltip-login="ieilat"]::before,
+a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="ieilat"]::before {
 	content: 'Improved Intra Contributor ';
 }
 
 /* custom title for creator */
-a[data-tooltip-login="fbes"]::before,
+a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="fbes"]::before {
 	content: 'Improved Intra Creator ';
 }
@@ -468,6 +497,18 @@ textarea,
 /* fix for holy graph dropdown menu text partially out of boundaries */
 #graph_cursus {
 	padding-top: 2px !important;
+}
+
+/* border-radius fix for dropdown menu rendered on mailer page */
+.select2-selection.select2-selection--multiple[aria-expanded="true"] {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+/* border-radius fix for dropdown menu item hover on mailer page */
+.select2-container--default .select2-results__option--highlighted[aria-selected]:last-child {
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 /* add max width to textareas to make them unable to be resized outside of their container */
