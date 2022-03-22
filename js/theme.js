@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/01 19:20:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/22 18:08:26 by codam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ function enableTheme(theme, colors) {
 	}
 	themeLink.setAttribute("href", chrome.runtime.getURL("css/theme-"+theme+".css"));
 
-	if (colors && colors !== "default")
-	{
+	if (colors && colors !== "default") {
 		if (!themeColorsLink) {
 			themeColorsLink = document.createElement("link");
 			themeColorsLink.setAttribute("type", "text/css");

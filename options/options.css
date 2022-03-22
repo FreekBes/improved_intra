@@ -2,48 +2,49 @@
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLight-e7a52027b9b5978e6a6f83b096aea906b0e79399145e65e19024f94967a2411f.otf) format("opentype");
 	font-weight: 200;
-	font-style: normal
+	font-style: normal;
 }
 
 @font-face {
 	font-family:"Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLightOblique-5212d3b9dd70f3017a3bd3478c96b37e8457b7d216a6f4658cbc0cdf15aea289.otf) format("opentype");
 	font-weight: 200;
-	font-style: italic
+	font-style: italic;
 }
 
 @font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
 	font-weight: 400;
-	font-style: normal
+	font-style: normal;
 }
 
 @font-face {
 	font-family:"Futura PT";
 	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
 	font-weight: 400;
-	font-style:italic
+	font-style: italic;
 }
+
 @font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
 	font-weight: 700;
-	font-style: normal
+	font-style: normal;
 }
 
 @font-face {
 	font-family: "Futura PT";
 	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
 	font-weight: 700;
-	font-style: italic
+	font-style: italic;
 }
 
 @font-face {
 	font-family: "Noto Sans";
 	src: url(https://profile.intra.42.fr/assets/NotoSans-Regular-f1ce78a25f519ef928b5b8755ca230314e47f8821e7aa89ecf000f033f389a9f.ttf) format("truetype");
 	font-weight: 400;
-	font-style: normal
+	font-style: normal;
 }
 
 @font-face {
