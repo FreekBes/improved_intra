@@ -74,6 +74,21 @@ h6:not(.profile-name) {
 	color: #343a40 !important
 }
 
+h1 small, h1 .small,
+h2 small, h2 .small,
+h3 small, h3 .small,
+h4 small, h4 .small,
+h5 small, h5 .small,
+h6 small, h6 .small,
+.h1 small, .h1 .small,
+.h2 small, .h2 .small,
+.h3 small, .h3 .small,
+.h4 small, .h4 .small,
+.h5 small, .h5 .small,
+.h6 small, .h6 .small {
+	color: var(--tertiary-text-color) !important;
+}
+
 .main-navbar {
 	background: var(--top-navbar-background-color) !important;
 }
@@ -1467,12 +1482,8 @@ mark {
 }
 
 /* staff elements */
-.container-fluid:first-of-type {
-	height: 500px !important;
-}
-
-#chart-logtimes-hour .highcharts-background,
-#chart-logtimes-day .highcharts-background {
+._ #chart-logtimes-hour .highcharts-background,
+._ #chart-logtimes-day .highcharts-background {
 	fill: var(--body-background-color) !important;
 }
 
@@ -1575,6 +1586,23 @@ mark {
 
 .CodeMirror-cursor {
 	border-color: var(--input-text-color) !important;
+}
+
+#dashes-users-container .dash-vertical .dash-container {
+	border-color: var(--general-border-color) !important;
+}
+
+.project-infos {
+	background-color: var(--container-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+.project-infos > .project-progress .progress {
+	box-shadow: 0px 0px 5px var(--pure-white) !important;
+}
+
+.project-infos > .project-progress .progress-footer {
+	color: var(--tertiary-text-color) !important;
 }
 
 /* SCROLLBARS */
