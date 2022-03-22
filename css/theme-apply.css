@@ -784,11 +784,22 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
-.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:not([style*="color:"]) {
+.container-breadcrumb .breadcrumb li:not(.active) a {
+	color: var(--secondary-text-color) !important;
+}
+
+.container-breadcrumb .breadcrumb li:not(.active) a:hover {
+	color: var(--theme-color) !important;
+}
+
+.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:not([style*="color:"]),
+.app-sidebar-left .sidebar-menu-list a.sidebar-item-link:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color) !important;
 }
 
-.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:hover:not([style*="color:"]) {
+.app-sidebar-left .sidebar-tags-list .sidebar-tag-item > a:first-of-type:hover:not([style*="color:"]),
+.app-sidebar-left .sidebar-menu-list a.sidebar-item-link:hover:not([style*="color:"]),
+.app-sidebar-left .sidebar-menu-list a.sidebar-item-link.active:not([style*="color:"]) {
 	color: #ffffff !important;
 }
 
@@ -1425,9 +1436,23 @@ mark {
 }
 
 /* staff elements */
+.container-fluid:first-of-type {
+	height: 500px !important;
+}
+
+#chart-logtimes-hour .highcharts-background,
+#chart-logtimes-day .highcharts-background {
+	fill: var(--body-background-color) !important;
+}
+
 #chart-logtimes-day .highcharts-container path[fill="#f3f3f3"],
 #chart-logtimes-hour .highcharts-container path[fill="#f3f3f3"] {
 	fill: var(--logtime-chart-00h-color) !important;
+}
+
+#chart-logtimes-day .highcharts-container rect[fill="#a9d9da"],
+#chart-logtimes-hour .highcharts-container rect[fill="#a9d9da"] {
+	fill: var(--logtime-chart-24h-color) !important;
 }
 
 .counter-items .counters-box .counters-list .counter-item {
@@ -1624,7 +1649,7 @@ mark {
 	scrollbar-width: thin;
 }
 
-/* mobile */
+/* media rules */
 @media (max-width: 767px) {
 	.page .page-content.page-content-fluid:not(.login-page) {
 		background-color: var(--container-background-color) !important;
