@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ $OSTYPE == 'darwin'* ]]; then
+if [[ $OSTYPE == 'darwin'* ]] || [[ $OSTYPE == 'linux-gnu' ]]; then
 	rm -f chromium.zip firefox.zip
 	zip -r chromium.zip manifest.json LICENSE PRIVACY-POLICY.md background.js js/* options/* css/* campus_specifics/* images/logo*.png _locales/*
 	mv manifest.json manifest-chromium.json
