@@ -63,7 +63,7 @@
 		if (isset($userSettings["custom-banner-url"]) && !empty($userSettings["custom-banner-url"])) {
 			?>
 		<h1><a target="imagery-user-win" href="https://profile.intra.42.fr/users/<?php safe_print($userSettings["username"]); ?>"><?php safe_print($userSettings["username"]); ?></a></h1>
-		<img src="<?php safe_print($userSettings["custom-banner-url"]); ?>" title="<?php safe_print($userSettings["custom-banner-url"]); ?>" alt="Could not load image. Maybe the URL is invalid?" />
+		<img src="<?php safe_print($userSettings["custom-banner-url"]); ?>" title="<?php safe_print($userSettings["custom-banner-url"]); ?>" alt="Could not load image. Maybe the URL is invalid?" loading="lazy" />
 			<?php
 		}
 	}
