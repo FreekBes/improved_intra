@@ -1482,6 +1482,12 @@ mark {
 }
 
 /* staff elements */
+.nav-pills:not(.nav-stacked) > li.active > a,
+.nav-pills:not(.nav-stacked) > li.active > a:hover,
+.nav-pills:not(.nav-stacked) > li.active > a:focus {
+	border-color: var(--theme-color) !important;
+}
+
 ._ #chart-logtimes-hour .highcharts-background,
 ._ #chart-logtimes-day .highcharts-background {
 	fill: var(--body-background-color) !important;
@@ -1519,6 +1525,12 @@ mark {
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
 	color: var(--input-text-color) !important;
+}
+
+.mailer-preview .select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
+	color: var(--pure-black) !important;
 }
 
 .select2.select2-container--default .select2-selection--multiple,
