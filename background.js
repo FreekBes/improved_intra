@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/27 23:25:07 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/12 17:19:26 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/24 21:19:37 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ var defaultSettings = {
 	"hide-broadcasts": "false",
 	"hide-goals": "false",
 	"link-github": "",
+	"old-blackhole": "false",
 	"show-custom-profiles": "true",
 	"sync": "true",
 	"theme": "system"

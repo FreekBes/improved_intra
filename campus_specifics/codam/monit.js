@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/22 16:17:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/24 22:46:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,28 +408,28 @@ var monit = {
 
 			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
 				smiley.setAttribute("class", "icon-smiley-sad-1");
-				smiley.setAttribute("style", "color: rgb(238, 97, 115);");
-				progressPerc.setAttribute("style", "color: rgb(238, 97, 115);");
+				smiley.setAttribute("style", "color: var(--fail-color);");
+				progressPerc.setAttribute("style", "color: var(--fail-color);");
 			}
 			else if ((atLeastRelaxed && monit.logTimesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.logTimesTotal < monit.requirements.min)) {
 				smiley.setAttribute("class", "icon-smiley-relax");
-				smiley.setAttribute("style", "color: rgb(223, 149, 57);");
-				progressPerc.setAttribute("style", "color: rgb(223, 149, 57);");
+				smiley.setAttribute("style", "color: var(--warning-color);");
+				progressPerc.setAttribute("style", "color: var(--warning-color);");
 			}
 			else if (monit.logTimesTotal < monit.requirements.achievement1) {
 				smiley.setAttribute("class", "icon-smiley-happy-3");
-				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+				smiley.setAttribute("style", "color: var(--success-color);");
+				progressPerc.setAttribute("style", "color: var(--success-color);");
 			}
 			else if (monit.logTimesTotal < monit.requirements.achievement2) {
 				smiley.setAttribute("class", "icon-smiley-happy-5");
-				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+				smiley.setAttribute("style", "color: var(--success-color);");
+				progressPerc.setAttribute("style", "color: var(--success-color);");
 			}
 			else {
 				smiley.setAttribute("class", "icon-smiley-surprise");
-				smiley.setAttribute("style", "color: rgb(83, 210, 122);");
-				progressPerc.setAttribute("style", "color: rgb(83, 210, 122);");
+				smiley.setAttribute("style", "color: var(--success-color);");
+				progressPerc.setAttribute("style", "color: var(--success-color);");
 			}
 
 			// profile easter egg: use a certain emote on certain user pages
