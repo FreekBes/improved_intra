@@ -13,6 +13,7 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 - **Customizable banners** for user profiles, which are even visible to other users with the extension installed
 - When a user is logged in, clicking on their location will open up a **cluster map** and mark their location
 - Add a **link to your GitHub** on your Intra profile, visible to anyone with the extension installed
+- An option to use the old Black Hole countdown in profile banners
 - Removal of the annoying broadcasts button, which is unused by most campuses
 - An option to hide the entire Black Hole date from Intra for less stress
 - Replacement of the Black Hole for Codam students, simply showing the progress towards their **Monitoring System** instead (formerly part of [Monitoring System Progress for Intra](https://github.com/FreekBes/codam_intra_monit_system_display))
