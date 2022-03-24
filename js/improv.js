@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/28 18:28:06 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/24 22:43:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ function setStyleIfExists(query, style, value, parentPlease) {
 			elem = elem.parentNode;
 		}
 		elem.style[style] = value;
+		return (true);
 	}
+	return (false);
 }
 
 function colorizeLogtimeChart(event) {
@@ -189,10 +191,6 @@ function setGeneralImprovements() {
 		}
 	}
 
-	// fix coalition colored links
-	setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
-	setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
-
 	// fix things on profile banners
 	if (hasProfileBanner()) {
 		var profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
@@ -200,6 +198,75 @@ function setGeneralImprovements() {
 		var mailInfo = document.querySelector(".profile-infos-item a[href*=\"mailto:\"]");
 		var gitHubInfo = document.querySelector("#ii-profile-link-github");
 		var cursusSelector = document.querySelector(".cursus-user-select");
+
+		// fix coalition colored links
+		setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
+		setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
+
+		// fix black hole text color
+		// and if old-blackhole setting is enabled, replace text with old countdown style
+		var bhColorTimer = setInterval(function() {
+			var bhDate = document.querySelector("#bh-date");
+			var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
+			if (bhDate) {
+				if (bhDate.innerText.indexOf("absorbed") > -1) {
+					clearInterval(bhColorTimer);
+					bhDate.style.color = "var(--fail-color)";
+					if (getProfileUserName) {
+						chrome.storage.local.get("username", function(data) {
+							if (data["username"] && data["username"] != getProfileUserName()) {
+								bhDate.innerText = "User has been absorbed by the Black Hole.";
+							}
+						});
+					}
+				}
+				else if (bhDateTitle.indexOf("days left") > -1) {
+					var daysRemaining = parseInt(bhDateTitle);
+					if (isNaN(daysRemaining)) {
+						return;
+					}
+					clearInterval(bhColorTimer);
+					console.log("Black Hole days remaining: ", daysRemaining);
+					chrome.storage.local.get("old-blackhole", function(data) {
+						if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
+							bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
+							bhDate.innerText = daysRemaining.toString() + " days left";
+
+							// add bootstrap tooltip to holder
+							var evt = new CustomEvent("add-tooltip", { detail: "#bh > .emote-bh" });
+							document.dispatchEvent(evt);
+
+							var smiley = document.createElement("span");
+							smiley.setAttribute("id", "lt-emote");
+							if (daysRemaining > 30) {
+								smiley.setAttribute("class", "icon-smiley-relax");
+								bhDate.style.color = "var(--success-color)";
+								smiley.style.color = "var(--success-color)";
+							}
+							else {
+								smiley.setAttribute("class", "icon-smiley-surprise");
+								bhDate.style.color = "var(--warning-color)";
+								smiley.style.color = "var(--warning-color)";
+							}
+							bhDate.parentNode.insertBefore(smiley, bhDate);
+						}
+						else {
+							if (daysRemaining > 30) {
+								bhDate.style.color = "var(--text-color)";
+							}
+							else {
+								// stylize in warning color if less than 30 colors remaining, just to point it out to user
+								bhDate.style.color = "var(--warning-color)";
+							}
+						}
+					});
+				}
+				else {
+					// fallback styling
+					bhDate.style.color = "var(--text-color)";
+				}
+			}
+		}, 100);
 
 		if (profileActions) {
 			profileActions.addEventListener("mouseenter", setCoalitionTextColor);
