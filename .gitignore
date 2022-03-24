@@ -3,6 +3,7 @@
 *.xpi
 *.crx
 server/nogit.php
+server/test.php
 server/settings/*
 server/banners/*
 temp.js
