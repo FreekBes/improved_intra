@@ -1,4 +1,8 @@
+USEFUL:
+Manifest v3 options overview: https://developer.chrome.com/docs/extensions/mv3/manifest/
+
 TODO:
+- convert every var to either const or let
 - create backbone structure for local storage and syncing settings, with separate storage for incognito
 - create themes folder and move all theme-related stuff in there
 - create profile customization folder and move all profile customization stuff in there
