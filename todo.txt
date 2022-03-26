@@ -1,0 +1,13 @@
+TODO:
+- create backbone structure for local storage and syncing settings, with separate storage for incognito
+- create themes folder and move all theme-related stuff in there
+- create profile customization folder and move all profile customization stuff in there
+- create improvements folder and move all improvements into there (maybe separate some improvements?)
+- create way to report user customization features to the server
+- create way to see user reports when logged in with an Intra staff account
+- reorganize manifests
+- split up Codam Monitoring System's cumulative hours and the actual thing into ft_logtime like feature and the previous actual thing
+- more security background checks for the server back-end with the Intra API: store generated keys in a non-public database file
+- implement more cluster maps, maybe even custom ones into the extension itself?
+
+DONE:
