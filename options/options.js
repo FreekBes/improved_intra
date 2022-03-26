@@ -275,7 +275,12 @@ window.onload = function() {
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
 	document.getElementById("back-button").addEventListener("click", function(event) {
-		window.location.href = "https://intra.42.fr/";
+		if (window.history.length > 1) {
+			window.history.back();
+		}
+		else {
+			window.location.href = "https://intra.42.fr/";
+		}
 	});
 	document.getElementById("rem-custom-banner").addEventListener("click", function(event) {
 		var con = confirm("Are you sure you want to remove the custom banner from your profile?");
