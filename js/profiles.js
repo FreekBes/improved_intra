@@ -173,14 +173,12 @@ function setCustomProfile() {
 
 function immediateProfileChanges() {
 	// easter egg for user fbes, even when customized profiles are disabled
-	if (gUName == "fbes") {
-		if (gProfileBanner) {
-			gProfileBanner.className += " egg";
-		}
+	if (gProfileBanner && gUName == "fbes") {
+		gProfileBanner.className += " egg";
 	}
 
-	// improvements to profile boxes
 	if (window.location.pathname.indexOf("/users/") == 0) {
+		// improvements to profile boxes
 		var locations = document.getElementById("locations");
 		if (locations) {
 			var logTimesHeader = document.createElement("h4");
@@ -189,6 +187,7 @@ function immediateProfileChanges() {
 			locations.parentNode.parentNode.prepend(logTimesHeader);
 		}
 
+		// add social links to profile
 		var userInfos = document.querySelector(".profile-infos-bottom");
 		if (userInfos) {
 			var gitHubItem = document.createElement("div");
