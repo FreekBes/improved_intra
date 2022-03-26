@@ -203,8 +203,11 @@ function setGeneralImprovements() {
 		setStyleIfExists(".coalition-name a", "color", getCoalitionColor());
 		setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
+		// fix black hole text color
+		// and if old-blackhole setting is enabled, replace text with old countdown style
 		var bhColorTimer = setInterval(function() {
 			var bhDate = document.querySelector("#bh-date");
+			var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 			if (bhDate) {
 				if (bhDate.innerText.indexOf("absorbed") > -1) {
 					clearInterval(bhColorTimer);
@@ -212,13 +215,13 @@ function setGeneralImprovements() {
 					if (getProfileUserName) {
 						chrome.storage.local.get("username", function(data) {
 							if (data["username"] && data["username"] != getProfileUserName()) {
-								bhDate.innerText = "Has been absorbed by the Black Hole.";
+								bhDate.innerText = "User has been absorbed by the Black Hole.";
 							}
 						});
 					}
 				}
-				else {
-					var daysRemaining = parseInt(bhDate.parentNode.getAttribute("data-original-title"));
+				else if (bhDateTitle.indexOf("days left") > -1) {
+					var daysRemaining = parseInt(bhDateTitle);
 					if (isNaN(daysRemaining)) {
 						return;
 					}
@@ -248,9 +251,19 @@ function setGeneralImprovements() {
 							bhDate.parentNode.insertBefore(smiley, bhDate);
 						}
 						else {
-							bhDate.style.color = "var(--text-color)";
+							if (daysRemaining > 30) {
+								bhDate.style.color = "var(--text-color)";
+							}
+							else {
+								// stylize in warning color if less than 30 colors remaining, just to point it out to user
+								bhDate.style.color = "var(--warning-color)";
+							}
 						}
 					});
+				}
+				else {
+					// fallback styling
+					bhDate.style.color = "var(--text-color)";
 				}
 			}
 		}, 100);
