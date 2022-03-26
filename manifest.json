@@ -17,7 +17,7 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
-	"incognito": "not_allowed",
+	"incognito": "spanning",
 	"options_page": "options/options.html",
 	"permissions": [
 		"storage"
@@ -101,6 +101,6 @@
 		}
 	],
 	"background": {
-		"service_worker": "background.js"
+		"service_worker": "sw.js"
 	}
 }

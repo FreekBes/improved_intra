@@ -3,7 +3,6 @@ Manifest v3 options overview: https://developer.chrome.com/docs/extensions/mv3/m
 
 TODO:
 - convert every var to either const or let
-- create backbone structure for local storage and syncing settings, with separate storage for incognito
 - create themes folder and move all theme-related stuff in there
 - create profile customization folder and move all profile customization stuff in there
 - create improvements folder and move all improvements into there (maybe separate some improvements?)
@@ -15,3 +14,4 @@ TODO:
 - implement more cluster maps, maybe even custom ones into the extension itself?
 
 DONE:
+- create backbone structure for local storage and syncing settings, with separate storage for incognito
