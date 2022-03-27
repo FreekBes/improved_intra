@@ -194,10 +194,12 @@ function syncSettings(event) {
 			}
 
 			improvedStorage.set(settingsObj).then(function() {
-				console.log("Settings stored locally");
-				if (optionsPort) {
-					optionsPort.postMessage({ action: "options-changed", settings: settingsObj });
-				}
+				improvedStorage.set({ "last-sync": new Date().getTime() }, function() {
+					console.log("Settings stored locally");
+					if (optionsPort) {
+						optionsPort.postMessage({ action: "options-changed", settings: settingsObj });
+					}
+				});
 			});
 		});
 	}
@@ -255,6 +257,7 @@ function loadSettingsIntoForm(settings) {
 			continue;
 		}
 	}
+	improvedStorage.set({ "last-sync": new Date().getTime() });
 	document.getElementById("current-custom-banner").setAttribute("src", settings["custom-banner-url"]);
 	if (!settings["custom-banner-url"]) {
 		document.getElementById("custom-header-preview").style.display = "none";

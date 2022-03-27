@@ -28,6 +28,9 @@ syncPort.onMessage.addListener(function(msg) {
 		case "pong":
 			console.log("pong");
 			break;
+		case "resynced":
+			console.log("%c[Improved Intra]%c Resync done.", "color: #00babc;", "");
+			break;
 		case "error":
 			console.error(msg["message"]);
 			break;
@@ -38,16 +41,20 @@ setInterval(function() {
 	syncPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-improvedStorage.get("username").then(function(data) {
-	var curUsername = getLoggedInUserName();
-	if (true || curUsername != data["username"] && curUsername != null) {
+improvedStorage.get(["last-sync", "username"]).then(function(data) {
+	const curUsername = getLoggedInUserName();
+	const curTime = new Date().getTime();
+	// if username in storage does not equal the currently logged in user
+	// or the last sync was over an hour ago, resynchronize settings with server
+	if (!data["username"] || !data["last-sync"] || parseInt(data["last-sync"]) - curTime < -3600000 || (curUsername != data["username"] && curUsername != null)) {
 		// a new user logged in!
 		improvedStorage.set({"username": curUsername}).then(function() {
-			console.log("%c[Improved Intra]%c Intra username stored in local storage", "color: #00babc;", "");
+			console.log("%c[Improved Intra]%c Intra username stored in local storage, now resyncing settings...", "color: #00babc;", "");
 			syncPort.postMessage({ action: "resync" });
 		});
 	}
 	else {
-		console.log("%c[Improved Intra]%c Hello there, " + curUsername + "!", "color: #00babc;", "");
+		const lastSync = new Date(parseInt(data["last-sync"]));
+		console.log("%c[Improved Intra]%c Hello there, " + curUsername + "! Your settings have last been synced on " + lastSync.toString(), "color: #00babc;", "");
 	}
 });

@@ -104,9 +104,9 @@ function setOptionsIfUnset(improvedStorage) {
 	});
 }
 
-function getSettingsFromSyncServer(storageType, username) {
+function getSettingsFromSyncServer(improvedStorage, username) {
 	return new Promise(function(resolve, reject) {
-		console.log("Retrieving settings of username " + username);
+		console.log("Retrieving settings of username " + username + " for " + improvedStorage.getType());
 		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
@@ -121,14 +121,23 @@ function getSettingsFromSyncServer(storageType, username) {
 			})
 			.then(function(json) {
 				if (json != null) {
-					storageType.set(json, function() {
-						resolve(json);
+					console.log("Storing settings in " + improvedStorage.getType() + " storage...");
+					improvedStorage.set(json).then(function() {
+						improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
+							resolve(json);
+						});
 					});
 				}
 			})
 			.catch(function(err) {
 				reject(err);
 			});
+	});
+}
+
+function resetLastSyncTimestamp(improvedStorage) {
+	return new Promise(function(resolve) {
+		improvedStorage.remove("last-sync").then(resolve);
 	});
 }
 

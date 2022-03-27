@@ -307,7 +307,8 @@ function setGeneralImprovements() {
 		}
 		var extensionSettings = document.createElement("li");
 		var extensionSettingsLink = document.createElement("a");
-		extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
+		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
+		extensionSettingsLink.setAttribute("href", "https://darkintra.freekb.es/options.php");
 		extensionSettingsLink.setAttribute("target", "_self");
 		extensionSettingsLink.innerText = "Improved Intra Settings";
 		extensionSettings.appendChild(extensionSettingsLink);

@@ -56,13 +56,14 @@ function resyncOnPortMessage(incognitoSession) {
 
 	improvedStorage.get("username").then(function(data) {
 		if (data["username"]) {
-			getSettingsFromSyncServer(type, data["username"])
+			getSettingsFromSyncServer(improvedStorage, data["username"])
 				.then(function() {
-					console.log("Settings successfully retrieved from server. Stored a copy locally.");
+					console.log("Settings successfully retrieved from server. Stored a copy locally in " + type + " storage.");
 					messagePortsOfType(type, { action: "resynced" });
 				})
 				.catch(function(err) {
-					resetOptions().then(function() {
+					console.error(err);
+					resetOptions(improvedStorage).then(function() {
 						messagePortsOfType(type, { action: "resynced" });
 					});
 				});

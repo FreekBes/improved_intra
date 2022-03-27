@@ -23,6 +23,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	}
 	else if (details.reason == "update") {
 		console.log("An update has been installed.");
+		resetLastSyncTimestamp(normalStorage);
+		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();
 		resyncOptions();
 	}
