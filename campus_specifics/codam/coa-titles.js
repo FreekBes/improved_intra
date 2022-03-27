@@ -48,7 +48,7 @@ function autoEquipCoaTitle(loggedInUserName) {
 	}
 }
 
-chrome.storage.local.get(["username", "codam-auto-equip-coa-title"], function(data) {
+improvedStorage.get(["username", "codam-auto-equip-coa-title"]).then(function(data) {
 	if (data["codam-auto-equip-coa-title"] === true || data["codam-auto-equip-coa-title"] === "true") {
 		autoEquipCoaTitle(data["username"]);
 	}

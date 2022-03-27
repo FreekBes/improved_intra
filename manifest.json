@@ -42,6 +42,11 @@
 	],
 	"content_scripts": [
 		{
+			"matches": [ "*://darkintra.freekb.es/*", "*://*.intra.42.fr/*" ],
+			"js": [ "background/storage.js", "js/init.js" ],
+			"run_at": "document_start"
+		},
+		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"css": [ "css/improv.css", "css/animations.css", "css/theme-apply.css" ],
 			"js": [ "js/theme.js" ],

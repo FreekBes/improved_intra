@@ -488,18 +488,11 @@ var monit = {
 	}
 };
 
-chrome.storage.local.get("codam-monit", function(data) {
+improvedStorage.get("codam-monit").then(function(data) {
 	if (data["codam-monit"] === true || data["codam-monit"] === "true") {
 		if (!document.getElementById("monit-progress-old")) {
 			monit.init();
-			var s = document.createElement('script');
-			s.src = chrome.runtime.getURL('js/inject.js');
-			(document.head || document.documentElement).appendChild(s);
-			s.onload = function() {
-				setTimeout(function() {
-					monit.getProgress();
-				}, 250);
-			};
+			monit.getProgress();
 		}
 		else {
 			document.getElementById("codam_intra_monit_system_display_deprecation_notice").className = "upgraded";

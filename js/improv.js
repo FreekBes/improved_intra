@@ -139,7 +139,7 @@ function colorizeLogtimeChart(event) {
 function setOptionalImprovements() {
 	var broadcastNav = document.querySelector(".broadcast-nav");
 	if (broadcastNav) {
-		chrome.storage.local.get("hide-broadcasts", function(data) {
+		improvedStorage.get("hide-broadcasts").then(function(data) {
 			if (data["hide-broadcasts"] === true || data["hide-broadcasts"] === "true") {
 				broadcastNav.style.display = "none";
 			}
@@ -148,7 +148,7 @@ function setOptionalImprovements() {
 
 	var goalsContainer = document.getElementById("goals_container");
 	if (goalsContainer) {
-		chrome.storage.local.get("hide-goals", function(data) {
+		improvedStorage.get("hide-goals").then(function(data) {
 			if (data["hide-goals"] === true || data["hide-goals"] === "true") {
 				goalsContainer.style.display = "none";
 			}
@@ -158,7 +158,7 @@ function setOptionalImprovements() {
 	if (hasProfileBanner()) {
 		var userPosteInfos = document.querySelector(".user-poste-infos");
 		if (userPosteInfos) {
-			chrome.storage.local.get("clustermap", function(data) {
+			improvedStorage.get("clustermap").then(function(data) {
 				if ((data["clustermap"] === true || data["clustermap"] === "true") && userPosteInfos.innerText != "-") {
 					userPosteInfos.className += " improved";
 					userPosteInfos.setAttribute("tabindex", "0");
@@ -207,13 +207,13 @@ function setGeneralImprovements() {
 		// and if old-blackhole setting is enabled, replace text with old countdown style
 		var bhColorTimer = setInterval(function() {
 			var bhDate = document.querySelector("#bh-date");
-			var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 			if (bhDate) {
+				var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 				if (bhDate.innerText.indexOf("absorbed") > -1) {
 					clearInterval(bhColorTimer);
 					bhDate.style.color = "var(--fail-color)";
 					if (getProfileUserName) {
-						chrome.storage.local.get("username", function(data) {
+						improvedStorage.get("username").then(function(data) {
 							if (data["username"] && data["username"] != getProfileUserName()) {
 								bhDate.innerText = "User has been absorbed by the Black Hole.";
 							}
@@ -227,7 +227,7 @@ function setGeneralImprovements() {
 					}
 					clearInterval(bhColorTimer);
 					console.log("Black Hole days remaining: ", daysRemaining);
-					chrome.storage.local.get("old-blackhole", function(data) {
+					improvedStorage.get("old-blackhole").then(function(data) {
 						if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
 							bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
 							bhDate.innerText = daysRemaining.toString() + " days left";
@@ -360,11 +360,11 @@ setGeneralImprovements();
 setOptionalImprovements();
 
 // communication between background.js and this script
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
-syncPort.onDisconnect.addListener(function() {
+let improvPort = chrome.runtime.connect({ name: portName });
+improvPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
 });
-syncPort.onMessage.addListener(function(msg) {
+improvPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			console.log("pong");
@@ -388,6 +388,6 @@ syncPort.onMessage.addListener(function(msg) {
 
 // reconnect every 4-5 minutes to keep service worker running in background
 setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	improvPort.disconnect();
+	improvPort = chrome.runtime.connect({ name: portName });
 }, 250000);

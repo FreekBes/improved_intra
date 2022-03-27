@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
-syncPort.onDisconnect.addListener(function() {
+let authPort = chrome.runtime.connect({ name: portName });
+authPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
 });
-syncPort.onMessage.addListener(function(msg) {
+authPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			console.log("pong");
@@ -29,8 +29,8 @@ syncPort.onMessage.addListener(function(msg) {
 	}
 });
 setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	authPort.disconnect();
+	authPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
 var authResElem = document.getElementById("result");
@@ -58,10 +58,10 @@ if (authResElem) {
 				}
 			}, 2000);
 
-			chrome.storage.local.set(authRes, function() {
-				chrome.storage.local.set({"username": authRes["user"]["login"]}, function() {
+			sessionStorage.set(authRes).then(function() {
+				sessionStorage.set({"username": authRes["user"]["login"]}).then(function() {
 					console.log("%c[Improved Intra]%c Authentication details saved in local storage!", "color: #00babc;", "");
-					syncPort.postMessage({ action: "resync" });
+					authPort.postMessage({ action: "resync" });
 				});
 			});
 		}

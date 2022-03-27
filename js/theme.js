@@ -55,8 +55,8 @@ function enableTheme(theme, colors) {
 }
 
 function checkThemeSetting() {
-	chrome.storage.local.get(["theme", "colors"], function(data) {
-		if (data["theme"] == "system") {
+	improvedStorage.get(["theme", "colors"]).then(function(data) {
+		if (data["theme"] == "system" || !data["theme"]) {
 			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				enableTheme("dark", data["colors"]);
 			}
@@ -69,7 +69,7 @@ function checkThemeSetting() {
 		}
 		else {
 			// fallback to default
-			enableTheme("system", null);
+			enableTheme("light", null);
 		}
 	});
 }
@@ -83,7 +83,7 @@ checkThemeSetting();
 
 // fix sign in page issue with background image
 window.addEventListener("DOMContentLoaded", function() {
-	if (window.location.pathname == "/users/sign_in") {
+	if (window.location.origin.indexOf("intra.42.fr") > -1 && window.location.pathname == "/users/sign_in") {
 		document.getElementsByTagName("html")[0].setAttribute("style", "background-color: unset !important;");
 	}
 });

@@ -53,11 +53,11 @@ function showSettingsSavedNotif() {
 	}, 2000);
 }
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
-syncPort.onDisconnect.addListener(function() {
+var optionsPort = chrome.runtime.connect({ name: portName });
+optionsPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
 });
-syncPort.onMessage.addListener(function(msg) {
+optionsPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			console.log("pong");
@@ -75,14 +75,14 @@ syncPort.onMessage.addListener(function(msg) {
 	}
 });
 setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	optionsPort.disconnect();
+	optionsPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
 function storeSettingsAndUpdateForm(newSettings) {
-	chrome.storage.local.set(newSettings, function() {
-		if (syncPort) {
-			syncPort.postMessage({ action: "options-changed", settings: newSettings });
+	improvedStorage.set(newSettings).then(function() {
+		if (optionsPort) {
+			optionsPort.postMessage({ action: "options-changed", settings: newSettings });
 		}
 	});
 	document.getElementById("custom-banner-upload").value = "";
@@ -127,7 +127,7 @@ function syncSettings(event) {
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
-		chrome.storage.local.get(["user", "auth"], function(data) {
+		improvedStorage.get(["user", "auth"]).then(function(data) {
 			if (data["user"] && data["auth"]) {
 				syncBtn.className = "syncing";
 				formData.append("access_token", data["auth"]["access_token"]);
@@ -167,7 +167,7 @@ function syncSettings(event) {
 		});
 	}
 	else {
-		chrome.storage.local.get(["sync", "auth"], function(data) {
+		improvedStorage.get(["sync", "auth"]).then(function(data) {
 			if ((data["sync"] === true || data["sync"] === "true") && data["auth"]) {
 				syncBtn.className = "syncing";
 				formData = new FormData(form);
@@ -193,10 +193,10 @@ function syncSettings(event) {
 				req.send(formData);
 			}
 
-			chrome.storage.local.set(settingsObj, function() {
+			improvedStorage.set(settingsObj).then(function() {
 				console.log("Settings stored locally");
-				if (syncPort) {
-					syncPort.postMessage({ action: "options-changed", settings: settingsObj });
+				if (optionsPort) {
+					optionsPort.postMessage({ action: "options-changed", settings: settingsObj });
 				}
 			});
 		});
@@ -213,7 +213,7 @@ function retrieveSettings() {
 				keysToGet.push(formElems[i].getAttribute("name"));
 			}
 			console.log(keysToGet);
-			chrome.storage.local.get(keysToGet, function(data) {
+			improvedStorage.get(keysToGet).then(function(data) {
 				resolve(data);
 			});
 		}
@@ -230,7 +230,7 @@ function loadSettingsIntoForm(settings) {
 		settingElem = document.getElementsByName(key);
 		if (settingElem.length > 0) {
 			settingElem = settingElem[0];
-			chrome.storage.local.set({[key]: settings[key]});
+			improvedStorage.set({[key]: settings[key]});
 		}
 		else {
 			console.warn("Found unknown setting key '" + key + "'");
@@ -308,7 +308,7 @@ window.onload = function() {
 		event.preventDefault();
 	});
 
-	chrome.storage.local.get(["username", "auth", "user"], function(data) {
+	improvedStorage.get(["username", "auth", "user"]).then(function(data) {
 		console.log(data);
 		if (data["username"] === undefined || data["auth"] === undefined
 			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {

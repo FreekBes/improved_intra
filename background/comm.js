@@ -52,8 +52,9 @@ function isIncognitoPort(port) {
 // resync on port message function
 function resyncOnPortMessage(incognitoSession) {
 	const type = (incognitoSession ? "incognito" : "normal");
+	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
 
-	getStorage(type, "username").then(function(data) {
+	improvedStorage.get("username").then(function(data) {
 		if (data["username"]) {
 			getSettingsFromSyncServer(type, data["username"])
 				.then(function() {
@@ -61,7 +62,7 @@ function resyncOnPortMessage(incognitoSession) {
 					messagePortsOfType(type, { action: "resynced" });
 				})
 				.catch(function(err) {
-					resetSettings().then(function() {
+					resetOptions().then(function() {
 						messagePortsOfType(type, { action: "resynced" });
 					});
 				});

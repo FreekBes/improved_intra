@@ -19,7 +19,7 @@ function getLoggedInUserName() {
 	}
 }
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
+var syncPort = chrome.runtime.connect({ name: portName });
 syncPort.onDisconnect.addListener(function() {
 	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
 });
@@ -35,14 +35,14 @@ syncPort.onMessage.addListener(function(msg) {
 });
 setInterval(function() {
 	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	syncPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-chrome.storage.local.get("username", function(data) {
+improvedStorage.get("username").then(function(data) {
 	var curUsername = getLoggedInUserName();
-	if (curUsername != data["username"] && curUsername != null) {
+	if (true || curUsername != data["username"] && curUsername != null) {
 		// a new user logged in!
-		chrome.storage.local.set({"username": curUsername}, function() {
+		improvedStorage.set({"username": curUsername}).then(function() {
 			console.log("%c[Improved Intra]%c Intra username stored in local storage", "color: #00babc;", "");
 			syncPort.postMessage({ action: "resync" });
 		});
