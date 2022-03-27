@@ -31,19 +31,22 @@
 				"css/theme-dark.css",
 				"css/colors-cetus.css",
 				"css/colors-pyxis.css",
-				"css/colors-vela.css"
+				"css/colors-vela.css",
+				"options/options.html"
 			],
-			"matches": [ "*://*.intra.42.fr/*" ]
-		},
-		{
-			"resources": [ "options/options.html" ],
 			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ]
 		}
 	],
 	"content_scripts": [
 		{
-			"matches": [ "*://darkintra.freekb.es/*", "*://*.intra.42.fr/*" ],
+			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ],
 			"js": [ "background/storage.js", "js/init.js" ],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://darkintra.freekb.es/*" ],
+			"css": [ "css/internal.css", "css/animations.css" ],
+			"js": [ "js/theme.js" ],
 			"run_at": "document_start"
 		},
 		{
@@ -70,6 +73,11 @@
 		{
 			"matches": [ "*://darkintra.freekb.es/connect.php*" ],
 			"js": [ "options/auth.js" ],
+			"run_at": "document_end"
+		},
+		{
+			"matches": [ "*://darkintra.freekb.es/options.php*" ],
+			"js": [ "options/options.js" ],
 			"run_at": "document_end"
 		},
 		{

@@ -38,7 +38,7 @@ if (authResElem) {
 	try {
 		var authRes = JSON.parse(authResElem.innerText);
 		if (!("error" in authRes["auth"])) {
-			var optionsURL = chrome.runtime.getURL('options/options.html');
+			var optionsURL = "https://darkintra.freekb.es/options.php";
 			var action = document.getElementById("action");
 			if (action) {
 				action.innerText = "Please wait while we redirect you to the Improved Intra 42 options page...";
@@ -58,8 +58,8 @@ if (authResElem) {
 				}
 			}, 2000);
 
-			sessionStorage.set(authRes).then(function() {
-				sessionStorage.set({"username": authRes["user"]["login"]}).then(function() {
+			improvedStorage.set(authRes).then(function() {
+				improvedStorage.set({"username": authRes["user"]["login"]}).then(function() {
 					console.log("%c[Improved Intra]%c Authentication details saved in local storage!", "color: #00babc;", "");
 					authPort.postMessage({ action: "resync" });
 				});
