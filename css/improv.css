@@ -355,21 +355,27 @@ li.scaleteam-list-item .rating {
 }
 
 /* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]:not(.student-kind-student)::before,
+a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]:not(.student-kind-student)::before,
+a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
+a[data-tooltip-login="jlensing"]::before,
 .profile-name span.login[data-login="jlensing"]::before,
-a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
+a[data-tooltip-login="ieilat"]::before,
 .profile-name span.login[data-login="ieilat"]::before {
 	content: 'Improved Intra Contributor ';
 }
 
 /* custom title for creator */
-a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
+a[data-tooltip-login="fbes"]::before,
 .profile-name span.login[data-login="fbes"]::before {
 	content: 'Improved Intra Creator ';
+}
+
+/* no custom titles in the following places */
+a[data-tooltip-login].student-kind-student::before,
+#coalition-top-user a[data-tooltip-login]::before {
+	content: '' !important;
 }
 
 /* profile page easter egg for fbes (me, le creator) */
