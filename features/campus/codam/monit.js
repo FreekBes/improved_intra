@@ -408,8 +408,8 @@ var monit = {
 
 			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
 				smiley.setAttribute("class", "icon-smiley-sad-1");
-				smiley.setAttribute("style", "color: var(--fail-color);");
-				progressPerc.setAttribute("style", "color: var(--fail-color);");
+				smiley.setAttribute("style", "color: var(--danger-color);");
+				progressPerc.setAttribute("style", "color: var(--danger-color);");
 			}
 			else if ((atLeastRelaxed && monit.logTimesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.logTimesTotal < monit.requirements.min)) {
 				smiley.setAttribute("class", "icon-smiley-relax");
