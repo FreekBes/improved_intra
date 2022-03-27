@@ -58,6 +58,34 @@
 	font-style: normal
 }
 
+@font-face {
+	font-family: "futura";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family:"futura";
+	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "futura-bold";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "futura-bold";
+	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
+	font-weight: 700;
+	font-style: italic;
+}
+
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
@@ -80,7 +108,7 @@ body,
 	background-color: var(--container-background-color);
 	color: var(--text-color);
 	caret-color: var(--text-color);
-	font-family: "Futura PT", "Futura", "Helvetica", Verdana, Arial, Sans-Serif;
+	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif;
 	font-size: 16px;
 	padding: 0px;
 	cursor: default;
@@ -209,11 +237,11 @@ header button#sync-button.syncing {
 header button#sync-button::after {
 	display: inline-block;
 	transform-origin: center;
-	content: '\e3b7';
+	content: '\1F4BE';
 }
 
 header button#sync-button.syncing::after {
-	content: '\e29b';
+	content: '\1F5D8';
 	animation: spin 1.3s linear infinite;
 	animation-direction: reverse;
 }
