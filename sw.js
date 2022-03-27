@@ -17,12 +17,13 @@
 
 try {
 	importScripts(
+		"generic/console.js",
 		"background/main.js",
-		"background/storage.js",
+		"generic/storage.js",
 		"background/comm.js",
 		"background/options.js"
 	);
 }
 catch (err) {
-	console.error(err);
+	iConsole.error(err);
 }

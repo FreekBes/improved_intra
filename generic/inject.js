@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 function addToolTip(query) {
-	console.log("Adding tooltip to element " + query);
-	var actualCode = '$("'+query+'").tooltip();';
-	var script = document.createElement('script');
+	console.log("%c[Improved Intra %cinject.js]%c Adding tooltip to element " + query, "color: #00babc;", "color: #02807c;", "");
+	const actualCode = '$("'+query+'").tooltip();';
+	const script = document.createElement('script');
 	script.appendChild(document.createTextNode(actualCode));
 	(document.head || document.documentElement).appendChild(script);
 	script.parentNode.removeChild(script);

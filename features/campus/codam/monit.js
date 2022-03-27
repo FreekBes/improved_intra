@@ -66,7 +66,7 @@ var monit = {
 		for (var i = 0; i <= monit.dayOfWeek; i++) {
 			thisWeek.push(new Date(timestamp - 86400000 * i).toISOString().split("T")[0]);
 		}
-		console.log("This week's dates: ", thisWeek);
+		iConsole.log("This week's dates: ", thisWeek);
 		return (thisWeek);
 	},
 
@@ -91,9 +91,9 @@ var monit = {
 		else {
 			this.requirements.today = logTimesTotalNoToday + Math.round((this.requirements.min - logTimesTotalNoToday) / (7 - this.dayOfWeek));
 		}
-		console.log("Logtime up until today", logTimesTotalNoToday);
-		console.log("Expected minutes today", this.requirements.today - logTimesTotalNoToday);
-		console.log("Expected minutes after today", this.requirements.today);
+		iConsole.log("Logtime up until today", logTimesTotalNoToday);
+		iConsole.log("Expected minutes today", this.requirements.today - logTimesTotalNoToday);
+		iConsole.log("Expected minutes after today", this.requirements.today);
 	},
 
 	/**
@@ -292,10 +292,10 @@ var monit = {
 		this.getLogTimes()
 			.then(this.writeProgress)
 			.catch(function(err) {
-				console.warn("Could not read logtimes chart:", err);
+				iConsole.warn("Could not read logtimes chart:", err);
 				monit.getLogTimesWeb(monit.username).then(monit.writeProgress)
 					.catch(function(err) {
-						console.error("Could not retrieve logtimes from the web", err);
+						iConsole.error("Could not retrieve logtimes from the web", err);
 					});
 			});
 	},
@@ -340,8 +340,8 @@ var monit = {
 	writeProgress: function() {
 		monit.getStatus().then(function(status) {
 			monit.setExpected();
-			console.log("Logtimes", monit.logTimes);
-			console.log("Total minutes", monit.logTimesTotal);
+			iConsole.log("Logtimes", monit.logTimes);
+			iConsole.log("Total minutes", monit.logTimesTotal);
 
 			var aguDate = document.getElementById("agu-date");
 			if (aguDate && aguDate.className.indexOf("hidden") == -1) {
@@ -351,13 +351,13 @@ var monit = {
 			var atLeastRelaxed = false;
 			var partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
 			if (partTimeCheck.length > 0 || status["monitoring_system_active"] === false) {
-				console.log("User is working on Part-Time project or monitoring system is currently disabled, emote will be at least relaxed");
+				iConsole.log("User is working on Part-Time project or monitoring system is currently disabled, emote will be at least relaxed");
 				atLeastRelaxed = true;
 			}
 
 			var availableStatus = document.querySelector(".user-poste-status");
 			if (availableStatus && availableStatus.innerText == "Available") {
-				console.log("User is currently available, emote will be at least relaxed");
+				iConsole.log("User is currently available, emote will be at least relaxed");
 				atLeastRelaxed = true;
 			}
 

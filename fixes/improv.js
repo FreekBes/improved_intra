@@ -226,7 +226,7 @@ function setGeneralImprovements() {
 						return;
 					}
 					clearInterval(bhColorTimer);
-					console.log("Black Hole days remaining: ", daysRemaining);
+					iConsole.log("Black Hole days remaining: ", daysRemaining);
 					improvedStorage.get("old-blackhole").then(function(data) {
 						if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
 							bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
@@ -363,17 +363,17 @@ setOptionalImprovements();
 // communication between background.js and this script
 let improvPort = chrome.runtime.connect({ name: portName });
 improvPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+	iConsole.log("Disconnected from service worker");
 });
 improvPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
 			break;
 		case "resynced":
 		case "prefers-color-scheme-change":
 		case "options-changed":
-			console.log("%c[Improved Intra]%c Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.", "color: #00babc;", "");
+			iConsole.log("Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.");
 			checkThemeSetting();
 			setOptionalImprovements();
 			colorizeLogtimeChart();
@@ -382,7 +382,7 @@ improvPort.onMessage.addListener(function(msg) {
 			}
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });

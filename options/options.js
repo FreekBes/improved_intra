@@ -55,22 +55,22 @@ function showSettingsSavedNotif() {
 
 var optionsPort = chrome.runtime.connect({ name: portName });
 optionsPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+	iConsole.log("Disconnected from service worker");
 });
 optionsPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
 			break;
 		case "options-changed":
 			loadSettingsIntoForm(msg["settings"]);
 			break;
 		case "resynced":
-			console.log("Options resynced.");
+			iConsole.log("Options resynced.");
 			window.location.reload();
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });
@@ -90,7 +90,7 @@ function storeSettingsAndUpdateForm(newSettings) {
 }
 
 function syncSettings(event) {
-	console.log("Syncing settings...");
+	iConsole.log("Syncing settings...");
 	if (event) {
 		event.preventDefault();
 	}
@@ -123,7 +123,7 @@ function syncSettings(event) {
 			formData.set(key, value.trim());
 		}
 	});
-	console.log(settingsObj);
+	iConsole.log(settingsObj);
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
@@ -141,10 +141,10 @@ function syncSettings(event) {
 					try {
 						var res = JSON.parse(this.responseText);
 						if (res["type"] == "error") {
-							console.error("Settings sync result", res);
+							iConsole.error("Settings sync result", res);
 						}
 						else {
-							console.log("Settings sync result", res);
+							iConsole.log("Settings sync result", res);
 						}
 						if (res["data"]) {
 							storeSettingsAndUpdateForm(res["data"]);
@@ -154,12 +154,12 @@ function syncSettings(event) {
 						}
 					}
 					catch (err) {
-						console.error("Could not parse settings sync result!", err);
+						iConsole.error("Could not parse settings sync result!", err);
 						storeSettingsAndUpdateForm(settingsObj);
 					}
 				});
 				req.addEventListener("error", function(err) {
-					console.error("Could not sync settings", err);
+					iConsole.error("Could not sync settings", err);
 					storeSettingsAndUpdateForm(settingsObj);
 				});
 				req.send(formData);
@@ -184,10 +184,10 @@ function syncSettings(event) {
 					syncBtn.className = "";
 					try {
 						var res = JSON.parse(this.responseText);
-						console.log("Settings deletion result", res);
+						iConsole.log("Settings deletion result", res);
 					}
 					catch (err) {
-						console.error("Could not parse settings deletion result!", err);
+						iConsole.error("Could not parse settings deletion result!", err);
 					}
 				});
 				req.send(formData);
@@ -195,7 +195,7 @@ function syncSettings(event) {
 
 			improvedStorage.set(settingsObj).then(function() {
 				improvedStorage.set({ "last-sync": new Date().getTime() }, function() {
-					console.log("Settings stored locally");
+					iConsole.log("Settings stored locally");
 					if (optionsPort) {
 						optionsPort.postMessage({ action: "options-changed", settings: settingsObj });
 					}
@@ -214,7 +214,7 @@ function retrieveSettings() {
 			for (var i = 0; i < formElems.length; i++) {
 				keysToGet.push(formElems[i].getAttribute("name"));
 			}
-			console.log(keysToGet);
+			iConsole.log(keysToGet);
 			improvedStorage.get(keysToGet).then(function(data) {
 				resolve(data);
 			});
@@ -226,7 +226,7 @@ function retrieveSettings() {
 }
 
 function loadSettingsIntoForm(settings) {
-	console.log("Settings fetched somewhere", settings);
+	iConsole.log("Settings fetched somewhere", settings);
 	var key, settingElem;
 	for (key in settings) {
 		settingElem = document.getElementsByName(key);
@@ -235,7 +235,7 @@ function loadSettingsIntoForm(settings) {
 			improvedStorage.set({[key]: settings[key]});
 		}
 		else {
-			console.warn("Found unknown setting key '" + key + "'");
+			iConsole.warn("Found unknown setting key '" + key + "'");
 			continue;
 		}
 		if (settingElem.nodeName == "SELECT") {
@@ -253,7 +253,7 @@ function loadSettingsIntoForm(settings) {
 			}
 		}
 		else {
-			console.warn("Unknown nodetype for setting: " + settingElem.nodeName);
+			iConsole.warn("Unknown nodetype for setting: " + settingElem.nodeName);
 			continue;
 		}
 	}
@@ -270,7 +270,7 @@ function loadSettingsIntoForm(settings) {
 }
 
 window.onload = function() {
-	console.log("Initializing options page...");
+	iConsole.log("Initializing options page...");
 	var i;
 
 	var formElems = document.querySelectorAll("form select, form input");
@@ -313,7 +313,7 @@ window.onload = function() {
 	});
 
 	improvedStorage.get(["username", "auth", "user"]).then(function(data) {
-		console.log(data);
+		iConsole.log(data);
 		if (data["username"] === undefined || data["auth"] === undefined
 			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {
 			// authorize user on Intra, link below redirects to the correct auth page
@@ -322,16 +322,16 @@ window.onload = function() {
 		else {
 			checkIfKeyStillWorks(data["auth"]["access_token"])
 				.then(function() {
-					console.log("Access token still works.");
+					iConsole.log("Access token still works.");
 					retrieveSettings()
 						.then(loadSettingsIntoForm)
 						.catch(function(err) {
-							console.error("Could not load settings from local storage.", err);
+							iConsole.error("Could not load settings from local storage.", err);
 							alert("Failed to load settings");
 						});
 				})
 				.catch(function(res) {
-					console.log("Access token no longer works!", res);
+					iConsole.log("Access token no longer works!", res);
 					// authorize user again on Intra, link below redirects to the correct auth page
 					window.location.replace("https://darkintra.freekb.es/connect.php");
 				});

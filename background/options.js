@@ -43,22 +43,22 @@ function tryFetchIntraUsername(improvedStorage) {
 			.then(function(metaBody) {
 				const _userIndex = metaBody.indexOf("this._user");
 				const _consumerAddress = metaBody.indexOf("this._consumer_address");
-				console.log("Now trying to parse username from meta.intra.42.fr...");
+				iConsole.log("Now trying to parse username from meta.intra.42.fr...");
 				if (_userIndex > -1) {
 					let toParse = metaBody.substring(_userIndex, _consumerAddress);
-					console.log(toParse);
+					iConsole.log(toParse);
 					const startOfObj = toParse.indexOf("{");
 					const endOfObj = toParse.indexOf("}");
 					if (startOfObj < -1) {
 						reject("Could not find start of _user object");
 					}
 					toParse = toParse.substring(startOfObj, endOfObj + 1);
-					console.log(toParse);
+					iConsole.log(toParse);
 					const jsonUser = JSON.parse(toParse);
 					if ("login" in jsonUser) {
-						console.log("Hooray, found logged in user! Hello, " + jsonUser["login"] + "!");
+						iConsole.log("Hooray, found logged in user! Hello, " + jsonUser["login"] + "!");
 						improvedStorage.set({username: jsonUser["login"]}).then(function() {
-							console.log("Set username in " + improvedStorage.getType() + " storage");
+							iConsole.log("Set username in " + improvedStorage.getType() + " storage");
 							resolve(jsonUser["login"]);
 						});
 					}
@@ -79,10 +79,10 @@ function tryFetchIntraUsername(improvedStorage) {
 function removeUnusedOptions() {
 	if (noLongerUsedOptions.length > 0) {
 		normalStorage.remove(noLongerUsedOptions).then(function() {
-			console.log("Removed no longer used options from normal storage");
+			iConsole.log("Removed no longer used options from normal storage");
 		});
 		incognitoStorage.remove(noLongerUsedOptions).then(function() {
-			console.log("Removed no longer used options from incognito storage");
+			iConsole.log("Removed no longer used options from incognito storage");
 		});
 	}
 }
@@ -97,7 +97,7 @@ function setOptionsIfUnset(improvedStorage) {
 		for (const key in defaults) {
 			if (data[key] === undefined) {
 				improvedStorage.set({[key]: defaults[key]}, function() {
-					console.log("Default setting with key " + key + " created in " + improvedStorage.getType() + " storage (value: " + defaults[key] + ")");
+					iConsole.log("Default setting with key " + key + " created in " + improvedStorage.getType() + " storage (value: " + defaults[key] + ")");
 				});
 			}
 		}
@@ -106,7 +106,7 @@ function setOptionsIfUnset(improvedStorage) {
 
 function getSettingsFromSyncServer(improvedStorage, username) {
 	return new Promise(function(resolve, reject) {
-		console.log("Retrieving settings of username " + username + " for " + improvedStorage.getType());
+		iConsole.log("Retrieving settings of username " + username + " for " + improvedStorage.getType());
 		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
@@ -121,7 +121,7 @@ function getSettingsFromSyncServer(improvedStorage, username) {
 			})
 			.then(function(json) {
 				if (json != null) {
-					console.log("Storing settings in " + improvedStorage.getType() + " storage...");
+					iConsole.log("Storing settings in " + improvedStorage.getType() + " storage...");
 					improvedStorage.set(json).then(function() {
 						improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
 							resolve(json);
@@ -152,6 +152,6 @@ function fetchUserSettings(improvedStorage) {
 			messagePortsOfType(storageType, { action: "options-changed", settings: settings });
 		})
 		.catch(function(err) {
-			console.error("Could not parse username and synchronize settings", err);
+			iConsole.error("Could not parse username and synchronize settings", err);
 		});
 }

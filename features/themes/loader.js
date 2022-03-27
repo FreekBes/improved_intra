@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   theme.js                                           :+:    :+:            */
+/*   loader.js                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
@@ -31,14 +31,14 @@ function disableTheme(theme, colors) {
  * Enable a theme, leave colors as null or undefined to use default color scheme
  */
 function enableTheme(theme, colors) {
-	console.log("%c[Improved Intra]%c Enabling theme '" + theme + "'" + (colors ? " in '" + colors + "' mode..." : ""), "color: #00babc;", "");
+	iConsole.log("Enabling theme '" + theme + "'" + (colors ? " in '" + colors + "' mode..." : ""));
 	if (!themeLink) {
 		themeLink = document.createElement("link");
 		themeLink.setAttribute("type", "text/css");
 		themeLink.setAttribute("rel", "stylesheet");
 		document.getElementsByTagName("head")[0].appendChild(themeLink);
 	}
-	themeLink.setAttribute("href", chrome.runtime.getURL("css/theme-"+theme+".css"));
+	themeLink.setAttribute("href", chrome.runtime.getURL("features/themes/"+theme+".css"));
 
 	if (colors && colors !== "default") {
 		if (!themeColorsLink) {
@@ -47,7 +47,7 @@ function enableTheme(theme, colors) {
 			themeColorsLink.setAttribute("rel", "stylesheet");
 			document.getElementsByTagName("head")[0].appendChild(themeColorsLink);
 		}
-		themeColorsLink.setAttribute("href", chrome.runtime.getURL("css/colors-"+colors+".css"));
+		themeColorsLink.setAttribute("href", chrome.runtime.getURL("features/themes/colors/"+colors+".css"));
 	}
 	else {
 		disableTheme(false, true);
@@ -75,7 +75,7 @@ function checkThemeSetting() {
 }
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function() {
-	console.log("%c[Improved Intra]%c @media rule prefers-color-scheme changed", "color: #00babc;", "");
+	iConsole.log("@media rule prefers-color-scheme changed");
 	checkThemeSetting();
 });
 

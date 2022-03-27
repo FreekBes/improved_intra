@@ -18,11 +18,11 @@ function resyncOptions() {
 
 chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
-		console.log("First install.");
+		iConsole.log("First install.");
 		resyncOptions();
 	}
 	else if (details.reason == "update") {
-		console.log("An update has been installed.");
+		iConsole.log("An update has been installed.");
 		resetLastSyncTimestamp(normalStorage);
 		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();

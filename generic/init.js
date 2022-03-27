@@ -17,7 +17,7 @@
 // only inject it on the subdomains of *.intra.42.fr
 if (window.location.origin.indexOf(".intra.42.fr") > -1) {
 	const s = document.createElement('script');
-	s.src = chrome.runtime.getURL('js/inject.js');
+	s.src = chrome.runtime.getURL('generic/inject.js');
 	(document.head || document.documentElement).appendChild(s);
 }
 

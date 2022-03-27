@@ -58,18 +58,18 @@ function resyncOnPortMessage(incognitoSession) {
 		if (data["username"]) {
 			getSettingsFromSyncServer(improvedStorage, data["username"])
 				.then(function() {
-					console.log("Settings successfully retrieved from server. Stored a copy locally in " + type + " storage.");
+					iConsole.log("Settings successfully retrieved from server. Stored a copy locally in " + type + " storage.");
 					messagePortsOfType(type, { action: "resynced" });
 				})
 				.catch(function(err) {
-					console.error(err);
+					iConsole.error(err);
 					resetOptions(improvedStorage).then(function() {
 						messagePortsOfType(type, { action: "resynced" });
 					});
 				});
 		}
 		else {
-			console.warn("Could not resync, as no username was given to sync from");
+			iConsole.warn("Could not resync, as no username was given to sync from");
 		}
 	});
 }
@@ -92,7 +92,7 @@ function portMessageListener(msg, port) {
 			}
 			break;
 		default:
-			console.log("Unknown action received over port: ", msg["action"]);
+			iConsole.log("Unknown action received over port: ", msg["action"]);
 			break;
 	}
 }

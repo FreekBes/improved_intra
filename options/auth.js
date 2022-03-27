@@ -12,19 +12,19 @@
 
 let authPort = chrome.runtime.connect({ name: portName });
 authPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+	iConsole.log("Disconnected from service worker");
 });
 authPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
 			break;
 		case "resynced":
-			console.log("Options resynced.");
+			iConsole.log("Options resynced.");
 			window.location.replace(optionsURL);
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });
@@ -60,17 +60,17 @@ if (authResElem) {
 
 			improvedStorage.set(authRes).then(function() {
 				improvedStorage.set({"username": authRes["user"]["login"]}).then(function() {
-					console.log("%c[Improved Intra]%c Authentication details saved in local storage!", "color: #00babc;", "");
+					iConsole.log("Authentication details saved in local storage!");
 					authPort.postMessage({ action: "resync" });
 				});
 			});
 		}
 		else {
-			console.error("Error " + authRes["auth"]["error"] + ":", authRes["auth"]["error_description"]);
+			iConsole.error("Error " + authRes["auth"]["error"] + ":", authRes["auth"]["error_description"]);
 		}
 	}
 	catch (err) {
-		console.error(err);
+		iConsole.error(err);
 		alert("Unable to retrieve authentication details. Could not authorize in extension's scope. See the Javascript console for details.");
 	}
 }

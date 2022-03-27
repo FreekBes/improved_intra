@@ -36,11 +36,11 @@ function getUserSettings(username) {
 			resolve(gUserSettings);
 			return;
 		}
-		console.log("Retrieving settings of username " + username);
+		iConsole.log("Retrieving settings of username " + username);
 		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
-					console.log("No settings found on the sync server for this username");
+					iConsole.log("No settings found on the sync server for this username");
 					return null;
 				}
 				else if (!response.ok) {
@@ -83,7 +83,7 @@ function setCustomBanner(imageUrl, imagePos) {
 					gProfileBanner.style.backgroundPosition = "center bottom";
 					break;
 			}
-			console.log("Custom banner set!");
+			iConsole.log("Custom banner set!");
 		}
 		return (true);
 	}
@@ -94,7 +94,7 @@ function unsetCustomBannerIfRequired() {
 	if (gProfileBanner.getAttribute("data-old-bg")) {
 		gProfileBanner.style.backgroundImage = gProfileBanner.getAttribute("data-old-bg");
 		gProfileBanner.removeAttribute("data-old-bg");
-		console.log("Custom banner unset");
+		iConsole.log("Custom banner unset");
 	}
 }
 
