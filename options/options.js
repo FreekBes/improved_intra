@@ -265,6 +265,7 @@ function loadSettingsIntoForm(settings) {
 	else {
 		document.getElementById("custom-header-preview").style.display = "block";
 	}
+	checkThemeSetting();
 	hideLoading();
 }
 
