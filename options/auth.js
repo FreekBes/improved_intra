@@ -33,18 +33,18 @@ setInterval(function() {
 	authPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-var authResElem = document.getElementById("result");
+const authResElem = document.getElementById("result");
 if (authResElem) {
 	try {
-		var authRes = JSON.parse(authResElem.innerText);
+		const authRes = JSON.parse(authResElem.innerText);
 		if (!("error" in authRes["auth"])) {
-			var optionsURL = "https://darkintra.freekb.es/options.php";
-			var action = document.getElementById("action");
+			const optionsURL = "https://darkintra.freekb.es/options.php";
+			const action = document.getElementById("action");
 			if (action) {
 				action.innerText = "Please wait while we redirect you to the Improved Intra 42 options page...";
 			}
 
-			var redirLink = document.getElementById("redir_link");
+			const redirLink = document.getElementById("redir_link");
 			if (redirLink) {
 				redirLink.setAttribute("href", optionsURL);
 			}
@@ -52,7 +52,7 @@ if (authResElem) {
 			// display clickable link in case redirection does not happen
 			// after 2 seconds
 			setTimeout(function() {
-				var clicker = document.getElementById("clicker");
+				const clicker = document.getElementById("clicker");
 				if (clicker) {
 					clicker.style.display = "block";
 				}

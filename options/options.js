@@ -20,7 +20,7 @@ function hideLoading() {
 
 function checkIfKeyStillWorks(access_token) {
 	return new Promise(function(it_works, it_does_not_work) {
-		var req = new XMLHttpRequest();
+		const req = new XMLHttpRequest();
 		req.open("POST", "https://darkintra.freekb.es/testkey.php?nc="+encodeURIComponent(Math.random()));
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.addEventListener("load", function(event) {
@@ -41,7 +41,7 @@ function checkIfKeyStillWorks(access_token) {
 	});
 }
 
-var savedNotifHider = null;
+let savedNotifHider = null;
 function showSettingsSavedNotif() {
 	document.getElementById("saved-notif").style.top = "12px";
 	if (savedNotifHider) {
@@ -53,7 +53,7 @@ function showSettingsSavedNotif() {
 	}, 2000);
 }
 
-var optionsPort = chrome.runtime.connect({ name: portName });
+let optionsPort = chrome.runtime.connect({ name: portName });
 optionsPort.onDisconnect.addListener(function() {
 	iConsole.log("Disconnected from service worker");
 });
@@ -95,19 +95,19 @@ function syncSettings(event) {
 		event.preventDefault();
 	}
 
-	var syncBtn = document.getElementById("sync-button");
-	var form = document.querySelector('form');
-	var formData = new FormData(form);
+	const syncBtn = document.getElementById("sync-button");
+	const form = document.querySelector('form');
+	let formData = new FormData(form);
 
 	// add unchecked checkboxes to formdata (not done by default...)
-	var uncheckedCheckBoxes = form.querySelectorAll("input[type=checkbox]:not(:checked)");
-	for (var i = 0; i < uncheckedCheckBoxes.length; i++) {
+	const uncheckedCheckBoxes = form.querySelectorAll("input[type=checkbox]:not(:checked)");
+	for (let i = 0; i < uncheckedCheckBoxes.length; i++) {
 		formData.set(uncheckedCheckBoxes[i].getAttribute("name"), "false");
 	}
 	formData.set("sync", "true");
 
 	// check file size limits
-	var bannerUpload = formData.get("custom-banner-upload");
+	const bannerUpload = formData.get("custom-banner-upload");
 	if (bannerUpload && bannerUpload.size > 10000000) {
 		alert("The file you're trying to upload as your custom banner is too big. The file limit is 10MB.");
 		document.getElementById("custom-banner-upload").value = "";
@@ -116,7 +116,7 @@ function syncSettings(event) {
 	}
 
 	// get js object version for storing in local storage later
-	var settingsObj = {};
+	const settingsObj = {};
 	formData.forEach(function(value, key) {
 		if (typeof(value) == "string") {
 			settingsObj[key] = value.trim();
@@ -134,7 +134,7 @@ function syncSettings(event) {
 				formData.append("created_at", data["auth"]["created_at"]);
 				formData.append("expires_in", data["auth"]["expires_in"]);
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
-				var req = new XMLHttpRequest();
+				const req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
@@ -167,6 +167,7 @@ function syncSettings(event) {
 		});
 	}
 	else {
+		// check if sync was enabled before, and if so, delete the user's data from the server
 		improvedStorage.get(["sync", "auth"]).then(function(data) {
 			if ((data["sync"] === true || data["sync"] === "true") && data["auth"]) {
 				syncBtn.className = "syncing";
@@ -177,13 +178,13 @@ function syncSettings(event) {
 				formData.set("expires_in", data["auth"]["expires_in"]);
 				formData.set("refresh_token", data["auth"]["refresh_token"]);
 
-				var req = new XMLHttpRequest();
+				const req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/delete.php");
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
-						var res = JSON.parse(this.responseText);
+						const res = JSON.parse(this.responseText);
 						iConsole.log("Settings deletion result", res);
 					}
 					catch (err) {
@@ -203,14 +204,14 @@ function syncSettings(event) {
 			});
 		});
 	}
-	return false;
+	return (false);
 }
 
 function retrieveSettings() {
 	return new Promise(function(resolve, reject) {
 		try {
-			var formElems = document.querySelectorAll("form select, form input");
-			var keysToGet = [];
+			const formElems = document.querySelectorAll("form select, form input");
+			const keysToGet = [];
 			for (var i = 0; i < formElems.length; i++) {
 				keysToGet.push(formElems[i].getAttribute("name"));
 			}
@@ -227,9 +228,8 @@ function retrieveSettings() {
 
 function loadSettingsIntoForm(settings) {
 	iConsole.log("Settings fetched somewhere", settings);
-	var key, settingElem;
-	for (key in settings) {
-		settingElem = document.getElementsByName(key);
+	for (let key in settings) {
+		let settingElem = document.getElementsByName(key);
 		if (settingElem.length > 0) {
 			settingElem = settingElem[0];
 			improvedStorage.set({[key]: settings[key]});
@@ -271,10 +271,8 @@ function loadSettingsIntoForm(settings) {
 
 window.onload = function() {
 	iConsole.log("Initializing options page...");
-	var i;
-
-	var formElems = document.querySelectorAll("form select, form input");
-	for (i = 0; i < formElems.length; i++) {
+	const formElems = document.querySelectorAll("form select, form input");
+	for (let i = 0; i < formElems.length; i++) {
 		formElems[i].addEventListener("change", syncSettings);
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
@@ -287,7 +285,7 @@ window.onload = function() {
 		}
 	});
 	document.getElementById("rem-custom-banner").addEventListener("click", function(event) {
-		var con = confirm("Are you sure you want to remove the custom banner from your profile?");
+		const con = confirm("Are you sure you want to remove the custom banner from your profile?");
 		if (con) {
 			document.getElementById("custom-banner-url").value = "";
 			syncSettings(null);

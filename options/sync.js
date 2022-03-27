@@ -19,7 +19,7 @@ function getLoggedInUserName() {
 	}
 }
 
-var syncPort = chrome.runtime.connect({ name: portName });
+let syncPort = chrome.runtime.connect({ name: portName });
 syncPort.onDisconnect.addListener(function() {
 	iConsole.log("Disconnected from service worker");
 });

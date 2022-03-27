@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-var themeColorsLink = null;
-var themeLink = null;
+let themeColorsLink = null;
+let themeLink = null;
 
 /**
  * Disable a theme, set theme or colors to false to not disable those colors
