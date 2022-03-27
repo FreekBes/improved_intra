@@ -39,20 +39,18 @@
 	],
 	"content_scripts": [
 		{
-			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ],
-			"js": [ "generic/console.js", "generic/storage.js", "generic/init.js" ],
+			"matches": [ "*://*.intra.42.fr/*" ],
+			"css": [ "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://darkintra.freekb.es/*" ],
 			"css": [ "generic/internal.css", "fixes/animations.css" ],
-			"js": [ "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
-			"js": [ "features/themes/loader.js" ],
+			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ],
+			"js": [ "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
 		{
