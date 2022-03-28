@@ -40,7 +40,7 @@
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
+			"css": [ "fixes/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
 			"run_at": "document_start"
 		},
 		{
@@ -50,7 +50,7 @@
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ],
-			"js": [ "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
+			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
 		{

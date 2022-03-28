@@ -6,62 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/24 22:43:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 17:56:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 // this file is used for general improvements on the website
 
-function getCoalitionColor() {
-	try {
-		return (document.getElementsByClassName("coalition-span")[0].style.color);
-	}
-	catch (err) {
-		return ("#FF0000");
-	}
-}
-
-function getCampus() {
-	try {
-		var iconLocation = document.getElementsByClassName("icon-location");
-		return (iconLocation[0].nextSibling.nextSibling.textContent);
-	}
-	catch (err) {
-		return (null);
-	}
-}
-
-// from https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-function hexToRgb(hex) {
-	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-	  return r + r + g + g + b + b;
-	});
-
-	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	return result ? {
-		r: parseInt(result[1], 16),
-		g: parseInt(result[2], 16),
-		b: parseInt(result[3], 16)
-	} : null;
-}
-
-function setCoalitionTextColor(event) {
-	event.target.style.color = getCoalitionColor();
-}
-
-function unsetCoalitionTextColor(event) {
-	event.target.style.color = null;
-}
-
-function hasProfileBanner() {
-	return (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/"));
-}
-
 function openLocationMap(event) {
-	var win = null;
-	var url = null;
+	const win = null;
+	let url = null;
 
 	switch (getCampus()) {
 		case "Amsterdam":
@@ -84,6 +37,7 @@ function openLocationMap(event) {
 	// since we can no longer check when a window is loaded with an event
 	// for domains that are not of the same origin, we simply try and send
 	// the location ID multiple times to the opened cluster map window
+	// could also do it with the extension but then we need more permissions...
 	setTimeout(function() {
 		win.location.href = url + "#" + event.target.textContent.split(".")[0];
 	}, 250);
@@ -101,35 +55,21 @@ function openLocationMap(event) {
 	}, 1000);
 }
 
-function setStyleIfExists(query, style, value, parentPlease) {
-	var elem = document.querySelector(query);
-	if (elem) {
-		if (parentPlease) {
-			elem = elem.parentNode;
-		}
-		elem.style[style] = value;
-		return (true);
-	}
-	return (false);
-}
-
 function colorizeLogtimeChart(event) {
 	setTimeout(function() {
-		var ltSvg = document.getElementById("user-locations");
+		const ltSvg = document.getElementById("user-locations");
 		if (!ltSvg) {
 			return;
 		}
-		var ltDays = ltSvg.getElementsByTagName("rect");
-		var fill = null;
-		var opacity = 0;
-		var col24 = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
-		if (col24 !== "") {
-			col24 = hexToRgb(col24.trim());
-			for (var i = 0; i < ltDays.length; i++) {
-				fill = ltDays[i].getAttribute("fill");
+		const ltDays = ltSvg.getElementsByTagName("rect");
+		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--logtime-chart-24h-color');
+		if (col24hex !== "") {
+			const col24rgb = hexToRgb(col24hex.trim());
+			for (let i = 0; i < ltDays.length; i++) {
+				const fill = ltDays[i].getAttribute("fill");
 				if (fill.indexOf("rgba") > -1) {
-					opacity = fill.replace(/^.*,(.+)\)/, '$1');
-					ltDays[i].setAttribute("fill", "rgba("+col24.r+","+col24.g+","+col24.b+","+opacity+")");
+					const opacity = fill.replace(/^.*,(.+)\)/, '$1');
+					ltDays[i].setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
 				}
 			}
 		}
@@ -174,10 +114,6 @@ function setOptionalImprovements() {
 			});
 		}
 	}
-}
-
-function randomIntFromInterval(min, max) { // min and max included
-	return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 function setGeneralImprovements() {
@@ -350,6 +286,21 @@ function setGeneralImprovements() {
 		dayNameElem.className = "date-day-name";
 		dayNameElem.innerText = jsDate.toLocaleString("en", { weekday: 'short' });
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
+	}
+
+	// april 1st easter egg
+	const today = new Date();
+	if (today.getMonth() == 3 && today.getDate() == 1) {
+		iConsole.log("It's april first! Using Comic Sans everywhere");
+		const elements = document.querySelectorAll("body, a, .user-primary, text, .name, .login, .modal-header, h4, h3");
+		for (let i = 0; i < elements.length; i++) {
+			if (elements[i].nodeName == "TEXT") {
+				elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
+			}
+			else {
+				elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
+			}
+		}
 	}
 }
 
