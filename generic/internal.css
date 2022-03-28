@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/27 03:34:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 18:22:00 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 18:26:21 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ body {
 html {
 	padding: 0px;
 	margin: 0px;
-	background-color: var(--body-background-color);
+	background-color: var(--body-background-color) !important;
 }
 
 body,
@@ -322,8 +322,8 @@ button {
 }
 
 .non-important-btn {
-	background-color: #7a7a7a;
-	border-color: #7a7a7a;
+	background-color: var(--scrollbar-thumb-color);
+	border-color: var(--scrollbar-thumb-color);
 }
 
 .danger-btn {
@@ -349,8 +349,8 @@ button:focus {
 
 .non-important-btn:hover,
 .non-important-btn:focus {
-	background-color: #9a9a9a;
-	border-color: #9a9a9a;
+	background-color: var(--scrollbar-thumb-color-active);
+	border-color: var(--scrollbar-thumb-color-active);
 }
 
 .danger-btn:hover,
