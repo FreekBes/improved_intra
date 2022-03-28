@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/27 03:34:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 18:26:21 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 19:28:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ body,
 	max-width: 540px;
 	margin: 0 auto;
 	user-select: none;
+}
+
+body.fullwidth {
+	max-width: 100%;
 }
 
 body {
@@ -125,7 +129,7 @@ header {
 	padding: 0px 8px;
 }
 
-h1 {
+header h1 {
 	display: inline-block;
 	max-width: 80%;
 	overflow: hidden;

@@ -38,7 +38,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body class="fullwidth">
 <?php
 	@session_start();
 
