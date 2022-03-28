@@ -6,9 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 20:22:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/07 04:14:21 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 17:14:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+const optionsURL = "https://darkintra.freekb.es/options.php";
 
 let authPort = chrome.runtime.connect({ name: portName });
 authPort.onDisconnect.addListener(function() {
@@ -38,7 +40,6 @@ if (authResElem) {
 	try {
 		const authRes = JSON.parse(authResElem.innerText);
 		if (!("error" in authRes["auth"])) {
-			const optionsURL = "https://darkintra.freekb.es/options.php";
 			const action = document.getElementById("action");
 			if (action) {
 				action.innerText = "Please wait while we redirect you to the Improved Intra 42 options page...";
