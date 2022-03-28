@@ -6,37 +6,9 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/27 03:34:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/27 03:34:57 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 18:15:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-@font-face {
-	font-family: "futura";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family:"futura";
-	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
-	font-weight: 700;
-	font-style: italic;
-}
 
 @keyframes spin {
 	0% { transform: rotate(0deg); }
@@ -65,8 +37,9 @@ body,
 	background-color: var(--container-background-color);
 	color: var(--text-color);
 	caret-color: var(--text-color);
-	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif;
-	font-size: 16px;
+	font-family: 'Roboto', "Helvetica", Verdana, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 15px;
 	padding: 0px;
 	cursor: default;
 	width: 100%;
@@ -153,8 +126,8 @@ h1 {
 	padding: 0px;
 	margin: 0px;
 	line-height: 56px;
-	font-size: 18px;
-	font-weight: 800;
+	font-size: 17px;
+	font-weight: 500;
 }
 
 code {
@@ -166,8 +139,11 @@ code {
 }
 
 h2 {
+	display: inline-block;
+	font-weight: 500;
 	margin: 0px;
 	padding: 16px 0px;
+	font-size: 19px;
 }
 
 details {
@@ -202,14 +178,14 @@ header button {
 	padding: 8px 28px;
 	border: none;
 	text-align: center;
-	font-size: 26px;
+	font-size: 25px;
 	height: 100%;
 	width: 56px;
 	padding: 0px;
 
 	font-family: "streamline-filled";
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
@@ -263,9 +239,9 @@ section:last-child {
 	border-bottom: none;
 }
 
-h2 {
+h3 {
 	margin: 0px 12px 12px 12px;
-	font-weight: 600;
+	font-weight: 500;
 	text-transform: uppercase;
 	font-size: 0.9em;
 }
@@ -282,8 +258,9 @@ fieldset {
 }
 
 label {
+	font-family: 'Roboto Condensed', "Helvetica", Verdana, Arial, sans-serif;
 	text-align: left;
-	font-weight: 100;
+	font-weight: 300;
 	font-size: 1em;
 	padding-left: 12px;
 }
@@ -397,14 +374,14 @@ input[readonly] {
 }
 
 label[for="sync"] span.failed::after {
-	font-family: Sans-Serif;
+	font-family: sans-serif;
 	content: ' \2A2F';
 	color: var(--fail-color);
 	font-weight: bold;
 }
 
 label[for="sync"] span.success::after {
-	font-family: Sans-Serif;
+	font-family: sans-serif;
 	content: ' \2714';
 	color: var(--success-color);
 	font-weight: bold;

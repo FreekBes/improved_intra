@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/22 18:42:30 by codam         ########   odam.nl         */
+/*   Updated: 2022/03/28 17:25:50 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,6 @@
  * This CSS file is used for general improvements on Intra. It is always loaded,
  * whether in dark or light mode does not matter.
  */
-
-@font-face {
-	font-family: "futura";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family:"futura";
-	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
-	font-weight: 700;
-	font-style: italic;
-}
 
 /* remove horizontal scrollbar, as it causes visual glitches anyways */
 html {
@@ -53,7 +25,8 @@ html {
 .event-modal .head h4,
 .exam-modal .head h4,
 #admin-user h3 {
-	font-family: 'futura-bold', 'futuraBold' !important;
+	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+	font-weight: 700 !important;
 }
 
 /* off-screen account dropdown menu fix for short usernames */

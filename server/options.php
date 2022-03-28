@@ -3,6 +3,9 @@
 <head>
 	<meta charset='utf-8' />
 	<title>Improved Intra 42 Settings</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 	<style>
 		#improved-intra-no-extension-block {
 			position: fixed;
@@ -43,7 +46,7 @@
 		<main>
 			<form enctype="multipart/form-data" accept-charset="utf-8" autocomplete="off" name="settings-form">
 				<section>
-					<h2>Synchronization</h2>
+					<h3>Synchronization</h3>
 					<fieldset>
 						<label for="username"><span>Currently logged in user</span><span>Automatically fetched from Intra</span></label>
 						<input type="text" id="username" name="username" value="" readonly />
@@ -54,7 +57,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>Appearance</h2>
+					<h3>Appearance</h3>
 					<fieldset>
 						<label for="theme"><span>Theme</span></label>
 						<select id="theme" name="theme">
@@ -79,7 +82,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>General improvements</h2>
+					<h3>General improvements</h3>
 					<fieldset>
 						<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>Hide the blue megaphone floating button on the dashboard</span></label>
 						<input type="checkbox" value="true" id="hide-broadcasts" name="hide-broadcasts" checked />
@@ -98,7 +101,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>Customize your profile</h2>
+					<h3>Customize your profile</h3>
 					<fieldset style="display: none;">
 						<label for="custom-banner-url"><span>Custom profile banner background</span><span>Override banner image with a custom one</span></label>
 						<input type="url" value="" id="custom-banner-url" name="custom-banner-url" placeholder="Leave empty to use default header" title="Leave empty to use default header" />
@@ -130,7 +133,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>Campus specific</h2>
+					<h3>Campus specific</h3>
 					<fieldset>
 						<label for="codam-monit"><span>Replace Black Hole with Codam's Monitoring Progress</span><span>Show a user's progress towards Codam's Monitoring System in profile banners</span></label>
 						<input type="checkbox" value="true" id="codam-monit" name="codam-monit" checked />
@@ -141,7 +144,7 @@
 					</fieldset>
 				</section>
 				<section>
-					<h2>Help</h2>
+					<h3>Help</h3>
 					<fieldset>
 						<label for="bug-report"><span>Report a bug or give feedback</span><span>Bugs and feedbacks are reported using GitHub Issues</span></label>
 						<button type="button" id="bug-report" class="non-important-btn">Open GitHub Issues</button>
