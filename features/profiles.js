@@ -6,29 +6,17 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/07 21:05:47 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 19:18:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// from https://stackoverflow.com/questions/8667070/javascript-regular-expression-to-validate-url (jesus)
-function validateUrl(value) {
-	return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
-}
+// everything for custom profiles
 
-function getProfileUserName() {
-	try {
-		return (document.querySelector(".login[data-login]").getAttribute("data-login"));
-	}
-	catch (err) {
-		return (null);
-	}
-}
-
-var gUName = null;
-var gProfileBanner = null;
-var gInterval = null;
-var gExtSettings = null;
-var gUserSettings = null;
+let gUName = null;
+let gProfileBanner = null;
+let gInterval = null;
+let gExtSettings = null;
+let gUserSettings = null;
 
 function getUserSettings(username) {
 	return new Promise(function(resolve, reject) {
@@ -66,7 +54,7 @@ function getUserSettings(username) {
 
 function setCustomBanner(imageUrl, imagePos) {
 	if (imageUrl && validateUrl(imageUrl)) {
-		var newCSSval = "url(\"" + imageUrl + "\")";
+		const newCSSval = "url(\"" + imageUrl + "\")";
 		if (gProfileBanner.style.backgroundImage.indexOf(imageUrl) == -1) {
 			gProfileBanner.className += " customized";
 			gProfileBanner.setAttribute("data-old-bg", gProfileBanner.style.backgroundImage);
@@ -100,7 +88,7 @@ function unsetCustomBannerIfRequired() {
 
 function setGitHubLink(gitHubName) {
 	gitHubName = gitHubName.trim();
-	var gitHubLink = document.getElementById("ii-profile-link-github");
+	const gitHubLink = document.getElementById("ii-profile-link-github");
 	if (gitHubLink) {
 		if (gitHubName.indexOf("@") == 0) {
 			gitHubName = gitHubName.substring(1);
@@ -174,18 +162,18 @@ function immediateProfileChanges() {
 
 	if (window.location.pathname.indexOf("/users/") == 0) {
 		// improvements to profile boxes
-		var locations = document.getElementById("locations");
+		const locations = document.getElementById("locations");
 		if (locations) {
-			var logTimesHeader = document.createElement("h4");
+			const logTimesHeader = document.createElement("h4");
 			logTimesHeader.className = "profile-title";
 			logTimesHeader.innerText = "Logtime";
 			locations.parentNode.parentNode.prepend(logTimesHeader);
 		}
 
 		// add social links to profile
-		var userInfos = document.querySelector(".profile-infos-bottom");
+		const userInfos = document.querySelector(".profile-infos-bottom");
 		if (userInfos) {
-			var gitHubItem = document.createElement("div");
+			const gitHubItem = document.createElement("div");
 			gitHubItem.className = "profile-infos-item";
 			gitHubItem.setAttribute("id", "ii-profile-link-c-github");
 			gitHubItem.setAttribute("data-placement", "left");
@@ -194,22 +182,22 @@ function immediateProfileChanges() {
 			gitHubItem.setAttribute("data-original-title", "GitHub");
 			gitHubItem.style.display = "none";
 
-			var gitHubIcon = document.createElement("span");
+			const gitHubIcon = document.createElement("span");
 			gitHubIcon.className = "fa fa-github";
 			gitHubItem.appendChild(gitHubIcon);
 
-			var gitHubLink = document.createElement("a");
+			const gitHubLink = document.createElement("a");
 			gitHubLink.style.marginLeft = "4px";
 			gitHubLink.style.color = getCoalitionColor();
 			gitHubLink.setAttribute("target", "_blank");
 			gitHubItem.appendChild(gitHubLink);
 
-			var gitHubName = document.createElement("span");
+			const gitHubName = document.createElement("span");
 			gitHubName.className = "coalition-span";
 			gitHubName.setAttribute("id", "ii-profile-link-github");
 			gitHubLink.appendChild(gitHubName);
 
-			var locationItem = userInfos.querySelector(".icon-location");
+			let locationItem = userInfos.querySelector(".icon-location");
 			if (locationItem) {
 				locationItem = locationItem.parentNode;
 				userInfos.insertBefore(gitHubItem, locationItem);
@@ -218,7 +206,7 @@ function immediateProfileChanges() {
 				userInfos.appendChild(gitHubItem);
 			}
 
-			var evt = new CustomEvent("add-tooltip", { detail: "#ii-profile-link-c-github" });
+			const evt = new CustomEvent("add-tooltip", { detail: "#ii-profile-link-c-github" });
 			document.dispatchEvent(evt);
 		}
 	}
@@ -246,7 +234,7 @@ improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "c
 	confirmProfileUpdatedForFiveSeconds();
 });
 
-var cursusSelector = document.querySelector(".cursus-user-select");
+const cursusSelector = document.querySelector(".cursus-user-select");
 if (cursusSelector) {
 	cursusSelector.addEventListener("change", function(event) {
 		confirmProfileUpdatedForFiveSeconds();

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/24 22:46:58 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 19:22:39 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ function sum(prevVal, curVal) {
 	return (prevVal + curVal);
 }
 
-var monit = {
+const monit = {
 	httpReq: null,
 	requirements: {
 		today: 205,
@@ -61,10 +61,9 @@ var monit = {
 	 * Get the dates of this week's days
 	 */
 	getWeekDates: function() {
-		var thisWeek = [];
-		var timestamp = new Date().getTime();
-		for (var i = 0; i <= monit.dayOfWeek; i++) {
-			thisWeek.push(new Date(timestamp - 86400000 * i).toISOString().split("T")[0]);
+		const thisWeek = [];
+		for (let i = 0; i <= monit.dayOfWeek; i++) {
+			thisWeek.push(new Date(today.getTime() - 86400000 * i).toISOString().split("T")[0]);
 		}
 		iConsole.log("This week's dates: ", thisWeek);
 		return (thisWeek);
@@ -76,8 +75,8 @@ var monit = {
 	 * out, equally divided over all remaining days.
 	 */
 	setExpected: function() {
-		var logTimesNoToday = this.logTimes.slice(1);
-		var logTimesTotalNoToday;
+		const logTimesNoToday = this.logTimes.slice(1);
+		let logTimesTotalNoToday;
 
 		if (logTimesNoToday && logTimesNoToday.length > 0) {
 			logTimesTotalNoToday = logTimesNoToday.reduce(sum);
@@ -100,21 +99,11 @@ var monit = {
 	 * Parse a piece of logtime text: in format HHhMM or HH:MM(:SS)
 	 */
 	parseLogTime: function(logTimeText) {
-		var logTime = 0;
-		var logTimeSplit;
-
-		if (logTimeText.indexOf("h") > -1) {
-			logTimeSplit = logTimeText.split("h");
-		}
-		else {
-			logTimeSplit = logTimeText.split(":");
-		}
+		const logTimeSplit = (logTimeText.indexOf("h") > -1 ? logTimeText.split("h") : logTimeText.split(":"));
 		if (logTimeSplit.length < 2) {
 			return (0);
 		}
-		logTime += parseInt(logTimeSplit[0]) * 60;
-		logTime += parseInt(logTimeSplit[1]);
-		return (logTime);
+		return (parseInt(logTimeSplit[0]) * 60 + parseInt(logTimeSplit[1]));
 	},
 
 	/**
@@ -135,10 +124,10 @@ var monit = {
 			monit.httpReq = new XMLHttpRequest();
 			monit.httpReq.addEventListener("load", function() {
 				try {
-					var stats = JSON.parse(this.responseText);
-					var weekDates = monit.getWeekDates();
+					const stats = JSON.parse(this.responseText);
+					const weekDates = monit.getWeekDates();
 					monit.logTimes = [];
-					for (var i = 0; i < weekDates.length; i++) {
+					for (let i = 0; i < weekDates.length; i++) {
 						if (weekDates[i] in stats) {
 							monit.logTimes.push(monit.parseLogTime(stats[weekDates[i]]));
 						}
@@ -172,13 +161,13 @@ var monit = {
 	 */
 	getLogTimes: function() {
 		return (new Promise(function (resolve, reject) {
-			var ltSvg = document.getElementById("user-locations");
+			const ltSvg = document.getElementById("user-locations");
 			if (!ltSvg) {
 				reject("Element #user-locations not found");
 			}
-			var ltDays = ltSvg.getElementsByTagName("g");
-			var ltDay = ltDays[ltDays.length - 1];
-			var i, j;
+			const ltDays = ltSvg.getElementsByTagName("g");
+			let ltDay = ltDays[ltDays.length - 1];
+			let i;
 
 			monit.logTimes = [];
 			for (i = 0; i <= monit.dayOfWeek; i++) {
@@ -195,15 +184,16 @@ var monit = {
 				monit.logTimesTotal = 0;
 			}
 
-			var daysInWeek = monit.dayOfWeek + 1;
-			var remainingWeeks = Math.floor(ltDays.length / 7) + (monit.dayOfWeek != 6 ? 1 : 0);
-			var r = 0;
-			var tempLogTimes;
+			let daysInWeek = monit.dayOfWeek + 1;
+			const remainingWeeks = Math.floor(ltDays.length / 7) + (monit.dayOfWeek != 6 ? 1 : 0);
+			let r = 0;
 			for (i = 0; i < remainingWeeks; i++) {
+				let j;
+
 				if (i == 1) {
 					daysInWeek = 7;
 				}
-				tempLogTimes = [];
+				const tempLogTimes = [];
 
 				// parse individual logtimes
 				for (j = 0; j < daysInWeek; j++) {
@@ -247,7 +237,7 @@ var monit = {
 		if (window.location.pathname.indexOf("/users/") == 0) {
 			// user profile. check if user loaded is from Amsterdam campus
 			// if not, do not display monitoring system progress (return)
-			var iconLocation = document.getElementsByClassName("icon-location");
+			const iconLocation = document.getElementsByClassName("icon-location");
 			if (iconLocation.length == 0) {
 				return;
 			}
@@ -264,9 +254,9 @@ var monit = {
 			// if not, do not display monitoring system progress (return)
 			// check by checking the school record button, should contain Codam
 			// if the button is not there (before handing in Libft), check coalition
-			var schoolRecordButton = document.querySelector(".school-record-button");
+			const schoolRecordButton = document.querySelector(".school-record-button");
 			if (schoolRecordButton) {
-				var srFormData = document.getElementsByName("sr_id");
+				const srFormData = document.getElementsByName("sr_id");
 				if (srFormData.length > 0) {
 					if (srFormData[0].textContent.indexOf("Codam") == -1) {
 						return;
@@ -277,7 +267,7 @@ var monit = {
 				}
 			}
 			else {
-				var coalitionName = document.querySelector(".coalition-name .coalition-span");
+				const coalitionName = document.querySelector(".coalition-name .coalition-span");
 				if (coalitionName) {
 					if (["Pyxis", "Vela", "Cetus"].indexOf(coalitionName.textContent) == -1) {
 						return;
@@ -302,7 +292,7 @@ var monit = {
 
 	addTooltip: function() {
 		// add bootstrap tooltip to holder
-		var evt = new CustomEvent("add-tooltip", { detail: "#lt-holder" });
+		const evt = new CustomEvent("add-tooltip", { detail: "#lt-holder" });
 		document.dispatchEvent(evt);
 	},
 
@@ -319,7 +309,7 @@ var monit = {
 			monit.httpReq = new XMLHttpRequest();
 			monit.httpReq.addEventListener("load", function() {
 				try {
-					var status = JSON.parse(this.responseText);
+					const status = JSON.parse(this.responseText);
 					resolve(status);
 				}
 				catch (err) {
@@ -343,35 +333,35 @@ var monit = {
 			iConsole.log("Logtimes", monit.logTimes);
 			iConsole.log("Total minutes", monit.logTimesTotal);
 
-			var aguDate = document.getElementById("agu-date");
+			const aguDate = document.getElementById("agu-date");
 			if (aguDate && aguDate.className.indexOf("hidden") == -1) {
 				return;
 			}
 
-			var atLeastRelaxed = false;
-			var partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
+			let atLeastRelaxed = false;
+			const partTimeCheck = document.querySelectorAll("a.project-item.block-item[href*='part_time'][data-cursus='42cursus']");
 			if (partTimeCheck.length > 0 || status["monitoring_system_active"] === false) {
 				iConsole.log("User is working on Part-Time project or monitoring system is currently disabled, emote will be at least relaxed");
 				atLeastRelaxed = true;
 			}
 
-			var availableStatus = document.querySelector(".user-poste-status");
+			const availableStatus = document.querySelector(".user-poste-status");
 			if (availableStatus && availableStatus.innerText == "Available") {
 				iConsole.log("User is currently available, emote will be at least relaxed");
 				atLeastRelaxed = true;
 			}
 
-			for (var i = 0; i < monit.bhContainer.children.length; i++) {
+			for (let i = 0; i < monit.bhContainer.children.length; i++) {
 				monit.bhContainer.children[i].style.display = "none";
 			}
 
-			var progressNode = document.createElement("div");
+			const progressNode = document.createElement("div");
 			progressNode.setAttribute("id", "monit-progress");
 
-			var progressTitle = document.createElement("div");
+			const progressTitle = document.createElement("div");
 			progressTitle.setAttribute("class", "mb-1");
 
-			var coalitionSpan = document.createElement("span");
+			const coalitionSpan = document.createElement("span");
 			coalitionSpan.setAttribute("class", "coalition-span");
 			coalitionSpan.style.color = monit.getCoalitionColor();
 			coalitionSpan.innerText = "Monitoring System progress";
@@ -379,19 +369,19 @@ var monit = {
 			progressTitle.appendChild(coalitionSpan);
 			progressNode.appendChild(progressTitle);
 
-			var progressText = document.createElement("div");
+			const progressText = document.createElement("div");
 			progressText.setAttribute("id", "monit-progress-text");
 
-			var ltHolder = document.createElement("div");
+			const ltHolder = document.createElement("div");
 			ltHolder.setAttribute("id", "lt-holder");
 			ltHolder.setAttribute("class", "emote-lt");
 			ltHolder.setAttribute("data-toggle", "tooltip");
 			ltHolder.setAttribute("title", "");
 
-			var smiley = document.createElement("span");
+			const smiley = document.createElement("span");
 			smiley.setAttribute("id", "lt-emote");
 
-			var progressPerc = document.createElement("span");
+			const progressPerc = document.createElement("span");
 			if (status["monitoring_system_active"]) {
 				progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
 				ltHolder.setAttribute("data-original-title", "Logtime this week: " + monit.logTimeToString(monit.logTimesTotal));
@@ -463,7 +453,7 @@ var monit = {
 				if (!smiley.getAttribute("data-oclass")) {
 					return;
 				}
-				var tempClass = smiley.getAttribute("class");
+				const tempClass = smiley.getAttribute("class");
 				smiley.setAttribute("class", smiley.getAttribute("data-oclass"));
 				smiley.setAttribute("data-oclass", tempClass);
 			});

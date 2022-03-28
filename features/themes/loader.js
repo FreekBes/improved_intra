@@ -6,16 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/22 18:08:26 by codam         ########   odam.nl         */
+/*   Updated: 2022/03/28 19:05:18 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 let themeColorsLink = null;
 let themeLink = null;
 
-/**
- * Disable a theme, set theme or colors to false to not disable those colors
- */
+// Disable a theme, set theme or colors to false to not disable those colors
 function disableTheme(theme, colors) {
 	if (theme !== false && themeLink) {
 		themeLink.remove();
@@ -27,9 +25,7 @@ function disableTheme(theme, colors) {
 	}
 }
 
-/**
- * Enable a theme, leave colors as null or undefined to use default color scheme
- */
+// Enable a theme, leave colors as null or undefined to use default color scheme
 function enableTheme(theme, colors) {
 	iConsole.log("Enabling theme '" + theme + "'" + (colors ? " in '" + colors + "' mode..." : ""));
 	if (!themeLink) {
@@ -72,6 +68,28 @@ function checkThemeSetting() {
 			enableTheme("light", null);
 		}
 	});
+}
+
+// colorize logtimes chart based on selected color scheme
+function colorizeLogtimeChart(event) {
+	setTimeout(function() {
+		const ltSvg = document.getElementById("user-locations");
+		if (!ltSvg) {
+			return;
+		}
+		const ltDays = ltSvg.getElementsByTagName("rect");
+		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--logtime-chart-24h-color');
+		if (col24hex !== "") {
+			const col24rgb = hexToRgb(col24hex.trim());
+			for (let i = 0; i < ltDays.length; i++) {
+				const fill = ltDays[i].getAttribute("fill");
+				if (fill.indexOf("rgba") > -1) {
+					const opacity = fill.replace(/^.*,(.+)\)/, '$1');
+					ltDays[i].setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
+				}
+			}
+		}
+	}, 250);
 }
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function() {

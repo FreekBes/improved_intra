@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/27 03:00:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/27 03:00:23 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 18:44:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ if (window.location.origin.indexOf(".intra.42.fr") > -1) {
 // global variables
 const improvedStorage = getSessionStorage();
 const portName = (chrome.extension.inIncognitoContext ? "incog_comm" : "normal_comm");
+const today = new Date();

@@ -45,7 +45,7 @@
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "fixes/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
+			"css": [ "generic/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
 			"run_at": "document_start"
 		},
 		{
@@ -60,7 +60,7 @@
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": [ "fixes/improv.js" ],
+			"js": [ "features/clustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
 			"run_at": "document_end"
 		},
 		{

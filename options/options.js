@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/07 04:16:40 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 19:20:10 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ function checkIfKeyStillWorks(access_token) {
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.addEventListener("load", function(event) {
 			try {
-				var res = JSON.parse(this.responseText);
+				const res = JSON.parse(this.responseText);
 				if (res["type"] == "error") {
 					it_does_not_work(res);
 				}
@@ -139,7 +139,7 @@ function syncSettings(event) {
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
-						var res = JSON.parse(this.responseText);
+						const res = JSON.parse(this.responseText);
 						if (res["type"] == "error") {
 							iConsole.error("Settings sync result", res);
 						}
@@ -212,7 +212,7 @@ function retrieveSettings() {
 		try {
 			const formElems = document.querySelectorAll("form select, form input");
 			const keysToGet = [];
-			for (var i = 0; i < formElems.length; i++) {
+			for (let i = 0; i < formElems.length; i++) {
 				keysToGet.push(formElems[i].getAttribute("name"));
 			}
 			iConsole.log(keysToGet);
