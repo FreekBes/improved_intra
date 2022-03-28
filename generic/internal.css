@@ -6,9 +6,17 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/27 03:34:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 18:15:12 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 18:22:00 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
+@media (prefers-color-scheme: dark) {
+	html, body {
+		background-color: #12141a !important;
+		color: #f2f2f2;
+	}
+}
 
 @keyframes spin {
 	0% { transform: rotate(0deg); }
