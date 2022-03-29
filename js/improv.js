@@ -350,6 +350,20 @@ function setGeneralImprovements() {
 		dayNameElem.innerText = jsDate.toLocaleString("en", { weekday: 'short' });
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
 	}
+
+	// april 1st easter egg
+	if (currentDate.getMonth() == 3 && currentDate.getDate() == 1) {
+		console.log("It's april first! Using Comic Sans everywhere");
+		var elements = document.querySelectorAll("body, a, .user-primary, text, .name, .login, .modal-header, h4, h3");
+		for (var i = 0; i < elements.length; i++) {
+			if (elements[i].nodeName == "TEXT") {
+				elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
+			}
+			else {
+				elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
+			}
+		}
+	}
 }
 
 // enable general improvements
