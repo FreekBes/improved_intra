@@ -648,8 +648,8 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
-.profile-item .profile-item-top.home-banner,
-.profile-item .profile-item-top.profile-banner {
+.profile-item .profile-item-top.home-banner:not(.egg),
+.profile-item .profile-item-top.profile-banner:not(.egg) {
 	background-color: var(--theme-color-dark) !important;
 }
 
