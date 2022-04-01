@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   improv.js                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/24 22:43:02 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   improv.js                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 00:37:55 by fbes              #+#    #+#             */
+/*   Updated: 2022/04/01 17:28:54 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,63 +207,65 @@ function setGeneralImprovements() {
 		// and if old-blackhole setting is enabled, replace text with old countdown style
 		var bhColorTimer = setInterval(function() {
 			var bhDate = document.querySelector("#bh-date");
-			var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 			if (bhDate) {
-				if (bhDate.innerText.indexOf("absorbed") > -1) {
-					clearInterval(bhColorTimer);
-					bhDate.style.color = "var(--fail-color)";
-					if (getProfileUserName) {
-						chrome.storage.local.get("username", function(data) {
-							if (data["username"] && data["username"] != getProfileUserName()) {
-								bhDate.innerText = "User has been absorbed by the Black Hole.";
+				var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
+				if (bhDate) {
+					if (bhDate.innerText.indexOf("absorbed") > -1) {
+						clearInterval(bhColorTimer);
+						bhDate.style.color = "var(--fail-color)";
+						if (getProfileUserName) {
+							chrome.storage.local.get("username", function(data) {
+								if (data["username"] && data["username"] != getProfileUserName()) {
+									bhDate.innerText = "User has been absorbed by the Black Hole.";
+								}
+							});
+						}
+					}
+					else if (bhDateTitle.indexOf("days left") > -1) {
+						var daysRemaining = parseInt(bhDateTitle);
+						if (isNaN(daysRemaining)) {
+							return;
+						}
+						clearInterval(bhColorTimer);
+						console.log("Black Hole days remaining: ", daysRemaining);
+						chrome.storage.local.get("old-blackhole", function(data) {
+							if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
+								bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
+								bhDate.innerText = daysRemaining.toString() + " days left";
+
+								// add bootstrap tooltip to holder
+								var evt = new CustomEvent("add-tooltip", { detail: "#bh > .emote-bh" });
+								document.dispatchEvent(evt);
+
+								var smiley = document.createElement("span");
+								smiley.setAttribute("id", "lt-emote");
+								if (daysRemaining > 30) {
+									smiley.setAttribute("class", "icon-smiley-relax");
+									bhDate.style.color = "var(--success-color)";
+									smiley.style.color = "var(--success-color)";
+								}
+								else {
+									smiley.setAttribute("class", "icon-smiley-surprise");
+									bhDate.style.color = "var(--warning-color)";
+									smiley.style.color = "var(--warning-color)";
+								}
+								bhDate.parentNode.insertBefore(smiley, bhDate);
+							}
+							else {
+								if (daysRemaining > 30) {
+									bhDate.style.color = "var(--text-color)";
+								}
+								else {
+									// stylize in warning color if less than 30 colors remaining, just to point it out to user
+									bhDate.style.color = "var(--warning-color)";
+								}
 							}
 						});
 					}
-				}
-				else if (bhDateTitle.indexOf("days left") > -1) {
-					var daysRemaining = parseInt(bhDateTitle);
-					if (isNaN(daysRemaining)) {
-						return;
+					else {
+						// fallback styling
+						bhDate.style.color = "var(--text-color)";
 					}
-					clearInterval(bhColorTimer);
-					console.log("Black Hole days remaining: ", daysRemaining);
-					chrome.storage.local.get("old-blackhole", function(data) {
-						if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
-							bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
-							bhDate.innerText = daysRemaining.toString() + " days left";
-
-							// add bootstrap tooltip to holder
-							var evt = new CustomEvent("add-tooltip", { detail: "#bh > .emote-bh" });
-							document.dispatchEvent(evt);
-
-							var smiley = document.createElement("span");
-							smiley.setAttribute("id", "lt-emote");
-							if (daysRemaining > 30) {
-								smiley.setAttribute("class", "icon-smiley-relax");
-								bhDate.style.color = "var(--success-color)";
-								smiley.style.color = "var(--success-color)";
-							}
-							else {
-								smiley.setAttribute("class", "icon-smiley-surprise");
-								bhDate.style.color = "var(--warning-color)";
-								smiley.style.color = "var(--warning-color)";
-							}
-							bhDate.parentNode.insertBefore(smiley, bhDate);
-						}
-						else {
-							if (daysRemaining > 30) {
-								bhDate.style.color = "var(--text-color)";
-							}
-							else {
-								// stylize in warning color if less than 30 colors remaining, just to point it out to user
-								bhDate.style.color = "var(--warning-color)";
-							}
-						}
-					});
-				}
-				else {
-					// fallback styling
-					bhDate.style.color = "var(--text-color)";
 				}
 			}
 		}, 100);
