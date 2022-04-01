@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:18:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/01 19:49:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 let gUName = null;
 let gProfileBanner = null;
+let gCustomBanner = null;
 let gInterval = null;
 let gExtSettings = null;
 let gUserSettings = null;
@@ -55,20 +56,20 @@ function getUserSettings(username) {
 function setCustomBanner(imageUrl, imagePos) {
 	if (imageUrl && validateUrl(imageUrl)) {
 		const newCSSval = "url(\"" + imageUrl + "\")";
-		if (gProfileBanner.style.backgroundImage.indexOf(imageUrl) == -1) {
-			gProfileBanner.className += " customized";
-			gProfileBanner.setAttribute("data-old-bg", gProfileBanner.style.backgroundImage);
-			gProfileBanner.style.backgroundImage = newCSSval;
+		if (gCustomBanner.style.backgroundImage.indexOf(imageUrl) == -1) {
+			gCustomBanner.className += " customized";
+			gCustomBanner.setAttribute("data-old-bg", gProfileBanner.style.backgroundImage);
+			gCustomBanner.style.backgroundImage = newCSSval;
 			switch (imagePos) {
 				default:
 				case "center-center":
-					gProfileBanner.style.backgroundPosition = "center center";
+					gCustomBanner.style.backgroundPosition = "center center";
 					break;
 				case "center-top":
-					gProfileBanner.style.backgroundPosition = "center top";
+					gCustomBanner.style.backgroundPosition = "center top";
 					break;
 				case "center-bottom":
-					gProfileBanner.style.backgroundPosition = "center bottom";
+					gCustomBanner.style.backgroundPosition = "center bottom";
 					break;
 			}
 			iConsole.log("Custom banner set!");
@@ -79,9 +80,8 @@ function setCustomBanner(imageUrl, imagePos) {
 }
 
 function unsetCustomBannerIfRequired() {
-	if (gProfileBanner.getAttribute("data-old-bg")) {
-		gProfileBanner.style.backgroundImage = gProfileBanner.getAttribute("data-old-bg");
-		gProfileBanner.removeAttribute("data-old-bg");
+	if (gCustomBanner.style.backgroundImage) {
+		gCustomBanner.style.backgroundImage = null;
 		iConsole.log("Custom banner unset");
 	}
 }
@@ -155,9 +155,17 @@ function setCustomProfile() {
 }
 
 function immediateProfileChanges() {
+	// add custom banner image container
+	if (gProfileBanner) {
+		gCustomBanner = document.createElement("div");
+		gCustomBanner.className = "improved-intra-banner";
+		gProfileBanner.insertBefore(gCustomBanner, gProfileBanner.children[0]);
+	}
+	
 	// easter egg for user fbes, even when customized profiles are disabled
 	if (gProfileBanner && gUName == "fbes") {
 		gProfileBanner.className += " egg";
+		gCustomBanner.className += " egg";
 	}
 
 	if (window.location.pathname.indexOf("/users/") == 0) {
@@ -212,18 +220,6 @@ function immediateProfileChanges() {
 	}
 }
 
-// check if the custom profile is kept in an interval for 5 seconds
-// sometimes things get overruled by coalition stuff, such as banners
-function confirmProfileUpdatedForFiveSeconds() {
-	if (!gInterval) {
-		gInterval = setInterval(setCustomBannerWrapper, 150);
-		setTimeout(function() {
-			clearInterval(gInterval);
-			gInterval = null;
-		}, 5000);
-	}
-}
-
 gUName = getProfileUserName();
 gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 immediateProfileChanges();
@@ -231,12 +227,11 @@ improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "c
 	gExtSettings = data;
 	setCustomBannerWrapper();
 	setCustomProfile();
-	confirmProfileUpdatedForFiveSeconds();
 });
 
 const cursusSelector = document.querySelector(".cursus-user-select");
 if (cursusSelector) {
 	cursusSelector.addEventListener("change", function(event) {
-		confirmProfileUpdatedForFiveSeconds();
+		// confirmProfileUpdatedForFiveSeconds();
 	});
 }

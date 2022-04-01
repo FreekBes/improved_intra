@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 17:25:50 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/01 19:50:43 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,8 @@ li.scaleteam-list-item .rating {
 }
 
 /* fix background banner repeating on small screens */
-.profile-banner {
+.profile-banner,
+.improved-intra-banner {
 	background-size: cover !important;
 }
 
@@ -327,6 +328,7 @@ li.scaleteam-list-item .rating {
 	cursor: pointer !important;
 }
 
+
 /* custom titles for contributors */
 a[data-tooltip-login="pde-bakk"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
@@ -349,8 +351,29 @@ a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 	content: 'Improved Intra Creator ';
 }
 
+/* set position relative for profile banner to customize absolute positions based on this element */
+.container-inner-item.profile-item-top.profile-banner {
+	position: relative;
+}
+
+/* set z-index for all elements in the profile banner to accustom for the custom banner */
+.container-inner-item.profile-item-top.profile-banner > * {
+	z-index: 1 !important;
+}
+
+/* custom banner element */
+.improved-intra-banner.customized {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	z-index: 0 !important;
+}
+
 /* profile page easter egg for fbes (me, le creator) */
-.container-inner-item.profile-item-top.profile-banner.egg {
+.container-inner-item.profile-item-top.profile-banner.egg,
+.improved-intra-banner.customized.egg {
 	background-blend-mode: multiply !important;
 	animation: rainbow-bg 16s linear !important;
 	animation-iteration-count: infinite !important;
