@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/24 22:43:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/01 19:16:26 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,8 @@ function setGeneralImprovements() {
 		// and if old-blackhole setting is enabled, replace text with old countdown style
 		var bhColorTimer = setInterval(function() {
 			var bhDate = document.querySelector("#bh-date");
-			var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 			if (bhDate) {
+				var bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 				if (bhDate.innerText.indexOf("absorbed") > -1) {
 					clearInterval(bhColorTimer);
 					bhDate.style.color = "var(--fail-color)";
