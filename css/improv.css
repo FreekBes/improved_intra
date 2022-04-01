@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   improv.css                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/22 18:42:30 by codam         ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   improv.css                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/28 01:00:01 by fbes              #+#    #+#             */
+/*   Updated: 2022/04/01 16:45:11 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ li.scaleteam-list-item .rating {
 }
 
 /* make achievement item container backgrounds transparent */
-.achievement-item.stacked .achievement-item--container {
+.achievement-item.stacked .achievement-item--container,
+.notification-list {
 	background-color: rgba(0,0,0,0) !important;
 }
 
