@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:10 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/28 02:22:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/04 17:41:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@
 }
 
 #codam_intra_monit_system_display_deprecation_notice.upgraded::before {
-	content: "Dark Intra 42 has been renamed to Improved Intra 42 and now includes the Monitoring System Progress functionality. You're seeing this message because you still have the old Monitoring Progress extension installed. You can remove it now.";
+	content: "Improved Intra 42 now includes the Monitoring System Progress functionality. You're seeing this message because you still have the old Monitoring Progress extension installed. You can remove it now.";
 }
