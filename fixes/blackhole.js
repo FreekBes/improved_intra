@@ -39,8 +39,7 @@ function fixBlackHoleContainer() {
 						bhDate.innerText = daysRemaining.toString() + " days left";
 
 						// add bootstrap tooltip to holder
-						const evt = new CustomEvent("add-tooltip", { detail: "#bh > .emote-bh" });
-						document.dispatchEvent(evt);
+						addToolTip("#bh > .emote-bh");
 
 						const smiley = document.createElement("span");
 						smiley.setAttribute("id", "lt-emote");

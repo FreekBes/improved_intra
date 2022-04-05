@@ -161,7 +161,7 @@ function immediateProfileChanges() {
 		gCustomBanner.className = "improved-intra-banner";
 		gProfileBanner.insertBefore(gCustomBanner, gProfileBanner.children[0]);
 	}
-	
+
 	// easter egg for user fbes, even when customized profiles are disabled
 	if (gProfileBanner && gUName == "fbes") {
 		gProfileBanner.className += " egg";
@@ -214,8 +214,7 @@ function immediateProfileChanges() {
 				userInfos.appendChild(gitHubItem);
 			}
 
-			const evt = new CustomEvent("add-tooltip", { detail: "#ii-profile-link-c-github" });
-			document.dispatchEvent(evt);
+			addToolTip("#ii-profile-link-c-github");
 		}
 	}
 }

@@ -84,20 +84,31 @@
 				<section>
 					<h3>General improvements</h3>
 					<fieldset>
+						<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will open the cluster map</span></label>
+						<input type="checkbox" value="true" id="clustermap" name="clustermap" checked />
+					</fieldset>
+					<fieldset>
 						<label for="hide-broadcasts"><span>Hide broadcasts button</span><span>Hide the blue megaphone floating button on the dashboard</span></label>
 						<input type="checkbox" value="true" id="hide-broadcasts" name="hide-broadcasts" checked />
 					</fieldset>
 					<fieldset>
-						<label for="hide-goals"><span>Hide Black Hole absorption</span><span>Hide the entire Black Hole container on all profile banners</span></label>
-						<input type="checkbox" value="true" id="hide-goals" name="hide-goals" />
+						<label for="logsum-month"><span>Show monthly logtimes</span><span>Show every month's total logtime in the logtime chart</span></label>
+						<input type="checkbox" value="true" id="logsum-month" name="logsum-month" checked />
 					</fieldset>
+					<fieldset>
+						<label for="logsum-week"><span>Show cumulative logtimes per week</span><span>When hovering over the logtimes chart, show user's cumulative hours per week</span></label>
+						<input type="checkbox" value="true" id="logsum-week" name="logsum-week" checked />
+					</fieldset>
+				</section>
+				<section>
+					<h3>Black Hole</h3>
 					<fieldset>
 						<label for="old-blackhole"><span>Old Black Hole countdown</span><span>Use the old Black Hole countdown in profile banners</span></label>
 						<input type="checkbox" value="true" id="old-blackhole" name="old-blackhole" />
 					</fieldset>
 					<fieldset>
-						<label for="clustermap"><span>Make logged in location clickable</span><span>When a user is available, clicking on their location will open the cluster map</span></label>
-						<input type="checkbox" value="true" id="clustermap" name="clustermap" checked />
+						<label for="hide-goals"><span>Hide Black Hole absorption</span><span>Hide the entire Black Hole container on all profile banners</span></label>
+						<input type="checkbox" value="true" id="hide-goals" name="hide-goals" />
 					</fieldset>
 				</section>
 				<section>

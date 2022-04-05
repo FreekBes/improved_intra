@@ -95,3 +95,23 @@ function setStyleIfExists(query, style, value, parentPlease) {
 	}
 	return (false);
 }
+
+// parse logtime from text (HHhMM or HH:MM) into minutes
+function parseLogTime(logTimeText) {
+	const logTimeSplit = (logTimeText.indexOf("h") > -1 ? logTimeText.split("h") : logTimeText.split(":"));
+	if (logTimeSplit.length < 2) {
+		return (0);
+	}
+	return (parseInt(logTimeSplit[0]) * 60 + parseInt(logTimeSplit[1]));
+}
+
+// convert an amount of minutes into logtime text (HHhMM)
+function logTimeToString(logTime) {
+	return (Math.floor(logTime / 60) + "h" + (logTime % 60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+}
+
+// add bootstrap tooltip to holder (send to inject.js)
+function addToolTip(query) {
+	const evt = new CustomEvent("add-tooltip", { detail: query });
+	document.dispatchEvent(evt);
+}

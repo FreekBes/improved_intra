@@ -23,12 +23,3 @@
 	vertical-align: middle;
 	margin-right: 0.5ch;
 }
-
-/* styling to remove deprecated codam_intra_monit_system_display extension */
-#codam_intra_monit_system_display_deprecation_notice.upgraded > span {
-	display: none !important;
-}
-
-#codam_intra_monit_system_display_deprecation_notice.upgraded::before {
-	content: "Improved Intra 42 now includes the Monitoring System Progress functionality. You're seeing this message because you still have the old Monitoring Progress extension installed. You can remove it now.";
-}

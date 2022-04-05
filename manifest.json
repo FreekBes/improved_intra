@@ -79,18 +79,13 @@
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"js": [ "features/profiles.js" ],
-			"run_at": "document_idle"
-		},
-		{
 			"matches": [ "https://admin.intra.42.fr/*" ],
 			"js": [ "features/admin.js" ],
 			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"js": [ "features/campus/codam/monit.js", "features/campus/codam/coa-titles.js" ],
+			"js": [ "features/profiles.js", "features/campus/codam/monit.js", "features/logtimes.js", "features/campus/codam/coa-titles.js" ],
 			"css": [ "features/campus/codam/monit.css" ],
 			"run_at": "document_idle"
 		},

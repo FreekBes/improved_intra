@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// for checking if user has corrected anything
-// implement in the future
-// '/users/{user_id}/scale_teams/as_corrected'
-// https://github.com/troplolBE/bettercorrectors#sample-1
+/*
+for checking if user has corrected anything
+implement in the future
+'/users/{user_id}/scale_teams/as_corrected'
+https://github.com/troplolBE/bettercorrectors#sample-1
+*/
 
+// used in Array.reduce
 function sum(prevVal, curVal) {
 	return (prevVal + curVal);
 }
@@ -27,42 +30,17 @@ const monit = {
 		achievement1: 3000,
 		achievement2: 4800
 	},
-	dayOfWeek: -1,
 	bhContainer: null,
 	logTimes: [],
 	logTimesTotal: 0,
 	username: "me",
 
 	/**
-	 * Get the color of the user's coalition
-	 */
-	getCoalitionColor: function() {
-		try {
-			return (document.getElementsByClassName("coalition-span")[0].style.color);
-		}
-		catch (err) {
-			return ("#FF0000");
-		}
-	},
-
-	/**
-	 * Get username of profile
-	 */
-	getUserName: function() {
-		try {
-			return (document.querySelector(".profile-item .profile-name .login[data-login]").getAttribute("data-login"));
-		}
-		catch (err) {
-			return (null);
-		}
-	},
-
-	/**
 	 * Get the dates of this week's days
 	 */
 	getWeekDates: function() {
 		const thisWeek = [];
-		for (let i = 0; i <= monit.dayOfWeek; i++) {
+		for (let i = 0; i <= dayOfWeek; i++) {
 			thisWeek.push(new Date(today.getTime() - 86400000 * i).toISOString().split("T")[0]);
 		}
 		iConsole.log("This week's dates: ", thisWeek);
@@ -84,33 +62,15 @@ const monit = {
 		else {
 			logTimesTotalNoToday = 0;
 		}
-		if (this.dayOfWeek == 7 || this.logTimesTotal > this.requirements.min) {
+		if (dayOfWeek == 7 || this.logTimesTotal > this.requirements.min) {
 			this.requirements.today = this.requirements.min;
 		}
 		else {
-			this.requirements.today = logTimesTotalNoToday + Math.round((this.requirements.min - logTimesTotalNoToday) / (7 - this.dayOfWeek));
+			this.requirements.today = logTimesTotalNoToday + Math.round((this.requirements.min - logTimesTotalNoToday) / (7 - dayOfWeek));
 		}
 		iConsole.log("Logtime up until today", logTimesTotalNoToday);
 		iConsole.log("Expected minutes today", this.requirements.today - logTimesTotalNoToday);
 		iConsole.log("Expected minutes after today", this.requirements.today);
-	},
-
-	/**
-	 * Parse a piece of logtime text: in format HHhMM or HH:MM(:SS)
-	 */
-	parseLogTime: function(logTimeText) {
-		const logTimeSplit = (logTimeText.indexOf("h") > -1 ? logTimeText.split("h") : logTimeText.split(":"));
-		if (logTimeSplit.length < 2) {
-			return (0);
-		}
-		return (parseInt(logTimeSplit[0]) * 60 + parseInt(logTimeSplit[1]));
-	},
-
-	/**
-	 * Convert a logTime into a string with format HHhMM
-	 */
-	logTimeToString: function(logTime) {
-		return (Math.floor(logTime / 60) + "h" + (logTime % 60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
 	},
 
 	/**
@@ -129,7 +89,7 @@ const monit = {
 					monit.logTimes = [];
 					for (let i = 0; i < weekDates.length; i++) {
 						if (weekDates[i] in stats) {
-							monit.logTimes.push(monit.parseLogTime(stats[weekDates[i]]));
+							monit.logTimes.push(parseLogTime(stats[weekDates[i]]));
 						}
 						else {
 							monit.logTimes.push(0);
@@ -152,79 +112,6 @@ const monit = {
 			});
 			monit.httpReq.open("GET", window.location.origin + "/users/" + username + "/locations_stats.json");
 			monit.httpReq.send();
-		}));
-	},
-
-	/**
-	 * Get the logtime from the logtime chart, modify the chart to include
-	 * progress for previous weeks, and parse this week's logtime into the logtime array
-	 */
-	getLogTimes: function() {
-		return (new Promise(function (resolve, reject) {
-			const ltSvg = document.getElementById("user-locations");
-			if (!ltSvg) {
-				reject("Element #user-locations not found");
-			}
-			const ltDays = ltSvg.getElementsByTagName("g");
-			let ltDay = ltDays[ltDays.length - 1];
-			let i;
-
-			monit.logTimes = [];
-			for (i = 0; i <= monit.dayOfWeek; i++) {
-				ltDay = ltDays[ltDays.length - i - 1];
-				if (!ltDay) {
-					reject("Failed to read data from SVG logtime chart");
-				}
-				monit.logTimes.push(monit.parseLogTime(ltDay.getAttribute("data-original-title")));
-			}
-			if (monit.logTimes && monit.logTimes.length > 0) {
-				monit.logTimesTotal = monit.logTimes.reduce(sum);
-			}
-			else {
-				monit.logTimesTotal = 0;
-			}
-
-			let daysInWeek = monit.dayOfWeek + 1;
-			const remainingWeeks = Math.floor(ltDays.length / 7) + (monit.dayOfWeek != 6 ? 1 : 0);
-			let r = 0;
-			for (i = 0; i < remainingWeeks; i++) {
-				let j;
-
-				if (i == 1) {
-					daysInWeek = 7;
-				}
-				const tempLogTimes = [];
-
-				// parse individual logtimes
-				for (j = 0; j < daysInWeek; j++) {
-					ltDay = ltDays[ltDays.length - r - 1];
-					if (!ltDay) {
-						resolve();
-						return;
-					}
-					tempLogTimes.push(monit.parseLogTime(ltDay.getAttribute("data-original-title")));
-					if (tempLogTimes[j] == 0) {
-						ltDay.setAttribute("data-nolog", "");
-					}
-					r++;
-				}
-
-				// calculate cumulative logtime
-				for (j = daysInWeek - 2; j > -1; j--) {
-					tempLogTimes[j] = tempLogTimes[j] + tempLogTimes[j + 1];
-				}
-
-				// add cumulative logtime and percentage to tooltips
-				for (j = daysInWeek - 1; j > -1; j--) {
-					ltDay = ltDays[ltDays.length - r + j];
-					if (!ltDay) {
-						resolve();
-						return;
-					}
-					ltDay.setAttribute("data-original-title", ltDay.getAttribute("data-original-title") + " (" + monit.logTimeToString(tempLogTimes[daysInWeek - 1 - j]) + " / " + Math.floor(tempLogTimes[daysInWeek - 1 - j] / monit.requirements.min * 100) + "%)");
-				}
-			}
-			resolve();
 		}));
 	},
 
@@ -278,22 +165,9 @@ const monit = {
 				}
 			}
 		}
-		this.username = this.getUserName();
-		this.getLogTimes()
-			.then(this.writeProgress)
-			.catch(function(err) {
-				iConsole.warn("Could not read logtimes chart:", err);
-				monit.getLogTimesWeb(monit.username).then(monit.writeProgress)
-					.catch(function(err) {
-						iConsole.error("Could not retrieve logtimes from the web", err);
-					});
-			});
-	},
-
-	addTooltip: function() {
-		// add bootstrap tooltip to holder
-		const evt = new CustomEvent("add-tooltip", { detail: "#lt-holder" });
-		document.dispatchEvent(evt);
+		this.getLogTimesWeb(getProfileUserName()).then(this.writeProgress).catch(function(err) {
+			iConsole.error("Could not retrieve logtimes for Codam Monitoring System progress", err);
+		});
 	},
 
 	/**
@@ -363,7 +237,7 @@ const monit = {
 
 			const coalitionSpan = document.createElement("span");
 			coalitionSpan.setAttribute("class", "coalition-span");
-			coalitionSpan.style.color = monit.getCoalitionColor();
+			coalitionSpan.style.color = getCoalitionColor();
 			coalitionSpan.innerText = "Monitoring System progress";
 
 			progressTitle.appendChild(coalitionSpan);
@@ -384,7 +258,7 @@ const monit = {
 			const progressPerc = document.createElement("span");
 			if (status["monitoring_system_active"]) {
 				progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
-				ltHolder.setAttribute("data-original-title", "Logtime this week: " + monit.logTimeToString(monit.logTimesTotal));
+				ltHolder.setAttribute("data-original-title", "Logtime this week: " + logTimeToString(monit.logTimesTotal));
 			}
 			else if (status["work_from_home_required"] && !status["monitoring_system_active"]) {
 				// covid-19 message
@@ -392,7 +266,7 @@ const monit = {
 				ltHolder.setAttribute("data-original-title", "You can do this! Codam will at some point reopen again. I'm sure of it! Times will get better.");
 			}
 			else if (!status["monitoring_system_active"]) {
-				progressPerc.innerText = monit.logTimeToString(monit.logTimesTotal);
+				progressPerc.innerText = logTimeToString(monit.logTimesTotal);
 				ltHolder.setAttribute("data-original-title", "Logtime this week (Monitoring System is currently disabled)");
 			}
 
@@ -466,26 +340,13 @@ const monit = {
 
 			monit.bhContainer.appendChild(progressNode);
 			monit.bhContainer.className = monit.bhContainer.className.replace("hidden", "");
-			monit.addTooltip();
+			addToolTip("#lt-holder");
 		});
 	},
-
-	init: function() {
-		this.dayOfWeek = new Date().getDay() - 1;
-		if (this.dayOfWeek < 0) {
-			this.dayOfWeek = 6;
-		}
-	}
 };
 
 improvedStorage.get("codam-monit").then(function(data) {
 	if (data["codam-monit"] === true || data["codam-monit"] === "true") {
-		if (!document.getElementById("monit-progress-old")) {
-			monit.init();
-			monit.getProgress();
-		}
-		else {
-			document.getElementById("codam_intra_monit_system_display_deprecation_notice").className = "upgraded";
-		}
+		monit.getProgress();
 	}
 });

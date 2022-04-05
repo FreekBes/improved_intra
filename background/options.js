@@ -20,6 +20,8 @@ const defaults = {
 	"hide-broadcasts": "false",
 	"hide-goals": "false",
 	"link-github": "",
+	"logsum-month": "true",
+	"logsum-week": "true",
 	"old-blackhole": "false",
 	"show-custom-profiles": "true",
 	"sync": "true",
