@@ -27,6 +27,19 @@ function waitForLogTimesChartToLoad(ltSvg) {
 		return false;
 	}
 
+	// fix first month sometimes outside container
+	let viewBox = ltSvg.getAttribute("viewBox");
+	if (viewBox) {
+		viewBox = viewBox.split(" ").map(function(item) {
+			return parseInt(item);
+		});
+		console.log(viewBox);
+		if (viewBox[0] > 0) {
+			viewBox[0] = 0;
+			ltSvg.setAttribute("viewBox", viewBox.join(" "));
+		}
+	}
+
 	improvedStorage.get(["logsum-month", "logsum-week", "codam-monit"]).then(function(settings) {
 		let ltDay = ltDays[ltDays.length - 1];
 		let daysInWeek = dayOfWeek + 1;
