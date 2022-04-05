@@ -45,6 +45,24 @@ li.scaleteam-list-item .rating {
 	flex-basis: 50px !important;
 }
 
+/* set default color on tooltips */
+.tooltip {
+	cursor: default !important;
+}
+
+/* add box shadow to tooltips */
+.tooltip-content {
+	box-shadow: 0px 0px 3px -1px #000 !important;
+}
+
+/* fix border radius for tooltip user images */
+.tooltip-content .tooltip-img.rounded[style*="intra.42.fr/users/"] {
+	background-size: cover !important;
+	width: 60px !important;
+	height: 60px !important;
+	border-radius: 30px !important;
+}
+
 /* force user profile pictures to always cover the whole element */
 .user-profile-picture {
 	background-size: cover !important;
@@ -359,6 +377,8 @@ a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 /* easter egg for pde-bakk */
 .user-profile-picture[style*="/pde-bakk/"],
 .search-user-picture[style*="/pde-bakk/"],
+.tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded,
+.bg-image-item.rounded[style*="/pde-bakk/"],
 .profile-image[style*="/pde-bakk/"],
 .user-image[style*="/pde-bakk/"] {
 	border-radius: 50% 15% 50% 50% !important;
@@ -368,6 +388,8 @@ a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 }
 .user-profile-picture[style*="/pde-bakk/"]::after,
 .search-user-picture[style*="/pde-bakk/"]::after,
+.tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded::after,
+.bg-image-item.rounded[style*="/pde-bakk/"]::after,
 .profile-image[style*="/pde-bakk/"]::after,
 .user-image[style*="/pde-bakk/"]::after {
 	content: "";
@@ -552,24 +574,6 @@ textarea,
 /* add max width to textareas to make them unable to be resized outside of their container */
 textarea {
 	max-width: 100% !important;
-}
-
-/* set default color on tooltips */
-.tooltip {
-	cursor: default !important;
-}
-
-/* add box shadow to tooltips */
-.tooltip-content {
-	box-shadow: 0px 0px 3px -1px #000 !important;
-}
-
-/* fix border radius for tooltip user images */
-.tooltip-content .tooltip-img.rounded[style*="intra.42.fr/users/"] {
-	background-size: cover !important;
-	width: 60px !important;
-	height: 60px !important;
-	border-radius: 30px !important;
 }
 
 @media (min-width: 1600px) {
