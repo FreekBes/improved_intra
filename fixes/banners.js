@@ -16,7 +16,9 @@ function fixProfileBanners() {
 	setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
 	// fix black hole container issues, such as text color
-	fixBlackHoleContainer();
+	if (document.getElementById("goals_container")) {
+		fixBlackHoleContainer();
+	}
 
 	const profileActions = document.querySelector(".profile-item .user-primary .user-infos .button-actions");
 	if (profileActions) {
