@@ -351,6 +351,34 @@ a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 	content: 'Improved Intra Creator ';
 }
 
+/* easter egg for pde-bakk */
+.user-profile-picture[style*="/pde-bakk/"],
+.search-user-picture[style*="/pde-bakk/"],
+.profile-image[style*="/pde-bakk/"],
+.user-image[style*="/pde-bakk/"] {
+	border-radius: 50% 15% 50% 50% !important;
+	transform: rotate(-33deg) !important;
+	box-shadow: inset 0px 1px 4px 4px #edd65b !important;
+	overflow: unset !important;
+}
+.user-profile-picture[style*="/pde-bakk/"]::after,
+.search-user-picture[style*="/pde-bakk/"]::after,
+.profile-image[style*="/pde-bakk/"]::after,
+.user-image[style*="/pde-bakk/"]::after {
+	content: "";
+	width: 3%;
+	height: 11%;
+	background-color: brown;
+	display: block;
+	position: absolute;
+	z-index: 2;
+	left: 95%;
+	top: -2%;
+	transform: rotate(45deg);
+	box-shadow: 0px 3px 7px 0px #6a5f22;
+	border-radius: 50% 15%;
+}
+
 /* set position relative for profile banner to customize absolute positions based on this element */
 .container-inner-item.profile-item-top.profile-banner {
 	position: relative;
