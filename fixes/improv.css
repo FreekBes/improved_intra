@@ -20,7 +20,12 @@ html {
 	overflow-x: hidden !important;
 }
 
-/* Windows Futura font family fix */
+/* Windows Futura font-family fix */
+.futura {
+	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+}
+
+/* Windows Futura font family fix (BOLD) */
 .modal-v2 .modal-header,
 .event-modal .head h4,
 .exam-modal .head h4,
