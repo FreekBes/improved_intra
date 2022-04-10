@@ -202,7 +202,7 @@ h6 small, h6 .small,
 }
 
 .notification-item:hover,
-.vertical-list-item.notification-item.unread:hover {
+.vertical-list-item.notification-item.unread {
 	background: var(--list-hover-background-color) !important;
 }
 
