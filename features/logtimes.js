@@ -39,12 +39,11 @@ function sumMonthLogTime(ltMonths) {
 				}
 			}
 			for (let i = 0; i < ltMonths.length; i++) {
-				const oldBbox = ltMonths[i].getBBox();
 				const oldX = parseInt(ltMonths[i].getAttribute("x"));
 				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSums[i]) + ")";
 				const newBbox = ltMonths[i].getBBox();
 				// move element's x coordinate to the left to account for the width of the text added
-				ltMonths[i].setAttribute("x", Math.round(oldX - (newBbox.width - oldBbox.width) * 0.5));
+				ltMonths[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
 			}
 		}
 		catch (err) {
