@@ -18,8 +18,7 @@
 	"incognito": "spanning",
 	"browser_specific_settings": {
 		"gecko": {
-			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json",
-			"strict_min_version": "44"
+			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json"
 		}
 	},
 	"options_ui": {
