@@ -21,7 +21,8 @@ function hideLoading() {
 function checkIfKeyStillWorks(access_token) {
 	return new Promise(function(it_works, it_does_not_work) {
 		const req = new XMLHttpRequest();
-		req.open("POST", "https://darkintra.freekb.es/testkey.php?nc="+encodeURIComponent(Math.random()));
+		const manifestData = chrome.runtime.getManifest();
+		req.open("POST", "https://darkintra.freekb.es/testkey.php?v="+manifestData.version+"&nc="+encodeURIComponent(Math.random()));
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.addEventListener("load", function(event) {
 			try {
