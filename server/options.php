@@ -27,7 +27,7 @@
 		}
 	</style>
 </head>
-<body>
+<body class="limitwidth">
 	<div id="improved-intra-no-extension-block">
 		<h1>You need to install the Improved Intra 42 extension in order to modify its settings.</h1>
 		<p>You can install it from the <a href="https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/">Chrome Web Store</a> or, if you are using Mozilla Firefox, directly by clicking <a href="https://github.com/FreekBes/improved_intra/releases/latest/download/firefox.xpi">here</a>.</p>
