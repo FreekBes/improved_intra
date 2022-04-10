@@ -19,24 +19,25 @@ function codamMonitHelper(settings, logTime) {
 
 // month logtime has to be calculated from the web since some days may be missing from the logtimes chart
 function sumMonthLogTime(ltMonths) {
+	ltMonths = Array.from(ltMonths).reverse();
 	const httpReq = new XMLHttpRequest();
 	httpReq.addEventListener("load", function() {
 		try {
 			const stats = JSON.parse(this.responseText);
 			const dates = Object.keys(stats);
+			const monthNames = [];
 			const monthSums = [];
-			let mIndex = -1;
-			let lastMonth = -1;
-			for (const date of dates) {
-				const month = parseInt(date.split("-")[1]);
-				if (month != lastMonth) {
-					lastMonth = month;
-					mIndex++;
-					monthSums.push(0);
-				}
-				monthSums[mIndex] += parseLogTime(stats[date]);
+			for (let i = 0; i < ltMonths.length; i++) {
+				monthNames.push(ltMonths[i].textContent);
+				monthSums.push(0);
 			}
-			ltMonths = Array.from(ltMonths).reverse();
+			for (const date of dates) {
+				const jsDate = new Date(date);
+				const mIndex = monthNames.indexOf(jsDate.toDateString().split(" ")[1]);
+				if (mIndex > -1) {
+					monthSums[mIndex] += parseLogTime(stats[date]);
+				}
+			}
 			for (let i = 0; i < ltMonths.length; i++) {
 				const oldBbox = ltMonths[i].getBBox();
 				const oldX = parseInt(ltMonths[i].getAttribute("x"));
