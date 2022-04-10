@@ -94,7 +94,7 @@ function cumWeekLogTime(ltDays, settings) {
 			if (!ltDay) {
 				return;
 			}
-			ltDay.setAttribute("data-original-title", ltDay.getAttribute("data-original-title") + " (week's cumulative: " + logTimeToString(tempLogTimes[daysInWeek - 1 - j]) + codamMonitHelper(settings, tempLogTimes[daysInWeek - 1 - j]) + ")");
+			ltDay.setAttribute("data-original-title", ltDay.getAttribute("data-original-title") + " (" + logTimeToString(tempLogTimes[daysInWeek - 1 - j]) + codamMonitHelper(settings, tempLogTimes[daysInWeek - 1 - j]) + ")");
 		}
 	}
 }
