@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   improv.css                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*   By: nsimon <nsimon@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
 /*   Updated: 2022/04/01 19:50:43 by fbes          ########   odam.nl         */
@@ -353,9 +353,9 @@ li.scaleteam-list-item .rating {
 
 
 /* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]:not(.student-kind-student)::before,
+a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]:not(.student-kind-student)::before,
+a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
 a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="jlensing"]::before {
@@ -369,9 +369,15 @@ a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
 }
 
 /* custom title for creator */
-a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
+a[data-tooltip-login="fbes"]::before,
 .profile-name span.login[data-login="fbes"]::before {
 	content: 'Improved Intra Creator ';
+}
+
+/* no custom titles in the following places */
+a[data-tooltip-login].student-kind-student::before,
+#coalition-top-user a[data-tooltip-login]::before {
+	content: '' !important;
 }
 
 /* easter egg for pde-bakk */
