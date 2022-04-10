@@ -10,45 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-var coaTitleRegex = new RegExp(/ \(([0-9]{1,2}(st|nd|rd|th){1}|[ABCDEF]{1})\)/g);
+const coaTitleRegex = new RegExp(/ \(([0-9]{1,2}(st|nd|rd|th){1}|[ABCDEF]{1})\)/g);
 
 function autoEquipCoaTitle(loggedInUserName) {
-	var headerLoginName = document.querySelector("span.login[data-login]");
+	const headerLoginName = document.querySelector("span.login[data-login]");
 	if (!headerLoginName || headerLoginName.textContent !== loggedInUserName) {
 		return;
 	}
 
-	var titleSelectButton = headerLoginName.parentNode;
+	const titleSelectButton = headerLoginName.parentNode;
 	if (!titleSelectButton || titleSelectButton.nodeName != "BUTTON") {
-		console.warn("No title select button, but auto-equipping coalition titles is enabled!");
+		iConsole.warn("No title select button, but auto-equipping coalition titles is enabled!");
 		return;
 	}
 
-	var titleSelectDropdown = titleSelectButton.nextElementSibling;
+	const titleSelectDropdown = titleSelectButton.nextElementSibling;
 	if (!titleSelectDropdown || titleSelectDropdown.nodeName != "UL") {
-		console.warn("No title select dropdown, but auto-equipping coalition titles is enabled!");
+		iConsole.warn("No title select dropdown, but auto-equipping coalition titles is enabled!");
 		return;
 	}
 
 	// if no title equipped, the element's text content will just be the user's username
 	// otherwise, the textContent will include the title. if a title is present, we do not override it
 	if (headerLoginName.textContent == headerLoginName.getAttribute("data-login")) {
-		var userTitles = titleSelectDropdown.querySelectorAll("a[href*=\"/titles_users/\"]");
-		for (var i = 0; i < userTitles.length; i++) {
+		const userTitles = titleSelectDropdown.querySelectorAll("a[href*=\"/titles_users/\"]");
+		for (let i = 0; i < userTitles.length; i++) {
 			if (userTitles[i].textContent.match(coaTitleRegex)) {
-				console.log("Found coalition title! Equipping by clicking on it...");
-				console.log(userTitles[i]);
+				iConsole.log("Found coalition title! Equipping by clicking on it...");
+				iConsole.log(userTitles[i]);
 				userTitles[i].click();
 				break;
 			}
 		}
 	}
 	else {
-		console.log("Coalition title is already equipped, not equipping now.");
+		iConsole.log("Coalition title is already equipped, not equipping now.");
 	}
 }
 
-chrome.storage.local.get(["username", "codam-auto-equip-coa-title"], function(data) {
+improvedStorage.get(["username", "codam-auto-equip-coa-title"]).then(function(data) {
 	if (data["codam-auto-equip-coa-title"] === true || data["codam-auto-equip-coa-title"] === "true") {
 		autoEquipCoaTitle(data["username"]);
 	}

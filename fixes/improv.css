@@ -6,7 +6,7 @@
 /*   By: nsimon <nsimon@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/01 19:19:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/01 19:50:43 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,23 @@
  * whether in dark or light mode does not matter.
  */
 
-@font-face {
-	font-family: "futura";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family:"futura";
-	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "futura-bold";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
-	font-weight: 700;
-	font-style: italic;
-}
-
 /* remove horizontal scrollbar, as it causes visual glitches anyways */
 html {
 	overflow-x: hidden !important;
 }
 
-/* Windows Futura font family fix */
+/* Windows Futura font-family fix */
+.futura {
+	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+}
+
+/* Windows Futura font family fix (BOLD) */
 .modal-v2 .modal-header,
 .event-modal .head h4,
 .exam-modal .head h4,
 #admin-user h3 {
-	font-family: 'futura-bold', 'futuraBold' !important;
+	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+	font-weight: 700 !important;
 }
 
 /* off-screen account dropdown menu fix for short usernames */
@@ -65,6 +43,24 @@ html {
 /* fix 100 % scores on ratings on feedback page */
 li.scaleteam-list-item .rating {
 	flex-basis: 50px !important;
+}
+
+/* set default color on tooltips */
+.tooltip {
+	cursor: default !important;
+}
+
+/* add box shadow to tooltips */
+.tooltip-content {
+	box-shadow: 0px 0px 3px -1px #000 !important;
+}
+
+/* fix border radius for tooltip user images */
+.tooltip-content .tooltip-img.rounded[style*="intra.42.fr/users/"] {
+	background-size: cover !important;
+	width: 60px !important;
+	height: 60px !important;
+	border-radius: 30px !important;
 }
 
 /* force user profile pictures to always cover the whole element */
@@ -251,7 +247,8 @@ li.scaleteam-list-item .rating {
 }
 
 /* fix background banner repeating on small screens */
-.profile-banner {
+.profile-banner,
+.improved-intra-banner {
 	background-size: cover !important;
 }
 
@@ -354,16 +351,21 @@ li.scaleteam-list-item .rating {
 	cursor: pointer !important;
 }
 
+
 /* custom titles for contributors */
 a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
 a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="jlensing"]::before,
-.profile-name span.login[data-login="jlensing"]::before,
-a[data-tooltip-login="ieilat"]::before,
-.profile-name span.login[data-login="ieilat"]::before {
+a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
+.profile-name span.login[data-login="jlensing"]::before {
 	content: 'Improved Intra Contributor ';
+}
+
+/* custom titles for sponsors */
+a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
+.profile-name span.login[data-login="ieilat"]::before {
+	content: 'Improved Intra Sponsor ';
 }
 
 /* custom title for creator */
@@ -374,12 +376,66 @@ a[data-tooltip-login="fbes"]::before,
 
 /* no custom titles in the following places */
 a[data-tooltip-login].student-kind-student::before,
-#coalition-top-user a[data-tooltip-login]::before {
+#coalition-top-user a[data-tooltip-login]::before,
+#coalition-scores a[data-tooltip-login]::before {
 	content: '' !important;
 }
 
+/* easter egg for pde-bakk */
+.user-profile-picture[style*="/pde-bakk/"],
+.search-user-picture[style*="/pde-bakk/"],
+.tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded,
+.bg-image-item.rounded[style*="/pde-bakk/"],
+.profile-image[style*="/pde-bakk/"],
+.user-image[style*="/pde-bakk/"] {
+	border-radius: 50% 15% 50% 50% !important;
+	transform: rotate(-33deg) !important;
+	box-shadow: inset 0px 1px 4px 4px #edd65b !important;
+	overflow: unset !important;
+}
+.user-profile-picture[style*="/pde-bakk/"]::after,
+.search-user-picture[style*="/pde-bakk/"]::after,
+.tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded::after,
+.bg-image-item.rounded[style*="/pde-bakk/"]::after,
+.profile-image[style*="/pde-bakk/"]::after,
+.user-image[style*="/pde-bakk/"]::after {
+	content: "";
+	width: 3%;
+	height: 11%;
+	background-color: brown;
+	display: block;
+	position: absolute;
+	z-index: 2;
+	left: 95%;
+	top: -2%;
+	transform: rotate(45deg);
+	box-shadow: 0px 3px 7px 0px #6a5f22;
+	border-radius: 50% 15%;
+}
+
+/* set position relative for profile banner to customize absolute positions based on this element */
+.container-inner-item.profile-item-top.profile-banner {
+	position: relative;
+}
+
+/* set z-index for all elements in the profile banner to accustom for the custom banner */
+.container-inner-item.profile-item-top.profile-banner > * {
+	z-index: 1 !important;
+}
+
+/* custom banner element */
+.improved-intra-banner.customized {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	z-index: 0 !important;
+}
+
 /* profile page easter egg for fbes (me, le creator) */
-.container-inner-item.profile-item-top.profile-banner.egg {
+.container-inner-item.profile-item-top.profile-banner.egg,
+.improved-intra-banner.customized.egg {
 	background-blend-mode: multiply !important;
 	animation: rainbow-bg 16s linear !important;
 	animation-iteration-count: infinite !important;
@@ -525,24 +581,6 @@ textarea,
 /* add max width to textareas to make them unable to be resized outside of their container */
 textarea {
 	max-width: 100% !important;
-}
-
-/* set default color on tooltips */
-.tooltip {
-	cursor: default !important;
-}
-
-/* add box shadow to tooltips */
-.tooltip-content {
-	box-shadow: 0px 0px 3px -1px #000 !important;
-}
-
-/* fix border radius for tooltip user images */
-.tooltip-content .tooltip-img.rounded[style*="intra.42.fr/users/"] {
-	background-size: cover !important;
-	width: 60px !important;
-	height: 60px !important;
-	border-radius: 30px !important;
 }
 
 @media (min-width: 1600px) {

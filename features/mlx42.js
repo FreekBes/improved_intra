@@ -11,24 +11,24 @@
 /* ************************************************************************** */
 
 function addMLX42Link() {
-	var projectAttachments = document.querySelector(".project-attachment-item");
+	let projectAttachments = document.querySelector(".project-attachment-item");
 	if (!projectAttachments) {
 		return;
 	}
 	projectAttachments = projectAttachments.parentNode;
 
-	var mlx42item = document.createElement("div");
+	const mlx42item = document.createElement("div");
 	mlx42item.className = "project-attachment-item";
 
-	var mlx42name = document.createElement("h4");
+	const mlx42name = document.createElement("h4");
 	mlx42name.className = "attachment-name";
 
-	var mlx42icon = document.createElement("span");
+	const mlx42icon = document.createElement("span");
 	mlx42icon.className = "icon-file";
 	mlx42icon.style.marginRight = "4px";
 	mlx42name.appendChild(mlx42icon);
 
-	var mlx42link = document.createElement("a");
+	const mlx42link = document.createElement("a");
 	mlx42link.setAttribute("href", "https://github.com/W2Codam/MLX42");
 	mlx42link.setAttribute("target", "_blank");
 	mlx42link.setAttribute("title", "Open-source OpenGL version of MLX by W2Wizard (lde-la-h). This link was added by Improved Intra 42.");

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/07 04:16:40 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 19:20:10 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ function hideLoading() {
 
 function checkIfKeyStillWorks(access_token) {
 	return new Promise(function(it_works, it_does_not_work) {
-		var req = new XMLHttpRequest();
-		req.open("POST", "https://darkintra.freekb.es/testkey.php?nc="+encodeURIComponent(Math.random()));
+		const req = new XMLHttpRequest();
+		const manifestData = chrome.runtime.getManifest();
+		req.open("POST", "https://darkintra.freekb.es/testkey.php?v="+manifestData.version+"&nc="+encodeURIComponent(Math.random()));
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.addEventListener("load", function(event) {
 			try {
-				var res = JSON.parse(this.responseText);
+				const res = JSON.parse(this.responseText);
 				if (res["type"] == "error") {
 					it_does_not_work(res);
 				}
@@ -41,7 +42,7 @@ function checkIfKeyStillWorks(access_token) {
 	});
 }
 
-var savedNotifHider = null;
+let savedNotifHider = null;
 function showSettingsSavedNotif() {
 	document.getElementById("saved-notif").style.top = "12px";
 	if (savedNotifHider) {
@@ -53,36 +54,36 @@ function showSettingsSavedNotif() {
 	}, 2000);
 }
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
-syncPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+let optionsPort = chrome.runtime.connect({ name: portName });
+optionsPort.onDisconnect.addListener(function() {
+	iConsole.log("Disconnected from service worker");
 });
-syncPort.onMessage.addListener(function(msg) {
+optionsPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
 			break;
 		case "options-changed":
 			loadSettingsIntoForm(msg["settings"]);
 			break;
 		case "resynced":
-			console.log("Options resynced.");
+			iConsole.log("Options resynced.");
 			window.location.reload();
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });
 setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	optionsPort.disconnect();
+	optionsPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
 function storeSettingsAndUpdateForm(newSettings) {
-	chrome.storage.local.set(newSettings, function() {
-		if (syncPort) {
-			syncPort.postMessage({ action: "options-changed", settings: newSettings });
+	improvedStorage.set(newSettings).then(function() {
+		if (optionsPort) {
+			optionsPort.postMessage({ action: "options-changed", settings: newSettings });
 		}
 	});
 	document.getElementById("custom-banner-upload").value = "";
@@ -90,24 +91,24 @@ function storeSettingsAndUpdateForm(newSettings) {
 }
 
 function syncSettings(event) {
-	console.log("Syncing settings...");
+	iConsole.log("Syncing settings...");
 	if (event) {
 		event.preventDefault();
 	}
 
-	var syncBtn = document.getElementById("sync-button");
-	var form = document.querySelector('form');
-	var formData = new FormData(form);
+	const syncBtn = document.getElementById("sync-button");
+	const form = document.querySelector('form');
+	let formData = new FormData(form);
 
 	// add unchecked checkboxes to formdata (not done by default...)
-	var uncheckedCheckBoxes = form.querySelectorAll("input[type=checkbox]:not(:checked)");
-	for (var i = 0; i < uncheckedCheckBoxes.length; i++) {
+	const uncheckedCheckBoxes = form.querySelectorAll("input[type=checkbox]:not(:checked)");
+	for (let i = 0; i < uncheckedCheckBoxes.length; i++) {
 		formData.set(uncheckedCheckBoxes[i].getAttribute("name"), "false");
 	}
 	formData.set("sync", "true");
 
 	// check file size limits
-	var bannerUpload = formData.get("custom-banner-upload");
+	const bannerUpload = formData.get("custom-banner-upload");
 	if (bannerUpload && bannerUpload.size > 10000000) {
 		alert("The file you're trying to upload as your custom banner is too big. The file limit is 10MB.");
 		document.getElementById("custom-banner-upload").value = "";
@@ -116,35 +117,35 @@ function syncSettings(event) {
 	}
 
 	// get js object version for storing in local storage later
-	var settingsObj = {};
+	const settingsObj = {};
 	formData.forEach(function(value, key) {
 		if (typeof(value) == "string") {
 			settingsObj[key] = value.trim();
 			formData.set(key, value.trim());
 		}
 	});
-	console.log(settingsObj);
+	iConsole.log(settingsObj);
 
 	// store on sync server if sync is enabled
 	if (settingsObj["sync"] === "true") {
-		chrome.storage.local.get(["user", "auth"], function(data) {
+		improvedStorage.get(["user", "auth"]).then(function(data) {
 			if (data["user"] && data["auth"]) {
 				syncBtn.className = "syncing";
 				formData.append("access_token", data["auth"]["access_token"]);
 				formData.append("created_at", data["auth"]["created_at"]);
 				formData.append("expires_in", data["auth"]["expires_in"]);
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
-				var req = new XMLHttpRequest();
+				const req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
-						var res = JSON.parse(this.responseText);
+						const res = JSON.parse(this.responseText);
 						if (res["type"] == "error") {
-							console.error("Settings sync result", res);
+							iConsole.error("Settings sync result", res);
 						}
 						else {
-							console.log("Settings sync result", res);
+							iConsole.log("Settings sync result", res);
 						}
 						if (res["data"]) {
 							storeSettingsAndUpdateForm(res["data"]);
@@ -154,12 +155,12 @@ function syncSettings(event) {
 						}
 					}
 					catch (err) {
-						console.error("Could not parse settings sync result!", err);
+						iConsole.error("Could not parse settings sync result!", err);
 						storeSettingsAndUpdateForm(settingsObj);
 					}
 				});
 				req.addEventListener("error", function(err) {
-					console.error("Could not sync settings", err);
+					iConsole.error("Could not sync settings", err);
 					storeSettingsAndUpdateForm(settingsObj);
 				});
 				req.send(formData);
@@ -167,7 +168,8 @@ function syncSettings(event) {
 		});
 	}
 	else {
-		chrome.storage.local.get(["sync", "auth"], function(data) {
+		// check if sync was enabled before, and if so, delete the user's data from the server
+		improvedStorage.get(["sync", "auth"]).then(function(data) {
 			if ((data["sync"] === true || data["sync"] === "true") && data["auth"]) {
 				syncBtn.className = "syncing";
 				formData = new FormData(form);
@@ -177,43 +179,45 @@ function syncSettings(event) {
 				formData.set("expires_in", data["auth"]["expires_in"]);
 				formData.set("refresh_token", data["auth"]["refresh_token"]);
 
-				var req = new XMLHttpRequest();
+				const req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/delete.php");
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
-						var res = JSON.parse(this.responseText);
-						console.log("Settings deletion result", res);
+						const res = JSON.parse(this.responseText);
+						iConsole.log("Settings deletion result", res);
 					}
 					catch (err) {
-						console.error("Could not parse settings deletion result!", err);
+						iConsole.error("Could not parse settings deletion result!", err);
 					}
 				});
 				req.send(formData);
 			}
 
-			chrome.storage.local.set(settingsObj, function() {
-				console.log("Settings stored locally");
-				if (syncPort) {
-					syncPort.postMessage({ action: "options-changed", settings: settingsObj });
-				}
+			improvedStorage.set(settingsObj).then(function() {
+				improvedStorage.set({ "last-sync": new Date().getTime() }, function() {
+					iConsole.log("Settings stored locally");
+					if (optionsPort) {
+						optionsPort.postMessage({ action: "options-changed", settings: settingsObj });
+					}
+				});
 			});
 		});
 	}
-	return false;
+	return (false);
 }
 
 function retrieveSettings() {
 	return new Promise(function(resolve, reject) {
 		try {
-			var formElems = document.querySelectorAll("form select, form input");
-			var keysToGet = [];
-			for (var i = 0; i < formElems.length; i++) {
+			const formElems = document.querySelectorAll("form select, form input");
+			const keysToGet = [];
+			for (let i = 0; i < formElems.length; i++) {
 				keysToGet.push(formElems[i].getAttribute("name"));
 			}
-			console.log(keysToGet);
-			chrome.storage.local.get(keysToGet, function(data) {
+			iConsole.log(keysToGet);
+			improvedStorage.get(keysToGet).then(function(data) {
 				resolve(data);
 			});
 		}
@@ -224,16 +228,15 @@ function retrieveSettings() {
 }
 
 function loadSettingsIntoForm(settings) {
-	console.log("Settings fetched somewhere", settings);
-	var key, settingElem;
-	for (key in settings) {
-		settingElem = document.getElementsByName(key);
+	iConsole.log("Settings fetched somewhere", settings);
+	for (let key in settings) {
+		let settingElem = document.getElementsByName(key);
 		if (settingElem.length > 0) {
 			settingElem = settingElem[0];
-			chrome.storage.local.set({[key]: settings[key]});
+			improvedStorage.set({[key]: settings[key]});
 		}
 		else {
-			console.warn("Found unknown setting key '" + key + "'");
+			iConsole.warn("Found unknown setting key '" + key + "'");
 			continue;
 		}
 		if (settingElem.nodeName == "SELECT") {
@@ -251,10 +254,11 @@ function loadSettingsIntoForm(settings) {
 			}
 		}
 		else {
-			console.warn("Unknown nodetype for setting: " + settingElem.nodeName);
+			iConsole.warn("Unknown nodetype for setting: " + settingElem.nodeName);
 			continue;
 		}
 	}
+	improvedStorage.set({ "last-sync": new Date().getTime() });
 	document.getElementById("current-custom-banner").setAttribute("src", settings["custom-banner-url"]);
 	if (!settings["custom-banner-url"]) {
 		document.getElementById("custom-header-preview").style.display = "none";
@@ -262,15 +266,14 @@ function loadSettingsIntoForm(settings) {
 	else {
 		document.getElementById("custom-header-preview").style.display = "block";
 	}
+	checkThemeSetting();
 	hideLoading();
 }
 
 window.onload = function() {
-	console.log("Initializing options page...");
-	var i;
-
-	var formElems = document.querySelectorAll("form select, form input");
-	for (i = 0; i < formElems.length; i++) {
+	iConsole.log("Initializing options page...");
+	const formElems = document.querySelectorAll("form select, form input");
+	for (let i = 0; i < formElems.length; i++) {
 		formElems[i].addEventListener("change", syncSettings);
 	}
 	document.getElementById("sync-button").addEventListener("click", syncSettings);
@@ -283,7 +286,7 @@ window.onload = function() {
 		}
 	});
 	document.getElementById("rem-custom-banner").addEventListener("click", function(event) {
-		var con = confirm("Are you sure you want to remove the custom banner from your profile?");
+		const con = confirm("Are you sure you want to remove the custom banner from your profile?");
 		if (con) {
 			document.getElementById("custom-banner-url").value = "";
 			syncSettings(null);
@@ -308,8 +311,8 @@ window.onload = function() {
 		event.preventDefault();
 	});
 
-	chrome.storage.local.get(["username", "auth", "user"], function(data) {
-		console.log(data);
+	improvedStorage.get(["username", "auth", "user"]).then(function(data) {
+		iConsole.log(data);
 		if (data["username"] === undefined || data["auth"] === undefined
 			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {
 			// authorize user on Intra, link below redirects to the correct auth page
@@ -318,16 +321,16 @@ window.onload = function() {
 		else {
 			checkIfKeyStillWorks(data["auth"]["access_token"])
 				.then(function() {
-					console.log("Access token still works.");
+					iConsole.log("Access token still works.");
 					retrieveSettings()
 						.then(loadSettingsIntoForm)
 						.catch(function(err) {
-							console.error("Could not load settings from local storage.", err);
+							iConsole.error("Could not load settings from local storage.", err);
 							alert("Failed to load settings");
 						});
 				})
 				.catch(function(res) {
-					console.log("Access token no longer works!", res);
+					iConsole.log("Access token no longer works!", res);
 					// authorize user again on Intra, link below redirects to the correct auth page
 					window.location.replace("https://darkintra.freekb.es/connect.php");
 				});

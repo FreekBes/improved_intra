@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   colors-pyxis.css                                   :+:    :+:            */
+/*   cetus.css                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/03 16:39:11 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 18:56:04 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 18:56:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 :root {
 	/* main colors */
-	--theme-color: #b73188;
-	--theme-color-dark: #7a1958;
-	--theme-color-light: #e05ab1;
+	--theme-color: #3aa2db;
+	--theme-color-dark: #1f74a1;
+	--theme-color-light: #68b8e4;
 
 	/* logtime chart styling */
-	--logtime-chart-24h-color: #e05ab1;
+	--logtime-chart-24h-color: #68b8e4;
 }

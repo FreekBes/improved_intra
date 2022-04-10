@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   theme-apply.css                                    :+:    :+:            */
+/*   apply.css                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/01 19:19:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/01 19:25:33 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,10 @@ h6 small, h6 .small,
 	border-color: var(--container-background-color) !important;
 }
 
+.notifications-container .menu-drop-list:empty:before {
+	color: var(--tertiary-text-color) !important;
+}
+
 .chosen-container .chosen-results {
 	color: var(--text-color) !important;
 }
@@ -270,6 +274,18 @@ hr,
 
 .underlined {
 	border-bottom-color: var(--general-border-color) !important;
+}
+
+.text-success {
+	color: var(--success-color) !important;
+}
+
+.text-warning {
+	color: var(--warning-color) !important;
+}
+
+.text-danger {
+	color: var(--danger-color) !important;
 }
 
 .list-group-item {

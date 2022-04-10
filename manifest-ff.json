@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "__MSG_appName__",
 	"short_name": "__MSG_shortAppName__",
-	"version": "2.7.1",
+	"version": "3.0.0",
 	"description": "__MSG_appDesc__",
 	"default_locale": "en",
 	"icons": {
@@ -15,10 +15,11 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
-	"incognito": "not_allowed",
+	"incognito": "spanning",
 	"browser_specific_settings": {
 		"gecko": {
-			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json"
+			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json",
+			"strict_min_version": "44"
 		}
 	},
 	"options_ui": {
@@ -33,28 +34,37 @@
 	],
 	"web_accessible_resources": [
 		"options/options.html",
-		"css/theme-apply.css",
-		"css/theme-light.css",
-		"css/theme-dark.css",
-		"css/colors-cetus.css",
-		"css/colors-pyxis.css",
-		"css/colors-vela.css",
-		"js/inject.js"
+		"features/themes/apply.css",
+		"features/themes/light.css",
+		"features/themes/dark.css",
+		"features/themes/colors/cetus.css",
+		"features/themes/colors/pyxis.css",
+		"features/themes/colors/vela.css",
+		"generic/inject.js"
 	],
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "css/improv.css", "css/animations.css", "css/theme-apply.css" ],
-			"js": [ "js/theme.js" ],
+			"css": [ "generic/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://darkintra.freekb.es/*" ],
+			"css": [ "generic/internal.css", "fixes/animations.css" ],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ],
+			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": [ "js/improv.js" ],
+			"js": [ "features/clustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*" ],
+			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*", "*://admin.intra.42.fr/*" ],
 			"js": [ "options/sync.js" ],
 			"run_at": "document_idle"
 		},
@@ -69,19 +79,19 @@
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"js": [ "js/profiles.js" ],
-			"run_at": "document_idle"
+			"matches": [ "*://darkintra.freekb.es/options.php*" ],
+			"js": [ "options/options.js" ],
+			"run_at": "document_end"
 		},
 		{
 			"matches": [ "https://admin.intra.42.fr/*" ],
-			"js": [ "js/admin.js" ],
+			"js": [ "features/admin.js" ],
 			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"js": [ "campus_specifics/codam/monit.js" ],
-			"css": [ "campus_specifics/codam/monit.css" ],
+			"js": [ "features/profiles.js", "features/campus/codam/monit.js", "features/logtimes.js", "features/campus/codam/coa-titles.js" ],
+			"css": [ "features/campus/codam/monit.css" ],
 			"run_at": "document_idle"
 		},
 		{
@@ -97,11 +107,17 @@
 				"https://projects.intra.42.fr/projects/42cursus-fract-ol/*",
 				"https://projects.intra.42.fr/42cursus-fract-ol/*"
 			],
-			"js": [ "js/mlx42.js" ],
+			"js": [ "features/mlx42.js" ],
 			"run_at": "document_end"
 		}
 	],
 	"background": {
-		"scripts": [ "background.js" ]
+		"scripts": [
+			"generic/console.js",
+			"background/main.js",
+			"generic/storage.js",
+			"background/comm.js",
+			"background/options.js"
+		]
 	}
 }

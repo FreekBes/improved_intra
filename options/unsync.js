@@ -12,6 +12,6 @@
 
 // these functions are run when signing out from Intranet at https://intra.42.fr
 
-chrome.storage.local.remove("username", function() {
-	console.log("Signed out from Intra, so removed the username to synchronize with. Settings will be kept locally, until another person signs in.");
+improvedStorage.remove("username").then(function() {
+	iConsole.log("Signed out from Intra, so removed the username to synchronize with. Settings will be kept locally, until another person signs in.");
 });

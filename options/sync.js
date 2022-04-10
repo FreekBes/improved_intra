@@ -19,35 +19,42 @@ function getLoggedInUserName() {
 	}
 }
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
+let syncPort = chrome.runtime.connect({ name: portName });
 syncPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+	iConsole.log("Disconnected from service worker");
 });
 syncPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
+			break;
+		case "resynced":
+			iConsole.log("Resync done");
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });
 setInterval(function() {
 	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	syncPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-chrome.storage.local.get("username", function(data) {
-	var curUsername = getLoggedInUserName();
-	if (curUsername != data["username"] && curUsername != null) {
+improvedStorage.get(["last-sync", "username"]).then(function(data) {
+	const curUsername = getLoggedInUserName();
+	const curTime = new Date().getTime();
+	// if username in storage does not equal the currently logged in user
+	// or the last sync was over an hour ago, resynchronize settings with server
+	if (!data["username"] || !data["last-sync"] || parseInt(data["last-sync"]) - curTime < -3600000 || (curUsername != data["username"] && curUsername != null)) {
 		// a new user logged in!
-		chrome.storage.local.set({"username": curUsername}, function() {
-			console.log("%c[Improved Intra]%c Intra username stored in local storage", "color: #00babc;", "");
+		improvedStorage.set({"username": curUsername}).then(function() {
+			iConsole.log("Intra username stored in local storage, now resyncing settings...");
 			syncPort.postMessage({ action: "resync" });
 		});
 	}
 	else {
-		console.log("%c[Improved Intra]%c Hello there, " + curUsername + "!", "color: #00babc;", "");
+		const lastSync = new Date(parseInt(data["last-sync"]));
+		iConsole.log("Hello there, " + curUsername + "! Your settings have last been synced on " + lastSync.toString());
 	}
 });

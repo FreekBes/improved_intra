@@ -4,6 +4,13 @@
 *.crx
 server/nogit.php
 server/test.php
-server/settings/*
-server/banners/*
+server/db/*.json
+server/settings/*.json
+server/banners/*.jpeg
+server/banners/*.png
+server/banners/*.webp
+server/banners/*.jpg
+server/banners/*.bmp
+server/banners/*.gif
+server/banners/*.mp4
 temp.js

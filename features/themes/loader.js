@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   theme.js                                           :+:    :+:            */
+/*   loader.js                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/22 18:08:26 by codam         ########   odam.nl         */
+/*   Updated: 2022/03/28 19:05:18 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-var themeColorsLink = null;
-var themeLink = null;
+let themeColorsLink = null;
+let themeLink = null;
 
-/**
- * Disable a theme, set theme or colors to false to not disable those colors
- */
+// Disable a theme, set theme or colors to false to not disable those colors
 function disableTheme(theme, colors) {
 	if (theme !== false && themeLink) {
 		themeLink.remove();
@@ -27,18 +25,16 @@ function disableTheme(theme, colors) {
 	}
 }
 
-/**
- * Enable a theme, leave colors as null or undefined to use default color scheme
- */
+// Enable a theme, leave colors as null or undefined to use default color scheme
 function enableTheme(theme, colors) {
-	console.log("%c[Improved Intra]%c Enabling theme '" + theme + "'" + (colors ? " in '" + colors + "' mode..." : ""), "color: #00babc;", "");
+	iConsole.log("Enabling theme '" + theme + "'" + (colors ? " in '" + colors + "' mode..." : ""));
 	if (!themeLink) {
 		themeLink = document.createElement("link");
 		themeLink.setAttribute("type", "text/css");
 		themeLink.setAttribute("rel", "stylesheet");
 		document.getElementsByTagName("head")[0].appendChild(themeLink);
 	}
-	themeLink.setAttribute("href", chrome.runtime.getURL("css/theme-"+theme+".css"));
+	themeLink.setAttribute("href", chrome.runtime.getURL("features/themes/"+theme+".css"));
 
 	if (colors && colors !== "default") {
 		if (!themeColorsLink) {
@@ -47,7 +43,7 @@ function enableTheme(theme, colors) {
 			themeColorsLink.setAttribute("rel", "stylesheet");
 			document.getElementsByTagName("head")[0].appendChild(themeColorsLink);
 		}
-		themeColorsLink.setAttribute("href", chrome.runtime.getURL("css/colors-"+colors+".css"));
+		themeColorsLink.setAttribute("href", chrome.runtime.getURL("features/themes/colors/"+colors+".css"));
 	}
 	else {
 		disableTheme(false, true);
@@ -55,8 +51,8 @@ function enableTheme(theme, colors) {
 }
 
 function checkThemeSetting() {
-	chrome.storage.local.get(["theme", "colors"], function(data) {
-		if (data["theme"] == "system") {
+	improvedStorage.get(["theme", "colors"]).then(function(data) {
+		if (data["theme"] == "system" || !data["theme"]) {
 			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				enableTheme("dark", data["colors"]);
 			}
@@ -69,13 +65,35 @@ function checkThemeSetting() {
 		}
 		else {
 			// fallback to default
-			enableTheme("system", null);
+			enableTheme("light", null);
 		}
 	});
 }
 
+// colorize logtimes chart based on selected color scheme
+function colorizeLogtimeChart(event) {
+	setTimeout(function() {
+		const ltSvg = document.getElementById("user-locations");
+		if (!ltSvg) {
+			return;
+		}
+		const ltDays = ltSvg.getElementsByTagName("rect");
+		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--logtime-chart-24h-color');
+		if (col24hex !== "") {
+			const col24rgb = hexToRgb(col24hex.trim());
+			for (let i = 0; i < ltDays.length; i++) {
+				const fill = ltDays[i].getAttribute("fill");
+				if (fill.indexOf("rgba") > -1) {
+					const opacity = fill.replace(/^.*,(.+)\)/, '$1');
+					ltDays[i].setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
+				}
+			}
+		}
+	}, 250);
+}
+
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function() {
-	console.log("%c[Improved Intra]%c @media rule prefers-color-scheme changed", "color: #00babc;", "");
+	iConsole.log("@media rule prefers-color-scheme changed");
 	checkThemeSetting();
 });
 
@@ -83,7 +101,7 @@ checkThemeSetting();
 
 // fix sign in page issue with background image
 window.addEventListener("DOMContentLoaded", function() {
-	if (window.location.pathname == "/users/sign_in") {
+	if (window.location.origin.indexOf("intra.42.fr") > -1 && window.location.pathname == "/users/sign_in") {
 		document.getElementsByTagName("html")[0].setAttribute("style", "background-color: unset !important;");
 	}
 });

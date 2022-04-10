@@ -1,61 +1,21 @@
-@font-face {
-	font-family: "Futura PT";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLight-e7a52027b9b5978e6a6f83b096aea906b0e79399145e65e19024f94967a2411f.otf) format("opentype");
-	font-weight: 200;
-	font-style: normal;
-}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   internal.css                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/27 03:34:57 by fbes          #+#    #+#                 */
+/*   Updated: 2022/03/28 19:28:24 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-@font-face {
-	font-family:"Futura PT";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTLightOblique-5212d3b9dd70f3017a3bd3478c96b37e8457b7d216a6f4658cbc0cdf15aea289.otf) format("opentype");
-	font-weight: 200;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "Futura PT";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBook-85be74ee15c50c39cb5601ec40aee5fc3c79090582047140fc0a9827cc3f7dab.otf) format("opentype");
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family:"Futura PT";
-	src:url(https://profile.intra.42.fr/assets/ParaType-FuturaPTBookOblique-c68d7786d4e95e7b01a9b6815a590fd8e0893e4c2ac7866781a6dd7cf553e479.ttf) format("truetype");
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "Futura PT";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavy-518b96256003be903332541a3c2ac7a54d5ba38eaeebb9bed930a530f2b8ddf9.otf) format("opentype");
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "Futura PT";
-	src: url(https://profile.intra.42.fr/assets/ParaType-FuturaPTHeavyOblique-b844b203a563c9cd175071a8a162b77459d4ac16b2493f65c0840a54385bfc8b.otf) format("opentype");
-	font-weight: 700;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "Noto Sans";
-	src: url(https://profile.intra.42.fr/assets/NotoSans-Regular-f1ce78a25f519ef928b5b8755ca230314e47f8821e7aa89ecf000f033f389a9f.ttf) format("truetype");
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "streamline-filled";
-	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot);
-	src:	url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-4646a777f76d366ec26caad7921e728e2d01b9dca49053c6b316fe596700e252.eot?#iefix) format("embedded-opentype"),
-			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-62fdf8602f56c68e259582d7ad3eb0e30b2808efaa03a074086faedcaf9017e2.woff) format("woff"),
-			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-9c4de7ac5c05533207755509de4a14b25d1b8d7276ce055fe9ed3f43b38c8328.ttf) format("truetype"),
-			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-c547d434f0242cda67f4d0438ae132de5fe5794afd2366906e2f1d3480756732.svg#streamline-30px-filled-in) format("svg");
-	font-weight: normal;
-	font-style: normal
+/* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
+@media (prefers-color-scheme: dark) {
+	html, body {
+		background-color: #12141a !important;
+		color: #f2f2f2;
+	}
 }
 
 @keyframes spin {
@@ -63,16 +23,20 @@
 	100% { transform: rotate(360deg); }
 }
 
+#improved-intra-no-extension-block {
+	display: none !important;
+	z-index: -1 !important;
+}
+
 html,
 body {
 	display: block;
-	width: 100%;
 }
 
 html {
 	padding: 0px;
 	margin: 0px;
-	background-color: var(--body-background-color);
+	background-color: var(--body-background-color) !important;
 }
 
 body,
@@ -80,17 +44,24 @@ body,
 	background-color: var(--container-background-color);
 	color: var(--text-color);
 	caret-color: var(--text-color);
-	font-family: "Futura PT", "Futura", "Helvetica", Verdana, Arial, Sans-Serif;
-	font-size: 16px;
-	padding: 0px;
+	font-family: 'Roboto', "Helvetica", Verdana, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	padding: 16px;
 	cursor: default;
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
 	min-width: 360px;
-	max-width: 540px;
 	margin: 0 auto;
 	user-select: none;
+}
+
+body.limitwidth {
+	width: 100% !important;
+	max-width: 540px !important;
+	padding: 0px !important;
+}
+
+body.limitwidth #contents {
+	padding: 0px !important;
 }
 
 body {
@@ -159,17 +130,55 @@ header {
 	padding: 0px 8px;
 }
 
-h1 {
+header h1 {
 	display: inline-block;
 	max-width: 80%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	padding: 0px 8px;
+	padding: 0px;
 	margin: 0px;
 	line-height: 56px;
-	font-size: 18px;
-	font-weight: 800;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+code {
+	display: block;
+	white-space: pre-wrap;
+	word-break: break-word;
+	font-size: smaller;
+	padding: 16px 0px;
+}
+
+h2 {
+	display: inline-block;
+	font-weight: 500;
+	margin: 0px;
+	padding: 16px 0px;
+	font-size: 19px;
+}
+
+details {
+	padding: 8px;
+	border: 1px solid #4a4a4a;
+	background: #3a3a3a;
+	border-radius: 4px;
+}
+
+summary {
+	font-size: initial;
+}
+
+details[open] summary {
+	border-bottom: 1px solid #4a4a4a;
+	padding-bottom: 8px;
+	margin-bottom: 8px;
+}
+
+hr {
+	border: none;
+	border-bottom: solid 1px var(--general-border-color);
 }
 
 header button {
@@ -182,14 +191,14 @@ header button {
 	padding: 8px 28px;
 	border: none;
 	text-align: center;
-	font-size: 26px;
+	font-size: 25px;
 	height: 100%;
 	width: 56px;
 	padding: 0px;
 
 	font-family: "streamline-filled";
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
@@ -209,11 +218,11 @@ header button#sync-button.syncing {
 header button#sync-button::after {
 	display: inline-block;
 	transform-origin: center;
-	content: '\e3b7';
+	content: '\1F4BE';
 }
 
 header button#sync-button.syncing::after {
-	content: '\e29b';
+	content: '\1F5D8';
 	animation: spin 1.3s linear infinite;
 	animation-direction: reverse;
 }
@@ -243,9 +252,9 @@ section:last-child {
 	border-bottom: none;
 }
 
-h2 {
+h3 {
 	margin: 0px 12px 12px 12px;
-	font-weight: 600;
+	font-weight: 500;
 	text-transform: uppercase;
 	font-size: 0.9em;
 }
@@ -262,8 +271,9 @@ fieldset {
 }
 
 label {
+	font-family: 'Roboto Condensed', "Helvetica", Verdana, Arial, sans-serif;
 	text-align: left;
-	font-weight: 100;
+	font-weight: 300;
 	font-size: 1em;
 	padding-left: 12px;
 }
@@ -317,8 +327,8 @@ button {
 }
 
 .non-important-btn {
-	background-color: #7a7a7a;
-	border-color: #7a7a7a;
+	background-color: var(--scrollbar-thumb-color);
+	border-color: var(--scrollbar-thumb-color);
 }
 
 .danger-btn {
@@ -344,8 +354,8 @@ button:focus {
 
 .non-important-btn:hover,
 .non-important-btn:focus {
-	background-color: #9a9a9a;
-	border-color: #9a9a9a;
+	background-color: var(--scrollbar-thumb-color-active);
+	border-color: var(--scrollbar-thumb-color-active);
 }
 
 .danger-btn:hover,
@@ -377,14 +387,14 @@ input[readonly] {
 }
 
 label[for="sync"] span.failed::after {
-	font-family: Sans-Serif;
+	font-family: sans-serif;
 	content: ' \2A2F';
 	color: var(--fail-color);
 	font-weight: bold;
 }
 
 label[for="sync"] span.success::after {
-	font-family: Sans-Serif;
+	font-family: sans-serif;
 	content: ' \2714';
 	color: var(--success-color);
 	font-weight: bold;

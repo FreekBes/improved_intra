@@ -6,45 +6,46 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 20:22:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/07 04:14:21 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/28 17:14:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-var syncPort = chrome.runtime.connect({ name: "sync_port" });
-syncPort.onDisconnect.addListener(function() {
-	console.log("%c[Improved Intra]%c Disconnected from service worker", "color: #00babc;", "");
+const optionsURL = "https://darkintra.freekb.es/options.php";
+
+let authPort = chrome.runtime.connect({ name: portName });
+authPort.onDisconnect.addListener(function() {
+	iConsole.log("Disconnected from service worker");
 });
-syncPort.onMessage.addListener(function(msg) {
+authPort.onMessage.addListener(function(msg) {
 	switch (msg["action"]) {
 		case "pong":
-			console.log("pong");
+			iConsole.log("pong");
 			break;
 		case "resynced":
-			console.log("Options resynced.");
+			iConsole.log("Options resynced.");
 			window.location.replace(optionsURL);
 			break;
 		case "error":
-			console.error(msg["message"]);
+			iConsole.error(msg["message"]);
 			break;
 	}
 });
 setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: "sync_port" });
+	authPort.disconnect();
+	authPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-var authResElem = document.getElementById("result");
+const authResElem = document.getElementById("result");
 if (authResElem) {
 	try {
-		var authRes = JSON.parse(authResElem.innerText);
+		const authRes = JSON.parse(authResElem.innerText);
 		if (!("error" in authRes["auth"])) {
-			var optionsURL = chrome.runtime.getURL('options/options.html');
-			var action = document.getElementById("action");
+			const action = document.getElementById("action");
 			if (action) {
 				action.innerText = "Please wait while we redirect you to the Improved Intra 42 options page...";
 			}
 
-			var redirLink = document.getElementById("redir_link");
+			const redirLink = document.getElementById("redir_link");
 			if (redirLink) {
 				redirLink.setAttribute("href", optionsURL);
 			}
@@ -52,25 +53,25 @@ if (authResElem) {
 			// display clickable link in case redirection does not happen
 			// after 2 seconds
 			setTimeout(function() {
-				var clicker = document.getElementById("clicker");
+				const clicker = document.getElementById("clicker");
 				if (clicker) {
 					clicker.style.display = "block";
 				}
 			}, 2000);
 
-			chrome.storage.local.set(authRes, function() {
-				chrome.storage.local.set({"username": authRes["user"]["login"]}, function() {
-					console.log("%c[Improved Intra]%c Authentication details saved in local storage!", "color: #00babc;", "");
-					syncPort.postMessage({ action: "resync" });
+			improvedStorage.set(authRes).then(function() {
+				improvedStorage.set({"username": authRes["user"]["login"]}).then(function() {
+					iConsole.log("Authentication details saved in local storage!");
+					authPort.postMessage({ action: "resync" });
 				});
 			});
 		}
 		else {
-			console.error("Error " + authRes["auth"]["error"] + ":", authRes["auth"]["error_description"]);
+			iConsole.error("Error " + authRes["auth"]["error"] + ":", authRes["auth"]["error_description"]);
 		}
 	}
 	catch (err) {
-		console.error(err);
+		iConsole.error(err);
 		alert("Unable to retrieve authentication details. Could not authorize in extension's scope. See the Javascript console for details.");
 	}
 }

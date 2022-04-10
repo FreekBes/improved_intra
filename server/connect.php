@@ -17,6 +17,7 @@
 		<title>Connect Improved Intra 42 with your Intranet account</title>
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<link rel="icon" type="image/ico" href="favicon.ico" />
+		<!-- TODO remove below style block, use internal.css -->
 		<style>
 			html {
 				display: block;
