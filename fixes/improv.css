@@ -376,7 +376,8 @@ a[data-tooltip-login="fbes"]::before,
 
 /* no custom titles in the following places */
 a[data-tooltip-login].student-kind-student::before,
-#coalition-top-user a[data-tooltip-login]::before {
+#coalition-top-user a[data-tooltip-login]::before,
+#coalition-scores a[data-tooltip-login]::before {
 	content: '' !important;
 }
 
