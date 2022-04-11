@@ -75,20 +75,19 @@
 			return (false);
 		}
 		$tokensDB = json_decode(file_get_contents("db/tokens.json"));
+		$hashedToken = sha1($accessToken);
+		if ($hashedToken === false) {
+			return (false);
+		}
 		// print_r($tokensDB);
 		// echo "Searching for ".$hashedToken;
 		$tokenCount = count($tokensDB);
-		for ($i = 0; $i < $tokenCount; $i++) {
-			if (password_verify($accessToken, $tokensDB[$i])) {
-				return (true);
-			}
-		}
-		return (false);
+		return (in_array($hashedToken, $tokensDB));
 	}
 
 	// save generated access tokens on server
 	function save_access_token($auth) {
-		$hashedToken = password_hash($auth["access_token"], PASSWORD_DEFAULT);
+		$hashedToken = sha1($auth["access_token"]);
 		if ($hashedToken === false) {
 			return (false);
 		}
