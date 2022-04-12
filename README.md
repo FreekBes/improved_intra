@@ -14,6 +14,7 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 - When a user is logged in, clicking on their location will open up a **cluster map** and mark their location
 - Add a **link to your GitHub** on your Intra profile, visible to anyone with the extension installed
 - An option to use the old Black Hole countdown in profile banners
+- Show cumulative logtime hours per week and per month in logtime charts
 - Removal of the annoying broadcasts button, which is unused by most campuses
 - An option to hide the entire Black Hole date from Intra for less stress
 - Replacement of the Black Hole for Codam students, simply showing the progress towards their **Monitoring System** instead (formerly part of [Monitoring System Progress for Intra](https://github.com/FreekBes/codam_intra_monit_system_display))
@@ -23,7 +24,7 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 - Add small **animations** here and there to soothe the eyes
 - An option to auto-equip coalition rank titles when studying at Codam
 - All your settings for the extension are synced using the 42 API, meaning it works cross-browser and **without having to sign in to Google Chrome**
-- A few easter eggs here and there #haha
+- A few easter eggs here and there [#haha](https://intra.42.fr/#haha)
 
 
 ## Installation
