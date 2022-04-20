@@ -6,9 +6,27 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:17:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/20 17:39:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+function createMenuLink(userMenu, href, text, position) {
+	const menuLink = document.createElement("a");
+	menuLink.setAttribute("href", href);
+	menuLink.setAttribute("target", "_self");
+	menuLink.innerText = text;
+	const menuItem = document.createElement("li");
+	menuItem.appendChild(menuLink);
+	if (position && typeof position == "object") {
+		userMenu.insertBefore(menuItem, position);
+	}
+	else if (position == "bottom") {
+		userMenu.appendChild(menuItem);
+	}
+	else {
+		userMenu.insertBefore(menuItem, userMenu.children[0]);
+	}
+}
 
 function setGeneralImprovements() {
 	// fix things on profile banners
@@ -16,24 +34,23 @@ function setGeneralImprovements() {
 		fixProfileBanners();
 	}
 
-	// add link to options in account/user menu
 	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
 	if (userMenu) {
+		// add link to extension options in account/user menu
 		const intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
-		if (intraSettingsOption) {
-			intraSettingsOption.innerText = "Intranet Settings";
+
+		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
+		createMenuLink(userMenu, "https://darkintra.freekb.es/options.php", "Improved Intra Settings", intraSettingsOption.parentNode.nextSibling);
+
+		// add view my profile link if it seems to be missing from the menu
+		if (!userMenu.querySelector("a[href*='https://profile.intra.42.fr/users/']")) {
+			createMenuLink(userMenu, "https://profile.intra.42.fr/users/me", "View my profile");
 		}
 
-		const extensionSettingsLink = document.createElement("a");
-		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
-		extensionSettingsLink.setAttribute("href", "https://darkintra.freekb.es/options.php");
-		extensionSettingsLink.setAttribute("target", "_self");
-		extensionSettingsLink.innerText = "Improved Intra Settings";
-
-		const extensionSettings = document.createElement("li");
-		extensionSettings.appendChild(extensionSettingsLink);
-
-		userMenu.insertBefore(extensionSettings, userMenu.children[userMenu.children.length - 1]);
+		// add manage slots link if it seems to be missing from the menu
+		if (!userMenu.querySelector("a[href='https://profile.intra.42.fr/slots']")) {
+			createMenuLink(userMenu, "https://profile.intra.42.fr/slots", "Manage slots");
+		}
 	}
 
 	// colorize logtime chart based on color scheme
