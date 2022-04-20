@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/01 19:50:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/20 17:42:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ html {
 .modal-v2 .modal-header,
 .event-modal .head h4,
 .exam-modal .head h4,
-#admin-user h3 {
+#admin-user h3,
+.app-sidebar-left .marked-title {
 	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
 	font-weight: 700 !important;
 }
