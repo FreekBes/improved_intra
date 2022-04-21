@@ -88,6 +88,9 @@ function unsetCustomBannerIfRequired() {
 
 function setGitHubLink(gitHubName) {
 	gitHubName = gitHubName.trim();
+	if (gitHubName == "" || gitHubName == "null" || gitHubName == "undefined") {
+		return;
+	}
 	const gitHubLink = document.getElementById("ii-profile-link-github");
 	if (gitHubLink) {
 		if (gitHubName.indexOf("@") == 0) {
@@ -135,14 +138,14 @@ function setCustomProfile() {
 	if (gExtSettings["show-custom-profiles"] === true || gExtSettings["show-custom-profiles"] === "true") {
 		if (gProfileBanner) {
 			if (gUName == gExtSettings["username"]) {
-				if (gExtSettings["link-github"] && gExtSettings["link-github"].trim() != "") {
+				if (gExtSettings["link-github"]) {
 					setGitHubLink(gExtSettings["link-github"]);
 				}
 			}
 			else {
 				getUserSettings(gUName)
 					.then(function(uSettings) {
-						if (uSettings["link-github"] && uSettings["link-github"].trim() != "") {
+						if (uSettings["link-github"]) {
 							setGitHubLink(uSettings["link-github"]);
 						}
 					})
