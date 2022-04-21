@@ -121,7 +121,11 @@
 		if (isset($_POST[$key]) && !empty($_POST[$key])) {
 			switch ($keyType) {
 				case "S":
-					$userSettings[$key] = $_POST[$key];
+					$userSettings[$key] = trim($_POST[$key]);
+					// hotfixes for null, undefined
+					if (strtolower($userSettings[$key]) == "null" || strtolower($userSettings[$key]) == "undefined") {
+						$userSettings[$key] = "";
+					}
 					break;
 				case "B":
 					$userSettings[$key] = ($_POST[$key] == "true" || intval($_POST[$key]) > 0);
