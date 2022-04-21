@@ -45,7 +45,7 @@ function openClusterMap(event) {
 		// since we can no longer check when a window is loaded with an event
 		// for domains that are not of the same origin, we simply try and send
 		// the location ID multiple times to the opened cluster map window.
-		// do this every 250 milliseconds, for up to 2 seconds
+		// do this every 250 milliseconds, for up to 5 seconds
 		// could also do it with the extension but then we need more permissions...
 		const highlightInterval = setInterval(function() {
 			win.location.href = url + "#";
@@ -53,6 +53,6 @@ function openClusterMap(event) {
 		}, 250);
 		setTimeout(function() {
 			clearInterval(highlightInterval);
-		}, 2000);
+		}, 5000);
 	}
 }
