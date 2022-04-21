@@ -1,3 +1,4 @@
+<?PHP // php block to make GitHub know this is a php page, not "hack" or whatever ?>
 <!DOCTYPE html>
 <html>
 <head>
