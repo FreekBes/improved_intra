@@ -22,9 +22,13 @@ function openClusterMap(event) {
 		case "Paris":
 			url = "https://stud42.fr/clusters";
 			break;
+		case "Lyon":
+			url = "https://42.slopez.dev/#/clusters";
+			break;
 		case "Kuala Lumpur":
 			url = "https://locatepeer.vercel.app/"+location;
 			break;
+		case "Brussels":
 		default: {
 			if (event.target.textContent.indexOf(".codam.nl") > -1) {
 				url = "https://codamhero.dev/v2/clusters.php";
