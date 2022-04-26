@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/14 10:19:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/26 14:24:38 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/26 14:57:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,46 @@ function changeProjectAttachmentIcons() {
 		const link = attachments[i].querySelector("a");
 		const icon = attachments[i].querySelector("span[class*='icon']");
 
-		// minilibx icons
-		if (link.innerText.indexOf("minilibx") == 0) {
+		// below code sucks but ¯\_(ツ)_/¯
+
+		// subject (any file that is named subject.pdf)
+		if (link.innerText == "subject.pdf") {
+			icon.className = "icon-note-paper-2";
+		}
+
+		// any .tar.* file
+		if (link.innerText.indexOf(".tar.") > -1) {
 			icon.className = "icon-folder-zip";
+		}
+
+		// any .zip file
+		if (link.innerText.indexOf(".zip") > -1) {
+			icon.className = "icon-folder-zip";
+		}
+
+		// any .tgz file
+		if (link.innerText.indexOf(".tgz") > -1) {
+			icon.className = "icon-folder-zip";
+		}
+
+		// any .cpp file
+		if (link.innerText.indexOf(".cpp") > -1) {
+			icon.className = "icon-file-code";
+		}
+
+		// any .hpp file
+		if (link.innerText.indexOf(".hpp") > -1) {
+			icon.className = "icon-file-code";
+		}
+
+		// testers (any file with tester in name)
+		if (link.innerText.indexOf("tester") > -1) {
+			icon.className = "icon-shield-3";
+		}
+
+		// checker (any file with checker in name)
+		if (link.innerText.indexOf("checker") > -1) {
+			icon.className = "icon-shield-3";
 		}
 	}
 }
