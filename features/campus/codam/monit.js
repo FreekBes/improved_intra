@@ -33,7 +33,6 @@ const monit = {
 	bhContainer: null,
 	logTimes: [],
 	logTimesTotal: 0,
-	username: "me",
 
 	/**
 	 * Get the dates of this week's days
@@ -101,7 +100,7 @@ const monit = {
 					else {
 						monit.logTimesTotal = 0;
 					}
-					resolve();
+					resolve(username);
 				}
 				catch (err) {
 					reject(err);
@@ -201,7 +200,7 @@ const monit = {
 	/**
 	 * Write the progress data to the Black Hole box
 	 */
-	writeProgress: function() {
+	writeProgress: function(username) {
 		monit.getStatus().then(function(status) {
 			monit.setExpected();
 			iConsole.log("Logtimes", monit.logTimes);
@@ -297,7 +296,7 @@ const monit = {
 			}
 
 			// profile easter egg: use a certain emote on certain user pages
-			switch (monit.username) {
+			switch (username) {
 				case "fbes":
 					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
 					smiley.setAttribute("class", "iconf-canon");

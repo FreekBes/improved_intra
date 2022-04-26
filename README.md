@@ -5,26 +5,17 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 ## Quick Download
 [<img src="https://lh4.ggpht.com/x-plP9YZXhCaiDkTKQ5S29PwLmdi4feEKrMOtQle4NuoOaUgKUMH9pPWIg91da3anhSmw-G8erEIuU0d" width="128" alt="Google Chrome" title="Download for Google Chrome">](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/)
 [<img src="https://www.mozilla.org/media/img/structured-data/logo-firefox-browser.fbc7ffbb50fd.png" width="128" alt="Mozilla Firefox" title="Download for Mozilla Firefox">](https://github.com/FreekBes/improved_intra/releases/latest/download/firefox.xpi)
-[<img src="https://www.iconattitude.com/icons/open_icon_library/oxygen-style/png/256/application-javascript.png" width="128" alt="Google Chrome (macOS User Profile Script)" title="Use a script to add the extension to your macOS profile, to not have to reinstall it every login">](https://github.com/FreekBes/codam_auto_extension_installer/)
+[<img src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/text-x-script-icon.png" width="128" alt="Google Chrome (macOS User Profile Script)" title="Use a script to add the extension to your macOS profile, to not have to reinstall it every login">](https://github.com/FreekBes/codam_auto_extension_installer/)
 
 
-## Full list of features
-- A fully working **dark theme**, which even works for staff accounts
-- **Customizable banners** for user profiles, which are even visible to other users with the extension installed
-- When a user is logged in, clicking on their location will open up a **cluster map** and mark their location
-- Add a **link to your GitHub** on your Intra profile, visible to anyone with the extension installed
-- An option to use the old Black Hole countdown in profile banners
-- Show cumulative logtime hours per week and per month in logtime charts
-- Removal of the annoying broadcasts button, which is unused by most campuses
-- An option to hide the entire Black Hole date from Intra for less stress
-- Replacement of the Black Hole for Codam students, simply showing the progress towards their **Monitoring System** instead (formerly part of [Monitoring System Progress for Intra](https://github.com/FreekBes/codam_intra_monit_system_display))
-- Weekdays for agenda items
-- Color schemes for the website: change your theme color!
-- Fixed many small but annoying OCD-triggering design mistakes
-- Add small **animations** here and there to soothe the eyes
-- An option to auto-equip coalition rank titles when studying at Codam
-- All your settings for the extension are synced using the 42 API, meaning it works cross-browser and **without having to sign in to Google Chrome**
-- A few easter eggs here and there [#haha](https://intra.42.fr/#haha)
+## A small list of features added by this extension:
+- Dark Theme! Finally, your eyes can rest when working at night.
+- Customizable user profiles! Now you can show a bit of your personality through your user page: add a custom banner image to your profile, visible to everyone with the extension installed, or add a link to your GitHub-page.
+- An option to use the old Black Hole countdown instead of showing one's absorption date.
+- Removal of the broadcasts button, which is unused by most campuses.
+- Replacement of the Black Hole for Codam students, simply showing the progress towards their monitoring system instead.
+
+You can find the full list of features in the [Wiki](https://github.com/FreekBes/improved_intra/wiki/Features).
 
 
 ## Installation
@@ -34,7 +25,7 @@ For Firefox, please see the [Releases](https://github.com/FreekBes/improved_intr
 
 
 ## Contributing
-If you wish to contribute to this extension, please follow the contributing guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
+If you wish to contribute to this extension, please follow the contributing guidelines in the [Wiki](https://github.com/FreekBes/improved_intra/wiki/Contributing).
 
 
 ## Screenshots

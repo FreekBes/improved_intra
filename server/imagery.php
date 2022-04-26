@@ -55,6 +55,9 @@
 	// get all setting files
 	$settingFiles = glob("settings/*.json");
 
+	// sort setting files by last modified date so last modified settings come up first
+	usort($settingFiles, function($a, $b) { return filemtime($b) - filemtime($a); });
+
 	// go through all user settings
 	foreach ($settingFiles as $settingFile) {
 		$userSettings = json_decode(file_get_contents($settingFile), true);
