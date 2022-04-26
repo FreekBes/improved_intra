@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/14 10:19:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/26 14:57:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/26 15:43:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,6 @@ function createExtraItem(icon, href, text, title) {
 
 	item.appendChild(nameElem);
 	return (item);
-}
-
-function addMLX42Link() {
-	let projectAttachments = document.querySelector(".project-attachment-item");
-	if (!projectAttachments) {
-		return;
-	}
-	projectAttachments = projectAttachments.parentNode;
-
-
 }
 
 function addProjectExtrasContainer() {
@@ -153,5 +143,7 @@ function changeProjectAttachmentIcons() {
 	}
 }
 
-changeProjectAttachmentIcons();
-addProjectExtras();
+if (window.location.pathname != "/") {
+	changeProjectAttachmentIcons();
+	addProjectExtras();
+}
