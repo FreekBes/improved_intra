@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/20 17:42:17 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/26 15:01:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ li.scaleteam-list-item .rating {
 	padding-top: 8px !important;
 	overflow: hidden !important;
 	text-overflow: ellipsis !important;
+}
+
+/* fix font-weight for project description headers */
+.project-desc-item h4 {
+	font-weight: bold !important;
 }
 
 /* custom day name element styling for agenda events on dashboard */
