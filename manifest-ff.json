@@ -94,19 +94,8 @@
 			"run_at": "document_idle"
 		},
 		{
-			"matches": [
-				"https://projects.intra.42.fr/projects/cub3d/*",
-				"https://projects.intra.42.fr/cub3d/*",
-				"https://projects.intra.42.fr/projects/minirt/*",
-				"https://projects.intra.42.fr/minirt/*",
-				"https://projects.intra.42.fr/projects/so_long/*",
-				"https://projects.intra.42.fr/so_long/*",
-				"https://projects.intra.42.fr/projects/42cursus-fdf/*",
-				"https://projects.intra.42.fr/42cursus-fdf/*",
-				"https://projects.intra.42.fr/projects/42cursus-fract-ol/*",
-				"https://projects.intra.42.fr/42cursus-fract-ol/*"
-			],
-			"js": [ "features/mlx42.js" ],
+			"matches": [ "https://projects.intra.42.fr/*" ],
+			"js": [ "features/projects.js" ],
 			"run_at": "document_end"
 		}
 	],
