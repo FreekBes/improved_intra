@@ -101,44 +101,58 @@ function changeProjectAttachmentIcons() {
 
 		// below code sucks but ¯\_(ツ)_/¯
 
-		// subject (any file that is named subject.pdf)
-		if (link.innerText == "subject.pdf") {
+		// subject (any file that is named subject.pdf) or other pdfs and txts
+		if (
+			link.innerText == "subject.pdf" ||
+			link.innerText.indexOf(".pdf") > -1 ||
+			link.innerText.indexOf(".txt") > -1
+		) {
 			icon.className = "icon-note-paper-2";
+			continue;
 		}
 
-		// any .tar.* file
-		if (link.innerText.indexOf(".tar.") > -1) {
+		// any log file
+		if (link.innerText.indexOf(".log") > -1) {
+			icon.className = "icon-note-paper-1";
+			continue;
+		}
+
+		// any archive file
+		if (
+			link.innerText.indexOf(".tar.") > -1 ||
+			link.innerText.indexOf(".zip") > -1 ||
+			link.innerText.indexOf(".tgz") > -1 ||
+			link.innerText.indexOf(".rar") > -1 ||
+			link.innerText.indexOf(".tar") > -1
+		) {
 			icon.className = "icon-folder-zip";
+			continue;
 		}
 
-		// any .zip file
-		if (link.innerText.indexOf(".zip") > -1) {
-			icon.className = "icon-folder-zip";
+		// any .iso file
+		if (link.innerText.indexOf(".iso") > -1) {
+			icon.className = "icon-cd-1";
+			continue;
 		}
 
-		// any .tgz file
-		if (link.innerText.indexOf(".tgz") > -1) {
-			icon.className = "icon-folder-zip";
-		}
-
-		// any .cpp file
-		if (link.innerText.indexOf(".cpp") > -1) {
+		// any code file
+		if (
+			link.innerText.indexOf(".cpp") > -1 ||
+			link.innerText.indexOf(".hpp") > -1 ||
+			link.innerText.indexOf(".c") > -1 ||
+			link.innerText.indexOf(".h") > -1 ||
+			link.innerText.indexOf(".py") > -1 ||
+			link.innerText.indexOf(".css") > -1
+		) {
 			icon.className = "icon-file-code";
-		}
-
-		// any .hpp file
-		if (link.innerText.indexOf(".hpp") > -1) {
-			icon.className = "icon-file-code";
+			continue;
 		}
 
 		// testers (any file with tester in name)
-		if (link.innerText.indexOf("tester") > -1) {
-			icon.className = "icon-shield-3";
-		}
-
 		// checker (any file with checker in name)
-		if (link.innerText.indexOf("checker") > -1) {
+		if (link.innerText.indexOf("tester") > -1 || link.innerText.indexOf("checker") > -1) {
 			icon.className = "icon-shield-3";
+			continue;
 		}
 	}
 }
