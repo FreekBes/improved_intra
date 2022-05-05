@@ -40,7 +40,7 @@
 	<div id="saved-notif">Settings saved!</div>
 	<div id="contents">
 		<header>
-			<button id="back-button">&#x2B05;</button>
+			<button id="back-button"></button>
 			<h2>Improved Intra 42 Settings</h2>
 			<button id="sync-button" class="sync-complete"></button>
 		</header>

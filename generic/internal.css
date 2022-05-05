@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/* Import Google's Material Icons */
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://darkintra.freekb.es/fonts/MaterialIcons-Regular.ttf);
+}
+
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
 @media (prefers-color-scheme: dark) {
 	html, body {
@@ -196,19 +204,30 @@ header button {
 	width: 56px;
 	padding: 0px;
 
-	font-family: "streamline-filled";
+	/* Material Icons */
+	font-family: 'Material Icons';
+	font-weight: normal;
 	font-style: normal;
-	font-weight: 400;
-	font-variant: normal;
-	text-transform: none;
+	font-size: 24px;
 	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	/* End Material Icons */
 }
 
 header button#back-button {
 	float: left;
 	padding-bottom: 4px;
+}
+
+header button#back-button::after {
+	content: 'arrow_back';
 }
 
 header button#sync-button.syncing {
@@ -218,11 +237,11 @@ header button#sync-button.syncing {
 header button#sync-button::after {
 	display: inline-block;
 	transform-origin: center;
-	content: '\1F4BE';
+	content: 'save';
 }
 
 header button#sync-button.syncing::after {
-	content: '\1F5D8';
+	content: 'sync';
 	animation: spin 1.3s linear infinite;
 	animation-direction: reverse;
 }
