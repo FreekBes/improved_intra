@@ -121,6 +121,12 @@ li.scaleteam-list-item .rating {
 	font-weight: bold !important;
 }
 
+/* hide empty project description elements (not working if newline is there, which is often the case) */
+.project-desc-item:empty,
+.project-desc-item:blank {
+	display: none !important;
+}
+
 /* custom day name element styling for agenda events on dashboard */
 .event-list .event-item .event-left .date-day-name {
 	color: #fff;
