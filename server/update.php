@@ -29,6 +29,9 @@
 	// include authorization methods
 	require_once("auth.php");
 
+	// include parsing methods
+	require_once("parsing.php");
+
 	// set expected values per settings version (starts at version 1)
 	// values start with an identifier: S for string, B for boolean, N for number (integer)
 	// values with a * are required
@@ -175,20 +178,14 @@
 		}
 	}
 
+	// parse git username (can be gitplatform@username)
+	if (isset($userSettings["link-github"])) {
+		parse_github_link($userSettings);
+	}
+
 	// check if banner image URL is gone, if so remove it from server
 	if (isset($userSettings["custom-banner-url"])) {
-		if (empty($userSettings["custom-banner-url"])) {
-			delete_old_user_banner($userSettings["username"]);
-		}
-		else if (!filter_var($userSettings["custom-banner-url"], FILTER_VALIDATE_URL)) {
-			$userSettings["custom-banner-url"] = "";
-		}
-		else {
-			$hostName = parse_url($userSettings["custom-banner-url"], PHP_URL_HOST);
-			if ($hostName != $_SERVER["SERVER_NAME"]) {
-				delete_old_user_banner($userSettings["username"]);
-			}
-		}
+		parse_custom_banner_url($userSettings);
 	}
 
 	// check if banner image needs to be updated from a file

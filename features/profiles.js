@@ -93,21 +93,38 @@ function setGitHubLink(gitHubName) {
 	}
 	const gitHubLink = document.getElementById("ii-profile-link-github");
 	if (gitHubLink) {
-		if (gitHubName.indexOf("@") == 0) {
-			gitHubName = gitHubName.substring(1);
-		}
-		else if (gitHubName.indexOf("http://") == 0 || gitHubName.indexOf("https://") == 0) {
-			if (gitHubName.endsWith("/")) {
-				gitHubName = gitHubName.split("/");
-				gitHubName = gitHubName[gitHubName.length - 2];
+		// gitHubName can actually be gitplatform@username
+		// parse gitplatform to see which URL to use
+		if (gitHubName.indexOf("@") > -1) {
+			gitHubName = gitHubName.split("@");
+			if (gitHubName.length == 2) {
+				gitHubName[0] = gitHubName[0].toLowerCase();
+				gitHubLink.innerText = gitHubName[1];
+				switch (gitHubName[0]) {
+					case "github":
+						gitHubLink.parentNode.setAttribute("href", "https://www.github.com/" + gitHubName[1]);
+						gitHubLink.parentNode.parentNode.style.display = "block";
+						break;
+					case "gitlab":
+						gitHubLink.parentNode.setAttribute("href", "https://gitlab.com/" + gitHubName[1]);
+						gitHubLink.parentNode.parentNode.style.display = "block";
+						gitHubLink.parentNode.parentNode.setAttribute("data-original-title", "GitLab"); // display GitLab in tooltip
+						gitHubLink.parentNode.previousElementSibling.className = "fa fa-gitlab"; // change to gitlab icon
+						break;
+					default:
+						iConsole.warn("Unsupported Git platform found in setGitHubLink():", gitHubName[0]);
+						break;
+				}
 			}
 			else {
-				gitHubName = gitHubName.split("/").pop();
+				iConsole.warn("Length of split on '@' variable gitHubName in setGitHubLink() did not equal 2! Not displaying link.");
 			}
 		}
-		gitHubLink.innerText = gitHubName;
-		gitHubLink.parentNode.setAttribute("href", "https://www.github.com/" + gitHubName);
-		gitHubLink.parentNode.parentNode.style.display = "block";
+		else {
+			gitHubLink.innerText = gitHubName;
+			gitHubLink.parentNode.setAttribute("href", "https://www.github.com/" + gitHubName);
+			gitHubLink.parentNode.parentNode.style.display = "block";
+		}
 	}
 }
 
