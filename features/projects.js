@@ -108,6 +108,13 @@ function changeProjectAttachmentIcons() {
 
 		// below code sucks but ¯\_(ツ)_/¯
 
+		// any external item: display link icon
+		// usually already there (https://projects.intra.42.fr/projects/c-piscine-c-09), but check anyways
+		if (link.href.indexOf(".intra.42.fr") == -1) {
+			icon.className = "icon-link-2";
+			continue;
+		}
+
 		// subject (any file that is named subject.pdf) or other pdfs and txts
 		if (
 			link.innerText == "subject.pdf" ||
