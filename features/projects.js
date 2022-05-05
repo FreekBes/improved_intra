@@ -65,7 +65,14 @@ function addProjectExtrasContainer() {
 	extrasList.className = "project-attachments-list";
 
 	projectExtras.appendChild(extrasList);
-	projectSummary.insertBefore(projectExtras, projectSummary.lastElementChild);
+
+	const intraAttachments = projectSummary.querySelector(".project-attachments-list");
+	if (intraAttachments && intraAttachments.parentElement.nextElementSibling) {
+		projectSummary.insertBefore(projectExtras, intraAttachments.parentElement.nextElementSibling);
+	}
+	else {
+		projectSummary.appendChild(projectExtras);
+	}
 	return (extrasList);
 }
 
