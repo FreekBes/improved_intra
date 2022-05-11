@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:22:39 by fbes          ########   odam.nl         */
+/*   Updated: 2022/05/11 14:33:10 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,40 +296,28 @@ const monit = {
 			}
 
 			// profile easter egg: use a certain emote on certain user pages
-			switch (username) {
-				case "fbes":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-canon");
-					break;
-				case "lde-la-h":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-cactus");
-					break;
-				case "jgalloni":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-bug-1");
-					break;
-				case "ieilat":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-pacman-ghost");
-					break;
-				case "pde-bakk":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-crown-1");
-					break;
-				case "pvan-dij":
-					smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
-					smiley.setAttribute("class", "iconf-milk");
-					break;
+			const customEmotes = {
+				"fbes": "icon-light-house",
+				"lde-la-h": "iconf-cactus",
+				"jgalloni": "iconf-bug-1",
+				"ieilat": "iconf-pacman-ghost",
+				"pde-bakk": "iconf-crown-1",
+				"pvan-dij": "iconf-milk",
+				"jkoers": "iconf-cctv-2"
+			};
+			if (Object.keys(customEmotes).indexOf(username) > -1) {
+				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
+				smiley.setAttribute("class", customEmotes[username]);
+
+				smiley.addEventListener("click", function(ev) {
+					if (!this.getAttribute("data-oclass")) {
+						return;
+					}
+					const tempClass = this.getAttribute("class");
+					this.setAttribute("class", this.getAttribute("data-oclass"));
+					this.setAttribute("data-oclass", tempClass);
+				});
 			}
-			smiley.addEventListener("click", function() {
-				if (!smiley.getAttribute("data-oclass")) {
-					return;
-				}
-				const tempClass = smiley.getAttribute("class");
-				smiley.setAttribute("class", smiley.getAttribute("data-oclass"));
-				smiley.setAttribute("data-oclass", tempClass);
-			});
 			ltHolder.appendChild(smiley);
 			ltHolder.appendChild(progressPerc);
 
