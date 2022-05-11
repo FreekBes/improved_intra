@@ -39,7 +39,8 @@
 		"features/themes/colors/cetus.css",
 		"features/themes/colors/pyxis.css",
 		"features/themes/colors/vela.css",
-		"generic/inject.js"
+		"generic/inject.js",
+		"promo/emotes.html"
 	],
 	"content_scripts": [
 		{

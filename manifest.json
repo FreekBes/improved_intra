@@ -31,7 +31,8 @@
 				"features/themes/colors/cetus.css",
 				"features/themes/colors/pyxis.css",
 				"features/themes/colors/vela.css",
-				"options/options.html"
+				"options/options.html",
+				"promo/emotes.html"
 			],
 			"matches": [ "*://*.intra.42.fr/*", "*://darkintra.freekb.es/*" ]
 		}

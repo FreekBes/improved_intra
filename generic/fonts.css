@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 17:20:47 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 17:24:08 by fbes          ########   odam.nl         */
+/*   Updated: 2022/05/11 12:23:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@
 			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-62fdf8602f56c68e259582d7ad3eb0e30b2808efaa03a074086faedcaf9017e2.woff) format("woff"),
 			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-9c4de7ac5c05533207755509de4a14b25d1b8d7276ce055fe9ed3f43b38c8328.ttf) format("truetype"),
 			url(https://profile.intra.42.fr/assets/streamline-30px-filled-in-c547d434f0242cda67f4d0438ae132de5fe5794afd2366906e2f1d3480756732.svg#streamline-30px-filled-in) format("svg");
+	font-weight: normal;
+	font-style: normal
+}
+
+@font-face {
+	font-family: "streamline-30px";
+	src:	url(https://profile.intra.42.fr/assets/streamline-30px-e9f9c33fedae6cebb8167a3b92464bc04ef796f14c34d49291ac087262691fcb.eot);
+	src:	url(https://profile.intra.42.fr/assets/streamline-30px-e9f9c33fedae6cebb8167a3b92464bc04ef796f14c34d49291ac087262691fcb.eot?#iefix) format("embedded-opentype"),
+			url(https://profile.intra.42.fr/assets/streamline-30px-ab2a415b1666cae49b43eedd53ae1f93cd0528b1c2ffe6548e7c49fa378f9d6e.woff) format("woff"),
+			url(https://profile.intra.42.fr/assets/streamline-30px-ad8a17f22779b73a5f13068db1bfe0d85d12d56b35767f11ad3c7036b87a186c.ttf) format("truetype"),
+			url(https://profile.intra.42.fr/assets/streamline-30px-d5fcbf4f78d9068fdff1ab9d77045475ce270300b170e91e3295cc08c790f20c.svg#streamline-30px) format("svg");
 	font-weight: normal;
 	font-style: normal
 }
