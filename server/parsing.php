@@ -55,7 +55,7 @@
 			// RegEx from https://github.com/shinnn/github-username-regex
 			$allowedChars = '/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i';
 			if (!preg_match($allowedChars, $userSettings["link-github"])) {
-				$userSettings["link-github"] = "fake_username";
+				$userSettings["link-github"] = "";
 			}
 		}
 	}

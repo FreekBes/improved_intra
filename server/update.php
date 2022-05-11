@@ -179,7 +179,7 @@
 	}
 
 	// parse git username (can be gitplatform@username)
-	if (isset($userSettings["link-github"])) {
+	if (!empty($userSettings["link-github"])) {
 		parse_github_link($userSettings);
 	}
 
