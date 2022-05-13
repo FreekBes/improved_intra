@@ -369,6 +369,8 @@ a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
 a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
+a[data-tooltip-login="jkoers"]::before,
+.profile-name span.login[data-login="jkoers"]::before,
 a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="jlensing"]::before {
 	content: 'Improved Intra Contributor ';
