@@ -336,4 +336,12 @@ window.onload = function() {
 				});
 		}
 	});
+
+	// add easter egg to go to the emotes page
+	document.getElementsByTagName("h2")[0].addEventListener("click", function(ev) {
+		if (ev.detail == 5) {
+			// clicked 5 times on the header, open the emotes page
+			window.open(chrome.runtime.getURL("promo/emotes.html"));
+		}
+	});
 };
