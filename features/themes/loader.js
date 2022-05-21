@@ -78,7 +78,7 @@ function colorizeLogtimeChart(event) {
 			return;
 		}
 		const ltDays = ltSvg.getElementsByTagName("rect");
-		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--logtime-chart-24h-color');
+		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color'); // using theme color, not 24h color (24h color is for text)
 		if (col24hex !== "") {
 			const col24rgb = hexToRgb(col24hex.trim());
 			for (let i = 0; i < ltDays.length; i++) {

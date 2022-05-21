@@ -89,7 +89,7 @@
 	--highcharts-tooltip-background-color: rgba(255, 255, 255, 0.85);
 	--highcharts-tooltip-text-color: #333333;
 
-	/* logtime chart styling */
+	/* logtime chart styling (text colors) */
 	--logtime-chart-24h-color: #007b7c;
 	--logtime-chart-00h-color: #fafafa;
 
