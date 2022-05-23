@@ -29,8 +29,11 @@
 				"features/themes/light.css",
 				"features/themes/dark.css",
 				"features/themes/colors/cetus.css",
+				"features/themes/colors/green.css",
 				"features/themes/colors/pyxis.css",
 				"features/themes/colors/vela.css",
+				"features/themes/colors/windows.css",
+				"features/themes/colors/yellow.css",
 				"options/options.html",
 				"promo/emotes.html"
 			],

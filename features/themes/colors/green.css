@@ -1,0 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   green.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/23 20:09:43 by fbes          #+#    #+#                 */
+/*   Updated: 2022/05/23 20:10:09 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+:root {
+	/* main colors */
+	--theme-color: #33c47f;
+	--theme-color-dark: #0c874d;
+	--theme-color-light: #50d496;
+
+	/* logtime chart styling (text colors) */
+	--logtime-chart-24h-color: #50d496;
+}

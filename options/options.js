@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 02:23:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:20:10 by fbes          ########   odam.nl         */
+/*   Updated: 2022/05/23 20:13:38 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ function showLoading() {
 function hideLoading() {
 	document.getElementById("loading").className = "hidden";
 }
+
+const possibleColorSchemes = {
+	"default": "Intra (default)",
+	"cetus": "Blue",
+	"green": "Green",
+	"pyxis": "Purple",
+	"vela": "Red",
+	"windows": "Windows",
+	"yellow": "Yellow"
+};
 
 function checkIfKeyStillWorks(access_token) {
 	return new Promise(function(it_works, it_does_not_work) {
@@ -310,6 +320,21 @@ window.onload = function() {
 		syncSettings(event);
 		event.preventDefault();
 	});
+
+	// load possible color schemes
+	const colorsDropdown = document.getElementById("colors");
+	// clear old ones (left in for versions <3.1.0)
+	colorsDropdown.textContent = "";
+	const possibleColorSchemesKeys = Object.keys(possibleColorSchemes);
+	for (let i = 0; i < possibleColorSchemesKeys.length; i++) {
+		const colorOpt = document.createElement("option");
+		colorOpt.setAttribute("value", possibleColorSchemesKeys[i]);
+		colorOpt.innerText = possibleColorSchemes[possibleColorSchemesKeys[i]];
+		if (possibleColorSchemesKeys[i] == "default") {
+			colorOpt.setAttribute("selected", "");
+		}
+		colorsDropdown.appendChild(colorOpt);
+	}
 
 	improvedStorage.get(["username", "auth", "user"]).then(function(data) {
 		iConsole.log(data);

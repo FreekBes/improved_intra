@@ -4,5 +4,5 @@ A reminder for developers on how to add options, to not forget any steps
 2. Add option to server/update.php as an expected value
 3. Add default value to option in server/update.php
 4. Add default value to background/options.js
-5. If a theme or color scheme, add CSS file to web_accessible_resources in both manifests
+5. If a theme or color scheme, add CSS file to web_accessible_resources in both manifests, and add it to options.js instead of dropdown in options.php
 6. Make sure the extension does not throw an error anywhere if the setting is not set yet, although this should never happen since on update, all unset settings are set to default by background.js

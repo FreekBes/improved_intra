@@ -1,0 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   windows.css                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/23 20:12:16 by fbes          #+#    #+#                 */
+/*   Updated: 2022/05/23 20:13:06 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+:root {
+	/* main colors */
+	--theme-color: #0000ee;
+	--theme-color-dark: #00008f;
+	--theme-color-light: #3838e8;
+
+	/* logtime chart styling (text colors) */
+	--logtime-chart-24h-color: #3838e8;
+}
