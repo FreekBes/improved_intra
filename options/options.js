@@ -145,6 +145,7 @@ function syncSettings(event) {
 				formData.append("created_at", data["auth"]["created_at"]);
 				formData.append("expires_in", data["auth"]["expires_in"]);
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
+				formData.append("ext_version", chrome.runtime.getManifest().version);
 				const req = new XMLHttpRequest();
 				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
 				req.addEventListener("load", function(event) {
