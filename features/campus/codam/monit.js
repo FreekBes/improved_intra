@@ -24,6 +24,7 @@ function sum(prevVal, curVal) {
 
 const monit = {
 	httpReq: null,
+	bldtReq: null,
 	requirements: {
 		today: 205,
 		min: 1440,
@@ -33,6 +34,11 @@ const monit = {
 	bhContainer: null,
 	logTimes: [],
 	logTimesTotal: 0,
+	buildingTimes: [],
+	buildingTimesTotal: 0,
+	times: [],
+	timesTotal: 0,
+	usingCombined: false,
 
 	/**
 	 * Get the dates of this week's days
@@ -42,8 +48,35 @@ const monit = {
 		for (let i = 0; i <= dayOfWeek; i++) {
 			thisWeek.push(new Date(today.getTime() - 86400000 * i).toISOString().split("T")[0]);
 		}
-		iConsole.log("This week's dates: ", thisWeek);
 		return (thisWeek);
+	},
+
+	/**
+	 * Get the status of the monitoring system from the server.
+	 * Monitoring system could be disabled.
+	 * See server/campus_specifics/codam/monit_status.php
+	 */
+	getStatus: function() {
+		return new Promise(function(resolve, reject) {
+			if (monit.httpReq != null) {
+				monit.httpReq.abort();
+			}
+			monit.httpReq = new XMLHttpRequest();
+			monit.httpReq.addEventListener("load", function() {
+				try {
+					const status = JSON.parse(this.responseText);
+					resolve(status);
+				}
+				catch (err) {
+					reject(err);
+				}
+			});
+			monit.httpReq.addEventListener("error", function(err) {
+				reject(err);
+			});
+			monit.httpReq.open("GET", "https://darkintra.freekb.es/campus_specifics/codam/monit_status.json");
+			monit.httpReq.send();
+		});
 	},
 
 	/**
@@ -52,30 +85,30 @@ const monit = {
 	 * out, equally divided over all remaining days.
 	 */
 	setExpected: function() {
-		const logTimesNoToday = this.logTimes.slice(1);
-		let logTimesTotalNoToday;
+		const timesNoToday = this.times.slice(1);
+		let timesTotalNoToday;
 
-		if (logTimesNoToday && logTimesNoToday.length > 0) {
-			logTimesTotalNoToday = logTimesNoToday.reduce(sum);
+		if (timesNoToday && timesNoToday.length > 0) {
+			timesTotalNoToday = timesNoToday.reduce(sum);
 		}
 		else {
-			logTimesTotalNoToday = 0;
+			timesTotalNoToday = 0;
 		}
-		if (dayOfWeek == 7 || this.logTimesTotal > this.requirements.min) {
+		if (dayOfWeek == 7 || this.timesTotal > this.requirements.min) {
 			this.requirements.today = this.requirements.min;
 		}
 		else {
-			this.requirements.today = logTimesTotalNoToday + Math.round((this.requirements.min - logTimesTotalNoToday) / (7 - dayOfWeek));
+			this.requirements.today = timesTotalNoToday + Math.round((this.requirements.min - timesTotalNoToday) / (7 - dayOfWeek));
 		}
-		iConsole.log("Logtime up until today", logTimesTotalNoToday);
-		iConsole.log("Expected minutes today", this.requirements.today - logTimesTotalNoToday);
+		iConsole.log("Buildingtime up until today", timesTotalNoToday);
+		iConsole.log("Expected minutes today", this.requirements.today - timesTotalNoToday);
 		iConsole.log("Expected minutes after today", this.requirements.today);
 	},
 
 	/**
 	 * Get a user's logtime from the web and parse it into the logtime array
 	 */
-	getLogTimesWeb: function(username) {
+	getLogTimes: function(username) {
 		return (new Promise(function(resolve, reject) {
 			if (monit.httpReq != null) {
 				monit.httpReq.abort();
@@ -83,9 +116,11 @@ const monit = {
 			monit.httpReq = new XMLHttpRequest();
 			monit.httpReq.addEventListener("load", function() {
 				try {
+					monit.logTimes = [];
+					monit.logTimesTotal = 0;
 					const stats = JSON.parse(this.responseText);
 					const weekDates = monit.getWeekDates();
-					monit.logTimes = [];
+					iConsole.log("This week's dates: ", weekDates);
 					for (let i = 0; i < weekDates.length; i++) {
 						if (weekDates[i] in stats) {
 							monit.logTimes.push(parseLogTime(stats[weekDates[i]]));
@@ -97,12 +132,12 @@ const monit = {
 					if (monit.logTimes && monit.logTimes.length > 0) {
 						monit.logTimesTotal = monit.logTimes.reduce(sum);
 					}
-					else {
-						monit.logTimesTotal = 0;
-					}
+					iConsole.log("Logtimes", monit.logTimes);
+					iConsole.log("Total minutes of logtime", monit.logTimesTotal);
 					resolve(username);
 				}
 				catch (err) {
+					iConsole.warn("Could not fetch logtimes for user " + username);
 					reject(err);
 				}
 			});
@@ -111,6 +146,77 @@ const monit = {
 			});
 			monit.httpReq.open("GET", window.location.origin + "/users/" + username + "/locations_stats.json");
 			monit.httpReq.send();
+		}));
+	},
+
+	/**
+	 * Get a user's buildingtimes from the Improved Intra server (given to server by user or by a third-party script)
+	 */
+	getBuildingTimes: function(username) {
+		return (new Promise(function(resolve, reject) {
+			if (monit.bldtReq != null) {
+				monit.bldtReq.abort();
+			}
+			monit.bldtReq = new XMLHttpRequest();
+			monit.bldtReq.addEventListener("load", function() {
+				try {
+					monit.buildingTimes = [];
+					monit.buildingTimesTotal = 0;
+					const res = JSON.parse(this.responseText);
+					if (this.status == 200) {
+						const weekDates = monit.getWeekDates();
+						for (let i = 0; i < weekDates.length; i++) {
+							if (weekDates[i] in res["data"]) {
+								monit.buildingTimes.push(res["data"][weekDates[i]]);
+							}
+							else {
+								monit.buildingTimes.push(0);
+							}
+						}
+						if (monit.buildingTimes && monit.buildingTimes.length > 0) {
+							monit.buildingTimesTotal = monit.buildingTimes.reduce(sum);
+						}
+						iConsole.log("Buildingtimes", monit.buildingTimes);
+						iConsole.log("Total minutes of building time", monit.buildingTimesTotal);
+						resolve(username);
+					}
+					else {
+						// don't care about the error here, just make sure the extension's code keeps running
+						iConsole.log("No buildingtimes found for " + username);
+						resolve(username);
+					}
+				}
+				catch (err) {
+					reject(err);
+				}
+			});
+			monit.bldtReq.addEventListener("error", function(err) {
+				reject(err);
+			});
+			monit.bldtReq.open("GET", "https://darkintra.freekb.es/buildingtimes.php?username=" + username + "&parsed=true");
+			monit.bldtReq.send();
+		}));
+	},
+
+	combineTimes: function(username) {
+		return (new Promise(function(resolve, reject) {
+			monit.times = new Array(monit.logTimes.length);
+			monit.timesTotal = 0;
+			if (monit.times.length == 0) {
+				reject("Unexpected error: monit.times.length == 0!");
+				return;
+			}
+			monit.times[0] = monit.logTimes[0];
+			for (let i = 1; i < monit.times.length; i++) {
+				monit.times[i] = ( monit.buildingTimes[i] > 0 ? monit.buildingTimes[i] : monit.logTimes[i]);
+			}
+			if (monit.times && monit.times.length > 0) {
+				monit.timesTotal = monit.times.reduce(sum);
+			}
+			if (monit.timesTotal != monit.logTimesTotal) {
+				monit.usingCombined = true;
+			}
+			resolve(username);
 		}));
 	},
 
@@ -164,37 +270,13 @@ const monit = {
 				}
 			}
 		}
-		this.getLogTimesWeb(getProfileUserName()).then(this.writeProgress).catch(function(err) {
-			iConsole.error("Could not retrieve logtimes for Codam Monitoring System progress", err);
-		});
-	},
-
-	/**
-	 * Get the status of the monitoring system from the server.
-	 * Monitoring system could be disabled.
-	 * See server/campus_specifics/codam/monit_status.php
-	 */
-	getStatus: function() {
-		return new Promise(function(resolve, reject) {
-			if (monit.httpReq != null) {
-				monit.httpReq.abort();
-			}
-			monit.httpReq = new XMLHttpRequest();
-			monit.httpReq.addEventListener("load", function() {
-				try {
-					const status = JSON.parse(this.responseText);
-					resolve(status);
-				}
-				catch (err) {
-					reject(err);
-				}
+		this.getLogTimes(getProfileUserName())
+			.then(this.getBuildingTimes)
+			.then(this.combineTimes)
+			.then(this.writeProgress)
+			.catch(function(err) {
+				iConsole.error("Could not retrieve logtimes or buildingtimes for Codam Monitoring System progress", err);
 			});
-			monit.httpReq.addEventListener("error", function(err) {
-				reject(err);
-			});
-			monit.httpReq.open("GET", "https://darkintra.freekb.es/campus_specifics/codam/monit_status.json");
-			monit.httpReq.send();
-		});
 	},
 
 	/**
@@ -203,8 +285,8 @@ const monit = {
 	writeProgress: function(username) {
 		monit.getStatus().then(function(status) {
 			monit.setExpected();
-			iConsole.log("Logtimes", monit.logTimes);
-			iConsole.log("Total minutes", monit.logTimesTotal);
+			iConsole.log("Combined times", monit.times);
+			iConsole.log("Combined total minutes", monit.timesTotal);
 
 			const aguDate = document.getElementById("agu-date");
 			if (aguDate && aguDate.className.indexOf("hidden") == -1) {
@@ -256,8 +338,8 @@ const monit = {
 
 			const progressPerc = document.createElement("span");
 			if (status["monitoring_system_active"]) {
-				progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
-				ltHolder.setAttribute("data-original-title", "Logtime this week: " + logTimeToString(monit.logTimesTotal));
+				progressPerc.innerText = Math.floor(monit.timesTotal / 1440 * 100) + "% complete";
+				ltHolder.setAttribute("data-original-title", (monit.usingCombined ? "Building time*" : "Logtime") + " this week: " + logTimeToString(monit.timesTotal));
 			}
 			else if (status["work_from_home_required"] && !status["monitoring_system_active"]) {
 				// covid-19 message
@@ -265,26 +347,26 @@ const monit = {
 				ltHolder.setAttribute("data-original-title", "You can do this! Codam will at some point reopen again. I'm sure of it! Times will get better.");
 			}
 			else if (!status["monitoring_system_active"]) {
-				progressPerc.innerText = logTimeToString(monit.logTimesTotal);
-				ltHolder.setAttribute("data-original-title", "Logtime this week (Monitoring System is currently disabled)");
+				progressPerc.innerText = logTimeToString(monit.timesTotal);
+				ltHolder.setAttribute("data-original-title", (monit.usingCombined ? "Building time*" : "Logtime") + " this week (Monitoring System is currently disabled)");
 			}
 
-			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
+			if (monit.timesTotal < monit.requirements.today && !atLeastRelaxed) {
 				smiley.setAttribute("class", "icon-smiley-sad-1");
 				smiley.setAttribute("style", "color: var(--danger-color);");
 				progressPerc.setAttribute("style", "color: var(--danger-color);");
 			}
-			else if ((atLeastRelaxed && monit.logTimesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.logTimesTotal < monit.requirements.min)) {
+			else if ((atLeastRelaxed && monit.timesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.timesTotal < monit.requirements.min)) {
 				smiley.setAttribute("class", "icon-smiley-relax");
 				smiley.setAttribute("style", "color: var(--warning-color);");
 				progressPerc.setAttribute("style", "color: var(--warning-color);");
 			}
-			else if (monit.logTimesTotal < monit.requirements.achievement1) {
+			else if (monit.timesTotal < monit.requirements.achievement1) {
 				smiley.setAttribute("class", "icon-smiley-happy-3");
 				smiley.setAttribute("style", "color: var(--success-color);");
 				progressPerc.setAttribute("style", "color: var(--success-color);");
 			}
-			else if (monit.logTimesTotal < monit.requirements.achievement2) {
+			else if (monit.timesTotal < monit.requirements.achievement2) {
 				smiley.setAttribute("class", "icon-smiley-happy-5");
 				smiley.setAttribute("style", "color: var(--success-color);");
 				progressPerc.setAttribute("style", "color: var(--success-color);");
