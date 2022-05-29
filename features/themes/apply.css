@@ -587,12 +587,12 @@ mark,
 	stroke: var(--container-background-color) !important;
 }
 
-#user-locations g:not([data-original-title="0h00"]):not([data-nolog]) > text {
+#user-locations g:not([data-original-title^="0h00"]):not([data-nolog]) > text {
 	color: var(--logtime-chart-24h-color) !important;
 	fill: var(--logtime-chart-24h-color) !important;
 }
 
-#user-locations g[data-original-title="0h00"] > rect,
+#user-locations g[data-original-title^="0h00"] > rect,
 #user-locations g[data-nolog] > rect,
 #user-locations g > rect[fill="#fafafa"] {
 	fill: var(--logtime-chart-00h-color) !important;
