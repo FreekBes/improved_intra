@@ -95,7 +95,7 @@ function resetOptions(improvedStorage) {
 
 function setOptionsIfUnset(improvedStorage) {
 	// get set options and only set them if they seem to not be set (equal to undefined)
-	improvedStorage.get(Object.keys(defaults), function(data) {
+	improvedStorage.get(Object.keys(defaults)).then(function(data) {
 		for (const key in defaults) {
 			if (data[key] === undefined) {
 				improvedStorage.set({[key]: defaults[key]}, function() {
