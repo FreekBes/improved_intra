@@ -98,6 +98,9 @@ function setStyleIfExists(query, style, value, parentPlease) {
 
 // parse logtime from text (HHhMM or HH:MM) into minutes
 function parseLogTime(logTimeText) {
+	if (!logTimeText) {
+		return (0);
+	}
 	const logTimeSplit = (logTimeText.indexOf("h") > -1 ? logTimeText.split("h") : logTimeText.split(":"));
 	if (logTimeSplit.length < 2) {
 		return (0);

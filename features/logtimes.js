@@ -23,16 +23,18 @@ function mergeTimes(logtimes, buildingtimes) {
 		newtimes[date] = logtimes[date];
 	}
 	for (const date in buildingtimes) {
-		newtimes[date] = buildingtimes[date];
+		if (newtimes[date] == undefined || parseLogTime(buildingtimes[date]) > parseLogTime(newtimes[date])) {
+			newtimes[date] = buildingtimes[date];
+		}
 	}
 	return (newtimes);
 }
 
-let buildingTimes = null;		// cache
+let cachedTimes = null;		// cache
 function getBuildingTimes() {
 	return new Promise(function(resolve, reject) {
-		if (buildingTimes != null) {
-			resolve(buildingTimes);
+		if (cachedTimes != null) {
+			resolve(cachedTimes);
 			return;
 		}
 		const httpReq = new XMLHttpRequest();
@@ -40,7 +42,7 @@ function getBuildingTimes() {
 			try {
 				const res = JSON.parse(this.responseText);
 				if (res["data"]) {
-					buildingTimes = res["data"];
+					cachedTimes = res["data"];
 					resolve(res["data"]);
 				}
 				else {
@@ -217,18 +219,21 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 				for (const date in stats) {
 					const day = ltSvg.querySelector("g[data-iidate=\""+date+"\"]");
 					if (day) {
+						const oldMinutes = parseLogTime(day.getAttribute("data-original-title"));
 						const minutes = parseLogTime(stats[date]);
-						day.setAttribute("data-original-title", logTimeToString(minutes)+'*');
-						const filler = day.querySelector("rect");
-						if (filler) {
-							const newPerc = (minutes / 1440).toFixed(2);
-							let sourceColor = "rgba(0,186,188,0)";
-							const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
-							if (col24hex !== "") {
-								let rgb = hexToRgb(col24hex.trim());
-								sourceColor = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0)";
+						if (minutes > oldMinutes) {
+							day.setAttribute("data-original-title", logTimeToString(minutes)+'*');
+							const filler = day.querySelector("rect");
+							if (filler) {
+								const newPerc = (minutes / 1440).toFixed(2);
+								let sourceColor = "rgba(0,186,188,0)";
+								const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+								if (col24hex !== "") {
+									let rgb = hexToRgb(col24hex.trim());
+									sourceColor = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0)";
+								}
+								filler.setAttribute("fill", sourceColor.replace(/[0-9](\.[0-9]*|)(\s|)\)/, newPerc.toString()+')'));
 							}
-							filler.setAttribute("fill", sourceColor.replace(/[0-9](\.[0-9]*|)(\s|)\)/, newPerc.toString()+')'));
 						}
 					}
 				}

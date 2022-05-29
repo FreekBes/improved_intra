@@ -208,7 +208,7 @@ const monit = {
 			}
 			monit.times[0] = monit.logTimes[0];
 			for (let i = 1; i < monit.times.length; i++) {
-				monit.times[i] = ( monit.buildingTimes[i] > 0 ? monit.buildingTimes[i] : monit.logTimes[i]);
+				monit.times[i] = ( monit.buildingTimes[i] > monit.logTimes[i] ? monit.buildingTimes[i] : monit.logTimes[i]);
 			}
 			if (monit.times && monit.times.length > 0) {
 				monit.timesTotal = monit.times.reduce(sum);
