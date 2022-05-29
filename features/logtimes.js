@@ -17,13 +17,83 @@ function codamMonitHelper(settings, logTime) {
 	return ("");
 }
 
+function mergeTimes(logtimes, buildingtimes) {
+	const newtimes = new Array();
+	for (const date in logtimes) {
+		newtimes[date] = logtimes[date];
+	}
+	for (const date in buildingtimes) {
+		newtimes[date] = buildingtimes[date];
+	}
+	return (newtimes);
+}
+
+let buildingTimes = null;		// cache
+function getBuildingTimes() {
+	return new Promise(function(resolve, reject) {
+		if (buildingTimes != null) {
+			resolve(buildingTimes);
+			return;
+		}
+		const httpReq = new XMLHttpRequest();
+		httpReq.addEventListener("load", function() {
+			try {
+				const res = JSON.parse(this.responseText);
+				if (res["data"]) {
+					buildingTimes = res["data"];
+					resolve(res["data"]);
+				}
+				else {
+					reject("No data");
+				}
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+		httpReq.addEventListener("error", function(err) {
+			reject(err);
+		});
+		httpReq.open("GET","https://darkintra.freekb.es/buildingtimes.php?username=" + getProfileUserName());
+		httpReq.send();
+	});
+}
+
+function getLogTimes(settings) {
+	return new Promise(function(resolve, reject) {
+		const httpReq = new XMLHttpRequest();
+		httpReq.addEventListener("load", function() {
+			try {
+				const stats = JSON.parse(this.responseText);
+				if (settings["codam-monit"] === true || settings["codam-monit"] === "true") {
+					getBuildingTimes()
+						.then(function(bStats) {
+							resolve(mergeTimes(stats, bStats));
+						}).catch(function(err) {
+							resolve(stats);
+						});
+				}
+				else {
+					resolve(stats);
+				}
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+		httpReq.addEventListener("error", function(err) {
+			reject(err);
+		});
+		httpReq.open("GET", window.location.origin + "/users/" + getProfileUserName() + "/locations_stats.json");
+		httpReq.send();
+	});
+}
+
 // month logtime has to be calculated from the web since some days may be missing from the logtimes chart
-function sumMonthLogTime(ltMonths) {
+function sumMonthLogTime(ltMonths, settings) {
 	ltMonths = Array.from(ltMonths).reverse();
-	const httpReq = new XMLHttpRequest();
-	httpReq.addEventListener("load", function() {
-		try {
-			const stats = JSON.parse(this.responseText);
+	getLogTimes(settings)
+		.then(function(stats) {
 			const dates = Object.keys(stats);
 			const monthNames = [];
 			const monthSums = [];
@@ -45,16 +115,10 @@ function sumMonthLogTime(ltMonths) {
 				// move element's x coordinate to the left to account for the width of the text added
 				ltMonths[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
 			}
-		}
-		catch (err) {
+		})
+		.catch(function(err) {
 			iConsole.error(err);
-		}
-	});
-	httpReq.addEventListener("error", function(err) {
-		iConsole.error(err);
-	});
-	httpReq.open("GET", window.location.origin + "/users/" + getProfileUserName() + "/locations_stats.json");
-	httpReq.send();
+		});
 }
 
 function cumWeekLogTime(ltDays, settings) {
@@ -99,13 +163,13 @@ function cumWeekLogTime(ltDays, settings) {
 	}
 }
 
-function waitForLogTimesChartToLoad(ltSvg) {
+function waitForLogTimesChartToLoad(ltSvg, settings) {
 	const ltDays = ltSvg.getElementsByTagName("g");
 	const ltMonths = ltSvg.querySelectorAll("svg > text");
 	if (ltDays.length == 0 || ltMonths.length == 0) {
 		// logtimes chart hasn't finished loading yet, try again in 100ms
 		setTimeout(function() {
-			waitForLogTimesChartToLoad(ltSvg);
+			waitForLogTimesChartToLoad(ltSvg, settings);
 		}, 100);
 		return false;
 	}
@@ -113,7 +177,7 @@ function waitForLogTimesChartToLoad(ltSvg) {
 	// fix first month sometimes outside container
 	let viewBox = ltSvg.getAttribute("viewBox");
 	if (viewBox) {
-		let firstText = ltSvg.querySelector("text[x]");
+		const firstText = ltSvg.querySelector("text[x]");
 		viewBox = viewBox.split(" ").map(function(item) {
 			return parseInt(item);
 		});
@@ -124,23 +188,76 @@ function waitForLogTimesChartToLoad(ltSvg) {
 		}
 	}
 
-	improvedStorage.get(["logsum-month", "logsum-week", "codam-monit"]).then(function(settings) {
+	// add date attribute to all days in svg
+	// useful for Improved Intra but also other extensions!
+	const days = ltSvg.getElementsByTagName("g");
+	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	let month = 0;
+	let date = 0;
+	let year = 0;
+	for (const day of days) {
+		if (day.previousElementSibling.nodeName.toUpperCase() == "TEXT") {
+			month = months.indexOf(day.previousElementSibling.textContent.substring(0, 3)) + 1;
+			if (today.getMonth() == 0 && (month == 10 || month == 11 || month == 12)) {
+				year = today.getFullYear() - 1;
+			}
+			else {
+				year = today.getFullYear();
+			}
+			date = 1;
+		}
+		day.setAttribute("data-iidate", year.toString()+'-'+month.toString().padStart(2, '0')+'-'+date.toString().padStart(2, '0'));
+		date++;
+	}
+
+	if (settings["codam-buildingtimes-chart"]) {
+		// Replace logtime chart data with buildingtime data
+		getBuildingTimes()
+			.then(function(stats) {
+				for (const date in stats) {
+					const day = ltSvg.querySelector("g[data-iidate=\""+date+"\"]");
+					if (day) {
+						const minutes = parseLogTime(stats[date]);
+						day.setAttribute("data-original-title", logTimeToString(minutes)+'*');
+						const filler = day.querySelector("rect");
+						if (filler) {
+							const newPerc = (minutes / 1440).toFixed(2);
+							filler.setAttribute("fill", filler.getAttribute("fill").replace(/,\s[0-9].*\)$/, ','+newPerc.toString()+')'));
+						}
+					}
+				}
+				if (ltSvg.previousElementSibling) {
+					ltSvg.previousElementSibling.textContent = " Buildingtime* ";
+				}
+			})
+			.catch(function(err) {
+				iConsole.error(err);
+			})
+			.finally(function() {
+				if (settings["logsum-month"]) {
+					sumMonthLogTime(ltMonths, settings);
+				}
+				if (settings["logsum-week"]) {
+					cumWeekLogTime(ltDays, settings);
+				}
+			});
+	}
+	else {
+		// Codam Monitoring System progress not enabled, do not replace logtimes with building times
 		if (settings["logsum-month"]) {
-			sumMonthLogTime(ltMonths);
+			sumMonthLogTime(ltMonths, settings);
 		}
 		if (settings["logsum-week"]) {
 			cumWeekLogTime(ltDays, settings);
 		}
-	});
+	}
 }
 
 if (window.location.pathname == "/" || window.location.pathname.indexOf("/users/") == 0) {
 	const ltSvg = document.getElementById("user-locations");
 	if (ltSvg) { // check if logtimes chart is on page
-		improvedStorage.get(["logsum-month", "logsum-week"]).then(function(data) {
-			if (data["logsum-month"] === true || data["logsum-month"] === "true" || data["logsum-week"] === true || data["logsum-week"] === "true") {
-				waitForLogTimesChartToLoad(ltSvg);
-			}
+		improvedStorage.get(["logsum-month", "logsum-week", "codam-monit", "codam-buildingtimes-chart"]).then(function(settings) {
+			waitForLogTimesChartToLoad(ltSvg, settings);
 		});
 	}
 }
