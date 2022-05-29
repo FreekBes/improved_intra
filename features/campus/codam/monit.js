@@ -226,49 +226,12 @@ const monit = {
 	 * a fallback available to read from the web instead.
 	 */
 	getProgress: function() {
-		if (window.location.pathname.indexOf("/users/") == 0) {
-			// user profile. check if user loaded is from Amsterdam campus
-			// if not, do not display monitoring system progress (return)
-			const iconLocation = document.getElementsByClassName("icon-location");
-			if (iconLocation.length == 0) {
-				return;
-			}
-			if (iconLocation[0].nextSibling.nextSibling.textContent != "Amsterdam") {
-				return;
-			}
+		if (!profileFromCodam()) {
+			return;
 		}
 		this.bhContainer = document.getElementById("goals_container");
 		if (!this.bhContainer) {
 			return;
-		}
-		if (window.location.pathname == "/") {
-			// dashboard page. check if user logged in is from Amsterdam campus
-			// if not, do not display monitoring system progress (return)
-			// check by checking the school record button, should contain Codam
-			// if the button is not there (before handing in Libft), check coalition
-			const schoolRecordButton = document.querySelector(".school-record-button");
-			if (schoolRecordButton) {
-				const srFormData = document.getElementsByName("sr_id");
-				if (srFormData.length > 0) {
-					if (srFormData[0].textContent.indexOf("Codam") == -1) {
-						return;
-					}
-				}
-				else {
-					return;
-				}
-			}
-			else {
-				const coalitionName = document.querySelector(".coalition-name .coalition-span");
-				if (coalitionName) {
-					if (["Pyxis", "Vela", "Cetus"].indexOf(coalitionName.textContent) == -1) {
-						return;
-					}
-				}
-				else {
-					return;
-				}
-			}
 		}
 		this.getLogTimes(getProfileUserName())
 			.then(this.getBuildingTimes)

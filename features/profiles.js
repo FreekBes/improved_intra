@@ -195,9 +195,11 @@ function immediateProfileChanges() {
 			const logTimesHeader = document.createElement("h4");
 			logTimesHeader.className = "profile-title";
 			logTimesHeader.innerText = "Logtime";
-			improvedStorage.get("codam-buildingtimes-chart").then(function() {
-				logTimesHeader.innerText = "Buildingtime*";
-			});
+			if (profileFromCodam()) {
+				improvedStorage.get("codam-buildingtimes-chart").then(function() {
+					logTimesHeader.innerText = "Buildingtime*";
+				});
+			}
 			locations.parentNode.parentNode.prepend(logTimesHeader);
 		}
 

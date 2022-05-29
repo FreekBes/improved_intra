@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 function codamMonitHelper(settings, logTime) {
-	if (settings["codam-monit"] === true || settings["codam-monit"] === "true") {
+	if (profileFromCodam() && (settings["codam-monit"] === true || settings["codam-monit"] === "true")) {
 		return (" / " + Math.floor(logTime / monit.requirements.min * 100) + "%");
 	}
 	return ("");
@@ -210,7 +210,7 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 		date++;
 	}
 
-	if (settings["codam-buildingtimes-chart"]) {
+	if (profileFromCodam() && settings["codam-buildingtimes-chart"]) {
 		// Replace logtime chart data with buildingtime data
 		getBuildingTimes()
 			.then(function(stats) {
