@@ -240,14 +240,18 @@ function retrieveSettings() {
 
 function loadSettingsIntoForm(settings) {
 	iConsole.log("Settings fetched somewhere", settings);
+	const knownButNotUsed = ["ext_version", "timestamp"];
 	for (let key in settings) {
 		let settingElem = document.getElementsByName(key);
 		if (settingElem.length > 0) {
 			settingElem = settingElem[0];
 			improvedStorage.set({[key]: settings[key]});
 		}
-		else {
+		else if (knownButNotUsed.indexOf(key) == -1) {
 			iConsole.warn("Found unknown setting key '" + key + "'");
+			continue;
+		}
+		else {
 			continue;
 		}
 		if (settingElem.nodeName == "SELECT") {

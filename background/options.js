@@ -14,6 +14,8 @@ const defaults = {
 	"clustermap": "true",
 	"codam-auto-equip-coa-title": "false",
 	"codam-monit": "true",
+	"codam-buildingtimes-public": "false",
+	"codam-buildingtimes-chart": "false",
 	"colors": "default",
 	"custom-banner-url": "",
 	"custom-banner-pos": "center-center",
