@@ -222,7 +222,13 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 						const filler = day.querySelector("rect");
 						if (filler) {
 							const newPerc = (minutes / 1440).toFixed(2);
-							filler.setAttribute("fill", filler.getAttribute("fill").replace(/,\s[0-9].*\)$/, ','+newPerc.toString()+')'));
+							let sourceColor = "rgba(0,186,188,0)";
+							const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+							if (col24hex !== "") {
+								let rgb = hexToRgb(col24hex.trim());
+								sourceColor = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0)";
+							}
+							filler.setAttribute("fill", sourceColor.replace(/[0-9](\.[0-9]*|)(\s|)\)/, newPerc.toString()+')'));
 						}
 					}
 				}
