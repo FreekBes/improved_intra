@@ -113,10 +113,12 @@ function waitForLogTimesChartToLoad(ltSvg) {
 	// fix first month sometimes outside container
 	let viewBox = ltSvg.getAttribute("viewBox");
 	if (viewBox) {
+		let firstText = ltSvg.querySelector("text[x]");
 		viewBox = viewBox.split(" ").map(function(item) {
 			return parseInt(item);
 		});
-		if (viewBox[0] > 0) {
+		if (viewBox[0] > 0 && parseInt(firstText.getAttribute("x")) < 150) {
+			iConsole.log("Logtimes chart viewBox seems off, first month might be hidden. Unhiding it by setting the first value to 0 (was "+viewBox[0]+").");
 			viewBox[0] = 0;
 			ltSvg.setAttribute("viewBox", viewBox.join(" "));
 		}
