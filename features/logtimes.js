@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/05 22:04:27 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/05 22:04:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/05/30 10:26:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,12 +179,18 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 	// fix first month sometimes outside container
 	let viewBox = ltSvg.getAttribute("viewBox");
 	if (viewBox) {
-		const firstText = ltSvg.querySelector("text[x]");
+		const firstText = ltSvg.querySelector("text");
 		viewBox = viewBox.split(" ").map(function(item) {
 			return parseInt(item);
 		});
-		if (viewBox[0] > 0 && parseInt(firstText.getAttribute("x")) < 150) {
-			iConsole.log("Logtimes chart viewBox seems off, first month might be hidden. Unhiding it by setting the first value to 0 (was "+viewBox[0]+").");
+		const monthsAmount = ltSvg.querySelectorAll("svg > text").length;
+		const firstX = (firstText ? parseInt(firstText.getAttribute("x")) : 0);
+		if (viewBox[0] > 0 && firstX < 150 && monthsAmount == 4) {
+			// Intra intents to shift months to the left when there's 5 months being displayed
+			// however, the code that does that seems to contain some bugs, as sometimes it's also done when there's still only 4.
+			// shift them back here, but only if the first month is displayed correctly (less than 150 pixels from the left side of the SVG)
+			// and if there's 4 months being displayed instead of 5.
+			iConsole.log("Logtimes chart viewBox seems off, first month might be hidden. Unhiding it by setting the first value to 0 (was "+viewBox[0]+", x="+firstX+").");
 			viewBox[0] = 0;
 			ltSvg.setAttribute("viewBox", viewBox.join(" "));
 		}
