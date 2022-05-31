@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/05 22:04:27 by fbes          #+#    #+#                 */
-/*   Updated: 2022/05/30 10:26:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/05/31 16:57:49 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 		});
 		const monthsAmount = ltSvg.querySelectorAll("svg > text").length;
 		const firstX = (firstText ? parseInt(firstText.getAttribute("x")) : 0);
-		if (viewBox[0] > 0 && firstX < 150 && monthsAmount == 4) {
+		if (viewBox[0] > 0 && firstX < 150 && monthsAmount <= 4) {
 			// Intra intents to shift months to the left when there's 5 months being displayed
 			// however, the code that does that seems to contain some bugs, as sometimes it's also done when there's still only 4.
 			// shift them back here, but only if the first month is displayed correctly (less than 150 pixels from the left side of the SVG)
