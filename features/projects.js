@@ -88,7 +88,7 @@ function addProjectExtras() {
 		projectNameIndex = 2;
 	}
 	const projectName = window.location.pathname.split("/")[projectNameIndex].replaceAll(' ', '-').replace("42cursus-", "");
-	extrasList.appendChild(createExtraItem("icon-user-search-1", "https://find-peers.joppekoers.nl/#" + projectName, "Find peers", "Find peers that are working on this project at your campus"));
+	extrasList.appendChild(createExtraItem("icon-user-search-1", "https://find-peers.codam.nl/#" + projectName, "Find peers", "Find peers that are working on this project at your campus"));
 
 	// add MLX42 link on project pages that use the MiniLibX library
 	for (let i = 0; i < mlxProjects.length; i++) {
