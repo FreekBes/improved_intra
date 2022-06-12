@@ -21,7 +21,8 @@ try {
 		"background/main.js",
 		"generic/storage.js",
 		"background/comm.js",
-		"background/options.js"
+		"background/options.js",
+		"background/omnibox.js"
 	);
 }
 catch (err) {

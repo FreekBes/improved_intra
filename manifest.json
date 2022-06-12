@@ -100,5 +100,8 @@
 	],
 	"background": {
 		"service_worker": "sw.js"
+	},
+	"omnibox": {
+		"keyword": "intra"
 	}
 }
