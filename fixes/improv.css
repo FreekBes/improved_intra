@@ -680,3 +680,10 @@ textarea {
 		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
 	}
 }
+
+/* Display line breaks and break words accordingly */
+.correction-item .corrected-item .correction-comment-item > span,
+li.scaleteam-list-item .comment {
+	word-break: break-word !important;
+    white-space: pre-wrap !important;
+}
