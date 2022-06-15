@@ -348,7 +348,8 @@ const monit = {
 				"ieilat": "iconf-pacman-ghost",
 				"pde-bakk": "iconf-crown-1",
 				"pvan-dij": "iconf-milk",
-				"jkoers": "iconf-cctv-2"
+				"jkoers": "iconf-cctv-2",
+				"hsmits": "iconf-vector",
 			};
 			if (Object.keys(customEmotes).indexOf(username) > -1) {
 				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));

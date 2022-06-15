@@ -369,6 +369,8 @@ a[data-tooltip-login="pde-bakk"]::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
 a[data-tooltip-login="lde-la-h"]::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
+a[data-tooltip-login="hsmits"]::before,
+.profile-name span.login[data-login="hsmits"]::before,
 a[data-tooltip-login="jkoers"]::before,
 .profile-name span.login[data-login="jkoers"]::before,
 a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
@@ -679,4 +681,11 @@ textarea {
 		background: rgba(32, 32, 38, 0.88) !important;
 		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
 	}
+}
+
+/* Display line breaks and break words accordingly */
+.correction-item .corrected-item .correction-comment-item > span,
+li.scaleteam-list-item .comment {
+	word-break: break-word !important;
+    white-space: pre-wrap !important;
 }

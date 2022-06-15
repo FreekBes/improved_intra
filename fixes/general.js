@@ -113,4 +113,25 @@ function setGeneralImprovements() {
 			elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
 		}
 	}
+
+	// Filter the correction comment items for text nodes and convert them to span nodes
+	// https://projects.intra.42.fr/projects/x/projects_users/x
+	[...document.querySelectorAll('.correction-comment-item')].forEach(item => {
+		item.childNodes.forEach(childNode => {
+			if (childNode.nodeType != 3 || childNode.textContent.trim().length === 0) {
+				return;
+			}
+
+			const span = document.createElement('span');
+			span.innerText = childNode.textContent.trim();
+			childNode.parentNode.insertBefore(span, childNode);
+			childNode.parentNode.removeChild(childNode);
+		})
+	});
+
+	// Filter the scale team comments and trim the text to remove leading and trailing newlines
+	// https://projects.intra.42.fr/users/x/feedbacks
+	[...document.querySelectorAll('li.scaleteam-list-item .comment')].forEach(item => {
+		item.innerText = item.textContent.trim();
+	});
 }
