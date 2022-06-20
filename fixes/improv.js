@@ -10,14 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// this file is used for general improvements on the website
+/**
+ * A list of regexp based improvements on the window location
+ * @type {[{handler(RegExpExecArray), target?(): string, regex?: RegExp}]}
+ */
+const improvementsPerUrl = [
+	{ handler: setGeneralImprovements },
+	{
+		regex: /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]*)\/?$/,
+		target: () => window.location.href,
+		handler: setPageUserImprovements,
+	},
+	{ handler: setOptionalImprovements },
+]
 
-// enable general improvements
-setGeneralImprovements();
+// Execute our improvements per page **/
+improvementsPerUrl.forEach(improvement => {
+	/**
+	 * @type boolean|RegExpExecArray
+	 */
+	let match = true;
 
-// enable optional improvements
-// can be enabled in extension options
-setOptionalImprovements();
+	if (improvement.regex) {
+		match = improvement.regex.exec(improvement.target ? improvement.target() : window.location.href)
+	}
+
+	if (match !== null) {
+		improvement.handler(match);
+	}
+})
 
 // communication between background.js and this script
 let improvPort = chrome.runtime.connect({ name: portName });
