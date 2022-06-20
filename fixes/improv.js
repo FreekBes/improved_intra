@@ -21,6 +21,11 @@ const improvementsPerUrl = [
 		target: () => window.location.href,
 		handler: setPageUserImprovements,
 	},
+	{
+		regex: /projects\.intra\.42\.fr\/projects\/graph(\/?\?login=(?<login>[a-z0-9-_]*))?$/,
+		target: () => window.location.href,
+		handler: setPageHolyGraphImprovements,
+	},
 	{ handler: setOptionalImprovements },
 ]
 
