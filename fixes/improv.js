@@ -11,37 +11,34 @@
 /* ************************************************************************** */
 
 /**
- * A list of regexp based improvements on the window location
- * @type {[{handler(RegExpExecArray), target?(): string, regex?: RegExp}]}
+ * A list of regexp based improvements. The `guard` results are piped into
+ * the improvement handler. These guards, as implied, make sure code is only
+ * executed once the `guard` is set and returns a value which evaluates to
+ * "true".
+ *
+ * @type {[{handler(...any), guard?(): any}]}
  */
 const improvementsPerUrl = [
 	{ handler: setGeneralImprovements },
 	{
-		regex: /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]*)\/?$/,
-		target: () => window.location.href,
+		guard: () => /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]*)\/?$/.exec(window.location.href),
 		handler: setPageUserImprovements,
 	},
 	{
-		regex: /projects\.intra\.42\.fr\/projects\/graph(\/?\?login=(?<login>[a-z0-9-_]*))?$/,
-		target: () => window.location.href,
+		guard: () => /projects\.intra\.42\.fr\/projects\/graph(\/?\?login=(?<login>[a-z0-9-_]*))?$/.exec(window.location.href),
 		handler: setPageHolyGraphImprovements,
 	},
 	{ handler: setOptionalImprovements },
 ]
 
-// Execute our improvements per page **/
+// Execute our improvements per page. If we have a validator, we execute that and pipe the results into our
+// improvement handler.
 improvementsPerUrl.forEach(improvement => {
-	/**
-	 * @type boolean|RegExpExecArray
-	 */
-	let match = true;
-
-	if (improvement.regex) {
-		match = improvement.regex.exec(improvement.target ? improvement.target() : window.location.href)
-	}
-
-	if (match !== null) {
-		improvement.handler(match);
+	if (improvement.guard) {
+		const pipe = improvement.guard();
+		if (pipe) improvement.handler(pipe);
+	} else {
+		improvement.handler();
 	}
 })
 
