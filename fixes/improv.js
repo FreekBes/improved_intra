@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/06/23 19:19:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:19:35 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 const improvementsPerUrl = [
 	{ handler: setGeneralImprovements },
 	{
-		guard: () => /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]*)\/?$/.exec(window.location.href),
+		guard: () => /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/?$/.exec(getJustThePageURL()),
 		handler: setPageUserImprovements,
 	},
 	{
-		guard: () => /projects\.intra\.42\.fr\/projects\/graph(\/?\?login=(?<login>[a-z0-9-_]*))?$/.exec(window.location.href),
+		guard: () => /projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(getJustThePageURL()),
 		handler: setPageHolyGraphImprovements,
 	},
 	{ handler: setOptionalImprovements },

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 17:03:38 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 18:44:11 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:10:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ function unsetCoalitionTextColor(event) {
 // returns true if the current webpage has a profile banner
 function hasProfileBanner() {
 	return (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/"));
+}
+
+// get the URL of the current webpage without the hash and query
+function getJustThePageURL() {
+	return (window.location.origin + window.location.pathname);
 }
 
 // return a random integer between a min and a max, min and max included
