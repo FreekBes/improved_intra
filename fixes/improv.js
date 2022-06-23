@@ -6,18 +6,41 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:04:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:19:35 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// this file is used for general improvements on the website
+/**
+ * A list of regexp based improvements. The `guard` results are piped into
+ * the improvement handler. These guards, as implied, make sure code is only
+ * executed once the `guard` is set and returns a value which evaluates to
+ * "true".
+ *
+ * @type {[{handler(...any), guard?(): any}]}
+ */
+const improvementsPerUrl = [
+	{ handler: setGeneralImprovements },
+	{
+		guard: () => /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/?$/.exec(getJustThePageURL()),
+		handler: setPageUserImprovements,
+	},
+	{
+		guard: () => /projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(getJustThePageURL()),
+		handler: setPageHolyGraphImprovements,
+	},
+	{ handler: setOptionalImprovements },
+];
 
-// enable general improvements
-setGeneralImprovements();
-
-// enable optional improvements
-// can be enabled in extension options
-setOptionalImprovements();
+// Execute our improvements per page. If we have a validator, we execute that and pipe the results into our
+// improvement handler.
+improvementsPerUrl.forEach(improvement => {
+	if (improvement.guard) {
+		const pipe = improvement.guard();
+		if (pipe) improvement.handler(pipe);
+	} else {
+		improvement.handler();
+	}
+});
 
 // communication between background.js and this script
 let improvPort = chrome.runtime.connect({ name: portName });

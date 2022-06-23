@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/20 17:39:46 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:18:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ function setGeneralImprovements() {
 
 		const dayNameElem = document.createElement("div");
 		dayNameElem.className = "date-day-name";
-		dayNameElem.innerText = jsDate.toLocaleString("en", { weekday: 'short' });
+		dayNameElem.innerText = jsDate.toLocaleString("en", {weekday: 'short'});
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
 	}
 
@@ -97,8 +97,7 @@ function setGeneralImprovements() {
 		for (let i = 0; i < elements.length; i++) {
 			if (elements[i].nodeName == "TEXT") {
 				elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
-			}
-			else {
+			} else {
 				elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
 			}
 		}
@@ -126,12 +125,59 @@ function setGeneralImprovements() {
 			span.innerText = childNode.textContent.trim();
 			childNode.parentNode.insertBefore(span, childNode);
 			childNode.parentNode.removeChild(childNode);
-		})
+		});
 	});
 
 	// Filter the scale team comments and trim the text to remove leading and trailing newlines
 	// https://projects.intra.42.fr/users/x/feedbacks
 	[...document.querySelectorAll('li.scaleteam-list-item .comment')].forEach(item => {
 		item.innerText = item.textContent.trim();
+	});
+}
+
+/**
+ * @param {RegExpExecArray} match
+ */
+function setPageUserImprovements(match) {
+	const button = document.createElement('a');
+	button.textContent = 'Feedbacks logs';
+	button.classList.add('simple-link', 'ml-2');
+	button.setAttribute('href', `https://projects.intra.42.fr/users/${match.groups.login}/feedbacks`);
+
+	const target = document.querySelector(`[href="/users/${match.groups.login}/correction_point_historics"]`);
+	target.parentNode.insertBefore(button, target);
+}
+
+/**
+ * @param {RegExpExecArray} match
+ */
+function setPageHolyGraphImprovements(match) {
+	const cursuses = [
+		{ id: 1, name: "42" },
+		{ id: 3, name: "Discovery Piscine" },
+		{ id: 4, name: "Piscine C" },
+		{ id: 6, name: "Piscine C décloisonnée" },
+		{ id: 7, name: "Piscine C à distance" },
+		{ id: 9, name: "C Piscine" },
+		{ id: 10, name: "Formation Pole Emploi" },
+		{ id: 11, name: "Bootcamp" },
+		{ id: 12, name: "Créa" },
+		{ id: 13, name: "42 Labs" },
+		{ id: 21, name: "42cursus" },
+		{ id: 53, name: "42.zip" },
+	];
+
+	const cursusSwitcher = document.querySelector('#graph_cursus');
+	const availableCursuses = [...cursusSwitcher.children].map(opt => parseInt(opt.getAttribute('value')));
+
+	cursuses.forEach(cursus => {
+		if (availableCursuses.indexOf(cursus.id) !== -1) {
+			return;
+		}
+
+		const option = document.createElement('option');
+		option.textContent = `${cursus.name} (Improved Intra)`;
+		option.setAttribute('value', cursus.id.toString());
+		cursusSwitcher.appendChild(option);
 	});
 }
