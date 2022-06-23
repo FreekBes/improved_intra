@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:04:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:19:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ const improvementsPerUrl = [
 		handler: setPageHolyGraphImprovements,
 	},
 	{ handler: setOptionalImprovements },
-]
+];
 
 // Execute our improvements per page. If we have a validator, we execute that and pipe the results into our
 // improvement handler.
@@ -40,7 +40,7 @@ improvementsPerUrl.forEach(improvement => {
 	} else {
 		improvement.handler();
 	}
-})
+});
 
 // communication between background.js and this script
 let improvPort = chrome.runtime.connect({ name: portName });

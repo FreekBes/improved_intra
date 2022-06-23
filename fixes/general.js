@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/20 17:39:46 by fbes          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:18:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ function setGeneralImprovements() {
 			span.innerText = childNode.textContent.trim();
 			childNode.parentNode.insertBefore(span, childNode);
 			childNode.parentNode.removeChild(childNode);
-		})
+		});
 	});
 
 	// Filter the scale team comments and trim the text to remove leading and trailing newlines
@@ -142,7 +142,7 @@ function setPageUserImprovements(match) {
 	const button = document.createElement('a');
 	button.textContent = 'Feedbacks logs';
 	button.classList.add('simple-link', 'ml-2');
-	button.setAttribute('href', `https://projects.intra.42.fr/users/${match.groups.login}/feedbacks`)
+	button.setAttribute('href', `https://projects.intra.42.fr/users/${match.groups.login}/feedbacks`);
 
 	const target = document.querySelector(`[href="/users/${match.groups.login}/correction_point_historics"]`);
 	target.parentNode.insertBefore(button, target);
@@ -168,7 +168,7 @@ function setPageHolyGraphImprovements(match) {
 	];
 
 	const cursusSwitcher = document.querySelector('#graph_cursus');
-	const availableCursuses = [...cursusSwitcher.children].map(opt => parseInt(opt.getAttribute('value')))
+	const availableCursuses = [...cursusSwitcher.children].map(opt => parseInt(opt.getAttribute('value')));
 
 	cursuses.forEach(cursus => {
 		if (availableCursuses.indexOf(cursus.id) !== -1) {
@@ -178,6 +178,6 @@ function setPageHolyGraphImprovements(match) {
 		const option = document.createElement('option');
 		option.textContent = `${cursus.name} (Improved Intra)`;
 		option.setAttribute('value', cursus.id.toString());
-		cursusSwitcher.appendChild(option)
-	})
+		cursusSwitcher.appendChild(option);
+	});
 }
