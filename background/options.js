@@ -21,6 +21,7 @@ const defaults = {
 	"custom-banner-pos": "center-center",
 	"hide-broadcasts": "false",
 	"hide-goals": "false",
+	"holygraph-morecursuses": "false",
 	"link-github": "",
 	"logsum-month": "true",
 	"logsum-week": "true",

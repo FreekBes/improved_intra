@@ -15,7 +15,7 @@ function setOptionalImprovements() {
 	const broadcastNav = document.querySelector(".broadcast-nav");
 	if (broadcastNav) {
 		improvedStorage.get("hide-broadcasts").then(function(data) {
-			if (data["hide-broadcasts"] === true || data["hide-broadcasts"] === "true") {
+			if (optionIsActive(data, "hide-broadcasts")) {
 				broadcastNav.style.display = "none";
 			}
 		});
@@ -25,7 +25,7 @@ function setOptionalImprovements() {
 	const goalsContainer = document.getElementById("goals_container");
 	if (goalsContainer) {
 		improvedStorage.get("hide-goals").then(function(data) {
-			if (data["hide-goals"] === true || data["hide-goals"] === "true") {
+			if (optionIsActive(data, "hide-goals")) {
 				goalsContainer.style.display = "none";
 			}
 		});
@@ -36,7 +36,7 @@ function setOptionalImprovements() {
 		const userPosteInfos = document.querySelector(".user-poste-infos");
 		if (userPosteInfos) {
 			improvedStorage.get("clustermap").then(function(data) {
-				if ((data["clustermap"] === true || data["clustermap"] === "true") && userPosteInfos.innerText != "-") {
+				if (optionIsActive(data, "clustermap") && userPosteInfos.innerText != "-") {
 					userPosteInfos.className += " improved";
 					userPosteInfos.setAttribute("tabindex", "0");
 					userPosteInfos.addEventListener("mouseenter", setCoalitionTextColor);
@@ -52,4 +52,42 @@ function setOptionalImprovements() {
 			});
 		}
 	}
+}
+
+/**
+ * @param {RegExpExecArray} match
+ */
+function setPageHolyGraphImprovements(match) {
+	improvedStorage.get("holygraph-morecursuses").then(function(data) {
+		if (optionIsActive(data, "holygraph-morecursuses")) {
+			const cursuses = [
+				{ id: 1, name: "42" },
+				{ id: 3, name: "Discovery Piscine" },
+				{ id: 4, name: "Piscine C" },
+				{ id: 6, name: "Piscine C décloisonnée" },
+				{ id: 7, name: "Piscine C à distance" },
+				{ id: 9, name: "C Piscine" },
+				{ id: 10, name: "Formation Pole Emploi" },
+				{ id: 11, name: "Bootcamp" },
+				{ id: 12, name: "Créa" },
+				{ id: 13, name: "42 Labs" },
+				{ id: 21, name: "42cursus" },
+				{ id: 53, name: "42.zip" },
+			];
+
+			const cursusSwitcher = document.querySelector('#graph_cursus');
+			const availableCursuses = [...cursusSwitcher.children].map(opt => parseInt(opt.getAttribute('value')));
+
+			cursuses.forEach(cursus => {
+				if (availableCursuses.indexOf(cursus.id) !== -1) {
+					return;
+				}
+
+				const option = document.createElement('option');
+				option.textContent = `${cursus.name} (Improved Intra)`;
+				option.setAttribute('value', cursus.id.toString());
+				cursusSwitcher.appendChild(option);
+			});
+		}
+	});
 }

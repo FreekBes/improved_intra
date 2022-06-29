@@ -129,7 +129,7 @@ function setGitHubLink(gitHubName) {
 }
 
 function setCustomBannerWrapper() {
-	if (gExtSettings["show-custom-profiles"] === true || gExtSettings["show-custom-profiles"] === "true") {
+	if (optionIsActive(gExtSettings, "show-custom-profiles")) {
 		if (gProfileBanner) {
 			if (gUName == gExtSettings["username"]) {
 				if (!setCustomBanner(gExtSettings["custom-banner-url"], gExtSettings["custom-banner-pos"])) {
@@ -152,7 +152,7 @@ function setCustomBannerWrapper() {
 }
 
 function setCustomProfile() {
-	if (gExtSettings["show-custom-profiles"] === true || gExtSettings["show-custom-profiles"] === "true") {
+	if (optionIsActive(gExtSettings, "show-custom-profiles")) {
 		if (gProfileBanner) {
 			if (gUName == gExtSettings["username"]) {
 				if (gExtSettings["link-github"]) {
@@ -196,8 +196,10 @@ function immediateProfileChanges() {
 			logTimesHeader.className = "profile-title";
 			logTimesHeader.innerText = "Logtime";
 			if (profileFromCodam()) {
-				improvedStorage.get("codam-buildingtimes-chart").then(function() {
-					logTimesHeader.innerText = "Buildingtime*";
+				improvedStorage.get("codam-buildingtimes-chart").then(function(data) {
+					if (optionIsActive(data, "codam-buildingtimes-chart")) {
+						logTimesHeader.innerText = "Buildingtime*";
+					}
 				});
 			}
 			locations.parentNode.parentNode.prepend(logTimesHeader);

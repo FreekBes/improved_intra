@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 function codamMonitHelper(settings, logTime) {
-	if (profileFromCodam() && (settings["codam-monit"] === true || settings["codam-monit"] === "true")) {
+	if (profileFromCodam() && optionIsActive(settings, "codam-monit")) {
 		return (" / " + Math.floor(logTime / monit.requirements.min * 100) + "%");
 	}
 	return ("");
@@ -67,7 +67,7 @@ function getLogTimes(settings) {
 		httpReq.addEventListener("load", function() {
 			try {
 				const stats = JSON.parse(this.responseText);
-				if (settings["codam-monit"] === true || settings["codam-monit"] === "true") {
+				if (optionIsActive(settings, "codam-monit")) {
 					getBuildingTimes()
 						.then(function(bStats) {
 							resolve(mergeTimes(stats, bStats));
@@ -218,7 +218,7 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 		date++;
 	}
 
-	if (profileFromCodam() && settings["codam-buildingtimes-chart"]) {
+	if (profileFromCodam() && optionIsActive(settings, "codam-buildingtimes-chart")) {
 		// Replace logtime chart data with buildingtime data
 		getBuildingTimes()
 			.then(function(stats) {
@@ -251,20 +251,20 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 				iConsole.error(err);
 			})
 			.finally(function() {
-				if (settings["logsum-month"]) {
+				if (optionIsActive(settings, "logsum-month")) {
 					sumMonthLogTime(ltMonths, settings);
 				}
-				if (settings["logsum-week"]) {
+				if (optionIsActive(settings, "logsum-week")) {
 					cumWeekLogTime(ltDays, settings);
 				}
 			});
 	}
 	else {
 		// Codam Monitoring System progress not enabled, do not replace logtimes with building times
-		if (settings["logsum-month"]) {
+		if (optionIsActive(settings, "logsum-month")) {
 			sumMonthLogTime(ltMonths, settings);
 		}
-		if (settings["logsum-week"]) {
+		if (optionIsActive(settings, "logsum-week")) {
 			cumWeekLogTime(ltDays, settings);
 		}
 	}

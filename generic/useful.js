@@ -124,6 +124,13 @@ function addToolTip(query) {
 	document.dispatchEvent(evt);
 }
 
+// check if a boolean option is true
+function optionIsActive(improvedStorageData, optionKey) {
+	// can be string or boolean, depending on where the data was fetched from. So check for both
+	return (improvedStorageData[optionKey] === true || improvedStorageData[optionKey] === "true");
+}
+
+// check if the current page is a profile of a Codam student
 function profileFromCodam() {
 	if (window.location.pathname.indexOf("/users/") == 0) {
 		// user profile. check if user loaded is from Amsterdam campus

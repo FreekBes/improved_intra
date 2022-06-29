@@ -49,7 +49,7 @@ function autoEquipCoaTitle(loggedInUserName) {
 }
 
 improvedStorage.get(["username", "codam-auto-equip-coa-title"]).then(function(data) {
-	if (data["codam-auto-equip-coa-title"] === true || data["codam-auto-equip-coa-title"] === "true") {
+	if (optionIsActive(data, "codam-auto-equip-coa-title")) {
 		autoEquipCoaTitle(data["username"]);
 	}
 });

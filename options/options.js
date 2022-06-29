@@ -181,7 +181,7 @@ function syncSettings(event) {
 	else {
 		// check if sync was enabled before, and if so, delete the user's data from the server
 		improvedStorage.get(["sync", "auth"]).then(function(data) {
-			if ((data["sync"] === true || data["sync"] === "true") && data["auth"]) {
+			if (optionIsActive(data, "sync") && data["auth"]) {
 				syncBtn.className = "syncing";
 				formData = new FormData(form);
 				formData.set("username", document.getElementById("username").value);

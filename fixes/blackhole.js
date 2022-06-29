@@ -34,7 +34,7 @@ function fixBlackHoleContainer() {
 				clearInterval(bhColorTimer);
 				iConsole.log("Black Hole days remaining: ", daysRemaining);
 				improvedStorage.get("old-blackhole").then(function(data) {
-					if (data["old-blackhole"] === true || data["old-blackhole"] === "true") {
+					if (optionIsActive(data, "old-blackhole")) {
 						bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
 						bhDate.innerText = daysRemaining.toString() + " days left";
 

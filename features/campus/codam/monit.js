@@ -379,7 +379,7 @@ const monit = {
 };
 
 improvedStorage.get("codam-monit").then(function(data) {
-	if (data["codam-monit"] === true || data["codam-monit"] === "true") {
+	if (optionIsActive(data, "codam-monit")) {
 		monit.getProgress();
 	}
 });
