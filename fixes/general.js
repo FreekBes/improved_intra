@@ -89,35 +89,44 @@ function setGeneralImprovements() {
 		dayNameElem.innerText = jsDate.toLocaleString("en", {weekday: 'short'});
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
 	}
+}
 
-	// april 1st easter egg
-	if (today.getMonth() == 3 && today.getDate() == 1) {
-		iConsole.log("It's april first! Using Comic Sans everywhere");
-		const elements = document.querySelectorAll("body, a, .user-primary, text, .name, .login, .modal-header, h4, h3");
-		for (let i = 0; i < elements.length; i++) {
-			if (elements[i].nodeName == "TEXT") {
-				elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
-			} else {
-				elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
-			}
+/**
+ * Set april fools.
+ */
+function setAprilFools() {
+	iConsole.log("It's april first! Using Comic Sans everywhere");
+	const elements = document.querySelectorAll("body, a, .user-primary, text, .name, .login, .modal-header, h4, h3");
+	for (let i = 0; i < elements.length; i++) {
+		if (elements[i].nodeName === "TEXT") {
+			elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
+		} else {
+			elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
 		}
 	}
+}
 
-	// haha easter egg
-	if (window.location.hash == "#haha") {
-		const elements = document.querySelectorAll("*");
-		for (let i = 0; i < elements.length; i++) {
-			elements[i].className += " funnyhaha";
-			elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
-			elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
-		}
+/**
+ * Set an easter egg.
+ */
+function setEasterEgg() {
+	const elements = document.querySelectorAll("*");
+	for (let i = 0; i < elements.length; i++) {
+		elements[i].className += " funnyhaha";
+		elements[i].style.animationDuration = randomIntFromInterval(0.1, 10) + "s";
+		elements[i].style.animationDelay = randomIntFromInterval(0, 10) + "s";
 	}
+}
 
-	// Filter the correction comment items for text nodes and convert them to span nodes
-	// https://projects.intra.42.fr/projects/x/projects_users/x
+/**
+ * Filter the scale team comments and trim the text to remove leading and trailing newlines
+ * https://projects.intra.42.fr/projects/x/projects_users/x
+ * @param {RegExpExecArray} match
+ */
+function setPageProjectsUsersImprovements(match) {
 	[...document.querySelectorAll('.correction-comment-item')].forEach(item => {
 		item.childNodes.forEach(childNode => {
-			if (childNode.nodeType != 3 || childNode.textContent.trim().length === 0) {
+			if (childNode.nodeType !== 3 || childNode.textContent.trim().length === 0) {
 				return;
 			}
 
@@ -127,9 +136,14 @@ function setGeneralImprovements() {
 			childNode.parentNode.removeChild(childNode);
 		});
 	});
+}
 
-	// Filter the scale team comments and trim the text to remove leading and trailing newlines
-	// https://projects.intra.42.fr/users/x/feedbacks
+/**
+ * Filter the scale team comments and trim the text to remove leading and trailing newlines
+ * https://projects.intra.42.fr/users/x/feedbacks
+ * @param {RegExpExecArray} match
+ */
+function setPageUserFeedbacksImprovements(match) {
 	[...document.querySelectorAll('li.scaleteam-list-item .comment')].forEach(item => {
 		item.innerText = item.textContent.trim();
 	});

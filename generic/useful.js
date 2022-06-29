@@ -79,8 +79,8 @@ function hasProfileBanner() {
 }
 
 // get the URL of the current webpage without the hash and query
-function getJustThePageURL() {
-	return (window.location.origin + window.location.pathname);
+function getRawPageURL() {
+	return (window.location.hostname + window.location.pathname);
 }
 
 // return a random integer between a min and a max, min and max included
