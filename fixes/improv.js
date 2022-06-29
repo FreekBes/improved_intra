@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+const pageUrl = getRawPageURL();
+
 /**
  * A list of regexp based improvements. The `guard` results are piped into
  * the improvement handler. These guards, as implied, make sure code is only
@@ -21,11 +23,27 @@
 const improvementsPerUrl = [
 	{ handler: setGeneralImprovements },
 	{
-		guard: () => /intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/?$/.exec(getJustThePageURL()),
+		guard: () => today.getMonth() === 3 && today.getDate() === 1,
+		handler: setAprilFools,
+	},
+	{
+		guard: () => window.location.hash === '#haha',
+		handler: setEasterEgg,
+	},
+	{
+		guard: () => /^projects\.intra\.42\.fr\/projects\/(?<cursus>[a-zA-Z0-9-_]+)\/projects_users\/(?<project_id>\d+)?\/?$/.exec(pageUrl),
+		handler: setPageProjectsUsersImprovements,
+	},
+	{
+		guard: () => /^projects\.intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/feedbacks\/?$/.exec(pageUrl),
+		handler: setPageUserFeedbacksImprovements,
+	},
+	{
+		guard: () => /^profile\.intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/?$/.exec(pageUrl),
 		handler: setPageUserImprovements,
 	},
 	{
-		guard: () => /projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(getJustThePageURL()),
+		guard: () => /^projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(pageUrl),
 		handler: setPageHolyGraphImprovements,
 	},
 	{ handler: setOptionalImprovements },
