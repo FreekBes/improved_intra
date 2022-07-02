@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/06/23 19:18:13 by fbes          ########   odam.nl         */
+/*   Updated: 2022/07/02 15:16:45 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ function setEasterEgg() {
  * @param {RegExpExecArray} match
  */
 function setPageProjectsUsersImprovements(match) {
-	[...document.querySelectorAll('.correction-comment-item')].forEach(item => {
+	[...document.querySelectorAll('.correction-comment-item, .feedback-item')].forEach(item => {
 		item.childNodes.forEach(childNode => {
 			if (childNode.nodeType !== 3 || childNode.textContent.trim().length === 0) {
 				return;
@@ -136,6 +136,7 @@ function setPageProjectsUsersImprovements(match) {
 			childNode.parentNode.removeChild(childNode);
 		});
 	});
+	iConsole.log("Converted all feedback text nodes found in page to span elements and trimmed their contents");
 }
 
 /**
@@ -147,6 +148,7 @@ function setPageUserFeedbacksImprovements(match) {
 	[...document.querySelectorAll('li.scaleteam-list-item .comment')].forEach(item => {
 		item.innerText = item.textContent.trim();
 	});
+	iConsole.log("Trimmed all feedbacks found in page");
 }
 
 /**
