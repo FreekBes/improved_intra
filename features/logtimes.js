@@ -67,7 +67,7 @@ function getLogTimes(settings) {
 		httpReq.addEventListener("load", function() {
 			try {
 				const stats = JSON.parse(this.responseText);
-				if (optionIsActive(settings, "codam-monit")) {
+				if (profileFromCodam() && optionIsActive(settings, "codam-buildingtimes-chart")) {
 					getBuildingTimes()
 						.then(function(bStats) {
 							resolve(mergeTimes(stats, bStats));
