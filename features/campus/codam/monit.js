@@ -187,11 +187,15 @@ const monit = {
 					}
 				}
 				catch (err) {
-					reject(err);
+					// don't care about the error here, just make sure the extension's code keeps running
+					iConsole.log("Unable to retrieve buildingtimes for " + username);
+					resolve(username);
 				}
 			});
 			monit.bldtReq.addEventListener("error", function(err) {
-				reject(err);
+				// don't care about the error here, just make sure the extension's code keeps running
+				iConsole.log("Unable to retrieve buildingtimes for " + username);
+				resolve(username);
 			});
 			monit.bldtReq.open("GET", "https://darkintra.freekb.es/buildingtimes.php?username=" + username + "&parsed=true");
 			monit.bldtReq.send();
