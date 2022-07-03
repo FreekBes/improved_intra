@@ -16,11 +16,15 @@ body {
 	padding: 12px !important;
 }
 
-#menu {
+p {
+	margin: 1em 0 !important;
+}
+
+#main-menu, #building-hours-inputter {
 	display: none;
 }
 
-#menu-logo {
+.menu-logo {
 	font-weight: bold;
 	font-size: 1.3em;
 	margin-top: 12px;
@@ -104,4 +108,24 @@ body {
 
 #intra-logout > button::before {
 	content: 'logout' !important;
+}
+
+#building-hours-inputter label {
+	display: block !important;
+	text-align: left !important;
+	padding-left: 0 !important;
+	font-size: 0.8em !important;
+	margin-bottom: 1px !important;
+}
+
+#building-hours-inputter input {
+	margin: 0 0 9px 0 !important;
+}
+
+#building-hours-inputter input[type="button"] {
+	margin: 0.4em 0 0 0 !important;
+}
+
+#building-hours-inputter input:invalid {
+	border-color: var(--fail-color) !important;
 }

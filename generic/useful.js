@@ -118,6 +118,16 @@ function logTimeToString(logTime) {
 	return (Math.floor(logTime / 60) + "h" + (logTime % 60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
 }
 
+// convert a JS date to a string a date input would accept
+// from https://stackoverflow.com/questions/14245339/pre-populating-date-input-field-with-javascript
+function dateToInputDate(d) {
+	// Date string
+	let ds = d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
+	// Time string
+	let ts = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ':' + d.getSeconds().toString().padStart(2, '0');
+	return [ds, ts];
+  }
+
 // add bootstrap tooltip to holder (send to inject.js)
 function addToolTip(query) {
 	const evt = new CustomEvent("add-tooltip", { detail: query });

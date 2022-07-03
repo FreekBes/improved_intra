@@ -11,7 +11,7 @@
 	<script src="/features/themes/loader.js"></script>
 </head>
 <body>
-	<div id="menu">
+	<div id="main-menu">
 		<ul class="menu-list">
 			<li id="open-intra"><button><span>Open Intra</span></button></li>
 			<li id="view-profile"><button><span>View profile</span></button></li>
@@ -19,14 +19,30 @@
 			<li id="ext-settings"><button><span>Extension settings</span></button></li>
 			<!--<li id="intra-logout"><button><span>Log out</span></button></li>-->
 		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
 	</div>
-	<div id="plslogin">
+	<div id="login-menu">
 		<p>Not logged in on Intra</p>
 		<ul class="menu-list">
 			<li id="intra-login"><button><span>Log in</span></button></li>
 		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
 	</div>
-	<img id="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	<div id="building-hours-inputter">
+		<p style="margin-top: 0.3em !important;"><b>Enter building hours</b></p>
+		<form>
+			<label for="monit-date">Date:</label>
+			<input type="date" required id="monit-date" name="monit-date" placeholder="YYYY-MM-DD" />
+
+			<label for="monit-hours">Hours:</label>
+			<input type="number" required id="monit-hours" name="monit-hours" min="0" max="24" step="0" placeholder="Hours" />
+
+			<label for="monit-minutes">Minutes:</label>
+			<input type="number" id="monit-minutes" name="monit-minutes" min="0" max="59" step="1" placeholder="Minutes" />
+
+			<input type="button" id="monit-submit" name="monit-submit" value="Submit" />
+		</form>
+	</div>
 	<script src="popup.js"></script>
 </body>
 </html>
