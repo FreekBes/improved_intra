@@ -16,7 +16,7 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
-	"incognito": "spanning",
+	"incognito": "split",
 	"options_page": "options/options.html",
 	"action": {
 		"default_popup": "generic/popup/popup.html"
