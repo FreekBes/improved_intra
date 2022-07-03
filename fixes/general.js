@@ -160,6 +160,8 @@ function setPageUserImprovements(match) {
 	button.classList.add('simple-link', 'ml-2');
 	button.setAttribute('href', `https://projects.intra.42.fr/users/${match.groups.login}/feedbacks`);
 
-	const target = document.querySelector(`[href="/users/${match.groups.login}/correction_point_historics"]`);
-	target.parentNode.insertBefore(button, target);
+	const target = document.querySelector(`a[href*="/correction_point_historics"]`);
+	if (target) {
+		target.parentNode.insertBefore(button, target);
+	}
 }
