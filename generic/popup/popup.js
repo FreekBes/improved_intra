@@ -23,26 +23,43 @@ function switchMenus(newMenu) {
 	currentMenu = newMenu;
 }
 
+
 // buttons setup
 const buttons = {
 	openIntra: document.getElementById("open-intra"),
+	manageSlots: document.getElementById("manage-slots"),
+	listProjects: document.getElementById("list-projects"),
 	viewProfile: document.getElementById("view-profile"),
 	extSettings: document.getElementById("ext-settings"),
 	buildingHours: document.getElementById("codam-monit"),
 	login: document.getElementById("intra-login")
 };
+
 buttons.login.addEventListener("click", function(ev) {
 	window.open("https://signin.intra.42.fr/");
 	window.close();
 });
+
 buttons.openIntra.addEventListener("click", function(ev) {
 	window.open("https://intra.42.fr/");
 	window.close();
 });
+
+buttons.manageSlots.addEventListener("click", function(ev) {
+	window.open("https://profile.intra.42.fr/slots");
+	window.close();
+});
+
+buttons.listProjects.addEventListener("click", function(ev) {
+	window.open("https://projects.intra.42.fr/");
+	window.close();
+});
+
 buttons.viewProfile.addEventListener("click", function(ev) {
 	window.open("https://profile.intra.42.fr/users/me");
 	window.close();
 });
+
 buttons.buildingHours.addEventListener("click", function(ev) {
 	let yesterday = new Date();
 	yesterday.setDate(yesterday.getDate() - 1);
@@ -50,10 +67,12 @@ buttons.buildingHours.addEventListener("click", function(ev) {
 	switchMenus("building-hours-inputter");
 	document.getElementById("monit-hours").focus(); // focus on hours after pre filling in date
 });
+
 buttons.extSettings.addEventListener("click", function(ev) {
 	window.open("https://darkintra.freekb.es/options.php");
 	window.close();
 });
+
 
 // get extension settings and show items accordingly
 improvedStorage.get(["username", "codam-monit"]).then(function(data) {
@@ -67,6 +86,7 @@ improvedStorage.get(["username", "codam-monit"]).then(function(data) {
 		buttons.buildingHours.style.display = "block";
 	}
 });
+
 
 // building hours form validation
 function validateBuildingHoursForm(form) {
@@ -87,6 +107,7 @@ function validateBuildingHoursForm(form) {
 	minsField.reportValidity();
 	return (true);
 }
+
 
 // building hours form submitter
 function submitBuildingHoursForm(form) {

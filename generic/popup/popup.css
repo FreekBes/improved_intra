@@ -94,6 +94,14 @@ p {
 	content: 'open_in_new' !important;
 }
 
+#manage-slots > button::before {
+	content: 'edit_calendar' !important;
+}
+
+#list-projects > button::before {
+	content: 'travel_explore' !important;
+}
+
 #view-profile > button::before {
 	content: 'person' !important;
 }
