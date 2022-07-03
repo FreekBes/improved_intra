@@ -18,6 +18,9 @@
 	},
 	"incognito": "spanning",
 	"options_page": "options/options.html",
+	"action": {
+		"default_popup": "generic/popup/popup.html"
+	},
 	"permissions": [
 		"storage"
 	],

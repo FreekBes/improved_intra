@@ -1,0 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   popup.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/07/03 11:35:13 by fbes          #+#    #+#                 */
+/*   Updated: 2022/07/03 11:35:13 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+body {
+	text-align: center !important;
+	min-width: unset !important;
+	padding: 12px !important;
+}
+
+#menu {
+	display: none;
+}
+
+#menu-logo {
+	font-weight: bold;
+	font-size: 1.3em;
+	margin-top: 12px;
+	max-height: 3em;
+	pointer-events: none;
+}
+
+.menu-list {
+	padding: 0;
+	list-style-type: none;
+	margin: 0;
+}
+
+.menu-list > li {
+	margin: 4px 0px;
+}
+
+.menu-list > li > button {
+	font-family: inherit !important;
+	width: 190px !important;
+	text-align: left !important;
+	margin: 0 !important;
+	padding: 6px 8px !important;
+	height: 31px !important;
+}
+
+.menu-list > li > button > span {
+	vertical-align: middle;
+}
+
+#intra-logout > button:hover,
+#intra-logout > button:focus {
+	background-color: var(--danger-color) !important;
+	border-color: var(--danger-button-border) !important;
+}
+
+.menu-list > li > button::before {
+	display: inline-block;
+	background-color: rgba(0,0,0,0.16);
+	content: 'chevron_right';
+	vertical-align: middle;
+	margin: -8px 8px -8px -9px;
+	padding: 8px 6px 8px 7px;
+
+	/* Material Icons */
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1.3em;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+	/* End Material Icons */
+}
+
+#intra-login > button::before {
+	content: 'login' !important;
+}
+
+#open-intra > button::before {
+	content: 'open_in_new' !important;
+}
+
+#view-profile > button::before {
+	content: 'person' !important;
+}
+
+#codam-monit > button::before {
+	content: 'history' !important;
+}
+
+#ext-settings > button::before {
+	content: 'settings' !important;
+}
+
+#intra-logout > button::before {
+	content: 'logout' !important;
+}

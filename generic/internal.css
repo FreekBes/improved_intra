@@ -343,6 +343,12 @@ button {
 	border-color: var(--theme-color);
 	cursor: pointer;
 	font-weight: bold;
+	transition: 0.075s ease-out;
+}
+
+input[type="button"]:hover,
+button:hover {
+	transition: 0s;
 }
 
 .non-important-btn {
