@@ -33,12 +33,15 @@ const buttons = {
 };
 buttons.login.addEventListener("click", function(ev) {
 	window.open("https://signin.intra.42.fr/");
+	window.close();
 });
 buttons.openIntra.addEventListener("click", function(ev) {
 	window.open("https://intra.42.fr/");
+	window.close();
 });
 buttons.viewProfile.addEventListener("click", function(ev) {
 	window.open("https://profile.intra.42.fr/users/me");
+	window.close();
 });
 buttons.buildingHours.addEventListener("click", function(ev) {
 	let yesterday = new Date();
@@ -49,6 +52,7 @@ buttons.buildingHours.addEventListener("click", function(ev) {
 });
 buttons.extSettings.addEventListener("click", function(ev) {
 	window.open("https://darkintra.freekb.es/options.php");
+	window.close();
 });
 
 // get extension settings and show items accordingly
