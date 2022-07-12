@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   apply.css                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/01 19:25:33 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   apply.css                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
+/*   Updated: 2022/07/12 14:36:05 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -922,6 +922,10 @@ a.label:not([style*="color:"]):focus {
 }
 
 .articles-routes {
+	background-color: var(--input-background-color) !important;
+}
+
+.article-content table tr:nth-child(2n) {
 	background-color: var(--input-background-color) !important;
 }
 
