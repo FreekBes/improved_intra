@@ -9,7 +9,7 @@ $OrigDir = Get-Location
 # To display Verbose messages, run $VerbosePreference = "Continue"
 # To hide them again, run $VerbosePreference = "SilentlyContinue"
 
-Write-Progress -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Initializing..." -PercentComplete 0
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Initializing..." -PercentComplete 0
 
 # Change location to the folder where this script is located
 Set-Location -Path "$PSScriptRoot" -ErrorAction Stop
@@ -25,19 +25,19 @@ if (-Not (Test-Path -Path "$PSScriptRoot\build.txt")) {
 #Remove-Item -Force -Recurse -Path "$PSScriptRoot\fixes\galaxygraph"
 
 # Update submodules
-Write-Progress -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Updating submodules..." -PercentComplete 5
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Updating submodules..." -PercentComplete 5
 git submodule update >"$MainLog" 2>"$ErrorLog"
 
 # Install dependencies for GalaxyGraph and build the submodule
 Set-Location -Path "$PSScriptRoot\fixes\galaxygraph" -ErrorAction Stop
-Write-Progress -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Installing dependencies..." -PercentComplete 15
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Installing dependencies..." -PercentComplete 15
 npm install >"$MainLog" 2>"$ErrorLog"
-Write-Progress -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Installing dependencies..." -PercentComplete 35
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Installing dependencies..." -PercentComplete 35
 npm run build-windows >"$MainLog" 2>"$ErrorLog"
 Set-Location -Path $PSScriptRoot
 
 # Remove old generated archives
-Write-Progress -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 45
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 45
 Remove-Item -Force -Path "$ChromiumZip" -ErrorAction Ignore
 if (Test-Path -Path "$ChromiumZip") {
 	throw "Could not delete $PSScriptRoot\$ChromiumZip (it still exists)"
@@ -79,7 +79,7 @@ function GatherZipContents {
 		}
 
 		# Write progress bar
-		Write-Progress -Activity "Building Improved Intra" -Status "Gathering files..." -CurrentOperation "Gathering $PSScriptRoot\$Line..." -PercentComplete ($StartPercent + ($IncreaseBy * $Iterator))
+		Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Gathering files..." -CurrentOperation "Gathering $PSScriptRoot\$Line..." -PercentComplete ($StartPercent + ($IncreaseBy * $Iterator))
 
 		# Replace forward facing slashes with backslashes for Windows support
 		$Line = $Line.replace("/", "\")
@@ -116,25 +116,25 @@ function GatherZipContents {
 GatherZipContents -StartPercent 50 -MaxIncrease 10
 
 # Create archive for Chromium browsers
-Write-Progress -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Building for Chromium..." -PercentComplete 60
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Building for Chromium..." -PercentComplete 60
 Compress-Archive -Path "$PSScriptRoot\temp\*" -DestinationPath "$ChromiumZip" -Force
 
 # Modify the archive specifically for Firefox
-Write-Progress -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Preparing Firefox build..." -PercentComplete 70
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Preparing Firefox build..." -PercentComplete 70
 Remove-Item -Force -Path "$PSScriptRoot\temp\sw.js" -ErrorAction SilentlyContinue
 Remove-Item -Force -Path "$PSScriptRoot\temp\manifest.json" -ErrorAction SilentlyContinue
 Copy-Item -Path "$PSScriptRoot\manifest-ff.json" -Destination "$PSScriptRoot\temp\manifest.json" -Force -ErrorAction Stop
 
 # Create archive for Firefox browser
-Write-Progress -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Building firefox.zip..." -PercentComplete 75
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Building..." -CurrentOperation "Building firefox.zip..." -PercentComplete 75
 Compress-Archive -Path "$PSScriptRoot\temp\*" -DestinationPath "$FirefoxZip" -Force
 
 # Clean up
-Write-Progress -Activity "Building Improved Intra" -Status "Finishing..." -CurrentOperation "Cleaning up..." -PercentComplete 95
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Finishing..." -CurrentOperation "Cleaning up..." -PercentComplete 95
 Remove-Item -Path "$PSScriptRoot\temp" -Force -Recurse -ErrorAction SilentlyContinue
 
 # Let user know we are done building
-Write-Progress -Activity "Building Improved Intra" -Status "Done" -CurrentOperation "" -PercentComplete 100
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Done" -CurrentOperation "" -PercentComplete 100
 
 # Set location to what it was before executing the Powershell script
 Set-Location -Path $OrigDir
