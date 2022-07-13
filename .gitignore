@@ -3,3 +3,5 @@
 *.xpi
 *.crx
 temp.js
+temp/*
+*.log
