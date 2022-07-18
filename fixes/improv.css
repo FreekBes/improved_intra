@@ -453,7 +453,7 @@ a[data-tooltip-login].student-kind-student::before,
 }
 
 /* set z-index for all elements in the profile banner to accustom for the custom banner */
-.container-inner-item.profile-item-top.profile-banner > * {
+.container-inner-item.profile-item-top.profile-banner > *:not(.improved-intra-banner) {
 	z-index: 1 !important;
 }
 
