@@ -1444,6 +1444,11 @@ textarea,
 	border-color: var(--input-border-color) !important;
 }
 
+.chosen-container-multi .chosen-choices li.search-field input[type="text"],
+.chosen-container-active .chosen-choices li.search-field input[type="text"] {
+	color: var(--text-color) !important;
+}
+
 .chosen-container-single .chosen-drop {
 	background: var(--input-background-color) !important;
 	box-shadow: none !important;
