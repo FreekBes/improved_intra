@@ -677,6 +677,11 @@ textarea {
 	.user-primary .coalition-name .margin-right-10 {
 		margin-right: 0px !important;
 	}
+
+	/* remove background color for profile infos box in header */
+	.profile-item .profile-infos {
+		background-color: unset !important;
+	}
 }
 
 /* fix backdrop-filter not being supported in Firefox for the blurry containers in front of profile banners */
