@@ -131,7 +131,8 @@ h6 small, h6 .small,
 .container-fullsize .container-inner-item,
 .container-item,
 .modal-content,
-.container-item.bg-white {
+.container-item.bg-white,
+.jumbotron.bg-white {
 	background: var(--container-background-color) !important;
 	border-color: var(--general-border-color) !important
 }
@@ -755,8 +756,15 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	color: var(--theme-color) !important;
 }
 
-.shop-wallet {
+.shop-wallet,
+.list-container li.list-item:last-child,
+.list-container .list-nav {
 	border-color: var(--general-border-color) !important;
+}
+
+.list-container ul.list-header,
+.list-container li.list-item:hover {
+	background-color: var(--container-background-color) !important;
 }
 
 /* issues page */
