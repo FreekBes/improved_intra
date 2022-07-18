@@ -293,6 +293,12 @@ li.scaleteam-list-item .rating {
 	text-align: center !important;
 }
 
+/* fix text alignment for user badges (groups/tags) */
+.profile-item .user-primary .user-infos .profile-name span.user-badge {
+	margin-top: -4px !important;
+	margin-bottom: -4px !important;
+}
+
 /* fix coalition banner vertical alignment */
 .profile-name .mini-banner,
 .profile-name .user-banner {
