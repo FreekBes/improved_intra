@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   apply.css                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbes <fbes@student.codam.nl>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
 /*   Updated: 2022/07/12 14:36:05 by nsimon           ###   ########.fr       */
@@ -1636,6 +1636,28 @@ mark {
 
 .project-infos > .project-progress .progress-footer {
 	color: var(--tertiary-text-color) !important;
+}
+
+/* translate page */
+.flat-table td {
+	background-color: var(--list-hover-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+.page-content pre {
+	color: var(--text-color) !important;
+	background-color: var(--input-background-color) !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.json-formatter-row .json-formatter-string {
+	color: var(--text-color) !important;
+}
+
+.translation-item .translation-content,
+.translation-item .translation-link[aria-expanded="true"] {
+	background: var(--container-background-color) !important;
+	color: var(--text-color) !important;
 }
 
 /* SCROLLBARS */
