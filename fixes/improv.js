@@ -31,7 +31,11 @@ const improvementsPerUrl = [
 		handler: setEasterEgg,
 	},
 	{
-		guard: () => /^projects\.intra\.42\.fr\/(projects\/(?<cursus>[a-zA-Z0-9-_]+)\/projects_users\/(?<project_id>\d+)?|[0-9]+\/(?<login>[a-z0-9-_]+))\/?$/.exec(pageUrl),
+		guard: () => new RegExp(
+			"^projects\\.intra\\.42\\.fr\\/("
+                + "projects\\/(?<cursus>[a-zA-Z0-9-_]+)\\/projects_users\\/(?<project_id>\\d+)?"
+                + "|[0-9]+\\/(?<login>[a-z0-9-_]+)"
+			+ ")\\/?$").exec(pageUrl),
 		handler: setPageProjectsUsersImprovements,
 	},
 	{
