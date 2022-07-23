@@ -152,8 +152,9 @@ function GatherZipContents {
 				continue
 			fi
 
-			# Remove line break from line
-			Line=${Line::-1}
+			# Remove line breaks from line
+			Line=${Line//$'\n'/}
+			Line=${Line//$'\r'/}
 
 			# Write progress bar
 			Progress=$(awk "BEGIN {print ${1} + int($IncreaseBy * ${Iterator})}")
