@@ -54,7 +54,7 @@ Remove-Item -Force -Recurse -Path "$PSScriptRoot\fixes\galaxygraph"
 
 # Update submodules
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Updating submodules..." -PercentComplete 5
-git submodule update >>"$MainLog" 2>>"$ErrorLog"
+git submodule update --init --recursive >>"$MainLog" 2>>"$ErrorLog"
 
 # Install dependencies for GalaxyGraph and build the submodule
 Set-Location -Path "$PSScriptRoot\fixes\galaxygraph" -ErrorAction Stop

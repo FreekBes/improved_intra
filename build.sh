@@ -92,7 +92,7 @@ rm -rf "${ScriptRoot}/fixes/galaxygraph"
 
 # Update submodules
 ProgressBar 5 'Building Improved Intra' 'Preparing...' 'Updating submodules...'
-git submodule update >>"$MainLog" 2>>"$ErrorLog"
+git submodule update --init --recursive >>"$MainLog" 2>>"$ErrorLog"
 
 # Install dependencies for GalaxyGraph and build the submodule
 cd "${ScriptRoot}/fixes/galaxygraph"
