@@ -16,6 +16,9 @@ $OrigDir = Get-Location
 $ChromiumZip = "$PSScriptRoot\chromium.zip"
 $FirefoxZip = "$PSScriptRoot\firefox.zip"
 
+# To display Verbose messages, run $VerbosePreference = "Continue"
+# To hide them again, run $VerbosePreference = "SilentlyContinue"
+
 # Uncomment the following lines to enable logging for subprocesses
 $MainLog = "$PSScriptRoot\build.log"
 $ErrorLog = "$PSScriptRoot\build.error.log"
@@ -27,13 +30,20 @@ Clear-Content -Path "$ErrorLog"
 # Import Archive module (this way the latest version should be used)
 Import-Module Microsoft.PowerShell.Archive -PassThru >>"$MainLog" 2>>"$ErrorLog"
 
-# To display Verbose messages, run $VerbosePreference = "Continue"
-# To hide them again, run $VerbosePreference = "SilentlyContinue"
+# Check for git command (required for dependencies)
+if (-Not (Get-Command -name "git" -ErrorAction SilentlyContinue)) {
+	throw "Error: git command not found"
+}
+
+# Check for npm command (required by dependencies)
+if (-Not (Get-Command -name "npm" -ErrorAction SilentlyContinue)) {
+	throw "Error: npm command not found"
+}
 
 # Check if build.txt exists
 # build.txt contains the paths of files to include in the extension
 if (-Not (Test-Path -Path "$PSScriptRoot\build.txt")) {
-	throw "$PSScriptRoot\build.txt not found"
+	throw "Error: $PSScriptRoot\build.txt not found"
 }
 
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Initializing..." -PercentComplete 0
@@ -58,21 +68,21 @@ Set-Location -Path $OrigDir
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old Chromium build..." -PercentComplete 45
 Remove-Item -Force -Path "$ChromiumZip" -ErrorAction Ignore
 if (Test-Path -Path "$ChromiumZip") {
-	throw "Could not delete $PSScriptRoot\$ChromiumZip (it still exists)"
+	throw "Error: Could not delete $PSScriptRoot\$ChromiumZip (it still exists)"
 }
 
 # Remove old Firefox build
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old Firefox build..." -PercentComplete 46
 Remove-Item -Force -Path "$FirefoxZip" -ErrorAction Ignore
 if (Test-Path -Path "$FirefoxZip") {
-	throw "Could not delete $PSScriptRoot\$FirefoxZip (it stil exists)"
+	throw "Error: Could not delete $PSScriptRoot\$FirefoxZip (it stil exists)"
 }
 
 # Remove temp folder
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old temp folder..." -PercentComplete 47
 Remove-Item -Path "$PSScriptRoot\temp" -Force -Recurse -ErrorAction Ignore
 if (Test-Path -Path "$PSScriptRoot\temp") {
-	throw "Could not delete $PSScriptRoot\temp folder (it stil exists)"
+	throw "Error: Could not delete $PSScriptRoot\temp folder (it stil exists)"
 }
 
 # Create temp folder
