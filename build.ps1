@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+#Requires -Modules @{ ModuleName="Microsoft.PowerShell.Archive"; ModuleVersion="1.2.3.0" }
+
 $OrigDir = Get-Location
 $ChromiumZip = "$PSScriptRoot\chromium.zip"
 $FirefoxZip = "$PSScriptRoot\firefox.zip"
@@ -21,6 +23,9 @@ $ErrorLog = "$PSScriptRoot\build.error.log"
 # Clear logs
 Clear-Content -Path "$MainLog"
 Clear-Content -Path "$ErrorLog"
+
+# Import Archive module (this way the latest version should be used)
+Import-Module Microsoft.PowerShell.Archive -PassThru >>"$MainLog" 2>>"$ErrorLog"
 
 # To display Verbose messages, run $VerbosePreference = "Continue"
 # To hide them again, run $VerbosePreference = "SilentlyContinue"
@@ -102,7 +107,6 @@ function GatherZipContents {
 
 		# Replace forward facing slashes with backslashes for Windows support
 		$Line = $Line.replace("/", "\")
-		$Line = $Line.replace("[^a-zA-Z0-9\/]", "")
 
 		Write-Verbose "Line: $Line"
 
