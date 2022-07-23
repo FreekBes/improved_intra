@@ -1,6 +1,18 @@
-$ChromiumZip = "chromium.zip"
-$FirefoxZip = "firefox.zip"
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    build.ps1                                          :+:    :+:             #
+#                                                      +:+                     #
+#    By: fbes <fbes@student.codam.nl>                 +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/07/13 22:11:53 by fbes          #+#    #+#                  #
+#    Updated: 2022/07/23 15:23:12 by fbes          ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 $OrigDir = Get-Location
+$ChromiumZip = "$PSScriptRoot\chromium.zip"
+$FirefoxZip = "$PSScriptRoot\firefox.zip"
 
 # Uncomment the following lines to enable logging
 #$MainLog = "build.log"
@@ -9,19 +21,16 @@ $OrigDir = Get-Location
 # To display Verbose messages, run $VerbosePreference = "Continue"
 # To hide them again, run $VerbosePreference = "SilentlyContinue"
 
-Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Initializing..." -PercentComplete 0
-
-# Change location to the folder where this script is located
-Set-Location -Path "$PSScriptRoot" -ErrorAction Stop
-
 # Check if build.txt exists
 # build.txt contains the paths of files to include in the extension
 if (-Not (Test-Path -Path "$PSScriptRoot\build.txt")) {
 	throw "$PSScriptRoot\build.txt not found"
 }
 
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Initializing..." -PercentComplete 0
+
 # Uncomment the following lines to force the script to redownload submodules
-#Remove-Item -Force -Recurse -Path "$PSScriptRoot\server\*"
+#Remove-Item -Force -Recurse -Path "$PSScriptRoot\server"
 #Remove-Item -Force -Recurse -Path "$PSScriptRoot\fixes\galaxygraph"
 
 # Update submodules
@@ -34,7 +43,7 @@ Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing
 npm install >"$MainLog" 2>"$ErrorLog"
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Installing dependencies..." -PercentComplete 35
 npm run build-windows >"$MainLog" 2>"$ErrorLog"
-Set-Location -Path $PSScriptRoot
+Set-Location -Path $OrigDir
 
 # Remove old generated archives
 Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 45
@@ -42,18 +51,22 @@ Remove-Item -Force -Path "$ChromiumZip" -ErrorAction Ignore
 if (Test-Path -Path "$ChromiumZip") {
 	throw "Could not delete $PSScriptRoot\$ChromiumZip (it still exists)"
 }
+
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 46
 Remove-Item -Force -Path "$FirefoxZip" -ErrorAction Ignore
 if (Test-Path -Path "$FirefoxZip") {
 	throw "Could not delete $PSScriptRoot\$ChromiumZip (it stil exists)"
 }
 
 # Remove temp folder if it exists
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 47
 Remove-Item -Path "$PSScriptRoot\temp" -Force -Recurse -ErrorAction Ignore
 if (Test-Path -Path "$PSScriptRoot\temp") {
 	throw "Could not delete $PSScriptRoot\temp folder (it stil exists)"
 }
 
 # Create temp folder
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Preparing..." -CurrentOperation "Removing old builds..." -PercentComplete 49
 New-Item -ItemType "Directory" -Path "$PSScriptRoot\temp" -Force >"$MainLog" -ErrorAction Stop
 
 function GatherZipContents {
@@ -134,7 +147,4 @@ Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Finishing
 Remove-Item -Path "$PSScriptRoot\temp" -Force -Recurse -ErrorAction SilentlyContinue
 
 # Let user know we are done building
-Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Done" -CurrentOperation "" -PercentComplete 100
-
-# Set location to what it was before executing the Powershell script
-Set-Location -Path $OrigDir
+Write-Progress -Id 424242 -Activity "Building Improved Intra" -Status "Build complete" -CurrentOperation "" -PercentComplete 100
