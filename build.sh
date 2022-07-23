@@ -26,20 +26,34 @@ ErrorLog="${ScriptRoot}/build.error.log" #build.error.log
 echo "" > "${MainLog}"
 echo "" > "${ErrorLog}"
 
+# Exit with error when a command is not found, showing installation options.
+# Has parameters:
+# $1: the command not found
+function CommandNotFound() {
+	echo "Error: ${1} command not found"
+	echo "On macOS, install it with brew: 'brew install ${1}'"
+	echo "On most Linux distros, install it with apt: 'apt install ${1}'"
+	exit 1
+}
+
+# Check for git command (required for dependencies)
+if ! command -v git &> /dev/null; then
+	CommandNotFound "git"
+fi
+
+# Check for npm command (required by dependencies)
+if ! command -v npm &> /dev/null; then
+	CommandNotFound "npm"
+fi
+
 # Check for zip command (required for building)
 if ! command -v zip &> /dev/null; then
-	echo "Error: zip command not found"
-	echo "On macOS, install it with brew: 'brew install zip'"
-	echo "On most Linux distros, install it with apt: 'apt install zip'"
-	exit 1
+	CommandNotFound "zip"
 fi
 
 # Check for awk command (required for progress bar)
 if ! command -v awk &> /dev/null; then
-	echo "Error: awk command not found"
-	echo "On macOS, install it with brew: 'brew install awk'"
-	echo "On most Linux distros, install it with apt: 'apt install awk'"
-	exit 1
+	CommandNotFound "awk"
 fi
 
 # ProgressBar displaying function, takes parameters:
