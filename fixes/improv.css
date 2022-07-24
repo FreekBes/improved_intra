@@ -127,6 +127,31 @@ li.scaleteam-list-item .rating {
 	display: none !important;
 }
 
+/* horizontally align main project-item marks (on user profiles) */
+.main-project-item .pull-right {
+	text-align: center !important;
+	width: 54px !important;
+}
+
+/* horizontally align collapsed project-item marks (on user profiles) */
+.project-item[data-project-occurence] .pull-right {
+	text-align: center !important;
+	width: 40px !important;
+}
+
+/* horizontally align project-item mark icons (on user profiles) */
+.main-project-item .pull-right::before,
+.project-item[data-project-occurence] .pull-right::before {
+	float: left !important;
+	line-height: inherit !important;
+}
+
+/* make x project-item mark icon slightly smaller */
+.main-project-item .pull-right.icon-cross-1::before,
+.project-item[data-project-occurence] .pull-right.icon-cross-1::before {
+	font-size: 0.9em !important;
+}
+
 /* custom day name element styling for agenda events on dashboard */
 .event-list .event-item .event-left .date-day-name {
 	color: #fff;
@@ -158,7 +183,6 @@ li.scaleteam-list-item .rating {
 .achievement-item .achievement-item--container .achievement-item--content {
 	width: 76% !important;
 }
-
 .achievement-item .achievement-item--container.mini .achievement-item--content {
 	width: 81% !important;
 }
