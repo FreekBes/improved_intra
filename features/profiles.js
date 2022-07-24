@@ -317,7 +317,9 @@ improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "c
 	gExtSettings = data;
 	setCustomBannerWrapper();
 	setCustomProfile();
-	showOutstandings();
+	if (window.location.pathname.indexOf("/users/") == 0) {
+		showOutstandings();
+	}
 });
 
 const cursusSelector = document.querySelector(".cursus-user-select");
