@@ -1,4 +1,8 @@
 [submodule "server"]
 	path = server
-	url = git@github.com:FreekBes/improved_intra_server.git
+	url = https://github.com/FreekBes/improved_intra_server.git
 	branch = main
+[submodule "fixes/galaxygraph"]
+	path = fixes/galaxygraph
+	url = https://github.com/W2Wizard/GalaxyGraph.git
+	branch = iintra-version
