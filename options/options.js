@@ -265,7 +265,7 @@ function loadSettingsIntoForm(settings) {
 					settingElem.value = settings[key];
 					break;
 				case "checkbox":
-					settingElem.checked = (settings[key] === true || settings[key] === "true");
+					settingElem.checked = (settings[key] === true || settings[key] === "true" || (settingElem.getAttribute("def-checked") === "true" && typeof settings[key] === 'undefined'));
 			}
 		}
 		else {
