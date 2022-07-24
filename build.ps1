@@ -24,8 +24,8 @@ $MainLog = "$PSScriptRoot\build.log"
 $ErrorLog = "$PSScriptRoot\build.error.log"
 
 # Clear logs
-Clear-Content -Path "$MainLog"
-Clear-Content -Path "$ErrorLog"
+Clear-Content -Path "$MainLog" -ErrorAction SilentlyContinue
+Clear-Content -Path "$ErrorLog" -ErrorAction SilentlyContinue
 
 # Import Archive module (this way the latest version should be used)
 Import-Module Microsoft.PowerShell.Archive -PassThru >>"$MainLog" 2>>"$ErrorLog"
