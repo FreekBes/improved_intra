@@ -227,7 +227,7 @@ function showOutstandings() {
 						if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
 							otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
 							otherProjMark.classList.add((json["data"][projectsUserId]["all"][i] >= 3 ? "icon-star-8" : "icon-star-1"));
-							otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstandings" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
+							otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 						}
 					}
 				}
