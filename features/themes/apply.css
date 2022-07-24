@@ -1144,8 +1144,13 @@ header.main-page-header .logo small,
 }
 
 /* application page in settings */
-.app_container_3Fj {
+.app_container_3Fj,
+.app_container_3Fj:hover {
 	border-color: var(--input-border-color) !important;
+}
+
+.app_container_hidden_3Cj {
+	border-color: var(--fail-color) !important;
 }
 
 .app_title_3CB {
