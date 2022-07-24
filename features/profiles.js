@@ -30,12 +30,12 @@ function getUserSettings(username) {
 			.then(function(response) {
 				if (response.status == 404) {
 					iConsole.log("No settings found on the sync server for this username");
-					return null;
+					return (null);
 				}
 				else if (!response.ok) {
 					throw new Error("Could not get settings from server due to an error");
 				}
-				return response.json();
+				return (response.json());
 			})
 			.then(function(json) {
 				if (json == null) {
@@ -174,6 +174,70 @@ function setCustomProfile() {
 	}
 }
 
+function showOutstandings() {
+	if (optionIsActive(gExtSettings, "outstandings")) {
+		// add checkmarks and x for collapsed projects
+		const collapsedMarks = document.querySelectorAll(".collapsable .project-item .pull-right");
+		for (const collapsedMark of collapsedMarks) {
+			collapsedMark.classList.add((collapsedMark.classList.contains("text-success") ? "icon-check-1" : "icon-cross-1"));
+		}
+
+		iConsole.log("Retrieving outstanding marks for username " + gUName);
+		fetch("https://darkintra.freekb.es/outstandings.php?username=" + encodeURIComponent(gUName))
+			.then(function(response) {
+				if (!response.ok) {
+					throw new Error("Could not get outstanding marks from server due to an error");
+				}
+				return (response.json());
+			})
+			.then(function(json) {
+				if (json == null) {
+					throw new Error("Could not parse outstanding marks JSON");
+				}
+				else if (json["type"] == "error") {
+					throw new Error(json["message"]);
+				}
+				else if (json["type"] == "warning") {
+					iConsole.warn(json["message"]);
+				}
+				else for (const projectsUserId in json["data"]) {
+					let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
+					if (!mainProjItem) {
+						iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
+						continue;
+					}
+
+					// go up to main project item
+					while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
+						mainProjItem = mainProjItem.parentNode;
+					}
+
+					// apply best mark outstandings
+					const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
+					if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
+						mainProjMark.classList.remove("icon-check-1");
+						mainProjMark.classList.add((json["data"][projectsUserId]["best"] >= 3 ? "icon-star-8" : "icon-star-1"));
+						mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
+					}
+
+					// apply outstandings for other efforts
+					const otherProjItems = document.querySelectorAll(".project-item:not(.main-project-item) a[href*='/projects_users/"+projectsUserId+"']");
+					for (let i = 0; i < otherProjItems.length && i < json["data"][projectsUserId]["all"].length; i++) {
+						const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
+						if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
+							otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
+							otherProjMark.classList.add((json["data"][projectsUserId]["all"][i] >= 3 ? "icon-star-8" : "icon-star-1"));
+							otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstandings" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
+						}
+					}
+				}
+			})
+			.catch(function(err) {
+				iConsole.error(err);
+			});
+	}
+}
+
 function immediateProfileChanges() {
 	// add custom banner image container
 	if (gProfileBanner) {
@@ -249,10 +313,11 @@ function immediateProfileChanges() {
 gUName = getProfileUserName();
 gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 immediateProfileChanges();
-improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github"]).then(function(data) {
+improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github", "outstandings"]).then(function(data) {
 	gExtSettings = data;
 	setCustomBannerWrapper();
 	setCustomProfile();
+	showOutstandings();
 });
 
 const cursusSelector = document.querySelector(".cursus-user-select");

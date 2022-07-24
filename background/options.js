@@ -26,6 +26,7 @@ const defaults = {
 	"logsum-month": "true",
 	"logsum-week": "true",
 	"old-blackhole": "false",
+	"outstandings": "true",
 	"show-custom-profiles": "true",
 	"sync": "true",
 	"theme": "system"
