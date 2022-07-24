@@ -12,6 +12,7 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 - Dark Theme! Finally, your eyes can rest when working at night.
 - Customizable user profiles! Now you can show a bit of your personality through your user page: add a custom banner image to your profile, visible to everyone with the extension installed, or add a link to your GitHub-page.
 - An option to use the old Black Hole countdown instead of showing one's absorption date.
+- View how many outstanding flags were given to a user's work on their Intra profiles.
 - Removal of the broadcasts button, which is unused by most campuses.
 - Replacement of the Black Hole for Codam students, simply showing the progress towards their monitoring system instead.
 
