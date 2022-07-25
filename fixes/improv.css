@@ -416,6 +416,12 @@ a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
 	content: 'Improved Intra Sponsor ';
 }
 
+/* custom titles for kleine spelers */
+a[data-tooltip-login="ieilat"]:not(.student-kind-student)::after,
+.profile-name span.login[data-login="xvoorvaa"]::after {
+	content: ' (Kleine Speler)';
+}
+
 /* custom title for creator */
 a[data-tooltip-login="fbes"]::before,
 .profile-name span.login[data-login="fbes"]::before {
