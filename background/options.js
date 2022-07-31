@@ -113,7 +113,7 @@ function setOptionsIfUnset(improvedStorage) {
 function getSettingsFromSyncServer(improvedStorage, username) {
 	return new Promise(function(resolve, reject) {
 		iConsole.log("Retrieving settings of username " + username + " for " + improvedStorage.getType());
-		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
+		fetch("https://iintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
 					reject("No settings found on the sync server for this username");

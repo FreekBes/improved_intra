@@ -15,7 +15,7 @@
 	font-family: 'Material Icons';
 	font-style: normal;
 	font-weight: 400;
-	src: url(https://darkintra.freekb.es/fonts/MaterialIcons-Regular.ttf);
+	src: url(https://iintra.freekb.es/fonts/MaterialIcons-Regular.ttf);
 }
 
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */

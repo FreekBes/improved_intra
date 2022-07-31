@@ -74,7 +74,7 @@ const monit = {
 			monit.httpReq.addEventListener("error", function(err) {
 				reject(err);
 			});
-			monit.httpReq.open("GET", "https://darkintra.freekb.es/campus_specifics/codam/monit_status.json");
+			monit.httpReq.open("GET", "https://iintra.freekb.es/campus_specifics/codam/monit_status.json");
 			monit.httpReq.send();
 		});
 	},
@@ -197,7 +197,7 @@ const monit = {
 				iConsole.log("Unable to retrieve buildingtimes for " + username);
 				resolve(username);
 			});
-			monit.bldtReq.open("GET", "https://darkintra.freekb.es/buildingtimes.php?username=" + username + "&parsed=true");
+			monit.bldtReq.open("GET", "https://iintra.freekb.es/buildingtimes.php?username=" + username + "&parsed=true");
 			monit.bldtReq.send();
 		}));
 	},

@@ -56,7 +56,7 @@ function getBuildingTimes() {
 		httpReq.addEventListener("error", function(err) {
 			reject(err);
 		});
-		httpReq.open("GET","https://darkintra.freekb.es/buildingtimes.php?username=" + getProfileUserName());
+		httpReq.open("GET","https://iintra.freekb.es/buildingtimes.php?username=" + getProfileUserName());
 		httpReq.send();
 	});
 }

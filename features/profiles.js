@@ -26,7 +26,7 @@ function getUserSettings(username) {
 			return;
 		}
 		iConsole.log("Retrieving settings of username " + username);
-		fetch("https://darkintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
+		fetch("https://iintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
 					iConsole.log("No settings found on the sync server for this username");
@@ -183,7 +183,7 @@ function showOutstandings() {
 		}
 
 		iConsole.log("Retrieving outstanding marks for username " + gUName);
-		fetch("https://darkintra.freekb.es/outstandings.php?username=" + encodeURIComponent(gUName))
+		fetch("https://iintra.freekb.es/outstandings.php?username=" + encodeURIComponent(gUName))
 			.then(function(response) {
 				if (!response.ok) {
 					throw new Error("Could not get outstanding marks from server due to an error");

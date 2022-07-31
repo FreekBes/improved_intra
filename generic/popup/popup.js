@@ -69,7 +69,7 @@ buttons.buildingHours.addEventListener("click", function(ev) {
 });
 
 buttons.extSettings.addEventListener("click", function(ev) {
-	window.open("https://darkintra.freekb.es/options.php");
+	window.open("https://iintra.freekb.es/options.php");
 	window.close();
 });
 

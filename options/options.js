@@ -32,7 +32,7 @@ function checkIfKeyStillWorks(access_token) {
 	return new Promise(function(it_works, it_does_not_work) {
 		const req = new XMLHttpRequest();
 		const manifestData = chrome.runtime.getManifest();
-		req.open("POST", "https://darkintra.freekb.es/testkey.php?v="+manifestData.version+"&nc="+encodeURIComponent(Math.random()));
+		req.open("POST", "https://iintra.freekb.es/testkey.php?v="+manifestData.version+"&nc="+encodeURIComponent(Math.random()));
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.addEventListener("load", function(event) {
 			try {
@@ -147,7 +147,7 @@ function syncSettings(event) {
 				formData.append("refresh_token", data["auth"]["refresh_token"]);
 				formData.append("ext_version", chrome.runtime.getManifest().version);
 				const req = new XMLHttpRequest();
-				req.open("POST", "https://darkintra.freekb.es/update.php?v=1");
+				req.open("POST", "https://iintra.freekb.es/update.php?v=1");
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
 					try {
@@ -191,7 +191,7 @@ function syncSettings(event) {
 				formData.set("refresh_token", data["auth"]["refresh_token"]);
 
 				const req = new XMLHttpRequest();
-				req.open("POST", "https://darkintra.freekb.es/delete.php");
+				req.open("POST", "https://iintra.freekb.es/delete.php");
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				req.addEventListener("load", function(event) {
 					syncBtn.className = "";
@@ -346,7 +346,7 @@ window.onload = function() {
 		if (data["username"] === undefined || data["auth"] === undefined
 			|| data["user"] == undefined || data["user"]["login"] != data["username"]) {
 			// authorize user on Intra, link below redirects to the correct auth page
-			window.location.replace("https://darkintra.freekb.es/connect.php");
+			window.location.replace("https://iintra.freekb.es/connect.php");
 		}
 		else {
 			checkIfKeyStillWorks(data["auth"]["access_token"])
@@ -362,7 +362,7 @@ window.onload = function() {
 				.catch(function(res) {
 					iConsole.log("Access token no longer works!", res);
 					// authorize user again on Intra, link below redirects to the correct auth page
-					window.location.replace("https://darkintra.freekb.es/connect.php");
+					window.location.replace("https://iintra.freekb.es/connect.php");
 				});
 		}
 	});

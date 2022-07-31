@@ -17,7 +17,7 @@ custom user banners from Improved Intra (which can be done on a separate website
 
 window.addEventListener("load", function(event) {
 	const improvedIntraPageLink = document.createElement("a");
-	improvedIntraPageLink.setAttribute("href", "https://darkintra.freekb.es/imagery.php");
+	improvedIntraPageLink.setAttribute("href", "https://iintra.freekb.es/imagery.php");
 	improvedIntraPageLink.setAttribute("target", "_self");
 	improvedIntraPageLink.setAttribute("class", "sidebar-item-link");
 
