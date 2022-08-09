@@ -17,67 +17,12 @@ function codamMonitHelper(settings, logTime) {
 	return ("");
 }
 
-function mergeTimes(logtimes, buildingtimes) {
-	const newtimes = new Array();
-	for (const date in logtimes) {
-		newtimes[date] = logtimes[date];
-	}
-	for (const date in buildingtimes) {
-		if (newtimes[date] == undefined || parseLogTime(buildingtimes[date]) > parseLogTime(newtimes[date])) {
-			newtimes[date] = buildingtimes[date];
-		}
-	}
-	return (newtimes);
-}
-
-let cachedTimes = null;		// cache
-function getBuildingTimes() {
-	return new Promise(function(resolve, reject) {
-		if (cachedTimes != null) {
-			resolve(cachedTimes);
-			return;
-		}
-		const httpReq = new XMLHttpRequest();
-		httpReq.addEventListener("load", function() {
-			try {
-				const res = JSON.parse(this.responseText);
-				if (res["data"]) {
-					cachedTimes = res["data"];
-					resolve(res["data"]);
-				}
-				else {
-					reject("No data");
-				}
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-		httpReq.addEventListener("error", function(err) {
-			reject(err);
-		});
-		httpReq.open("GET","https://iintra.freekb.es/buildingtimes.php?username=" + getProfileUserName());
-		httpReq.send();
-	});
-}
-
 function getLogTimes(settings) {
 	return new Promise(function(resolve, reject) {
 		const httpReq = new XMLHttpRequest();
 		httpReq.addEventListener("load", function() {
 			try {
-				const stats = JSON.parse(this.responseText);
-				if (profileFromCodam() && optionIsActive(settings, "codam-buildingtimes-chart")) {
-					getBuildingTimes()
-						.then(function(bStats) {
-							resolve(mergeTimes(stats, bStats));
-						}).catch(function(err) {
-							resolve(stats);
-						});
-				}
-				else {
-					resolve(stats);
-				}
+				resolve(JSON.parse(this.responseText));
 			}
 			catch (err) {
 				reject(err);
@@ -218,62 +163,18 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 		date++;
 	}
 
-	if (profileFromCodam() && optionIsActive(settings, "codam-buildingtimes-chart")) {
-		// Replace logtime chart data with buildingtime data
-		getBuildingTimes()
-			.then(function(stats) {
-				for (const date in stats) {
-					const day = ltSvg.querySelector("g[data-iidate=\""+date+"\"]");
-					if (day) {
-						const oldMinutes = parseLogTime(day.getAttribute("data-original-title"));
-						const minutes = parseLogTime(stats[date]);
-						if (minutes > oldMinutes) {
-							day.setAttribute("data-original-title", logTimeToString(minutes)+'*');
-							const filler = day.querySelector("rect");
-							if (filler) {
-								const newPerc = (minutes / 1440).toFixed(2);
-								let sourceColor = "rgba(0,186,188,0)";
-								const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
-								if (col24hex !== "") {
-									let rgb = hexToRgb(col24hex.trim());
-									sourceColor = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0)";
-								}
-								filler.setAttribute("fill", sourceColor.replace(/[0-9](\.[0-9]*|)(\s|)\)/, newPerc.toString()+')'));
-							}
-						}
-					}
-				}
-				if (ltSvg.previousElementSibling) {
-					ltSvg.previousElementSibling.textContent = " Buildingtime* ";
-				}
-			})
-			.catch(function(err) {
-				iConsole.error(err);
-			})
-			.finally(function() {
-				if (optionIsActive(settings, "logsum-month")) {
-					sumMonthLogTime(ltMonths, settings);
-				}
-				if (optionIsActive(settings, "logsum-week")) {
-					cumWeekLogTime(ltDays, settings);
-				}
-			});
+	if (optionIsActive(settings, "logsum-month")) {
+		sumMonthLogTime(ltMonths, settings);
 	}
-	else {
-		// Codam Monitoring System progress not enabled, do not replace logtimes with building times
-		if (optionIsActive(settings, "logsum-month")) {
-			sumMonthLogTime(ltMonths, settings);
-		}
-		if (optionIsActive(settings, "logsum-week")) {
-			cumWeekLogTime(ltDays, settings);
-		}
+	if (optionIsActive(settings, "logsum-week")) {
+		cumWeekLogTime(ltDays, settings);
 	}
 }
 
 if (window.location.pathname == "/" || window.location.pathname.indexOf("/users/") == 0) {
 	const ltSvg = document.getElementById("user-locations");
 	if (ltSvg) { // check if logtimes chart is on page
-		improvedStorage.get(["logsum-month", "logsum-week", "codam-monit", "codam-buildingtimes-chart"]).then(function(settings) {
+		improvedStorage.get(["logsum-month", "logsum-week", "codam-monit"]).then(function(settings) {
 			waitForLogTimesChartToLoad(ltSvg, settings);
 		});
 	}

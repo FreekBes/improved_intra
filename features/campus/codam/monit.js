@@ -34,11 +34,6 @@ const monit = {
 	bhContainer: null,
 	logTimes: [],
 	logTimesTotal: 0,
-	buildingTimes: [],
-	buildingTimesTotal: 0,
-	times: [],
-	timesTotal: 0,
-	usingCombined: false,
 
 	/**
 	 * Get the dates of this week's days
@@ -85,7 +80,7 @@ const monit = {
 	 * out, equally divided over all remaining days.
 	 */
 	setExpected: function() {
-		const timesNoToday = this.times.slice(1);
+		const timesNoToday = this.logTimes.slice(1);
 		let timesTotalNoToday;
 
 		if (timesNoToday && timesNoToday.length > 0) {
@@ -94,13 +89,13 @@ const monit = {
 		else {
 			timesTotalNoToday = 0;
 		}
-		if (dayOfWeek == 7 || this.timesTotal > this.requirements.min) {
+		if (dayOfWeek == 7 || this.logTimesTotal > this.requirements.min) {
 			this.requirements.today = this.requirements.min;
 		}
 		else {
 			this.requirements.today = timesTotalNoToday + Math.round((this.requirements.min - timesTotalNoToday) / (7 - dayOfWeek));
 		}
-		iConsole.log("Buildingtime up until today", timesTotalNoToday);
+		iConsole.log("Logtime up until today", timesTotalNoToday);
 		iConsole.log("Expected minutes today", this.requirements.today - timesTotalNoToday);
 		iConsole.log("Expected minutes after today", this.requirements.today);
 	},
@@ -150,81 +145,6 @@ const monit = {
 	},
 
 	/**
-	 * Get a user's buildingtimes from the Improved Intra server (given to server by user or by a third-party script)
-	 */
-	getBuildingTimes: function(username) {
-		return (new Promise(function(resolve, reject) {
-			if (monit.bldtReq != null) {
-				monit.bldtReq.abort();
-			}
-			monit.bldtReq = new XMLHttpRequest();
-			monit.bldtReq.addEventListener("load", function() {
-				try {
-					monit.buildingTimes = [];
-					monit.buildingTimesTotal = 0;
-					const res = JSON.parse(this.responseText);
-					if (this.status == 200) {
-						const weekDates = monit.getWeekDates();
-						for (let i = 0; i < weekDates.length; i++) {
-							if (weekDates[i] in res["data"]) {
-								monit.buildingTimes.push(res["data"][weekDates[i]]);
-							}
-							else {
-								monit.buildingTimes.push(0);
-							}
-						}
-						if (monit.buildingTimes && monit.buildingTimes.length > 0) {
-							monit.buildingTimesTotal = monit.buildingTimes.reduce(sum);
-						}
-						iConsole.log("Buildingtimes", monit.buildingTimes);
-						iConsole.log("Total minutes of building time", monit.buildingTimesTotal);
-						resolve(username);
-					}
-					else {
-						// don't care about the error here, just make sure the extension's code keeps running
-						iConsole.log("No buildingtimes found for " + username);
-						resolve(username);
-					}
-				}
-				catch (err) {
-					// don't care about the error here, just make sure the extension's code keeps running
-					iConsole.log("Unable to retrieve buildingtimes for " + username);
-					resolve(username);
-				}
-			});
-			monit.bldtReq.addEventListener("error", function(err) {
-				// don't care about the error here, just make sure the extension's code keeps running
-				iConsole.log("Unable to retrieve buildingtimes for " + username);
-				resolve(username);
-			});
-			monit.bldtReq.open("GET", "https://iintra.freekb.es/buildingtimes.php?username=" + username + "&parsed=true");
-			monit.bldtReq.send();
-		}));
-	},
-
-	combineTimes: function(username) {
-		return (new Promise(function(resolve, reject) {
-			monit.times = new Array(monit.logTimes.length);
-			monit.timesTotal = 0;
-			if (monit.times.length == 0) {
-				reject("Unexpected error: monit.times.length == 0!");
-				return;
-			}
-			monit.times[0] = monit.logTimes[0];
-			for (let i = 1; i < monit.times.length; i++) {
-				monit.times[i] = ( monit.buildingTimes[i] > monit.logTimes[i] ? monit.buildingTimes[i] : monit.logTimes[i]);
-			}
-			if (monit.times && monit.times.length > 0) {
-				monit.timesTotal = monit.times.reduce(sum);
-			}
-			if (monit.timesTotal != monit.logTimesTotal) {
-				monit.usingCombined = true;
-			}
-			resolve(username);
-		}));
-	},
-
-	/**
 	 * Get the progress towards the Monitoring System's goals from the current webpage.
 	 * The logtime data is read from the SVG logtime chart, but in case that fails there's
 	 * a fallback available to read from the web instead.
@@ -238,11 +158,9 @@ const monit = {
 			return;
 		}
 		this.getLogTimes(getProfileUserName())
-			.then(this.getBuildingTimes)
-			.then(this.combineTimes)
 			.then(this.writeProgress)
 			.catch(function(err) {
-				iConsole.error("Could not retrieve logtimes or buildingtimes for Codam Monitoring System progress", err);
+				iConsole.error("Could not retrieve logtimes for Codam Monitoring System progress", err);
 			});
 	},
 
@@ -252,8 +170,8 @@ const monit = {
 	writeProgress: function(username) {
 		monit.getStatus().then(function(status) {
 			monit.setExpected();
-			iConsole.log("Combined times", monit.times);
-			iConsole.log("Combined total minutes", monit.timesTotal);
+			iConsole.log("Combined times", monit.logTimes);
+			iConsole.log("Combined total minutes", monit.logTimesTotal);
 
 			const aguDate = document.getElementById("agu-date");
 			if (aguDate && aguDate.className.indexOf("hidden") == -1) {
@@ -305,8 +223,8 @@ const monit = {
 
 			const progressPerc = document.createElement("span");
 			if (status["monitoring_system_active"]) {
-				progressPerc.innerText = Math.floor(monit.timesTotal / 1440 * 100) + "% complete";
-				ltHolder.setAttribute("data-original-title", (monit.usingCombined ? "Building time*" : "Logtime") + " this week: " + logTimeToString(monit.timesTotal));
+				progressPerc.innerText = Math.floor(monit.logTimesTotal / 1440 * 100) + "% complete";
+				ltHolder.setAttribute("data-original-title", "Logtime this week: " + logTimeToString(monit.logTimesTotal));
 			}
 			else if (status["work_from_home_required"] && !status["monitoring_system_active"]) {
 				// covid-19 message
@@ -314,26 +232,26 @@ const monit = {
 				ltHolder.setAttribute("data-original-title", "You can do this! Codam will at some point reopen again. I'm sure of it! Times will get better.");
 			}
 			else if (!status["monitoring_system_active"]) {
-				progressPerc.innerText = logTimeToString(monit.timesTotal);
-				ltHolder.setAttribute("data-original-title", (monit.usingCombined ? "Building time*" : "Logtime") + " this week (Monitoring System is currently disabled)");
+				progressPerc.innerText = logTimeToString(monit.logTimesTotal);
+				ltHolder.setAttribute("data-original-title", "Logtime this week (Monitoring System is currently disabled)");
 			}
 
-			if (monit.timesTotal < monit.requirements.today && !atLeastRelaxed) {
+			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
 				smiley.setAttribute("class", "icon-smiley-sad-1");
 				smiley.setAttribute("style", "color: var(--danger-color);");
 				progressPerc.setAttribute("style", "color: var(--danger-color);");
 			}
-			else if ((atLeastRelaxed && monit.timesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.timesTotal < monit.requirements.min)) {
+			else if ((atLeastRelaxed && monit.logTimesTotal < monit.requirements.min) || (!atLeastRelaxed && monit.logTimesTotal < monit.requirements.min)) {
 				smiley.setAttribute("class", "icon-smiley-relax");
 				smiley.setAttribute("style", "color: var(--warning-color);");
 				progressPerc.setAttribute("style", "color: var(--warning-color);");
 			}
-			else if (monit.timesTotal < monit.requirements.achievement1) {
+			else if (monit.logTimesTotal < monit.requirements.achievement1) {
 				smiley.setAttribute("class", "icon-smiley-happy-3");
 				smiley.setAttribute("style", "color: var(--success-color);");
 				progressPerc.setAttribute("style", "color: var(--success-color);");
 			}
-			else if (monit.timesTotal < monit.requirements.achievement2) {
+			else if (monit.logTimesTotal < monit.requirements.achievement2) {
 				smiley.setAttribute("class", "icon-smiley-happy-5");
 				smiley.setAttribute("style", "color: var(--success-color);");
 				progressPerc.setAttribute("style", "color: var(--success-color);");
