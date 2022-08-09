@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   apply.css                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fbes <fbes@student.codam.nl>               +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2022/07/12 14:36:05 by nsimon           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   apply.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
+/*   Updated: 2022/08/09 12:15:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 }
 
 /* main elements (visible on every page */
-body {
+body,
+body.bg-white {
 	background-color: var(--body-background-color) !important;
 	color: var(--text-color) !important;
 }
@@ -1024,6 +1025,36 @@ pre[class*="language-"] {
 .authorization-layout .actions > form > .btn.btn-danger:hover {
 	color: var(--text-color) !important;
 	background-color: var(--danger-color) !important;
+}
+
+/* Webhooks page */
+
+.webhooks-doc_p {
+	color: var(--text-color) !important;
+}
+
+.webhooks-doc_header-buttons > label.btn.btn-info.on-active,
+.webhooks-doc_header-buttons > label.btn.btn-info.active,
+.webhooks-doc_header-buttons > label.btn.btn-info.on-active:hover,
+.webhooks-doc_header-buttons > label.btn.btn-info.active:hover {
+	border-radius: 3px !important;
+	border-color: transparent !important;
+	background-color: var(--webhooks-docu-theme-color-xlight) !important;
+	color: var(--webhooks-docu-theme-color) !important;
+}
+
+.webhooks-doc_header-buttons > label.btn.btn-info.on-active.active, /* on-actice.active?? really?? */
+.webhooks-doc_header-buttons > label.btn.btn-info.active.active {
+	background-color: var(--webhooks-docu-theme-color) !important;
+	color: var(--pure-white) !important;
+}
+
+.webhooks-doc_event-container {
+	background-color: var(--webhooks-docu-theme-color-xlight) !important;
+}
+
+.webhooks-doc_event-container[data-active=true] {
+	background-color: var(--webhooks-docu-theme-color) !important;
 }
 
 /* API page */

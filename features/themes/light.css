@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   theme-light.css                                    :+:    :+:            */
+/*   light.css                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/24 21:15:25 by fbes          ########   odam.nl         */
+/*   Updated: 2022/08/09 12:08:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@
 	--api-documentation-warning-background: #3a3a3a;
 	--api-documentation-list-background: #3a3a3a;
 	--api-documentation-list-odd-background: #2a2a2a;
+	--webhooks-docu-theme-color: #319dff;
+	--webhooks-docu-theme-color-xlight: #f2f9ff;
 
 	/* scrollbar styling */
 	--scrollbar-background-color: #fafafa;
