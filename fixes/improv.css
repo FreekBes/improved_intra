@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/09 12:01:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/08/09 12:34:15 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,8 @@ li.scaleteam-list-item .rating {
 
 /* remove text shadow from labels in highchart containers */
 .highcharts-container svg > text,
-.highcharts-data-labels > g > text {
+.highcharts-data-labels > g > text,
+.highcharts-stack-labels > text {
 	text-shadow: none !important;
 }
 
@@ -589,6 +590,11 @@ html.soft-background, body.authorization-layout {
 /* add word-break for code blocks in webhooks doc */
 .webhooks-doc_code-container {
 	word-break: break-all !important;
+}
+
+/* reduce size of everything in the companies page */
+.page-companies .page-content {
+	zoom: 0.9;
 }
 
 /* color fix for header inside of anchor */

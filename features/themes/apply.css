@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/09 12:18:59 by fbes          ########   odam.nl         */
+/*   Updated: 2022/08/09 12:36:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -955,13 +955,32 @@ pre[class*="language-"] {
 	color: var(--text-color) !important;
 }
 
-/* companies */
-.container-fluid.main table.table > tbody > tr > th {
+/* companies page */
+.page-companies .container-fluid.main,
+.page-companies .bg-light {
+	background-color: transparent !important;
+}
+
+.page-companies .container-fluid.main table.table > tbody > tr > th {
 	color: var(--text-color) !important;
 }
 
 .like-count[data-liked=false] {
 	color: var(--tertiary-text-color) !important;
+}
+
+.page-companies .list-group-item {
+	background-color: var(--container-background-color) !important;
+	border-color: var(--general-border-color) !important;
+}
+
+.filtre input[type="search"] {
+	background-color: var(--input-background-color) !important;
+	border-color: var(--input-border-color) !important;
+}
+
+.companies-container table {
+	color: var(--text-color) !important;
 }
 
 /* quests page */
