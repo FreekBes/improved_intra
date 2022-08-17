@@ -6,13 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/22 22:12:54 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/22 22:12:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/08/17 15:42:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 This file is added to the admin.intra.42.fr/tags page to add a page for managing
 custom user banners from Improved Intra (which can be done on a separate website)
+
+Also for some additional features and fixes on admin pages
 */
 
 window.addEventListener("load", function(event) {
@@ -35,5 +37,10 @@ window.addEventListener("load", function(event) {
 	}
 	else {
 		sidebarMenuList.appendChild(improvedIntraPageLink);
+	}
+
+	const examIPRangeField = document.getElementById("exam_ip_range");
+	if (examIPRangeField) {
+		examIPRangeField.setAttribute("placeholder", "0.0.0.0/16,0.0.0.0/24,0.0.0.0/32,...");
 	}
 });
