@@ -13,7 +13,7 @@
 # **************************************************************************** #
 
 OrigDir=$(pwd)
-ScriptRoot=$(dirname "$(readlink -f "$0")")
+ScriptRoot=$(dirname "$(readlink "$0")")
 ChromiumZip="${ScriptRoot}/chromium.zip"
 FirefoxZip="${ScriptRoot}/firefox.zip"
 NoProgressBar="false"
@@ -192,8 +192,8 @@ cd "${ScriptRoot}/temp"
 
 # Create archive for Chromium browsers
 ProgressBar 60 'Building Improved Intra' 'Building...' 'Building for Chromium...'
-zip -r "build.zip" . >> "${MainLog}" 2>>"${ErrorLog}"
-mv "build.zip" "${ChromiumZip}"
+zip -r "build.zip" . >>"${MainLog}" 2>>"${ErrorLog}"
+mv "build.zip" "../${ChromiumZip}"
 
 # Modify the archive specifically for Firefox
 ProgressBar 75 'Building Improved Intra' 'Building...' 'Preparing Firefox build...'
@@ -204,7 +204,7 @@ cp "../manifest-ff.json" "./manifest.json" 2>>"${ErrorLog}"
 # Create archive for Firefox browser
 ProgressBar 80 'Building Improved Intra' 'Building...' 'Building for Firefox...'
 zip -r "build.zip" . >> "${MainLog}" 2>>"${ErrorLog}"
-mv "build.zip" "${FirefoxZip}"
+mv "build.zip" "../${FirefoxZip}"
 
 # Go to original dir
 cd "${OrigDir}"

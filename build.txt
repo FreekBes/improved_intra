@@ -6,7 +6,6 @@ sw.js
 background/*
 features/*
 generic/*
-options/*.css
 options/*.html
 options/*.js
 images/logo*.png
