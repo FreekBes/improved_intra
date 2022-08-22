@@ -560,6 +560,11 @@ a[data-tooltip-login].student-kind-student::before,
 	height: 500px !important;
 }
 
+/* fix height of api docs page after above rule */
+.space-ship-background > .container-fluid:first-of-type {
+	height: auto !important;
+}
+
 /* fix auth page height, useful for background colors */
 html.soft-background, body.authorization-layout {
 	height: 100%;
