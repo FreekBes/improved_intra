@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/05/11 14:33:10 by fbes          ########   odam.nl         */
+/*   Updated: 2022/08/25 16:16:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ const monit = {
 				"pvan-dij": "iconf-milk",
 				"jkoers": "iconf-cctv-2",
 				"hsmits": "iconf-vector",
+				"jaberkro": "icon-treasure-map"
 			};
 			if (Object.keys(customEmotes).indexOf(username) > -1) {
 				smiley.setAttribute("data-oclass", smiley.getAttribute("class"));
