@@ -1153,6 +1153,10 @@ header.main-page-header .logo small,
 	background-color: var(--api-documentation-list-background) !important;
 }
 
+.documentation table > tbody > tr[data-level]:not([data-level="0"]) > td:first-child::before {
+	color: var(--tertiary-text-color) !important;
+}
+
 .documentation table > thead > tr > th,
 .documentation table > tbody > tr > th,
 .documentation table > tfoot > tr > th,

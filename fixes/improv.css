@@ -584,6 +584,22 @@ html.soft-background, body.authorization-layout {
 	text-shadow: none !important;
 }
 
+/* indent data levels in params list on API documentation pages */
+tr[data-level="0"] { --data-level: 0; }
+tr[data-level="1"] { --data-level: 1; }
+tr[data-level="2"] { --data-level: 2; }
+tr[data-level="3"] { --data-level: 3; }
+tr[data-level="4"] { --data-level: 4; }
+.documentation table > tbody > tr[data-level] > td:first-child {
+	padding-left: calc(12px * var(--data-level) + 8px) !important;
+}
+
+/* add level character to each data level in params list on API documentation pages */
+.documentation table > tbody > tr[data-level]:not([data-level="0"]) > td:first-child::before {
+	content: '└' !important;
+	padding-right: 0.5ch !important;
+}
+
 /* small border radius for code elements in webhooks doc page */
 .webhooks-doc_p code {
 	border-radius: 3px !important;
