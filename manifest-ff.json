@@ -105,6 +105,11 @@
 			"matches": [ "https://projects.intra.42.fr/*" ],
 			"js": [ "features/projects.js" ],
 			"run_at": "document_end"
+		},
+		{
+			"matches": [ "https://meta.intra.42.fr/clusters", "https://meta.intra.42.fr/campus/*/clusters" ],
+			"js": [ "features/clustermap.js" ],
+			"run_at": "document_end"
 		}
 	],
 	"background": {
