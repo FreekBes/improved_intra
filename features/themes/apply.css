@@ -1148,7 +1148,8 @@ header.main-page-header .logo small,
 }
 
 .documentation tr[style="background-color:rgb(255,255,255);"],
-.documentation tr[style="background-color:rgb(249,249,249);"] {
+.documentation tr[style="background-color:rgb(249,249,249);"],
+.documentation tr[style="background-color:rgb(243,243,243);"] {
 	background-color: var(--api-documentation-list-background) !important;
 }
 
