@@ -1175,14 +1175,12 @@ header.main-page-header .logo small,
 	color: var(--text-color) !important;
 }
 
-.documentation table > tbody > tr:nth-of-type(odd) {
-	background-color: var(--api-documentation-list-odd-background) !important;
+.documentation table > tbody > tr {
+	background-color: var(--api-documentation-list-background) !important;
 }
 
-.documentation tr[style="background-color:rgb(255,255,255);"],
-.documentation tr[style="background-color:rgb(249,249,249);"],
-.documentation tr[style="background-color:rgb(243,243,243);"] {
-	background-color: var(--api-documentation-list-background) !important;
+.documentation table > tbody > tr:nth-of-type(odd) {
+	background-color: var(--api-documentation-list-odd-background) !important;
 }
 
 .documentation table > tbody > tr[data-level]:not([data-level="0"]) > td:first-child::before {
