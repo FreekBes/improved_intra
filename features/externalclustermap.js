@@ -28,7 +28,7 @@ function openClusterMap(event) {
 				highlightAfter = true;
 			}
 			else {
-				url = "https://meta.intra.42.fr/clusters";
+				url = "https://meta.intra.42.fr/clusters#"+location.replaceAll(".", "");
 			}
 			break;
 		}
