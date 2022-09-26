@@ -600,6 +600,11 @@ tr[data-level="4"] { --data-level: 4; }
 	padding-right: 0.5ch !important;
 }
 
+/* hide Feedback link from API documentation page (it points to nowhere) */
+.documentation #container .nav a[href="#disqus_thread"] {
+	display: none !important;
+}
+
 /* small border radius for code elements in webhooks doc page */
 .webhooks-doc_p code {
 	border-radius: 3px !important;
