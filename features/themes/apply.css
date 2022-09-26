@@ -930,7 +930,8 @@ a.label:not([style*="color:"]):focus {
 }
 
 /* articles */
-.articles-childrens-group {
+.articles-childrens-group,
+.bordered-articles-tree {
 	border-color: var(--general-border-color) !important;
 }
 
