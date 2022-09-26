@@ -38,6 +38,12 @@ function markTargetHost() {
 			targetElem.scrollIntoView(false);
 			iConsole.log("Found clustermap host focus target");
 		}
+		else {
+			iConsole.warn("Target element not found!");
+		}
+	}
+	else {
+		iConsole.warn("Clustermap not found!");
 	}
 }
 
@@ -56,3 +62,6 @@ const highlightInterval = setInterval(function() {
 	window.location.href = window.location.origin + window.location.pathname + "#";
 	window.location.href = window.location.origin + window.location.pathname + "#" + targetHost;
 }, 250);
+setTimeout(function() {
+	clearInterval(highlightInterval);
+}, 5000);
