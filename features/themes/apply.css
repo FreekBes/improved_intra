@@ -768,6 +768,37 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background-color: var(--container-background-color) !important;
 }
 
+/* clustermap page */
+#cluster-map .map-container svg rect,
+#cluster-map .map-container svg image,
+#cluster-map .map-container svg circle {
+	transform-origin: center !important;
+	transform-box: fill-box !important;
+}
+
+#cluster-map .map-container svg :target {
+	stroke: var(--theme-color) !important;
+	fill: var(--theme-color-light) !important;
+	animation: postblink 0.6s 12 !important;
+}
+
+@keyframes postblink {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.35); }
+	100% {transform: scale(1); }
+}
+
+/* codam-specific clustermap (uses different layout) */
+#cluster-map .map-container svg rect[clip-path="circle()"]:not(.used),
+#cluster-map .map-container svg rect[clip-path="circle()"]:not(.used) + image,
+#cluster-map .map-container svg rect[clip-path="circle()"]:not(.used) + image + circle {
+	transform: scale(0.7);
+}
+
+#cluster-map .map-container svg :target + image + circle {
+	stroke: var(--theme-color-light) !important;
+}
+
 /* issues page */
 @keyframes fade-improved {
 	0% { background: var(--theme-color); }
