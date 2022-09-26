@@ -131,12 +131,14 @@ li.scaleteam-list-item .rating {
 .main-project-item .pull-right {
 	text-align: center !important;
 	width: 54px !important;
+	white-space: nowrap !important;
 }
 
 /* horizontally align collapsed project-item marks (on user profiles) */
 .project-item[data-project-occurence] .pull-right {
 	text-align: center !important;
 	width: 40px !important;
+	white-space: nowrap !important;
 }
 
 /* horizontally align project-item mark icons (on user profiles) */
