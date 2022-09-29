@@ -19,6 +19,10 @@ function openClusterMap(event) {
 			url = "https://codamhero.dev/v2/clusters.php";
 			highlightAfter = true;
 			break;
+		case "Paris":
+			const headerLoginName = document.querySelector("span.login[data-login]")?.textContent;
+			url = "https://stud42.fr/clusters/" + headerLoginName;
+			break;
 		case "Kuala Lumpur":
 			url = "https://locatepeer.vercel.app/"+location;
 			break;
