@@ -20,7 +20,7 @@ function openClusterMap(event) {
 			highlightAfter = true;
 			break;
 		case "Paris":
-			const headerLoginName = document.querySelector("span.login[data-login]")?.textContent;
+			const headerLoginName = getProfileUserName();
 			url = "https://stud42.fr/clusters/" + headerLoginName;
 			break;
 		case "Kuala Lumpur":
