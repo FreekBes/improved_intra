@@ -751,6 +751,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
+.coalition-messages #coalition-message {
+	background: var(--container-background-color) !important;
+}
+
 /* shop page */
 .shop-wallet span.icon-piggy-bank,
 .shop-nav-title {
