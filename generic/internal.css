@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Import Google's Material Icons */
+/* Import Google's Material Icons. Latter URL is for development server */
 @font-face {
 	font-family: 'Material Icons';
 	font-style: normal;
 	font-weight: 400;
-	src: url(https://iintra.freekb.es/fonts/MaterialIcons-Regular.ttf);
+	src: url(https://iintra.freekb.es/fonts/MaterialIcons-Regular.ttf), url(http://iintra.freekb.es:5000/fonts/MaterialIcons-Regular.ttf);
 }
 
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */

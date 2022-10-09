@@ -66,6 +66,11 @@
 			"run_at": "document_start"
 		},
 		{
+			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/", "*://iintra.freekb.es/v2/disconnect*" ],
+			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
+			"run_at": "document_start"
+		},
+		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"js": [ "features/externalclustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
 			"run_at": "document_end"
@@ -83,6 +88,16 @@
 		{
 			"matches": [ "*://iintra.freekb.es/connect.php*", "*://darkintra.freekb.es/connect.php*" ],
 			"js": [ "options/auth.js" ],
+			"run_at": "document_end"
+		},
+		{
+			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/" ],
+			"js": [ "options/auth2.js" ],
+			"run_at": "document_end"
+		},
+		{
+			"matches": [ "*://iintra.freekb.es/v2/disconnect*" ],
+			"js": [ "options/unauth2.js" ],
 			"run_at": "document_end"
 		},
 		{

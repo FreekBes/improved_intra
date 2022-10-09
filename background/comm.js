@@ -83,6 +83,11 @@ function portMessageListener(msg, port) {
 		case "resync":
 			resyncOnPortMessage(isIncognitoPort(port));
 			break;
+		case "server-session-started":
+		case "server-session-ended":
+			iConsole.log("Back-end server session status changed, checking new status...");
+			checkForIIServerSession();
+			break;
 		case "options-changed":
 			if (isIncognitoPort(port)) {
 				messageIncognitoPorts({ action: "options-changed", settings: msg["settings"] });

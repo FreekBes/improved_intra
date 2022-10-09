@@ -106,8 +106,8 @@ p {
 	content: 'person' !important;
 }
 
-#codam-monit > button::before {
-	content: 'history' !important;
+#iintra-auth > button::before {
+	content: 'cloud_sync' !important;
 }
 
 #ext-settings > button::before {

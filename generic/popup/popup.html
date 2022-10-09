@@ -17,9 +17,15 @@
 			<li id="manage-slots"><button><span>Manage slots</span></button></li>
 			<li id="list-projects"><button><span>My projects</span></button></li>
 			<li id="view-profile"><button><span>My profile</span></button></li>
-			<li id="codam-monit" style="display: none;"><button><span>Enter building hours</span></button></li>
 			<li id="ext-settings"><button><span>Extension settings</span></button></li>
 			<!--<li id="intra-logout"><button><span>Log out</span></button></li>-->
+		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	</div>
+	<div id="session-menu">
+		<p>Your Improved Intra session expired.</p>
+		<ul class="menu-list">
+			<li id="iintra-auth"><button><span>Authenticate with 42</span></button></li>
 		</ul>
 		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
 	</div>
@@ -29,21 +35,6 @@
 			<li id="intra-login"><button><span>Log in</span></button></li>
 		</ul>
 		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
-	</div>
-	<div id="building-hours-inputter">
-		<p style="margin-top: 0.3em !important;"><b>Enter building hours</b></p>
-		<form>
-			<label for="monit-date">Date:</label>
-			<input type="date" required id="monit-date" name="monit-date" placeholder="YYYY-MM-DD" />
-
-			<label for="monit-hours">Hours:</label>
-			<input type="number" required id="monit-hours" name="monit-hours" min="0" max="24" step="0" placeholder="Hours" />
-
-			<label for="monit-minutes">Minutes:</label>
-			<input type="number" id="monit-minutes" name="monit-minutes" min="0" max="59" step="1" placeholder="Minutes" />
-
-			<input type="button" id="monit-submit" name="monit-submit" value="Submit" />
-		</form>
 	</div>
 	<script src="popup.js"></script>
 </body>

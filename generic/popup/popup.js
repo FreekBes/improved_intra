@@ -31,12 +31,17 @@ const buttons = {
 	listProjects: document.getElementById("list-projects"),
 	viewProfile: document.getElementById("view-profile"),
 	extSettings: document.getElementById("ext-settings"),
-	buildingHours: document.getElementById("codam-monit"),
+	auth: document.getElementById("iintra-auth"),
 	login: document.getElementById("intra-login")
 };
 
 buttons.login.addEventListener("click", function(ev) {
 	window.open("https://signin.intra.42.fr/");
+	window.close();
+});
+
+buttons.auth.addEventListener("click", function(ev) {
+	window.open("https://iintra.freekb.es/v2/connect");
 	window.close();
 });
 
@@ -60,14 +65,6 @@ buttons.viewProfile.addEventListener("click", function(ev) {
 	window.close();
 });
 
-buttons.buildingHours.addEventListener("click", function(ev) {
-	let yesterday = new Date();
-	yesterday.setDate(yesterday.getDate() - 1);
-	document.getElementById("monit-date").value = dateToInputDate(yesterday)[0];
-	switchMenus("building-hours-inputter");
-	document.getElementById("monit-hours").focus(); // focus on hours after pre filling in date
-});
-
 buttons.extSettings.addEventListener("click", function(ev) {
 	window.open("https://iintra.freekb.es/options.php");
 	window.close();
@@ -75,57 +72,15 @@ buttons.extSettings.addEventListener("click", function(ev) {
 
 
 // get extension settings and show items accordingly
-improvedStorage.get(["username", "codam-monit"]).then(function(data) {
-	// if logged in, hide the login button and show menu
+improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
+	// if logged in at 42, continue
 	if (data["username"]) {
-		switchMenus("main-menu");
-	}
-
-	// enable building hours button if Monitoring System progress is enabled
-	if (false && optionIsActive(data, "codam-monit")) {
-		buttons.buildingHours.style.display = "block";
-	}
-});
-
-
-// building hours form validation
-function validateBuildingHoursForm(form) {
-	const dateField = document.getElementById("monit-date");
-	const hoursField = document.getElementById("monit-hours");
-	const minsField = document.getElementById("monit-minutes");
-
-	const date = new Date(dateField.value);
-	if (isNaN(date)) {
-		dateField.setCustomValidity("Invalid date");
-		dateField.reportValidity();
-		return (false); // date is invalid
-	}
-
-	dateField.setCustomValidity("");
-	dateField.reportValidity();
-	hoursField.reportValidity();
-	minsField.reportValidity();
-	return (true);
-}
-
-
-// building hours form submitter
-function submitBuildingHoursForm(form) {
-	if (!validateBuildingHoursForm(form)) {
-		return (false);
-	}
-	alert("This feature has not been implemented yet.");
-	return (true);
-}
-document.getElementById("monit-submit").addEventListener("click", function(ev) {
-	submitBuildingHoursForm(ev.currentTarget.parentNode);
-});
-document.getElementById("monit-hours").addEventListener("change", function(ev) {
-	const input = parseInt(ev.currentTarget.value);
-	if (input >= 24) {
-		document.getElementById("monit-minutes").setAttribute("max", "0");
-	}
-	else {
-		document.getElementById("monit-minutes").setAttribute("max", "59");
+		// if authenticated with Improved Intra 42 back-end, show main menu
+		if (data["iintra-server-session"]) {
+			switchMenus("main-menu");
+		}
+		else {
+			switchMenus("auth-menu");
+		}
 	}
 });
