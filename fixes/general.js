@@ -92,7 +92,7 @@ function setGeneralImprovements() {
 }
 
 /**
- * Set april fools.
+ * Enable April Fools easter egg
  */
 function setAprilFools() {
 	iConsole.log("It's april first! Using Comic Sans everywhere");
@@ -107,7 +107,7 @@ function setAprilFools() {
 }
 
 /**
- * Set an easter egg.
+ * Enable random rotations easter egg
  */
 function setEasterEgg() {
 	const elements = document.querySelectorAll("*");
