@@ -46,7 +46,7 @@ li.scaleteam-list-item .rating {
 	flex-basis: 50px !important;
 }
 
-/* set default color on tooltips */
+/* set default cursor for tooltips */
 .tooltip {
 	cursor: default !important;
 }
