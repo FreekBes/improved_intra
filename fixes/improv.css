@@ -434,32 +434,18 @@ a[data-tooltip-login].student-kind-student::before,
 
 /* whole block of code just for an easter egg for pde-bakk */
 .tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded,
-.user-profile-picture[style*="/pde-bakk/"],
-.search-user-picture[style*="/pde-bakk/"],
-.bg-image-item.rounded[style*="/pde-bakk/"],
-.profile-image[style*="/pde-bakk/"],
-.user-image[style*="/pde-bakk/"],
-.user-profile-picture[style*="/pde-bakk."],
-.search-user-picture[style*="/pde-bakk."],
-.bg-image-item.rounded[style*="/pde-bakk."],
-.profile-image[style*="/pde-bakk."],
-.user-image[style*="/pde-bakk."] {
+[style*="url("][style*="/pde-bakk/"],
+[style*="url("][style*="/pde-bakk."],
+[style*="url("][style*="_pde-bakk."] {
 	border-radius: 50% 15% 50% 50% !important;
 	transform: rotate(-33deg) !important;
 	box-shadow: inset 0px 1px 4px 4px #edd65b !important;
 	overflow: unset !important;
 }
 .tooltip-content[data-tooltip="pde-bakk"] .tooltip-img.rounded::after,
-.user-profile-picture[style*="/pde-bakk/"]::after,
-.search-user-picture[style*="/pde-bakk/"]::after,
-.bg-image-item.rounded[style*="/pde-bakk/"]::after,
-.profile-image[style*="/pde-bakk/"]::after,
-.user-image[style*="/pde-bakk/"]::after,
-.user-profile-picture[style*="/pde-bakk."]::after,
-.search-user-picture[style*="/pde-bakk."]::after,
-.bg-image-item.rounded[style*="/pde-bakk."]::after,
-.profile-image[style*="/pde-bakk."]::after,
-.user-image[style*="/pde-bakk."]::after {
+[style*="url("][style*="/pde-bakk/"]::after,
+[style*="url("][style*="/pde-bakk."]::after,
+[style*="url("][style*="_pde-bakk."]::after {
 	content: "";
 	width: 3%;
 	height: 11%;
