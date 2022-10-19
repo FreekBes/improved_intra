@@ -40,7 +40,7 @@ function setGeneralImprovements() {
 		const intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
 
 		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
-		createMenuLink(userMenu, "https://iintra.freekb.es/options.php", "Improved Intra Settings", intraSettingsOption.parentNode.nextSibling);
+		createMenuLink(userMenu, "https://iintra.freekb.es/options.php", "Improved Intra Settings", intraSettingsOption.closest("li").nextSibling);
 
 		// add view my profile link if it seems to be missing from the menu
 		if (!userMenu.querySelector("a[href*='https://profile.intra.42.fr/users/']")) {

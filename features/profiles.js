@@ -259,7 +259,7 @@ function immediateProfileChanges() {
 			const logTimesHeader = document.createElement("h4");
 			logTimesHeader.className = "profile-title";
 			logTimesHeader.innerText = "Logtime";
-			locations.parentNode.parentNode.prepend(logTimesHeader);
+			locations.closest(".container-inner-item").prepend(logTimesHeader);
 		}
 
 		// add social links to profile

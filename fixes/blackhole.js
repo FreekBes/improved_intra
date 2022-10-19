@@ -16,7 +16,8 @@ function fixBlackHoleContainer() {
 	const bhColorTimer = setInterval(function() {
 		const bhDate = document.querySelector("#modern-bh-date");
 		if (bhDate) {
-			const bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
+			const bhDateTitleElem = bhDate.closest("[data-original-title]");
+			const bhDateTitle = bhDateTitleElem.getAttribute("data-original-title");
 			if (bhDate.innerText.indexOf("absorbed") > -1) {
 				clearInterval(bhColorTimer);
 				bhDate.style.color = "var(--fail-color)";
@@ -35,7 +36,7 @@ function fixBlackHoleContainer() {
 				iConsole.log("Black Hole days remaining: ", daysRemaining);
 				improvedStorage.get("old-blackhole").then(function(data) {
 					if (optionIsActive(data, "old-blackhole")) {
-						bhDate.parentNode.setAttribute("data-original-title", bhDate.innerText);
+						bhDateTitleElem.setAttribute("data-original-title", bhDate.innerText);
 						bhDate.innerText = daysRemaining.toString() + " days left";
 
 						// add bootstrap tooltip to holder

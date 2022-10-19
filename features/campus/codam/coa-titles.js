@@ -18,8 +18,8 @@ function autoEquipCoaTitle(loggedInUserName) {
 		return;
 	}
 
-	const titleSelectButton = headerLoginName.parentNode;
-	if (!titleSelectButton || titleSelectButton.nodeName != "BUTTON") {
+	const titleSelectButton = headerLoginName.closest(".dropdown-toggle");
+	if (!titleSelectButton) {
 		iConsole.warn("No title select button, but auto-equipping coalition titles is enabled!");
 		return;
 	}
@@ -34,12 +34,16 @@ function autoEquipCoaTitle(loggedInUserName) {
 	// otherwise, the textContent will include the title. if a title is present, we do not override it
 	if (headerLoginName.textContent == headerLoginName.getAttribute("data-login")) {
 		const userTitles = titleSelectDropdown.querySelectorAll("a[href*=\"/titles_users/\"]");
+		iConsole.log(userTitles);
 		for (let i = 0; i < userTitles.length; i++) {
 			if (userTitles[i].textContent.match(coaTitleRegex)) {
 				iConsole.log("Found coalition title! Equipping by clicking on it...");
 				iConsole.log(userTitles[i]);
 				userTitles[i].click();
 				break;
+			}
+			else {
+				iConsole.log("Not coalition title " + userTitles[i].textContent);
 			}
 		}
 	}
