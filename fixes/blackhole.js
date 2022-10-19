@@ -14,7 +14,7 @@
 // and if old-blackhole setting is enabled, replace text with old countdown style
 function fixBlackHoleContainer() {
 	const bhColorTimer = setInterval(function() {
-		const bhDate = document.querySelector("#bh-date");
+		const bhDate = document.querySelector("#modern-bh-date");
 		if (bhDate) {
 			const bhDateTitle = bhDate.parentNode.getAttribute("data-original-title");
 			if (bhDate.innerText.indexOf("absorbed") > -1) {
