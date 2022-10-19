@@ -558,6 +558,11 @@ html.soft-background, body.authorization-layout {
 	height: 100%;
 }
 
+/* fix user profile picture on auth page */
+.main-authorization-page .user-image-picture {
+	background-size: cover !important;
+}
+
 /* improved text shadow on API page */
 .main-summary,
 .intro-header h1 {
