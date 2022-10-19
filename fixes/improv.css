@@ -634,11 +634,6 @@ a h5:not(.profile-name) {
 	color: inherit !important;
 }
 
-/* hide double black hole date */
-#blackhole-date:last-of-type {
-	display: none !important;
-}
-
 /* remove eval sheet background */
 .scale-question-answers,
 .scale-div {
