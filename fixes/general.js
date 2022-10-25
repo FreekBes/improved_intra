@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/07/02 15:16:45 by fbes          ########   odam.nl         */
+/*   Updated: 2022/10/25 10:31:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,27 @@ function setGeneralImprovements() {
 		dayNameElem.className = "date-day-name";
 		dayNameElem.innerText = jsDate.toLocaleString("en", {weekday: 'short'});
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
+	}
+
+	// add hide button to sidebar menu if it exists on the page
+	const mainLeftNavbar = document.querySelector(".main-left-navbar");
+	const sidebarMenu = document.querySelector(".app-sidebar-left");
+	const leftSidebarFix = document.querySelector(".left-sidebar-fix");
+	const pageContent = document.querySelector(".page-content");
+	if (sidebarMenu) {
+		const hideButton = document.createElement("button");
+		hideButton.className = "sidebar-hide-button emote icon-arrow-37";
+		hideButton.setAttribute("title", "Hide sidebar");
+		hideButton.addEventListener("click", function() {
+			sidebarMenu.classList.toggle("app-sidebar-hidden");
+			if (leftSidebarFix) {
+				leftSidebarFix.classList.toggle("sidebar-fix-hidden");
+			}
+			if (pageContent) {
+				pageContent.classList.toggle("page-content-fluid");
+			}
+		});
+		mainLeftNavbar.appendChild(hideButton);
 	}
 }
 

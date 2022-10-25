@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/09 12:34:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/10/25 10:36:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -589,6 +589,35 @@ tr[data-level="4"] { --data-level: 4; }
 .documentation table > tbody > tr[data-level]:not([data-level="0"]) > td:first-child::before {
 	content: '└' !important;
 	padding-right: 0.5ch !important;
+}
+
+/* hide button for left sidebar menu. Color is set in themes/apply.css */
+.main-left-navbar .sidebar-hide-button {
+	display: block;
+	position: absolute;
+	top: 70px;
+	/* right: -262px; */
+	right: -13px;
+	float: right;
+	width: 36px;
+	height: 36px;
+	line-height: 32px;
+	padding: 4px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	z-index: 999;
+}
+
+/* hide left sidebar if class is present */
+.app-sidebar-hidden {
+	display: none !important;
+}
+
+/* disable sidebar fix if sidebar is hidden */
+.left-sidebar-fix.sidebar-fix-hidden,
+.right-sidebar-fix.sidebar-fix-hidden {
+	display: none !important;
 }
 
 /* hide Feedback link from API documentation page (it points to nowhere) */
