@@ -56,12 +56,12 @@
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ],
+			"matches": [ "*://iintra.freekb.es/*.php*", "*://darkintra.freekb.es/*.php*" ],
 			"css": [ "generic/internal.css", "fixes/animations.css" ],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ],
+			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*.php*", "*://darkintra.freekb.es/*.php*" ],
 			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
