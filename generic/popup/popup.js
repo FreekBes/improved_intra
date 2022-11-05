@@ -41,7 +41,7 @@ buttons.login.addEventListener("click", function(ev) {
 });
 
 buttons.auth.addEventListener("click", function(ev) {
-	window.open("https://iintra.freekb.es/v2/connect");
+	window.open("https://iintra.freekb.es/v2/connect", "iintra-auth-win", "width=460,height=600");
 	window.close();
 });
 
@@ -80,7 +80,7 @@ improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
 			switchMenus("main-menu");
 		}
 		else {
-			switchMenus("auth-menu");
+			switchMenus("session-menu");
 		}
 	}
 });
