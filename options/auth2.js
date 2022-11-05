@@ -35,6 +35,13 @@ if (window.location.pathname == '/auth') {
 	iConsole.log("Authenticated session detected, notifying extension...");
 	authPort.postMessage({ action: "server-session-started" });
 }
+else if (window.location.pathname.startsWith == '/v2/options/') {
+	// only check this on options pages
+	if (document.querySelector("#user-login")) {
+		iConsole.log("Authenticated session detected, notifying extension...");
+		authPort.postMessage({ action: "server-session-started" });
+	}
+}
 else if (window.location.pathname == '/') {
 	// only check this on landing page
 	if (document.querySelector("#account #login")) {
@@ -43,6 +50,7 @@ else if (window.location.pathname == '/') {
 	}
 }
 else if (window.location.pathname == '/v2/ping') {
+	// for renewal of the session using the extension popup
 	iConsole.log("Authenticated session detected, notifying extension...");
 	authPort.postMessage({ action: "server-session-started" });
 	window.close();
