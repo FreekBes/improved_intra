@@ -58,7 +58,7 @@ function fixBlackHoleContainer() {
 					}
 					else {
 						if (daysRemaining > 30) {
-							bhDate.style.color = "var(--text-color)";
+							bhDate.style.color = "#fff";
 						}
 						else {
 							// stylize in warning color if less than 30 colors remaining, just to point it out to user
@@ -69,7 +69,7 @@ function fixBlackHoleContainer() {
 			}
 			else {
 				// fallback styling
-				bhDate.style.color = "var(--text-color)";
+				bhDate.style.color = "#fff";
 			}
 		}
 	}, 100);
