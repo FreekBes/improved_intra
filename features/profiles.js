@@ -259,11 +259,11 @@ function immediateProfileChanges() {
 			const logTimesHeader = document.createElement("h4");
 			logTimesHeader.className = "profile-title";
 			logTimesHeader.innerText = "Logtime";
-			locations.parentNode.parentNode.prepend(logTimesHeader);
+			locations.closest(".container-inner-item").prepend(logTimesHeader);
 		}
 
 		// add social links to profile
-		const userInfos = document.querySelector(".profile-infos-bottom");
+		const userInfos = document.querySelector(".user-header-box.infos .profile-infos-bottom");
 		if (userInfos) {
 			const gitHubItem = document.createElement("div");
 			gitHubItem.className = "profile-infos-item";
@@ -291,7 +291,7 @@ function immediateProfileChanges() {
 
 			let locationItem = userInfos.querySelector(".icon-location");
 			if (locationItem) {
-				locationItem = locationItem.parentNode;
+				locationItem = locationItem.closest(".profile-infos-item");
 				userInfos.insertBefore(gitHubItem, locationItem);
 			}
 			else {

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/10/06 16:04:06 by nsimon        ########   odam.nl         */
+/*   Updated: 2022/10/25 10:32:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,14 @@ h6 small, h6 .small,
 
 .main-left-navbar li a.active:not([style*="color:"]) {
 	color: var(--left-navbar-icon-color-active) !important;
+}
+
+.main-left-navbar .sidebar-hide-button {
+	color: var(--left-navbar-icon-color) !important;
+}
+
+.main-left-navbar .sidebar-hide-button:hover {
+	color: var(--left-navbar-icon-color-hover) !important;
 }
 
 .modal-backdrop {

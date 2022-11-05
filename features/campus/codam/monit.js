@@ -227,13 +227,13 @@ const monit = {
 				ltHolder.setAttribute("data-original-title", "Logtime this week: " + logTimeToString(monit.logTimesTotal));
 			}
 			else if (status["work_from_home_required"] && !status["monitoring_system_active"]) {
-				// covid-19 message
-				progressPerc.innerText = "Don't give up!";
-				ltHolder.setAttribute("data-original-title", "You can do this! Codam will at some point reopen again. I'm sure of it! Times will get better.");
+				// when Codam is closed, display the following message
+				progressPerc.innerText = "Codam is currently closed";
+				ltHolder.setAttribute("data-original-title", "So no logtime is available to track your progress here...");
 			}
 			else if (!status["monitoring_system_active"]) {
 				progressPerc.innerText = logTimeToString(monit.logTimesTotal);
-				ltHolder.setAttribute("data-original-title", "Logtime this week (Monitoring System is currently disabled)");
+				ltHolder.setAttribute("data-original-title", "Logtime this week (the new Monitoring System will be implemented here at a later time)");
 			}
 
 			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
