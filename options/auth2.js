@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+iConsole.log("auth2.js script running now...");
+
 let authPort = chrome.runtime.connect({ name: portName });
 authPort.onDisconnect.addListener(function() {
 	iConsole.log("Disconnected from service worker");
@@ -39,4 +41,9 @@ else if (window.location.pathname == '/') {
 		iConsole.log("Authenticated session detected, notifying extension...");
 		authPort.postMessage({ action: "server-session-started" });
 	}
+}
+else if (window.location.pathname == '/v2/ping') {
+	iConsole.log("Authenticated session detected, notifying extension...");
+	authPort.postMessage({ action: "server-session-started" });
+	window.close();
 }

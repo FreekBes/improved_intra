@@ -60,7 +60,7 @@
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/", "*://iintra.freekb.es/v2/disconnect*" ],
+			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/", "*://iintra.freekb.es/v2/ping", "*://iintra.freekb.es/v2/disconnect*" ],
 			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
@@ -85,7 +85,7 @@
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/" ],
+			"matches": [ "*://iintra.freekb.es/auth*", "*://iintra.freekb.es/", "*://iintra.freekb.es/v2/ping" ],
 			"js": [ "options/auth2.js" ],
 			"run_at": "document_end"
 		},
