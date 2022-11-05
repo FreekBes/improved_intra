@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-const optionsURL = "https://iintra.freekb.es/options.php";
+const optionsURL = "https://iintra.freekb.es/v2/options";
 
 let authPort = chrome.runtime.connect({ name: portName });
 authPort.onDisconnect.addListener(function() {

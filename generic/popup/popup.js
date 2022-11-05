@@ -66,7 +66,7 @@ buttons.viewProfile.addEventListener("click", function(ev) {
 });
 
 buttons.extSettings.addEventListener("click", function(ev) {
-	window.open("https://iintra.freekb.es/options.php");
+	window.open("https://iintra.freekb.es/v2/options");
 	window.close();
 });
 
