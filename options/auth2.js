@@ -35,7 +35,7 @@ if (window.location.pathname == '/auth') {
 	iConsole.log("Authenticated session detected, notifying extension...");
 	authPort.postMessage({ action: "server-session-started" });
 }
-else if (window.location.pathname.startsWith == '/v2/options/') {
+else if (window.location.pathname.startsWith('/v2/options/')) {
 	// only check this on options pages
 	if (document.querySelector("#user-login")) {
 		iConsole.log("Authenticated session detected, notifying extension...");
@@ -54,4 +54,9 @@ else if (window.location.pathname == '/v2/ping') {
 	iConsole.log("Authenticated session detected, notifying extension...");
 	authPort.postMessage({ action: "server-session-started" });
 	window.close();
+}
+else if (window.location.pathname.startsWith('/v2/disconnect')) {
+	// session actually ended
+	iConsole.log("Notifying extension that the back-end session ended...");
+	authPort.postMessage({ action: "server-session-ended" });
 }

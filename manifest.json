@@ -47,15 +47,6 @@
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"css": [ "generic/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
-			"run_at": "document_start"
-		},
-		{
-			"matches": [ "*://iintra.freekb.es/*.php*", "*://darkintra.freekb.es/*.php*" ],
-			"css": [ "generic/internal.css", "fixes/animations.css" ],
-			"run_at": "document_start"
-		},
-		{
-			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*.php*", "*://darkintra.freekb.es/*.php*" ],
 			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
@@ -80,24 +71,14 @@
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/connect.php*", "*://darkintra.freekb.es/connect.php*" ],
-			"js": [ "options/auth.js" ],
-			"run_at": "document_end"
-		},
-		{
 			"matches": [ "*://iintra.freekb.es/*" ],
 			"js": [ "options/auth2.js" ],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/v2/disconnect*" ],
-			"js": [ "options/unauth2.js" ],
-			"run_at": "document_end"
-		},
-		{
 			"matches": [ "*://iintra.freekb.es/options.php*", "*://darkintra.freekb.es/options.php*" ],
 			"js": [ "options/options.js" ],
-			"run_at": "document_end"
+			"run_at": "document_start"
 		},
 		{
 			"matches": [ "https://admin.intra.42.fr/*" ],
