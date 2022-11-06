@@ -21,6 +21,7 @@ const defaults = {
 	"hide-goals": "false",
 	"holygraph-morecursuses": "false",
 	"link-github": "",
+	"link-web": "",
 	"logsum-month": "true",
 	"logsum-week": "true",
 	"old-blackhole": "false",
@@ -30,7 +31,50 @@ const defaults = {
 	"theme": "system"
 };
 
-const noLongerUsedOptions = [];
+const v1Translations = {
+	"clustermap": ["settings", "clustermap"],
+	"codam-auto-equip-coa-title": ["settings", "codam_auto_equip_coa_title"],
+	"codam-monit": ["settings", "codam_monit"],
+	"colors": ["settings", "colors", "internal_name"],
+	"custom-banner-url": ["profile", "banner_img", "url"],
+	"custom-banner-pos": ["profile", "banner_pos", "internal_name"],
+	"hide-broadcasts": ["settings", "hide_broadcasts"],
+	"hide-goals": ["settings", "hide_goals"],
+	"holygraph-morecursuses": ["settings", "holygraph_more_cursuses"],
+	"link-github": ["profile", "link_git"],
+	"link-web": ["profile", "link_web"],
+	"logsum-month": ["settings", "logsum_month"],
+	"logsum-week": ["settings", "logsum_week"],
+	"old-blackhole": ["settings", "old_blackhole"],
+	"outstandings": ["settings", "outstandings"],
+	"show-custom-profiles": ["settings", "show_custom_profiles"],
+	"theme": ["settings", "theme", "internal_name"],
+	"username": ["user", "login"]
+}
+
+const noLongerUsedOptions = [ "sync", "codam-buildingtimes-chart", "codam-buildingtimes-public" ];
+
+function v1Translate(v2Options) {
+	const v1Options = {};
+	for (const v1key in v1Translations) {
+		let v2Value = v2Options;
+		// dive into the v2Options object for each v1Options key
+		for (const v2subkey of v1Translations[v1key]) {
+			v2Value = v2Value[v2subkey];
+		}
+		if (v2Value === null) {
+			v2Value = '';
+		}
+		if (v2Value !== undefined) {
+			console.log("v1Translate: " + v1key + " -> '" + v2Value + "'");
+			v1Options[v1key] = v2Value;
+		}
+		else {
+			console.warn("Could not translate v1Option " + v1key + " from v2Option");
+		}
+	}
+	return (v1Options);
+}
 
 function tryFetchIntraUsername(improvedStorage) {
 	return new Promise(function (resolve, reject) {
@@ -110,8 +154,8 @@ function setOptionsIfUnset(improvedStorage) {
 
 function getSettingsFromSyncServer(improvedStorage, username) {
 	return new Promise(function(resolve, reject) {
-		iConsole.log("Retrieving settings of username " + username + " for " + improvedStorage.getType());
-		fetch("https://iintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
+		iConsole.log("Retrieving settings of (hopefully) authenticated user " + username + " for " + improvedStorage.getType());
+		fetch("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random())
 			.then(function(response) {
 				if (response.status == 404) {
 					reject("No settings found on the sync server for this username");
@@ -125,12 +169,25 @@ function getSettingsFromSyncServer(improvedStorage, username) {
 			})
 			.then(function(json) {
 				if (json != null) {
-					iConsole.log("Storing settings in " + improvedStorage.getType() + " storage...");
-					improvedStorage.set(json).then(function() {
-						improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
-							resolve(json);
+					if (json['type'] === 'success') {
+						if (json['data']['user']['login'] !== username) {
+							reject("Username in sync server settings does not match the username of the user who we wanted to fetch data for");
+							return (null);
+						}
+						iConsole.log('v2Settings', json['data']);
+						iConsole.log("Translating the settings into v1...");
+						const v1Settings = v1Translate(json['data']);
+						iConsole.log('v1Settings', v1Settings);
+						iConsole.log("Storing settings in " + improvedStorage.getType() + " storage...");
+						improvedStorage.set(v1Settings).then(function() {
+							improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
+								resolve(json);
+							});
 						});
-					});
+					}
+					else {
+						reject(json['message']);
+					}
 				}
 			})
 			.catch(function(err) {

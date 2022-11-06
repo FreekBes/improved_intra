@@ -87,6 +87,11 @@
 			"run_at": "document_start"
 		},
 		{
+			"matches": [ "*://iintra.freekb.es/v2/options/*" ],
+			"js": [ "options/options2.js" ],
+			"run_at": "document_start"
+		},
+		{
 			"matches": [ "https://admin.intra.42.fr/*" ],
 			"js": [ "features/admin.js" ],
 			"run_at": "document_end"
