@@ -83,7 +83,7 @@
 		{
 			"matches": [ "*://iintra.freekb.es/v2/options/*" ],
 			"js": [ "options/options2.js" ],
-			"run_at": "document_start"
+			"run_at": "document_end"
 		},
 		{
 			"matches": [ "https://admin.intra.42.fr/*" ],

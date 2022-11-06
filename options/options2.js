@@ -19,3 +19,13 @@ document.addEventListener("iSettingsChangedServerFormat", function(ev) {
 	iConsole.log("Letting the background script know that we can sync settings with the server now.");
 	authPort.postMessage({ action: "resync" });
 });
+
+const extVersionElem = document.getElementById("ext-version");
+if (extVersionElem) {
+	extVersionElem.innerText = chrome.runtime.getManifest().version;
+}
+
+const extVersionInput = document.getElementById("ext_version_input");
+if (extVersionInput) {
+	extVersionInput.value = chrome.runtime.getManifest().version;
+}
