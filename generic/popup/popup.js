@@ -24,6 +24,27 @@ function switchMenus(newMenu) {
 }
 
 
+// communication with background scripts
+let popupPort = chrome.runtime.connect({ name: portName });
+popupPort.onDisconnect.addListener(function() {
+	iConsole.log("Disconnected from service worker");
+});
+popupPort.onMessage.addListener(function(msg) {
+	switch (msg["action"]) {
+		case "pong":
+			iConsole.log("pong");
+			break;
+		case "error":
+			iConsole.error(msg["message"]);
+			break;
+	}
+});
+setInterval(function() {
+	popupPort.disconnect();
+	popupPort = chrome.runtime.connect({ name: portName });
+}, 250000);
+
+
 // buttons setup
 const buttons = {
 	openIntra: document.getElementById("open-intra"),
@@ -31,6 +52,7 @@ const buttons = {
 	listProjects: document.getElementById("list-projects"),
 	viewProfile: document.getElementById("view-profile"),
 	extSettings: document.getElementById("ext-settings"),
+	extSync: document.getElementById("ext-sync"),
 	auth: document.getElementById("iintra-auth"),
 	login: document.getElementById("intra-login")
 };
@@ -67,6 +89,11 @@ buttons.viewProfile.addEventListener("click", function(ev) {
 
 buttons.extSettings.addEventListener("click", function(ev) {
 	window.open("https://iintra.freekb.es/v2/options");
+	window.close();
+});
+
+buttons.extSync.addEventListener("click", function(ev) {
+	popupPort.postMessage({ action: "resync" });
 	window.close();
 });
 

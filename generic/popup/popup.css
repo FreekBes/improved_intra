@@ -114,6 +114,10 @@ p {
 	content: 'settings' !important;
 }
 
+#ext-sync > button::before {
+	content: 'cloud_sync' !important;
+}
+
 #intra-logout > button::before {
 	content: 'logout' !important;
 }
