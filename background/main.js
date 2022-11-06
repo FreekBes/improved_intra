@@ -27,6 +27,9 @@ function checkForIIServerSession() {
 				iConsole.log("Back-end server session is active");
 				normalStorage.set({ "iintra-server-session": true });
 				chrome.action.setBadgeText({text: ''});
+
+				// now also resync options
+				resyncOptions();
 			}
 		})
 		.catch(function(err) {
@@ -59,4 +62,4 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	}
 });
 
-setInterval(checkForIIServerSession, 600000); // check for back-end session every 10 minutes
+setInterval(checkForIIServerSession, 1800000); // check for back-end session every 30 minutes
