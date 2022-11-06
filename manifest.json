@@ -76,7 +76,7 @@
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/options.php*", "*://darkintra.freekb.es/options.php*" ],
+			"matches": [ "*://iintra.freekb.es/options.php*", "*://iintra.freekb.es/connect.php*" ],
 			"js": [ "options/options.js" ],
 			"run_at": "document_start"
 		},
