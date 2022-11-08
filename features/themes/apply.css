@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   apply.css                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2022/10/25 10:32:04 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   apply.css                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
+/*   Updated: 2022/11/08 15:10:19 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1738,6 +1738,10 @@ mark {
 
 .CodeMirror-cursor {
 	border-color: var(--input-text-color) !important;
+}
+
+.CodeMirror-selectedtext {
+	background: var(--theme-color) !important;
 }
 
 #dashes-users-container .dash-vertical .dash-container {
