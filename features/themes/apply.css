@@ -111,6 +111,18 @@ h6 small, h6 .small,
 	color: var(--left-navbar-icon-color-active) !important;
 }
 
+.main-left-navbar .admin-links li a:not([style*="color:"]) {
+	color: var(--left-navbar-icon-color-admin) !important;
+}
+
+.main-left-navbar .admin-links li a:hover:not(.active):not([style*="color:"]) {
+	color: var(--left-navbar-icon-color-admin-hover) !important;
+}
+
+.main-left-navbar .admin-links li a.active:not([style*="color:"]) {
+	color: var(--left-navbar-icon-color-admin-active) !important;
+}
+
 .modal-backdrop {
 	background: var(--body-background-color) !important;
 }
