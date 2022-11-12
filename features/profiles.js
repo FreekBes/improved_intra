@@ -94,6 +94,11 @@ function setGitLink(linkGit) {
 						"name": "Codeberg",
 						"profile_url": "https://www.codeberg.org/",
 						"icon": "fa fa-git"
+					},
+					"sr.ht": {
+						"name": "SourceHut",
+						"profile_url": "https://www.sr.ht/",
+						"icon": "fa fa-git"
 					}
 				};
 				if (!(linkGit[0] in gitPlatforms)) {
