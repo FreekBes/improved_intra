@@ -525,6 +525,16 @@ a[data-tooltip-login].student-kind-student::before,
 	text-overflow: hidden !important;
 }
 
+/* fix vertical align of profile infos icons and text */
+.profile-item .profile-infos-item *,
+.profile-item .profile-infos-item [class^="icon-"]:before, [class*=" icon-"]:before {
+	vertical-align: middle !important;
+}
+.profile-item .profile-infos-item [class^="icon-"]:before, [class*=" icon-"]:before {
+	display: inline-block;
+	height: 1.2em;
+}
+
 /* fix link text overflowing outside of modal in modal bodies */
 .modal-body p {
 	overflow-wrap: break-word !important;
