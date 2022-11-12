@@ -15,35 +15,21 @@
 let gUName = null;
 let gProfileBanner = null;
 let gCustomBanner = null;
-let gInterval = null;
 let gExtSettings = null;
-let gUserSettings = null;
 
-function getUserSettings(username) {
+function getUserProfile(username) {
 	return new Promise(function(resolve, reject) {
-		if (gUserSettings && gUserSettings["username"] === username) {
-			resolve(gUserSettings);
-			return;
-		}
 		iConsole.log("Retrieving settings of username " + username);
-		fetch("https://iintra.freekb.es/settings/" + username + ".json?noCache=" + Math.random())
+		fetch("https://iintra.freekb.es/v2/profile/" + username + ".json?noCache=" + Math.random())
 			.then(function(response) {
-				if (response.status == 404) {
-					iConsole.log("No settings found on the sync server for this username");
-					return (null);
-				}
-				else if (!response.ok) {
-					throw new Error("Could not get settings from server due to an error");
-				}
 				return (response.json());
 			})
 			.then(function(json) {
-				if (json == null) {
-					reject();
+				if (json["type"] == "success") {
+					resolve(json["data"]);
 				}
 				else {
-					gUserSettings = json;
-					resolve(json);
+					reject(json["message"]);
 				}
 			})
 			.catch(function(err) {
@@ -52,26 +38,14 @@ function getUserSettings(username) {
 	});
 }
 
-
-function setCustomBanner(imageUrl, imagePos) {
-	if (imageUrl && validateUrl(imageUrl)) {
-		const newCSSval = "url(\"" + imageUrl + "\")";
-		if (gCustomBanner.style.backgroundImage.indexOf(imageUrl) == -1) {
-			gCustomBanner.className += " customized";
+function setCustomBanner(bannerImg, bannerPos) {
+	if (bannerImg && bannerPos) {
+		const newCSSval = "url(\"" + bannerImg["url"] + "\")";
+		if (gCustomBanner.style.backgroundImage.indexOf(bannerImg["url"]) == -1) {
+			gCustomBanner.classList.add("customized");
 			gCustomBanner.setAttribute("data-old-bg", gProfileBanner.style.backgroundImage);
 			gCustomBanner.style.backgroundImage = newCSSval;
-			switch (imagePos) {
-				default:
-				case "center-center":
-					gCustomBanner.style.backgroundPosition = "center center";
-					break;
-				case "center-top":
-					gCustomBanner.style.backgroundPosition = "center top";
-					break;
-				case "center-bottom":
-					gCustomBanner.style.backgroundPosition = "center bottom";
-					break;
-			}
+			gCustomBanner.style.backgroundPosition = bannerPos["css_val"];
 			iConsole.log("Custom banner set!");
 		}
 		return (true);
@@ -80,96 +54,81 @@ function setCustomBanner(imageUrl, imagePos) {
 }
 
 function unsetCustomBannerIfRequired() {
+	gCustomBanner.classList.remove("customized");
 	if (gCustomBanner.style.backgroundImage) {
 		gCustomBanner.style.backgroundImage = null;
 		iConsole.log("Custom banner unset");
 	}
 }
 
-function setGitHubLink(gitHubName) {
-	gitHubName = gitHubName.trim();
-	if (gitHubName == "" || gitHubName == "null" || gitHubName == "undefined") {
-		return;
-	}
-	const gitHubLink = document.getElementById("ii-profile-link-github");
-	if (gitHubLink) {
-		// gitHubName can actually be gitplatform@username
-		// parse gitplatform to see which URL to use
-		if (gitHubName.indexOf("@") > -1) {
-			gitHubName = gitHubName.split("@");
-			if (gitHubName.length == 2) {
-				gitHubName[0] = gitHubName[0].toLowerCase();
-				gitHubLink.innerText = gitHubName[1];
-				switch (gitHubName[0]) {
-					case "github":
-						gitHubLink.parentNode.setAttribute("href", "https://www.github.com/" + gitHubName[1]);
-						gitHubLink.parentNode.parentNode.style.display = "block";
-						break;
-					case "gitlab":
-						gitHubLink.parentNode.setAttribute("href", "https://gitlab.com/" + gitHubName[1]);
-						gitHubLink.parentNode.parentNode.style.display = "block";
-						gitHubLink.parentNode.parentNode.setAttribute("data-original-title", "GitLab"); // display GitLab in tooltip
-						gitHubLink.parentNode.previousElementSibling.className = "fa fa-gitlab"; // change to gitlab icon
-						break;
-					default:
-						iConsole.warn("Unsupported Git platform found in setGitHubLink():", gitHubName[0]);
-						break;
+function setGitLink(linkGit) {
+	try {
+		const linkGitElem = document.getElementById("ii-profile-link-git");
+		// linkGit is not a direct url, it is actually a combination of a platform and a username
+		// e.g. github.com@FreekBes or gitlab.com@FreekBes
+		// this is to prevent people from using random websites as their "git profile"
+		if (linkGit.indexOf("@") > -1) {
+			linkGit = linkGit.split("@");
+			if (linkGit.length == 2) {
+				linkGit[0] = linkGit[0].toLowerCase();
+				const gitPlatforms = {
+					"github.com": {
+						"name": "GitHub",
+						"profile_url": "https://www.github.com/",
+						"icon": "fa fa-github"
+					},
+					"gitlab.com": {
+						"name": "GitLab",
+						"profile_url": "https://www.gitlab.com/",
+						"icon": "fa fa-gitlab"
+					},
+					"bitbucket.org": {
+						"name": "Bitbucket",
+						"profile_url": "https://www.bitbucket.org/",
+						"icon": "fa fa-bitbucket"
+					},
+					"codeberg.org": {
+						"name": "Codeberg",
+						"profile_url": "https://www.codeberg.org/",
+						"icon": "fa fa-git"
+					}
+				};
+				if (!(linkGit[0] in gitPlatforms)) {
+					throw "Unknown git platform: " + linkGit[0];
 				}
+				linkGitElem.innerText = linkGit[1];
+				linkGitElem.parentNode.setAttribute("href", gitPlatforms[linkGit[0]]["profile_url"] + "/" + linkGit[1]);
+				linkGitElem.parentNode.previousElementSibling.className = gitPlatforms[linkGit[0]]["icon"]; // set fontawesome icon
+				linkGitElem.parentNode.parentNode.setAttribute("data-original-title", gitPlatforms[linkGit[0]]["name"]);
+				linkGitElem.parentNode.parentNode.style.display = "block";
+				return true;
 			}
 			else {
-				iConsole.warn("Length of split on '@' variable gitHubName in setGitHubLink() did not equal 2! Not displaying link.");
+				throw "Length of split on '@' variable linkGit in setGitHubLink() did not equal 2";
 			}
 		}
 		else {
-			gitHubLink.innerText = gitHubName;
-			gitHubLink.parentNode.setAttribute("href", "https://www.github.com/" + gitHubName);
-			gitHubLink.parentNode.parentNode.style.display = "block";
+			throw "Unexpected value for link_git: " + linkGit;
 		}
 	}
-}
-
-function setCustomBannerWrapper() {
-	if (optionIsActive(gExtSettings, "show-custom-profiles")) {
-		if (gProfileBanner) {
-			if (gUName == gExtSettings["username"]) {
-				if (!setCustomBanner(gExtSettings["custom-banner-url"], gExtSettings["custom-banner-pos"])) {
-					unsetCustomBannerIfRequired();
-				}
-			}
-			else {
-				getUserSettings(gUName)
-					.then(function(uSettings) {
-						if (!setCustomBanner(uSettings["custom-banner-url"], uSettings["custom-banner-pos"])) {
-							unsetCustomBannerIfRequired();
-						}
-					})
-					.catch(function(err) {
-						// no custom profile settings found
-					});
-			}
-		}
+	catch (err) {
+		iConsole.error("Not displaying git link due to an error: ", err);
 	}
+	return false;
 }
 
-function setCustomProfile() {
-	if (optionIsActive(gExtSettings, "show-custom-profiles")) {
-		if (gProfileBanner) {
-			if (gUName == gExtSettings["username"]) {
-				if (gExtSettings["link-github"]) {
-					setGitHubLink(gExtSettings["link-github"]);
-				}
+async function setCustomProfile() {
+	// check if custom profiles are enabled and a profile banner is found on the page
+	if (optionIsActive(gExtSettings, "show-custom-profiles") && gProfileBanner) {
+		try {
+			userProfile = await getUserProfile(gUName);
+			if (!setCustomBanner(userProfile["banner_img"], userProfile["banner_pos"])) {
+				unsetCustomBannerIfRequired();
 			}
-			else {
-				getUserSettings(gUName)
-					.then(function(uSettings) {
-						if (uSettings["link-github"]) {
-							setGitHubLink(uSettings["link-github"]);
-						}
-					})
-					.catch(function(err) {
-						// no custom profile settings found
-					});
-			}
+			setGitLink(userProfile['link_git']);
+		}
+		catch (err) {
+			iConsole.error(err);
 		}
 	}
 }
@@ -286,7 +245,7 @@ function immediateProfileChanges() {
 
 			const gitHubName = document.createElement("span");
 			gitHubName.className = "coalition-span";
-			gitHubName.setAttribute("id", "ii-profile-link-github");
+			gitHubName.setAttribute("id", "ii-profile-link-git");
 			gitHubLink.appendChild(gitHubName);
 
 			let locationItem = userInfos.querySelector(".icon-location");
@@ -308,7 +267,6 @@ gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.
 immediateProfileChanges();
 improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github", "outstandings"]).then(function(data) {
 	gExtSettings = data;
-	setCustomBannerWrapper();
 	setCustomProfile();
 	if (window.location.pathname.indexOf("/users/") == 0) {
 		showOutstandings();

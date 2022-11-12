@@ -36,9 +36,9 @@ function fixProfileBanners() {
 		mailInfo.addEventListener("mouseenter", setCoalitionTextColor);
 	}
 
-	const gitHubInfo = document.querySelector("#ii-profile-link-github");
-	if (gitHubInfo) {
-		gitHubInfo.addEventListener("mouseenter", setCoalitionTextColor);
+	const linkGit = document.querySelector("#ii-profile-link-git");
+	if (linkGit) {
+		linkGit.addEventListener("mouseenter", setCoalitionTextColor);
 	}
 
 	const cursusSelector = document.querySelector(".cursus-user-select");
@@ -51,9 +51,9 @@ function fixProfileBanners() {
 					titleSelectorCaret.style.color = getCoalitionColor();
 				}
 
-				const gitHubInfo = document.querySelector("#ii-profile-link-github");
-				if (gitHubInfo) {
-					gitHubInfo.parentNode.style.color = getCoalitionColor();
+				const linkGit = document.querySelector("#ii-profile-link-git");
+				if (linkGit) {
+					linkGit.parentNode.style.color = getCoalitionColor();
 				}
 			}, 250);
 		});
