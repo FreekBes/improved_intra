@@ -91,7 +91,7 @@ function portMessageListener(msg, port) {
 				return;
 			}
 			iConsole.log("Back-end server session status changed, checking new status...");
-			checkForIIServerSession(isIncognitoPort(port));
+			checkForIIServerSession(isIncognitoPort(port), true);
 			break;
 		case "options-changed":
 			if (isIncognitoPort(port)) {
@@ -118,7 +118,7 @@ function portMessageListener(msg, port) {
 					iConsole.error(err);
 				})
 				.finally(function() {
-					checkForIIServerSession(isIncognitoPort(port));
+					checkForIIServerSession(isIncognitoPort(port), false);
 				});
 			break;
 		default:

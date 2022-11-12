@@ -13,7 +13,7 @@
 /**
  * Check if a session is active on the iintra.freekb.es domain
  */
-function checkForIIServerSession(incognitoSession) {
+function checkForIIServerSession(incognitoSession=false, doResyncOptions=true) {
 	const type = (incognitoSession ? "incognito" : "normal");
 	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
 
@@ -35,8 +35,10 @@ function checkForIIServerSession(incognitoSession) {
 				improvedStorage.set({ "iintra-server-session": true });
 				(chrome.action || chrome.browserAction).setBadgeText({text: ''});
 
-				// now also resync options
-				resyncOptions();
+				if (doResyncOptions) {
+					// now also resync options
+					resyncOptions();
+				}
 			}
 		})
 		.catch(function(err) {
@@ -57,13 +59,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
 		iConsole.log("First install.");
 		resyncOptions();
-		checkForIIServerSession(false);
-		checkForIIServerSession(true);
+		checkForIIServerSession(false, false);
+		checkForIIServerSession(true, false);
 	}
 	else if (details.reason == "update") {
 		iConsole.log("An update has been installed.");
-		checkForIIServerSession(false);
-		checkForIIServerSession(true);
+		checkForIIServerSession(false, false);
+		checkForIIServerSession(true, false);
 		resetLastSyncTimestamp(normalStorage);
 		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();
