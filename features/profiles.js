@@ -314,10 +314,3 @@ improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "c
 		showOutstandings();
 	}
 });
-
-const cursusSelector = document.querySelector(".cursus-user-select");
-if (cursusSelector) {
-	cursusSelector.addEventListener("change", function(event) {
-		// confirmProfileUpdatedForFiveSeconds();
-	});
-}
