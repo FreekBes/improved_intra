@@ -152,7 +152,7 @@ async function setCustomProfile() {
 			setGitLink(userProfile['link_git']);
 		}
 		catch (err) {
-			iConsole.error(err);
+			iConsole.error("Unable to set custom profile: ", err);
 		}
 	}
 }
