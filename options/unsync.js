@@ -15,3 +15,33 @@
 improvedStorage.remove("username").then(function() {
 	iConsole.log("Signed out from Intra, so removed the username to synchronize with. Settings will be kept locally, until another person signs in.");
 });
+
+let syncPort = chrome.runtime.connect({ name: portName });
+syncPort.onDisconnect.addListener(function() {
+	iConsole.log("Disconnected from service worker");
+});
+syncPort.onMessage.addListener(function(msg) {
+	switch (msg["action"]) {
+		case "pong":
+			iConsole.log("pong");
+			break;
+		case "resynced":
+			iConsole.log("Resync done");
+			break;
+		case "error":
+			iConsole.error(msg["message"]);
+			break;
+	}
+});
+setInterval(function() {
+	syncPort.disconnect();
+	syncPort = chrome.runtime.connect({ name: portName });
+}, 250000);
+
+syncPort.postMessage({ action: "unsync" });
+
+// const iintraLogoutWindow = window.open("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping", "iintra-logout", "width=10,height=10");
+// iintraLogoutWindow.addEventListener("load", function() {
+// 	iConsole.log("iintra.freekb.es logout window loaded. Closing it now.");
+// 	iintraLogoutWindow.close();
+// });

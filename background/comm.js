@@ -96,6 +96,23 @@ function portMessageListener(msg, port) {
 				messageNormalPorts({ action: "options-changed", settings: msg["settings"] })
 			}
 			break;
+		case "intra-logout":
+			fetch("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping")
+				.then(function(response) {
+					if (response.ok) {
+						iConsole.log("Successfully logged out of the Improved Intra server");
+					}
+					else {
+						iConsole.error("Failed to log out of the Improved Intra server");
+					}
+				})
+				.catch(function(err) {
+					iConsole.error(err);
+				})
+				.finally(function() {
+					checkForIIServerSession();
+				});
+			break;
 		default:
 			iConsole.log("Unknown action received over port: ", msg["action"]);
 			break;
