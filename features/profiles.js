@@ -64,7 +64,7 @@ function unsetCustomBannerIfRequired() {
 function setGitLink(linkGit) {
 	try {
 		const linkGitElem = document.getElementById("ii-profile-link-git");
-		if (!linkGitElem) {
+		if (!linkGitElem || !linkGit) {
 			return false;
 		}
 		// linkGit is not a direct url, it is actually a combination of a platform and a username
@@ -123,7 +123,7 @@ function setGitLink(linkGit) {
 function setWebLink(linkWeb) {
 	try {
 		const linkWebElem = document.getElementById("ii-profile-link-web");
-		if (!linkWebElem) {
+		if (!linkWebElem || !linkWeb) {
 			return false;
 		}
 		if (linkWeb && validateUrl(linkWeb)) {
