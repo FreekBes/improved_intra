@@ -750,9 +750,15 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	border-color: var(--general-border-color) !important;
 }
 
+/* make sure table layout is fixed to make them more readable */
 .table-responsive {
 	table-layout: fixed !important;
 	max-width: 100% !important;
+}
+
+/* exclude above rule for certain tables (with specified widths) */
+.application-details .table-responsive {
+	table-layout: initial !important;
 }
 
 /* coalition page*/
