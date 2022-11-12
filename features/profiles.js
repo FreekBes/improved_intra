@@ -97,7 +97,7 @@ function setGitLink(linkGit) {
 					throw "Unknown git platform: " + linkGit[0];
 				}
 				linkGitElem.innerText = linkGit[1];
-				linkGitElem.parentNode.setAttribute("href", gitPlatforms[linkGit[0]]["profile_url"] + "/" + linkGit[1]);
+				linkGitElem.parentNode.setAttribute("href", gitPlatforms[linkGit[0]]["profile_url"] + linkGit[1]);
 				linkGitElem.parentNode.previousElementSibling.className = gitPlatforms[linkGit[0]]["icon"]; // set fontawesome icon
 				linkGitElem.parentNode.parentNode.setAttribute("data-original-title", gitPlatforms[linkGit[0]]["name"]);
 				linkGitElem.parentNode.parentNode.style.display = "block";
