@@ -38,7 +38,7 @@ setInterval(function() {
 	syncPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-syncPort.postMessage({ action: "unsync" });
+syncPort.postMessage({ action: "intra-logout" });
 
 // const iintraLogoutWindow = window.open("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping", "iintra-logout", "width=10,height=10");
 // iintraLogoutWindow.addEventListener("load", function() {
