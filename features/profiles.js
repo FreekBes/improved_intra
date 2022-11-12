@@ -317,7 +317,7 @@ function immediateProfileChanges() {
 gUName = getProfileUserName();
 gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
 immediateProfileChanges();
-improvedStorage.get(["username", "show-custom-profiles", "custom-banner-url", "custom-banner-pos", "link-github", "outstandings"]).then(function(data) {
+improvedStorage.get(["username", "show-custom-profiles", "outstandings"]).then(function(data) {
 	gExtSettings = data;
 	setCustomProfile();
 	if (window.location.pathname.indexOf("/users/") == 0) {
