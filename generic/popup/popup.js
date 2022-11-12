@@ -57,46 +57,63 @@ const buttons = {
 	login: document.getElementById("intra-login")
 };
 
-buttons.login.addEventListener("click", function(ev) {
-	window.open("https://signin.intra.42.fr/");
-	window.close();
-});
+if (buttons.login) {
+	buttons.login.addEventListener("click", function(ev) {
+		window.open("https://signin.intra.42.fr/");
+		window.close();
+	});
+}
 
-buttons.auth.addEventListener("click", function(ev) {
-	window.open("https://iintra.freekb.es/v2/connect?continue=%2Fv2%2Fping", "iintra-auth-win", "width=460,height=600");
-	window.close();
-});
+if (buttons.auth) {
+	buttons.auth.addEventListener("click", function(ev) {
+		window.open("https://iintra.freekb.es/v2/connect?continue=%2Fv2%2Fping", "iintra-auth-win", "width=460,height=600");
+		window.close();
+	});
+}
 
-buttons.openIntra.addEventListener("click", function(ev) {
-	window.open("https://intra.42.fr/");
-	window.close();
-});
+if (buttons.openIntra) {
+	buttons.openIntra.addEventListener("click", function(ev) {
+		window.open("https://intra.42.fr/");
+		window.close();
+	});
+}
 
-buttons.manageSlots.addEventListener("click", function(ev) {
-	window.open("https://profile.intra.42.fr/slots");
-	window.close();
-});
+if (buttons.manageSlots) {
+	buttons.manageSlots.addEventListener("click", function(ev) {
+		window.open("https://profile.intra.42.fr/slots");
+		window.close();
+	});
+}
 
-buttons.listProjects.addEventListener("click", function(ev) {
-	window.open("https://projects.intra.42.fr/");
-	window.close();
-});
+if (buttons.listProjects) {
+	buttons.listProjects.addEventListener("click", function(ev) {
+		window.open("https://projects.intra.42.fr/");
+		window.close();
+	});
+}
 
-buttons.viewProfile.addEventListener("click", function(ev) {
-	window.open("https://profile.intra.42.fr/users/me");
-	window.close();
-});
+if (buttons.viewProfile) {
+	buttons.viewProfile.addEventListener("click", function(ev) {
+		window.open("https://profile.intra.42.fr/users/me");
+		window.close();
+	});
+}
 
-buttons.extSettings.addEventListener("click", function(ev) {
-	window.open("https://iintra.freekb.es/v2/options");
-	window.close();
-});
+if (buttons.extSettings) {
+	buttons.extSettings.addEventListener("click", function(ev) {
+		window.open("https://iintra.freekb.es/v2/options");
+		window.close();
+	});
+}
 
-buttons.extSync.addEventListener("click", function(ev) {
-	popupPort.postMessage({ action: "resync" });
-	window.close();
-});
-
+if (buttons.extSync) {
+	buttons.extSync.addEventListener("click", function(ev) {
+		chrome.windows.getCurrent().then(function(win){
+			popupPort.postMessage({ action: "resync", windowId: win.id, incognito: win.incognito });
+			window.close();
+		});
+	});
+}
 
 // get extension settings and show items accordingly
 improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
@@ -109,5 +126,6 @@ improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
 		else {
 			switchMenus("session-menu");
 		}
+		document.getElementById("intra-login").innerText = ", " + data["username"] + "!";
 	}
 });

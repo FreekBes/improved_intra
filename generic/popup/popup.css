@@ -14,6 +14,7 @@ body {
 	text-align: center !important;
 	min-width: unset !important;
 	padding: 12px !important;
+	background: var(--body-background-color) !important;
 }
 
 p {
@@ -67,7 +68,7 @@ p {
 	content: 'chevron_right';
 	vertical-align: middle;
 	margin: -8px 8px -8px -9px;
-	padding: 8px 6px 8px 7px;
+	padding: 6px 6px 6px 7px;
 
 	/* Material Icons */
 	font-family: 'Material Icons';
