@@ -106,7 +106,28 @@ function changeProjectAttachmentIcons() {
 		const link = attachments[i].querySelector("a");
 		const icon = attachments[i].querySelector("span[class*='icon']");
 
-		// below code sucks but ¯\_(ツ)_/¯
+		const iconsPerExtension = {
+			// subjects or other text files
+			"icon-note-paper-2": [ ".pdf", ".txt" ],
+
+			// logs
+			"icon-note-paper-1": [ ".log" ],
+
+			// testers or checkers (any file with one of those words in the filename)
+			"icon-shield-3": [ "tester", "checker" ],
+
+			// archive files
+			"icon-folder-zip": [ ".tar.", ".zip", ".tgz", ".rar", ".tar" ],
+
+			// disk image files
+			"icon-cd-1": [ ".iso" ],
+
+			// source code files
+			"icon-file-code": [ ".cpp", ".hpp", ".c", ".h", ".py", ".css", ".js", ".html", ".sh", ".cmd", ".bat", ".json", ".yml", ".yaml" ],
+
+			// images
+			"icon-file-image-1": [ ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".svg" ]
+		};
 
 		// any external item: display link icon
 		// usually already there (https://projects.intra.42.fr/projects/c-piscine-c-09), but check anyways
@@ -115,58 +136,14 @@ function changeProjectAttachmentIcons() {
 			continue;
 		}
 
-		// subject (any file that is named subject.pdf) or other pdfs and txts
-		if (
-			link.innerText == "subject.pdf" ||
-			link.innerText.indexOf(".pdf") > -1 ||
-			link.innerText.indexOf(".txt") > -1
-		) {
-			icon.className = "icon-note-paper-2";
-			continue;
-		}
-
-		// any log file
-		if (link.innerText.indexOf(".log") > -1) {
-			icon.className = "icon-note-paper-1";
-			continue;
-		}
-
-		// any archive file
-		if (
-			link.innerText.indexOf(".tar.") > -1 ||
-			link.innerText.indexOf(".zip") > -1 ||
-			link.innerText.indexOf(".tgz") > -1 ||
-			link.innerText.indexOf(".rar") > -1 ||
-			link.innerText.indexOf(".tar") > -1
-		) {
-			icon.className = "icon-folder-zip";
-			continue;
-		}
-
-		// any .iso file
-		if (link.innerText.indexOf(".iso") > -1) {
-			icon.className = "icon-cd-1";
-			continue;
-		}
-
-		// any code file
-		if (
-			link.innerText.indexOf(".cpp") > -1 ||
-			link.innerText.indexOf(".hpp") > -1 ||
-			link.innerText.indexOf(".c") > -1 ||
-			link.innerText.indexOf(".h") > -1 ||
-			link.innerText.indexOf(".py") > -1 ||
-			link.innerText.indexOf(".css") > -1
-		) {
-			icon.className = "icon-file-code";
-			continue;
-		}
-
-		// testers (any file with tester in name)
-		// checker (any file with checker in name)
-		if (link.innerText.indexOf("tester") > -1 || link.innerText.indexOf("checker") > -1) {
-			icon.className = "icon-shield-3";
-			continue;
+		iconchecker:
+		for (const iconClassName in iconsPerExtension) {
+			for (const extension of iconsPerExtension[iconClassName]) {
+				if (link.innerText.indexOf(extension) > -1) {
+					icon.className = iconClassName;
+					break iconchecker;
+				}
+			}
 		}
 	}
 }
