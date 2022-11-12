@@ -117,6 +117,20 @@ function setGitLink(linkGit) {
 	return false;
 }
 
+function setWebLink(linkWeb) {
+	try {
+		const linkWebElem = document.getElementById("ii-profile-link-web");
+		if (linkWeb && validateUrl(linkWeb)) {
+			linkWebElem.parentNode.setAttribute("href", linkWeb);
+			linkWebElem.parentNode.parentNode.style.display = "block";
+			return true;
+		}
+	}
+	catch (err) {
+		iConsole.error("Not displaying web link due to an error: ", err);
+	}
+}
+
 async function setCustomProfile() {
 	// check if custom profiles are enabled and a profile banner is found on the page
 	if (optionIsActive(gExtSettings, "show-custom-profiles") && gProfileBanner) {
@@ -125,6 +139,7 @@ async function setCustomProfile() {
 			if (!setCustomBanner(userProfile["banner_img"], userProfile["banner_pos"])) {
 				unsetCustomBannerIfRequired();
 			}
+			setWebLink(userProfile["link_web"]);
 			setGitLink(userProfile['link_git']);
 		}
 		catch (err) {
@@ -197,6 +212,57 @@ function showOutstandings() {
 	}
 }
 
+// addProfileInfosItem(userInfos, "git", "Git", "fa fa-git", "", "#")
+function addProfileInfosItem(userInfos, itemId, itemTitle, itemIcon, itemContent, itemLink=null, display=true) {
+	const infoItem = document.createElement("div");
+	infoItem.className = "profile-infos-item";
+	infoItem.setAttribute("id", "ii-profile-c-"+itemId);
+	infoItem.setAttribute("data-placement", "left");
+	infoItem.setAttribute("data-toggle", "tooltip");
+	infoItem.setAttribute("title", itemTitle);
+	infoItem.setAttribute("data-original-title", itemTitle);
+	if (display !== true) {
+		infoItem.style.display = "none";
+	}
+
+	const infoIcon = document.createElement("span");
+	infoIcon.className = itemIcon;
+	infoItem.appendChild(infoIcon);
+
+	if (itemLink) {
+		const infoLink = document.createElement("a");
+		infoLink.style.marginLeft = "4px";
+		infoLink.style.color = getCoalitionColor();
+		infoLink.setAttribute("target", "_blank");
+		infoLink.setAttribute("href", itemLink);
+		infoItem.appendChild(infoLink);
+
+		const infoContent = document.createElement("span");
+		infoContent.className = "coalition-span";
+		infoContent.setAttribute("id", "ii-profile-link-"+itemId);
+		infoContent.innerText = itemContent;
+		infoLink.appendChild(infoContent);
+	}
+	else {
+		const infoContent = document.createElement("span");
+		infoContent.style.marginLeft = "4px";
+		infoContent.setAttribute("id", "ii-profile-"+itemId);
+		infoContent.innerText = itemContent;
+		infoItem.appendChild(infoContent);
+	}
+
+	let locationItem = userInfos.querySelector(".icon-location");
+	if (locationItem) {
+		locationItem = locationItem.closest(".profile-infos-item");
+		userInfos.insertBefore(infoItem, locationItem);
+	}
+	else {
+		userInfos.appendChild(infoItem);
+	}
+
+	addToolTip("#ii-profile-c-"+itemId);
+}
+
 function immediateProfileChanges() {
 	// add custom banner image container
 	if (gProfileBanner) {
@@ -224,40 +290,9 @@ function immediateProfileChanges() {
 		// add social links to profile
 		const userInfos = document.querySelector(".user-header-box.infos .profile-infos-bottom");
 		if (userInfos) {
-			const gitHubItem = document.createElement("div");
-			gitHubItem.className = "profile-infos-item";
-			gitHubItem.setAttribute("id", "ii-profile-link-c-github");
-			gitHubItem.setAttribute("data-placement", "left");
-			gitHubItem.setAttribute("data-toggle", "tooltip");
-			gitHubItem.setAttribute("title", "GitHub");
-			gitHubItem.setAttribute("data-original-title", "GitHub");
-			gitHubItem.style.display = "none";
-
-			const gitHubIcon = document.createElement("span");
-			gitHubIcon.className = "fa fa-github";
-			gitHubItem.appendChild(gitHubIcon);
-
-			const gitHubLink = document.createElement("a");
-			gitHubLink.style.marginLeft = "4px";
-			gitHubLink.style.color = getCoalitionColor();
-			gitHubLink.setAttribute("target", "_blank");
-			gitHubItem.appendChild(gitHubLink);
-
-			const gitHubName = document.createElement("span");
-			gitHubName.className = "coalition-span";
-			gitHubName.setAttribute("id", "ii-profile-link-git");
-			gitHubLink.appendChild(gitHubName);
-
-			let locationItem = userInfos.querySelector(".icon-location");
-			if (locationItem) {
-				locationItem = locationItem.closest(".profile-infos-item");
-				userInfos.insertBefore(gitHubItem, locationItem);
-			}
-			else {
-				userInfos.appendChild(gitHubItem);
-			}
-
-			addToolTip("#ii-profile-link-c-github");
+			addProfileInfosItem(userInfos, "git", "Git", "fa fa-git", "", "#", false);
+			// addProfileInfosItem(userInfos, "test", "Test", "fa fa-git", "Test");
+			addProfileInfosItem(userInfos, "web", "Personal website", "icon-globe-2", "Website", "#", false);
 		}
 	}
 }

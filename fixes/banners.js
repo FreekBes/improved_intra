@@ -41,6 +41,11 @@ function fixProfileBanners() {
 		linkGit.addEventListener("mouseenter", setCoalitionTextColor);
 	}
 
+	const linkWeb = document.querySelector("#ii-profile-link-web");
+	if (linkWeb) {
+		linkWeb.addEventListener("mouseenter", setCoalitionTextColor);
+	}
+
 	const cursusSelector = document.querySelector(".cursus-user-select");
 	if (cursusSelector) {
 		// fix coalition colored elements on cursus selector change
@@ -54,6 +59,11 @@ function fixProfileBanners() {
 				const linkGit = document.querySelector("#ii-profile-link-git");
 				if (linkGit) {
 					linkGit.parentNode.style.color = getCoalitionColor();
+				}
+
+				const linkWeb = document.querySelector("#ii-profile-link-web");
+				if (linkWeb) {
+					linkWeb.parentNode.style.color = getCoalitionColor();
 				}
 			}, 250);
 		});
