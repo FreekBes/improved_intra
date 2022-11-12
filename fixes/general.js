@@ -91,26 +91,29 @@ function setGeneralImprovements() {
 	}
 
 	// add hide button to sidebar menu if it exists on the page
-	const sidebarMenu = document.querySelector(".app-sidebar-left");
-	const leftSidebarFix = document.querySelector(".left-sidebar-fix");
-	const pageContent = document.querySelector(".page-content");
-	if (sidebarMenu) {
-		const hideButton = document.createElement("button");
-		hideButton.className = "sidebar-hide-button emote icon-arrow-37";
-		hideButton.setAttribute("title", "Hide sidebar");
-		hideButton.addEventListener("click", function(ev) {
-			sidebarMenu.classList.toggle("app-sidebar-hidden");
-			if (leftSidebarFix) {
-				leftSidebarFix.classList.toggle("sidebar-fix-hidden");
-			}
-			if (pageContent) {
-				pageContent.classList.toggle("page-content-fluid");
-			}
-			ev.currentTarget.classList.toggle("icon-arrow-38");
-			ev.currentTarget.classList.toggle("icon-arrow-37");
-			ev.currentTarget.blur();
-		});
-		sidebarMenu.insertBefore(hideButton, sidebarMenu.firstChild);
+	// but not on the holy graph page (it bugs the canvas)
+	if (!window.location.pathname.startsWith("/projects/graph")) {
+		const sidebarMenu = document.querySelector(".app-sidebar-left");
+		const leftSidebarFix = document.querySelector(".left-sidebar-fix");
+		const pageContent = document.querySelector(".page-content");
+		if (sidebarMenu) {
+			const hideButton = document.createElement("button");
+			hideButton.className = "sidebar-hide-button emote icon-arrow-37";
+			hideButton.setAttribute("title", "Hide sidebar");
+			hideButton.addEventListener("click", function(ev) {
+				sidebarMenu.classList.toggle("app-sidebar-hidden");
+				if (leftSidebarFix) {
+					leftSidebarFix.classList.toggle("sidebar-fix-hidden");
+				}
+				if (pageContent) {
+					pageContent.classList.toggle("page-content-fluid");
+				}
+				ev.currentTarget.classList.toggle("icon-arrow-38");
+				ev.currentTarget.classList.toggle("icon-arrow-37");
+				ev.currentTarget.blur();
+			});
+			sidebarMenu.insertBefore(hideButton, sidebarMenu.firstChild);
+		}
 	}
 }
 
