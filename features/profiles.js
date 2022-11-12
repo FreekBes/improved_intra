@@ -64,6 +64,9 @@ function unsetCustomBannerIfRequired() {
 function setGitLink(linkGit) {
 	try {
 		const linkGitElem = document.getElementById("ii-profile-link-git");
+		if (!linkGitElem) {
+			return false;
+		}
 		// linkGit is not a direct url, it is actually a combination of a platform and a username
 		// e.g. github.com@FreekBes or gitlab.com@FreekBes
 		// this is to prevent people from using random websites as their "git profile"
@@ -120,6 +123,9 @@ function setGitLink(linkGit) {
 function setWebLink(linkWeb) {
 	try {
 		const linkWebElem = document.getElementById("ii-profile-link-web");
+		if (!linkWebElem) {
+			return false;
+		}
 		if (linkWeb && validateUrl(linkWeb)) {
 			linkWebElem.parentNode.setAttribute("href", linkWeb);
 			linkWebElem.parentNode.parentNode.style.display = "block";
