@@ -152,47 +152,101 @@ function setOptionsIfUnset(improvedStorage) {
 	});
 }
 
+function handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject) {
+	if (json['type'] === 'success') {
+		if (json['data']['user']['login'] !== username) {
+			reject("Username in sync server settings does not match the username of the user who we wanted to fetch data for");
+			return (null);
+		}
+		iConsole.log('v2Settings', json['data']);
+		iConsole.log("Translating the settings into v1...");
+		const v1Settings = v1Translate(json['data']);
+		iConsole.log('v1Settings', v1Settings);
+		iConsole.log("Storing settings in " + improvedStorage.getType() + " storage...");
+		improvedStorage.set(v1Settings).then(function() {
+			improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
+				resolve(json);
+			});
+		});
+	}
+	else {
+		reject(json['message']);
+	}
+}
+
 function getSettingsFromSyncServer(improvedStorage, username) {
 	return new Promise(function(resolve, reject) {
 		iConsole.log("Retrieving settings of (hopefully) authenticated user " + username + " for " + improvedStorage.getType());
-		fetch("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random())
-			.then(function(response) {
-				if (response.status == 404) {
-					reject("No settings found on the sync server for this username");
-					return (null);
-				}
-				else if (!response.ok) {
-					reject("Could not fetch settings from server due to an error");
-					return (null);
-				}
-				return (response.json());
-			})
-			.then(function(json) {
-				if (json != null) {
-					if (json['type'] === 'success') {
-						if (json['data']['user']['login'] !== username) {
-							reject("Username in sync server settings does not match the username of the user who we wanted to fetch data for");
-							return (null);
-						}
-						iConsole.log('v2Settings', json['data']);
-						iConsole.log("Translating the settings into v1...");
-						const v1Settings = v1Translate(json['data']);
-						iConsole.log('v1Settings', v1Settings);
-						iConsole.log("Storing settings in " + improvedStorage.getType() + " storage...");
-						improvedStorage.set(v1Settings).then(function() {
-							improvedStorage.set({ "last-sync": new Date().getTime() }).then(function() {
-								resolve(json);
-							});
+		if (improvedStorage.getType() != "incognito") {
+			improvedStorage.get(["iintra-server-session"]).then(function(settings) {
+				if (settings["iintra-server-session"] == true) {
+					fetch("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random())
+						.then(function(response) {
+							if (response.status == 404) {
+								reject("No settings found on the sync server for this username");
+								return (null);
+							}
+							else if (!response.ok) {
+								reject("Could not fetch settings from server due to an error");
+								return (null);
+							}
+							return (response.json());
+						})
+						.then(function(json) {
+							if (json != null) {
+								handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject);
+							}
+						})
+						.catch(function(err) {
+							reject(err);
 						});
-					}
-					else {
-						reject(json['message']);
-					}
 				}
-			})
-			.catch(function(err) {
-				reject(err);
+				else {
+					reject("According to the local storage, there is no active iintra-server session to sync from");
+				}
 			});
+		}
+		else {
+			// fetch can only fetch using the normal context, not incognito context
+			// so instead we open a tab with the URL we want to fetch from
+			// and retrieve the contents from there, then close the tab again
+			// very hacky, but it works (on Chrome at least)
+			// on Firefox it could work using browser.windows.getAll(), but then the script execution fails
+			try {
+				chrome.windows.getAll().then(function(windows) {
+					for (const win of windows) {
+						if (win.incognito) {
+							chrome.tabs.create({
+								windowId: win.id,
+								url: "https://iintra.freekb.es/v2/options.json?noCache=" + Math.random(),
+								active: false
+							}, function(tab) {
+								iConsole.log("Tab created, executing script...", tab);
+								chrome.scripting.executeScript({
+									target: { tabId: tab.id },
+									func: function() {
+										iConsole.log(document.body.textContent);
+										return (JSON.parse(document.body.textContent));
+									}
+								}).then(function(res) {
+									chrome.tabs.remove(tab.id);
+									if (res.length < 1)	{
+										reject("Could not execute script to retrieve settings from sync server");
+										return;
+									}
+									const json = res[0].result;
+									handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject);
+								});
+							})
+							break;
+						}
+					}
+				});
+			}
+			catch (err) {
+				reject(err);
+			}
+		}
 	});
 }
 

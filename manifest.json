@@ -16,13 +16,16 @@
 		"256": "images/logo256.png",
 		"512": "images/logo512.png"
 	},
-	"incognito": "split",
+	"incognito": "spanning",
 	"options_page": "options/options.html",
 	"action": {
 		"default_popup": "generic/popup/popup.html"
 	},
 	"permissions": [
-		"storage"
+		"storage", "scripting"
+	],
+	"host_permissions": [
+		"https://iintra.freekb.es/*"
 	],
 	"web_accessible_resources": [
 		{

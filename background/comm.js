@@ -54,6 +54,7 @@ function resyncOnPortMessage(incognitoSession) {
 	const type = (incognitoSession ? "incognito" : "normal");
 	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
 
+	iConsole.log("Resyncing " + type + " session...");
 	improvedStorage.get("username").then(function(data) {
 		if (data["username"]) {
 			getSettingsFromSyncServer(improvedStorage, data["username"])
@@ -85,8 +86,12 @@ function portMessageListener(msg, port) {
 			break;
 		case "server-session-started":
 		case "server-session-ended":
+			if (isIncognitoPort(port)) {
+				iConsole.warn("Received server session status change message from incognito port, ignoring...");
+				return;
+			}
 			iConsole.log("Back-end server session status changed, checking new status...");
-			checkForIIServerSession();
+			checkForIIServerSession(isIncognitoPort(port));
 			break;
 		case "options-changed":
 			if (isIncognitoPort(port)) {
@@ -97,6 +102,9 @@ function portMessageListener(msg, port) {
 			}
 			break;
 		case "intra-logout":
+			if (isIncognitoPort(port)) {
+				iConsole.warn("Received intra-logout message from incognito port!");
+			}
 			fetch("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping")
 				.then(function(response) {
 					if (response.ok) {
@@ -110,7 +118,7 @@ function portMessageListener(msg, port) {
 					iConsole.error(err);
 				})
 				.finally(function() {
-					checkForIIServerSession();
+					checkForIIServerSession(isIncognitoPort(port));
 				});
 			break;
 		default:

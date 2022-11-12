@@ -33,7 +33,8 @@
 		"*://*.intra.42.fr/*",
 		"https://iintra.freekb.es/*",
 		"https://darkintra.freekb.es/*",
-		"storage"
+		"storage",
+		"scripting"
 	],
 	"web_accessible_resources": [
 		"options/options.html",

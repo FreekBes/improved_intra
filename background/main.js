@@ -13,20 +13,27 @@
 /**
  * Check if a session is active on the iintra.freekb.es domain
  */
-function checkForIIServerSession() {
+function checkForIIServerSession(incognitoSession) {
+	const type = (incognitoSession ? "incognito" : "normal");
+	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
+
+	if (incognitoSession) {
+		return; // TODO: make compatible somehow?
+	}
+
 	iConsole.log("Checking for back-end server session...");
 	fetch("https://iintra.freekb.es/v2/ping")
 		.then(function(res) {
 			if (res.status < 200 || res.status > 299) {
 				iConsole.log("Back-end server session is inactive");
-				normalStorage.set({ "iintra-server-session": false });
-				chrome.action.setBadgeBackgroundColor({color: '#df9539'});
-				chrome.action.setBadgeText({text: '!'});
+				improvedStorage.set({ "iintra-server-session": false });
+				(chrome.action || chrome.browserAction).setBadgeBackgroundColor({color: '#df9539'});
+				(chrome.action || chrome.browserAction).setBadgeText({text: '!'});
 			}
 			else {
 				iConsole.log("Back-end server session is active");
-				normalStorage.set({ "iintra-server-session": true });
-				chrome.action.setBadgeText({text: ''});
+				improvedStorage.set({ "iintra-server-session": true });
+				(chrome.action || chrome.browserAction).setBadgeText({text: ''});
 
 				// now also resync options
 				resyncOptions();
@@ -34,9 +41,9 @@ function checkForIIServerSession() {
 		})
 		.catch(function(err) {
 			iConsole.log("A fetch error occurred: " + err);
-			normalStorage.set({ "iintra-server-session": false });
-			chrome.action.setBadgeBackgroundColor({color: '#df9539'});
-			chrome.action.setBadgeText({text: '!'});
+			improvedStorage.set({ "iintra-server-session": false });
+			(chrome.action || chrome.browserAction).setBadgeBackgroundColor({color: '#df9539'});
+			(chrome.action || chrome.browserAction).setBadgeText({text: '!'});
 		});
 }
 
@@ -50,11 +57,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
 		iConsole.log("First install.");
 		resyncOptions();
-		checkForIIServerSession();
+		checkForIIServerSession(false);
+		checkForIIServerSession(true);
 	}
 	else if (details.reason == "update") {
 		iConsole.log("An update has been installed.");
-		checkForIIServerSession();
+		checkForIIServerSession(false);
+		checkForIIServerSession(true);
 		resetLastSyncTimestamp(normalStorage);
 		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();

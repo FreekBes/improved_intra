@@ -16,8 +16,14 @@ document.addEventListener("iSettingsChangedPageFormat", function(ev) {
 
 document.addEventListener("iSettingsChangedServerFormat", function(ev) {
 	iConsole.log("iSettingsChangedServerFormat event received in options2.js", ev.detail);
-	iConsole.log("Letting the background script know that we can sync settings with the server now.");
-	authPort.postMessage({ action: "resync" });
+	if (chrome.extension.inIncognitoContext && navigator.userAgent.indexOf("Firefox") != -1) {
+		iConsole.warn("Running Firefox in incognito mode, sync not possible");
+		alert("You are running Firefox in incognito mode. Currently, synchronizing settings is not supported in this mode.\nAny modified settings saved will not be applied locally immediately.");
+	}
+	else {
+		iConsole.log("Letting the background script know that we can sync settings with the server now.");
+		authPort.postMessage({ action: "resync" });
+	}
 });
 
 const extVersionElem = document.getElementById("ext-version");

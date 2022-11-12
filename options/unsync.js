@@ -25,9 +25,6 @@ syncPort.onMessage.addListener(function(msg) {
 		case "pong":
 			iConsole.log("pong");
 			break;
-		case "resynced":
-			iConsole.log("Resync done");
-			break;
 		case "error":
 			iConsole.error(msg["message"]);
 			break;
