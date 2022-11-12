@@ -37,8 +37,7 @@
 				"features/themes/colors/vela.css",
 				"features/themes/colors/windows.css",
 				"features/themes/colors/yellow.css",
-				"options/options.html",
-				"promo/emotes.html"
+				"options/options.html"
 			],
 			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ]
 		}

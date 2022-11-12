@@ -46,8 +46,7 @@
 		"features/themes/colors/vela.css",
 		"features/themes/colors/windows.css",
 		"features/themes/colors/yellow.css",
-		"generic/inject.js",
-		"promo/emotes.html"
+		"generic/inject.js"
 	],
 	"content_scripts": [
 		{

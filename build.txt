@@ -10,7 +10,6 @@ options/*.html
 options/*.js
 images/logo*.png
 _locales/*
-promo/emotes.*
 promo/logo-wide.png
 fixes/*.css
 fixes/*.js
