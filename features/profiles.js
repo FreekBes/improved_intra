@@ -125,6 +125,9 @@ function setWebLink(linkWeb) {
 			linkWebElem.parentNode.parentNode.style.display = "block";
 			return true;
 		}
+		else {
+			throw "Unexpected value for link_web: " + linkWeb;
+		}
 	}
 	catch (err) {
 		iConsole.error("Not displaying web link due to an error: ", err);
