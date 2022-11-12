@@ -111,11 +111,12 @@ h6 small, h6 .small,
 	color: var(--left-navbar-icon-color-active) !important;
 }
 
-.main-left-navbar .sidebar-hide-button {
+.sidebar-hide-button {
 	color: var(--left-navbar-icon-color) !important;
 }
 
-.main-left-navbar .sidebar-hide-button:hover {
+.sidebar-hide-button:hover,
+.sidebar-hide-button:focus {
 	color: var(--left-navbar-icon-color-hover) !important;
 }
 

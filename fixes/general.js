@@ -91,7 +91,6 @@ function setGeneralImprovements() {
 	}
 
 	// add hide button to sidebar menu if it exists on the page
-	const mainLeftNavbar = document.querySelector(".main-left-navbar");
 	const sidebarMenu = document.querySelector(".app-sidebar-left");
 	const leftSidebarFix = document.querySelector(".left-sidebar-fix");
 	const pageContent = document.querySelector(".page-content");
@@ -99,7 +98,7 @@ function setGeneralImprovements() {
 		const hideButton = document.createElement("button");
 		hideButton.className = "sidebar-hide-button emote icon-arrow-37";
 		hideButton.setAttribute("title", "Hide sidebar");
-		hideButton.addEventListener("click", function() {
+		hideButton.addEventListener("click", function(ev) {
 			sidebarMenu.classList.toggle("app-sidebar-hidden");
 			if (leftSidebarFix) {
 				leftSidebarFix.classList.toggle("sidebar-fix-hidden");
@@ -107,8 +106,11 @@ function setGeneralImprovements() {
 			if (pageContent) {
 				pageContent.classList.toggle("page-content-fluid");
 			}
+			ev.currentTarget.classList.toggle("icon-arrow-38");
+			ev.currentTarget.classList.toggle("icon-arrow-37");
+			ev.currentTarget.blur();
 		});
-		mainLeftNavbar.appendChild(hideButton);
+		sidebarMenu.insertBefore(hideButton, sidebarMenu.firstChild);
 	}
 }
 

@@ -602,12 +602,11 @@ tr[data-level="4"] { --data-level: 4; }
 }
 
 /* hide button for left sidebar menu. Color is set in themes/apply.css */
-.main-left-navbar .sidebar-hide-button {
+.sidebar-hide-button {
 	display: block;
 	position: absolute;
 	top: 70px;
-	/* right: -262px; */
-	right: -13px;
+	right: 0px;
 	float: right;
 	width: 36px;
 	height: 36px;
@@ -619,15 +618,67 @@ tr[data-level="4"] { --data-level: 4; }
 	z-index: 999;
 }
 
+/* sidebar transition for hiding */
+.app-sidebar-left,
+.app-sidebar-right {
+	will-change: left, padding-right, overflow !important;
+	left: 0% !important;
+	transition-duration: 0.2s !important;
+	transition-timing-function: ease-in-out !important;
+	transition-property: left, padding-right !important;
+	transition-delay: 0 !important;
+}
+
+/* sidebar-fix transition for hiding */
+.left-sidebar-fix,
+.right-sidebar-fix {
+	will-change: flex-basis, flex !important;
+	transition: flex-basis 0.2s ease-in-out !important;
+}
+
 /* hide left sidebar if class is present */
 .app-sidebar-hidden {
+	left: -288px !important;
+	padding-right: 32px !important;
+	overflow: hidden !important;
+}
+@media (max-width: 1900px) {
+	.app-sidebar-hidden {
+		left: -238px !important;
+	}
+}
+@media (max-width: 1600px) {
+	.app-sidebar-hidden {
+		left: -188px !important;
+	}
+}
+
+/* hide more button for sidebar items */
+.app-sidebar-hidden .project-item .pull-right {
 	display: none !important;
 }
 
-/* disable sidebar fix if sidebar is hidden */
+/* change sidebar fix width if sidebar is hidden */
 .left-sidebar-fix.sidebar-fix-hidden,
 .right-sidebar-fix.sidebar-fix-hidden {
-	display: none !important;
+	flex-basis: 47px !important;
+}
+@media (max-width: 1599px) {
+	.left-sidebar-fix.sidebar-fix-hidden,
+	.right-sidebar-fix.sidebar-fix-hidden {
+		flex-basis: 25px !important;
+	}
+}
+@media (max-width: 992px) {
+	.left-sidebar-fix.sidebar-fix-hidden,
+	.right-sidebar-fix.sidebar-fix-hidden {
+		flex-basis: 33px !important;
+	}
+}
+
+/* make sure sidebar titles occupy the same height as the sidebar-hide button */
+.app-sidebar-left .marked-title {
+	line-height: 24px !important;
 }
 
 /* hide Feedback link from API documentation page (it points to nowhere) */
