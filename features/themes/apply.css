@@ -1101,6 +1101,10 @@ pre[class*="language-"] {
 	background-color: var(--danger-color) !important;
 }
 
+.authorization-layout .actions {
+	border-color: var(--general-border-color) !important;
+}
+
 /* Webhooks page */
 
 .webhooks-doc_p {
