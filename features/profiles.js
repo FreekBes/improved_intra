@@ -270,6 +270,7 @@ function addProfileInfosItem(userInfos, itemId, itemTitle, itemIcon, itemContent
 	}
 
 	addToolTip("#ii-profile-c-"+itemId);
+	return infoItem;
 }
 
 function immediateProfileChanges() {
@@ -301,7 +302,14 @@ function immediateProfileChanges() {
 		if (userInfos) {
 			addProfileInfosItem(userInfos, "git", "Git", "fa fa-git", "", "#", false);
 			// addProfileInfosItem(userInfos, "test", "Test", "fa fa-git", "Test");
-			addProfileInfosItem(userInfos, "web", "Personal website", "icon-globe-2", "Website", "#", false);
+			const linkWebItem = addProfileInfosItem(userInfos, "web", "Personal website", "icon-globe-2", "Website", "#", false);
+			linkWebItem.querySelector("a").addEventListener("click", function(ev) {
+				ev.preventDefault();
+				const doOpen = confirm(gUName + "'s personal website is set to a page hosted on the following domain:\n\n" + ev.currentTarget.hostname + "\n\nAre you sure you want to open it?");
+				if (doOpen) {
+					window.open(ev.currentTarget.href);
+				}
+			});
 		}
 	}
 }
