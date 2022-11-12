@@ -72,6 +72,9 @@
 	--left-navbar-icon-color: #666e80;
 	--left-navbar-icon-color-hover: #ffffff;
 	--left-navbar-icon-color-active: #ffffff;
+	--left-navbar-icon-color-admin: #845459;
+	--left-navbar-icon-color-admin-hover: #d8636f;
+	--left-navbar-icon-color-admin-active: #d8636f;
 
 	/* button styling */
 	--success-button-background: rgba(92, 184, 92, 0.1);
