@@ -67,7 +67,7 @@
 		{
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
 			"js": [ "options/unsync.js" ],
-			"run_at": "document_start"
+			"run_at": "document_end"
 		},
 		{
 			"matches": [ "*://iintra.freekb.es/*" ],
