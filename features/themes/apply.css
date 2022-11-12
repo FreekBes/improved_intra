@@ -1265,8 +1265,13 @@ header.main-page-header .logo small,
 	border-color: var(--general-border-color) !important;
 }
 
-.application-item--detail label:not(.label-success) {
+.application-item--detail label:not(.label-success):not(.with-description) {
 	background: var(--input-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+.application-item--detail label.with-description {
+	background: transparent !important;
 	color: var(--text-color) !important;
 }
 
