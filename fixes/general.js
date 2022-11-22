@@ -150,18 +150,3 @@ function setPageUserFeedbacksImprovements(match) {
 	});
 	iConsole.log("Trimmed all feedbacks found in page");
 }
-
-/**
- * @param {RegExpExecArray} match
- */
-function setPageUserImprovements(match) {
-	const button = document.createElement('a');
-	button.textContent = 'Feedbacks logs';
-	button.classList.add('simple-link', 'ml-2');
-	button.setAttribute('href', `https://projects.intra.42.fr/users/${match.groups.login}/feedbacks`);
-
-	const target = document.querySelector(`a[href*="/correction_point_historics"]`);
-	if (target) {
-		target.parentNode.insertBefore(button, target);
-	}
-}
