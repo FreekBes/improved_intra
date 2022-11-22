@@ -48,10 +48,6 @@ const improvementsPerUrl = [
 		handler: setPageProjectsUsersImprovements,
 	},
 	{
-		guard: () => /^profile\.intra\.42\.fr\/users\/(?<login>[a-z0-9-_]+)\/?$/.exec(pageUrl),
-		handler: setPageUserImprovements,
-	},
-	{
 		guard: () => /^projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(pageUrl),
 		handler: setPageHolyGraphImprovements,
 	},
