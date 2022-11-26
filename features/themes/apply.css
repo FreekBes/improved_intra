@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   apply.css                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbes <fbes@student.codam.nl>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2022/11/08 15:10:19 by nsimon           ###   ########.fr       */
+/*   Updated: 2022/11/26 13:29:19 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * This CSS file is only loaded when dark mode is enabled.
- * It overrules improv.css.
+ * This CSS file loads all colors defined by the themes and color schemes.
+ * First, the theme colors are loaded, then the color scheme overrules some colors.
+ * Finally, apply.css is loaded. It overrules any rule set in improv.css.
  */
 
 /* hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
