@@ -19,57 +19,64 @@ function notifyUserOfInactiveSession() {
 }
 
 /**
- * Check if a session is active on the iintra.freekb.es domain
+ * Check if a session is active on the iintra.freekb.es domain.
+ * Using the ext_token stored in the improvedStorage, ping the server to verify the token is still valid.
+ * If it is valid, a server session is started automatically by the server.
  */
 async function checkForExtToken(incognitoSession=false, doResyncOptions=true) {
 	const type = (incognitoSession ? "incognito" : "normal");
 	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
+	const networkHandler = (incognitoSession ? incognitoNetworkHandler : normalNetworkHandler);
 
-	improvedStorage.get("token").then(async function(data) {
-		if (data["token"]) {
-			// verify the token is still valid
-			const pong = await NetworkHandler.get("/v2/ping");
-			if (pong.status == 200) {
+	const token = await improvedStorage.getOne("token");
+	iConsole.log("token:", token);
+	if (token) {
+		try {
+			// verify the token is still valid by pinging the server with it
+			const response = await networkHandler.get("https://iintra.freekb.es/v2/ping");
+			if (response.status == 200) {
 				iConsole.log("Back-end server session is active for the " + type + " session");
 				improvedStorage.set({ "iintra-server-session": true });
 				(chrome.action || chrome.browserAction).setBadgeText({text: ''});
+				if (doResyncOptions) {
+					resyncOptions(improvedStorage);
+				}
+				return;
 			}
 			else {
-				iConsole.log("Extension token has expired for the " + type + " session");
-				improvedStorage.set({ "iintra-server-session": false });
-				improvedStorage.remove("token");
-				notifyUserOfInactiveSession();
+				iConsole.log("Extension token has expired for the " + type + " session. Status: ", response.status.toString() + " " + response.statusText);
 			}
 		}
-		else {
-			iConsole.log("No extension token is set in the improvedStorage for the " + type + " session");
-			improvedStorage.set({ "iintra-server-session": false });
-			notifyUserOfInactiveSession();
+		catch (err) {
+			iConsole.log("Extension token has expired for the " + type + " session. Error: ", err);
 		}
-	});
+	}
+	else {
+		iConsole.log("No extension token is set in the improvedStorage for the " + type + " session");
+	}
+	improvedStorage.set({ "iintra-server-session": false });
+	improvedStorage.remove("token");
+	notifyUserOfInactiveSession();
 }
 
-function resyncOptions() {
-	setOptionsIfUnset(normalStorage);
-	setOptionsIfUnset(incognitoStorage);
-	fetchUserSettings(normalStorage);
+function resyncOptions(improvedStorage) {
+	setOptionsIfUnset(improvedStorage);
+	fetchUserSettings(improvedStorage);
 }
 
 chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
 		iConsole.log("First install.");
-		resyncOptions();
-		checkForExtToken(false, false);
-		checkForExtToken(true, false);
+		checkForExtToken(false, true);
+		checkForExtToken(true, true);
 	}
 	else if (details.reason == "update") {
 		iConsole.log("An update has been installed.");
-		checkForExtToken(false, false);
-		checkForExtToken(true, false);
 		resetLastSyncTimestamp(normalStorage);
 		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();
-		resyncOptions();
+		checkForExtToken(false, true);
+		checkForExtToken(true, true);
 	}
 });
 

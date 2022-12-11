@@ -78,6 +78,11 @@ function ImprovedStorage(type) {
 		});
 	};
 
+	this.getOne = async function(key) {
+		const data = await this.get(key);
+		return (data[key]);
+	};
+
 	this.set = function(data) {
 		const internalData = prepareStorageData(this.type, data);
 		return new Promise(function(resolve) {

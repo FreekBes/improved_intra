@@ -23,6 +23,7 @@ if (window.location.origin.indexOf(".intra.42.fr") > -1) {
 
 // global variables
 const improvedStorage = getSessionStorage();
+const networkHandler = getNetworkHandler();
 const portName = (chrome.extension.inIncognitoContext ? "incog_comm" : "normal_comm");
 const today = new Date();
 const dayOfWeek = (today.getDay() > 0 ? today.getDay() - 1 : 6); // fix monday = 0 & sunday = 6

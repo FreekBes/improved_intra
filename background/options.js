@@ -175,38 +175,24 @@ function handleSettingsFromSyncServer(json, improvedStorage, username, resolve, 
 }
 
 function getSettingsFromSyncServer(improvedStorage, username) {
-	return new Promise(function(resolve, reject) {
-		iConsole.log("Retrieving settings of (hopefully) authenticated user " + username + " for " + improvedStorage.getType());
-		if (improvedStorage.getType() != "incognito") {
-			NetworkHandler.get("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random())
-				.then(function(response) {
-					if (response.status == 404) {
-						reject("No settings found on the sync server for this username");
-						return (null);
-					}
-					else if (!response.ok) {
-						reject("Could not fetch settings from server due to an error");
-						return (null);
-					}
-					return (response.json());
-				})
-				.then(function(json) {
-					if (json != null) {
-						handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject);
-					}
-				})
-				.catch(function(err) {
-					reject(err);
-				});
+	return new Promise(async function(resolve, reject) {
+		iConsole.log("Retrieving settings of authenticated user " + username + " for " + improvedStorage.getType());
+		const networkHandler = (improvedStorage.getType() == "incognito" ? incognitoNetworkHandler : normalNetworkHandler);
+		try {
+			const json = await networkHandler.json("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random());
+			if (!json) {
+				reject("Empty options.json response");
+			}
+			if (json["type"] == "success") {
+				const handledSettings = await handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject);
+				resolve(handledSettings);
+			}
+			else {
+				reject(json["message"]);
+			}
 		}
-		else {
-			NetworkHandler.incognitoGetJSON("https://iintra.freekb.es/v2/options.json?noCache=" + Math.random())
-				.then(function(json) {
-					handleSettingsFromSyncServer(json, improvedStorage, username, resolve, reject);
-				})
-				.catch(function(err) {
-					reject(err);
-				});
+		catch (err) {
+			reject(err);
 		}
 	});
 }
@@ -222,12 +208,15 @@ function fetchUserSettings(improvedStorage) {
 
 	tryFetchIntraUsername(improvedStorage)
 		.then(function(username) {
-			getSettingsFromSyncServer(improvedStorage, username);
+			getSettingsFromSyncServer(improvedStorage, username)
+				.catch(function(err) {
+					iConsole.error("Could not fetch settings from sync server:", err);
+				});
 		})
 		.then(function(settings) {
 			messagePortsOfType(storageType, { action: "options-changed", settings: settings });
 		})
 		.catch(function(err) {
-			iConsole.error("Could not parse username and synchronize settings", err);
+			iConsole.error("Could not parse username and synchronize settings:", err);
 		});
 }
