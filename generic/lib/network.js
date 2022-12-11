@@ -18,9 +18,41 @@ DO NOT USE ANY FUNCTIONS DEPENDENT ON MODULES OF EXTENSIONS THAT ONLY WORK IN
 EITHER FOREGROUND OR BACKGROUND.
 */
 
+// helper function to create a custom response object that imitates the response object of fetch
+// this is needed because fetch is not available in incognito context, but we do want to act as if it is
+// (so that no custom handling for incognito responses is needed everywhere)
+function CustomResponse(head, body, bodyTextContent, url) {
+	this.head = head;
+	this.body = body;
+	this.bodyTextContent = bodyTextContent; // for JSON parsing
+	this.url = url;
+	this.status = 200; // hardcoded!
+	this.statusText = "OK";
+	this.ok = true;
+
+	iConsole.log("Create custom response for url: " + url, this.head + this.body);
+
+	this.text = () => {
+		return (new Promise((resolve, reject) => {
+			resolve(this.head + this.body);
+		}));
+	};
+
+	this.json = () => {
+		return (new Promise((resolve, reject) => {
+			try {
+				resolve(JSON.parse(this.bodyTextContent));
+			}
+			catch (err) {
+				reject(err);
+			}
+		}));
+	};
+}
+
 function NetworkHandler(improvedStorage) {
 	this.improvedStorage = improvedStorage;
-	this.type = this.improvedStorage.getType();
+	this.type = this.improvedStorage.getType().toUpperCase(); // yes, uppercase, like to storage lib
 
 	this.getType = () => {
 		return (this.type.toLowerCase());
@@ -55,7 +87,7 @@ function NetworkHandler(improvedStorage) {
 			const fetchOptions = {
 				method: method
 			};
-			iConsole.log("Fetching URL " + url + " with options:", fetchOptions);
+			iConsole.log("Fetching URL " + url + " in " + this.type + " context with options:", fetchOptions);
 			if (Object.keys(headers).length > 0) {
 				fetchOptions.headers = headers;
 			}
@@ -82,14 +114,14 @@ function NetworkHandler(improvedStorage) {
 					const res = await chrome.scripting.executeScript({
 						target: { tabId: tab.id },
 						func: function() {
-							return (document.body.textContent);
+							return ({ head: document.head.innerHTML, body: document.body.innerHTML, bodyText: document.body.textContent, url: document.URL });
 						}
 					});
 					chrome.tabs.remove(tab.id);
 					if (res.length < 1)	{
 						throw new Error("Could not execute script in incognito tab");
 					}
-					return(res[0].result);
+					return (new CustomResponse(res[0].result['head'], res[0].result['body'], res[0].result['bodyText'], res[0].result['url']));
 				}
 			}
 			throw new Error("Could not find incognito window");
@@ -102,38 +134,38 @@ function NetworkHandler(improvedStorage) {
 
 	this.post = async (url, data, headers) => {
 		if (this.type == "INCOGNITO")
-			return (null); // not implemented
+			throw new Error("POST not implemented in incognito context");
 		return (await this.request(url, "POST", data, headers));
 	};
 
 	this.put = async (url, data, headers) => {
 		if (this.type == "INCOGNITO")
-			return (null); // not implemented
+			throw new Error("PUT not implemented in incognito context");
 		return (await this.request(url, "PUT", data, headers));
 	};
 
 	this.patch = async (url, data, headers) => {
 		if (this.type == "INCOGNITO")
-			return (null); // not implemented
+			throw new Error("PATCH not implemented in incognito context");
 		return (await this.request(url, "PATCH", data, headers));
 	};
 
 	this.delete = async (url, headers) => {
 		if (this.type == "INCOGNITO")
-			return (null); // not implemented
+			throw new Error("DELETE not implemented in incognito context");
 		return (await this.request(url, "DELETE", null, headers));
 	};
 
 	this.head = async (url, headers) => {
 		if (this.type == "INCOGNITO")
-			return (null); // not implemented
+			throw new Error("HEAD not implemented in incognito context");
 		return (await this.request(url, "HEAD", null, headers));
 	};
 
-	this.json = async (url, method = "GET", body = null, headers = {}) => {
-		const resp = await this.request(url, method, body, headers);
+	this.json = async (url) => {
+		const resp = await this.request(url, "GET");
 		if (!resp)
-			return (null);
+			throw new Error("No response from server");
 		return (await resp.json());
 	};
 };
