@@ -33,6 +33,18 @@ function NetworkHandler(improvedStorage) {
 		return ("Bearer " + token);
 	};
 
+	this.requestNewExtToken = async () => {
+		this.improvedStorage.set("token", null);
+		const response = await this.get("https://iintra.freekb.es/v2/ext_token", {});
+		if (response.status !== 200)
+			return (null);
+		const respJson = await response.json();
+		if (!respJson || !respJson["type"] != "success" || !respJson["data"])
+			return (null);
+		this.improvedStorage.set("token", respJson["data"]);
+		return (respJson["data"]);
+	};
+
 	this.request = async (url, method, data, headers) => {
 		const authHeader = await this.getAuthHeader();
 		if (authHeader)
