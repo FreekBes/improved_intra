@@ -17,6 +17,7 @@
 #monit-progress-text {
 	text-align: center;
 	font-size: xx-large;
+	cursor: pointer;
 }
 
 .profile-item #lt-emote {

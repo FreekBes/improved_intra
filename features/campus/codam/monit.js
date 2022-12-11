@@ -217,6 +217,7 @@ const monit = {
 			ltHolder.setAttribute("class", "emote-lt");
 			ltHolder.setAttribute("data-toggle", "tooltip");
 			ltHolder.setAttribute("title", "");
+			ltHolder.setAttribute("onclick", "window.open('https://intra.codam.nl/', '_blank')");
 
 			const smiley = document.createElement("span");
 			smiley.setAttribute("id", "lt-emote");
@@ -233,7 +234,7 @@ const monit = {
 			}
 			else if (!status["monitoring_system_active"]) {
 				progressPerc.innerText = logTimeToString(monit.logTimesTotal);
-				ltHolder.setAttribute("data-original-title", "Logtime this week (the new Monitoring System will be implemented here at a later time)");
+				ltHolder.setAttribute("data-original-title", "Logtime this week (click to view the Codam Intra Dashboard)");
 			}
 
 			if (monit.logTimesTotal < monit.requirements.today && !atLeastRelaxed) {
