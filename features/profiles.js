@@ -18,23 +18,20 @@ let gCustomBanner = null;
 let gExtSettings = null;
 
 function getUserProfile(username) {
-	return new Promise(function(resolve, reject) {
+	return new Promise(async function(resolve, reject) {
 		iConsole.log("Retrieving settings of username " + username);
-		fetch("https://iintra.freekb.es/v2/profile/" + username + ".json?noCache=" + Math.random())
-			.then(function(response) {
-				return (response.json());
-			})
-			.then(function(json) {
-				if (json["type"] == "success") {
-					resolve(json["data"]);
-				}
-				else {
-					reject(json["message"]);
-				}
-			})
-			.catch(function(err) {
-				reject(err);
-			});
+		try {
+			const json = await networkHandler.json("https://iintra.freekb.es/v2/profile/" + username + ".json?noCache=" + Math.random())
+			if (json["type"] == "success") {
+				resolve(json["data"]);
+			}
+			else {
+				reject(json["message"]);
+			}
+		}
+		catch (err) {
+			reject(err);
+		}
 	});
 }
 
@@ -162,7 +159,7 @@ async function setCustomProfile() {
 	}
 }
 
-function showOutstandings() {
+async function showOutstandings() {
 	if (optionIsActive(gExtSettings, "outstandings")) {
 		// add checkmarks and x for collapsed projects
 		const collapsedMarks = document.querySelectorAll(".collapsable .project-item .pull-right");
@@ -171,58 +168,52 @@ function showOutstandings() {
 		}
 
 		iConsole.log("Retrieving outstanding marks for username " + gUName);
-		fetch("https://iintra.freekb.es/outstandings.php?username=" + encodeURIComponent(gUName))
-			.then(function(response) {
-				if (!response.ok) {
-					throw new Error("Could not get outstanding marks from server due to an error");
+		try {
+			const json = await networkHandler.json("https://iintra.freekb.es/outstandings.php?username=" + encodeURIComponent(gUName))
+			if (json == null) {
+				throw new Error("Could not parse outstanding marks JSON");
+			}
+			else if (json["type"] == "error") {
+				throw new Error(json["message"]);
+			}
+			else if (json["type"] == "warning") {
+				iConsole.warn(json["message"]);
+			}
+			else for (const projectsUserId in json["data"]) {
+				let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
+				if (!mainProjItem) {
+					iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
+					continue;
 				}
-				return (response.json());
-			})
-			.then(function(json) {
-				if (json == null) {
-					throw new Error("Could not parse outstanding marks JSON");
-				}
-				else if (json["type"] == "error") {
-					throw new Error(json["message"]);
-				}
-				else if (json["type"] == "warning") {
-					iConsole.warn(json["message"]);
-				}
-				else for (const projectsUserId in json["data"]) {
-					let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
-					if (!mainProjItem) {
-						iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
-						continue;
-					}
 
-					// go up to main project item
-					while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
-						mainProjItem = mainProjItem.parentNode;
-					}
+				// go up to main project item
+				while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
+					mainProjItem = mainProjItem.parentNode;
+				}
 
-					// apply best mark outstandings
-					const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
-					if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
-						mainProjMark.classList.remove("icon-check-1");
-						mainProjMark.classList.add((json["data"][projectsUserId]["best"] >= 3 ? "icon-star-8" : "icon-star-1"));
-						mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
-					}
+				// apply best mark outstandings
+				const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
+				if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
+					mainProjMark.classList.remove("icon-check-1");
+					mainProjMark.classList.add((json["data"][projectsUserId]["best"] >= 3 ? "icon-star-8" : "icon-star-1"));
+					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
+				}
 
-					// apply outstandings for other efforts
-					const otherProjItems = document.querySelectorAll(".project-item:not(.main-project-item) a[href*='/projects_users/"+projectsUserId+"']");
-					for (let i = 0; i < otherProjItems.length && i < json["data"][projectsUserId]["all"].length; i++) {
-						const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
-						if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
-							otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
-							otherProjMark.classList.add((json["data"][projectsUserId]["all"][i] >= 3 ? "icon-star-8" : "icon-star-1"));
-							otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
-						}
+				// apply outstandings for other efforts
+				const otherProjItems = document.querySelectorAll(".project-item:not(.main-project-item) a[href*='/projects_users/"+projectsUserId+"']");
+				for (let i = 0; i < otherProjItems.length && i < json["data"][projectsUserId]["all"].length; i++) {
+					const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
+					if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
+						otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
+						otherProjMark.classList.add((json["data"][projectsUserId]["all"][i] >= 3 ? "icon-star-8" : "icon-star-1"));
+						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 					}
 				}
-			})
-			.catch(function(err) {
-				iConsole.error(err);
-			});
+			}
+		}
+		catch (err) {
+			iConsole.error("Unable to retrieve outstanding marks: ", err);
+		}
 	}
 }
 
