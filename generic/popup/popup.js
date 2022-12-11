@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 // menu switcher
-let currentMenu = document.getElementById("login-menu");
+let currentMenu = document.getElementById("loading-menu");
 function switchMenus(newMenu) {
 	if (currentMenu) {
 		currentMenu.style.display = "none";
@@ -127,5 +127,8 @@ improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
 			switchMenus("session-menu");
 		}
 		document.getElementById("intra-login").innerText = ", " + data["username"] + "!";
+	}
+	else {
+		switchMenus("login-menu");
 	}
 });
