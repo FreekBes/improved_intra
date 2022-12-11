@@ -25,7 +25,8 @@
 		"storage", "scripting"
 	],
 	"host_permissions": [
-		"https://iintra.freekb.es/*"
+		"https://iintra.freekb.es/*",
+		"https://*.intra.42.fr/*"
 	],
 	"web_accessible_resources": [
 		{

@@ -76,29 +76,31 @@ function v1Translate(v2Options) {
 	return (v1Options);
 }
 
-function tryFetchIntraUsername(improvedStorage) {
+async function tryFetchIntraUsername(improvedStorage) {
+	const networkHandler = (improvedStorage.getType() == "incognito" ? incognitoNetworkHandler : normalNetworkHandler);
 	return new Promise(function (resolve, reject) {
-		fetch("https://meta.intra.42.fr/")
+		networkHandler.get("https://meta.intra.42.fr/")
 			.then(function(response) {
 				if (!response.ok) {
-					reject("HTTP Response is not OK: " + response.status);
+					throw new Error("HTTP Response is not OK: " + response.status);
 				}
 				if (response.url.indexOf("//signin.") > -1) {
-					reject("Not signed in on Intra, cannot fetch username");
+					throw new Error("Not signed in on Intra, cannot fetch username");
 				}
 				return response.text();
 			})
-			.then(function(metaBody) {
-				const _userIndex = metaBody.indexOf("this._user");
-				const _consumerAddress = metaBody.indexOf("this._consumer_address");
+			.then(function(metaSourceCode) {
+
+				const _userIndex = metaSourceCode.indexOf("this._user");
+				const _consumerAddress = metaSourceCode.indexOf("this._consumer_address");
 				iConsole.log("Now trying to parse username from meta.intra.42.fr...");
 				if (_userIndex > -1) {
-					let toParse = metaBody.substring(_userIndex, _consumerAddress);
+					let toParse = metaSourceCode.substring(_userIndex, _consumerAddress);
 					iConsole.log(toParse);
 					const startOfObj = toParse.indexOf("{");
 					const endOfObj = toParse.indexOf("}");
 					if (startOfObj < -1) {
-						reject("Could not find start of _user object");
+						throw new Error("Could not find start of _user object");
 					}
 					toParse = toParse.substring(startOfObj, endOfObj + 1);
 					iConsole.log(toParse);
@@ -111,11 +113,11 @@ function tryFetchIntraUsername(improvedStorage) {
 						});
 					}
 					else {
-						reject("Could not parse username from Intranet website (username not in _user object)");
+						throw new Error("Could not parse username from Intranet website (username not in _user object)");
 					}
 				}
 				else {
-					reject("Could not parse username from Intranet website (_user object not found)");
+					throw new Error("Could not parse username from Intranet website (_user object not found)");
 				}
 			})
 			.catch(function(err) {

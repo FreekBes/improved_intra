@@ -30,8 +30,6 @@ function CustomResponse(head, body, bodyTextContent, url) {
 	this.statusText = "OK";
 	this.ok = true;
 
-	iConsole.log("Create custom response for url: " + url, this.head + this.body);
-
 	this.text = () => {
 		return (new Promise((resolve, reject) => {
 			resolve(this.head + this.body);
@@ -73,9 +71,12 @@ function NetworkHandler(improvedStorage) {
 			return (null);
 		}
 		else {
-			iConsole.log("Fetched a new ext token for " + this.type + " session. Response:", response);
+			iConsole.log("Fetched a new ext token for " + this.type + " session");
 		}
-		this.improvedStorage.set({ "token": response["data"] });
+		this.improvedStorage.set({
+			"token": response["data"],
+			"iintra-server-session": true
+		});
 		return (response["data"]);
 	};
 

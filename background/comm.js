@@ -87,12 +87,12 @@ async function portMessageListener(msg, port) {
 			resyncOnPortMessage(isIncognitoPort(port));
 			break;
 		case "server-session-started":
-			iConsole.log("Received server-session-started message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			iConsole.warn("Received server-session-started message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
 			await networkHandler.requestNewExtToken();
 			checkForExtToken(isIncognitoPort(port), true);
 			break;
 		case "server-session-ended":
-			iConsole.log("Received server-session-ended message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			iConsole.warn("Received server-session-ended message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
 			improvedStorage.remove("token");
 			improvedStorage.set({ "iintra-server-session": false });
 			break;
@@ -105,7 +105,7 @@ async function portMessageListener(msg, port) {
 			}
 			break;
 		case "intra-logout":
-			iConsole.log("Received intra-logout message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			iConsole.warn("Received intra-logout message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
 			improvedStorage.remove("token");
 			improvedStorage.set({ "iintra-server-session": false });
 			break;

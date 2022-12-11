@@ -29,7 +29,6 @@ async function checkForExtToken(incognitoSession=false, doResyncOptions=true) {
 	const networkHandler = (incognitoSession ? incognitoNetworkHandler : normalNetworkHandler);
 
 	const token = await improvedStorage.getOne("token");
-	iConsole.log("token:", token);
 	if (token) {
 		try {
 			// verify the token is still valid by pinging the server with it
@@ -37,7 +36,9 @@ async function checkForExtToken(incognitoSession=false, doResyncOptions=true) {
 			if (response.status == 200) {
 				iConsole.log("Back-end server session is active for the " + type + " session");
 				improvedStorage.set({ "iintra-server-session": true });
-				(chrome.action || chrome.browserAction).setBadgeText({text: ''});
+				if (!incognitoSession) {
+					(chrome.action || chrome.browserAction).setBadgeText({text: ''});
+				}
 				if (doResyncOptions) {
 					resyncOptions(improvedStorage);
 				}
@@ -56,7 +57,9 @@ async function checkForExtToken(incognitoSession=false, doResyncOptions=true) {
 	}
 	improvedStorage.set({ "iintra-server-session": false });
 	improvedStorage.remove("token");
-	notifyUserOfInactiveSession();
+	if (!incognitoSession) {
+		notifyUserOfInactiveSession();
+	}
 }
 
 function resyncOptions(improvedStorage) {
