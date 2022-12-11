@@ -31,18 +31,22 @@ setInterval(function() {
 	authPort = chrome.runtime.connect({ name: portName });
 }, 250000);
 
-function checkSendSessionStatus() {
-	improvedStorage.get(["iintra-server-session"], function(data) {
-		if (!data["iintra-server-session"]) {
-			iConsole.log("(New) authenticated session detected, notifying extension...");
-			authPort.postMessage({ action: "server-session-started" });
-		}
-	});
+async function checkSendSessionStatus(closeAfter = false) {
+	iConsole.log("Checking if the user is authenticated...");
+	const serverSession = await improvedStorage.getOne("iintra-server-session");
+	iConsole.log("iintra-server-session:", serverSession);
+	if (!serverSession) {
+		iConsole.log("(New) authenticated session detected, notifying extension...");
+		authPort.postMessage({ action: "server-session-started" });
+	}
+	if (closeAfter) {
+		iConsole.log("Closing the tab...");
+		window.close();
+	}
 }
 
 if (window.location.pathname == '/auth') {
-	iConsole.log("Authenticated session detected, notifying extension...");
-	authPort.postMessage({ action: "server-session-started" });
+	checkSendSessionStatus();
 }
 else if (window.location.pathname.startsWith('/v2/options/')) {
 	// only check this on options pages
@@ -58,9 +62,7 @@ else if (window.location.pathname == '/') {
 }
 else if (window.location.pathname == '/v2/ping' && document.body.textContent.toLowerCase() == 'pong') {
 	// for renewal of the session using the extension popup
-	iConsole.log("Authenticated session detected, notifying extension...");
-	authPort.postMessage({ action: "server-session-started" });
-	window.close();
+	checkSendSessionStatus(true);
 }
 else if (window.location.pathname.startsWith('/v2/disconnect')) {
 	// session actually ended
