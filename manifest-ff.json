@@ -53,12 +53,12 @@
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"css": [ "generic/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
-			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js", "features/themes/loader.js" ],
+			"js": [ "generic/useful.js", "generic/console.js", "generic/lib/storage.js", "generic/lib/network.js", "generic/init.js", "features/themes/loader.js" ],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://iintra.freekb.es/*" ],
-			"js": [ "generic/useful.js", "generic/console.js", "generic/storage.js", "generic/init.js" ],
+			"js": [ "generic/useful.js", "generic/console.js", "generic/lib/storage.js", "generic/lib/network.js", "generic/init.js" ],
 			"run_at": "document_start"
 		},
 		{
@@ -118,7 +118,8 @@
 		"scripts": [
 			"generic/console.js",
 			"background/main.js",
-			"generic/storage.js",
+			"generic/lib/storage.js",
+			"generic/lib/network.js",
 			"background/comm.js",
 			"background/options.js",
 			"background/omnibox.js"

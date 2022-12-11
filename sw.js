@@ -19,7 +19,8 @@ try {
 	importScripts(
 		"generic/console.js",
 		"background/main.js",
-		"generic/storage.js",
+		"generic/lib/storage.js",
+		"generic/lib/network.js",
 		"background/comm.js",
 		"background/options.js",
 		"background/omnibox.js"
