@@ -77,6 +77,7 @@ function resyncOnPortMessage(incognitoSession) {
 
 // port message listener
 function portMessageListener(msg, port) {
+	const improvedStorage = (isIncognitoPort(port) ? incognitoStorage : normalStorage);
 	switch(msg["action"]) {
 		case "ping":
 			port.postMessage({ action: "pong" });
@@ -85,13 +86,15 @@ function portMessageListener(msg, port) {
 			resyncOnPortMessage(isIncognitoPort(port));
 			break;
 		case "server-session-started":
-		case "server-session-ended":
-			if (isIncognitoPort(port)) {
-				iConsole.warn("Received server session status change message from incognito port, ignoring...");
-				return;
+			iConsole.log("Received sever-session-started message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			if (!NetworkHandler.requestNewExtToken()) {
+				iConsole.warn("Could not request new ext token even though a server session was reported to have started");
 			}
-			iConsole.log("Back-end server session status changed, checking new status...");
-			checkForIIServerSession(isIncognitoPort(port), true);
+			break;
+		case "server-session-ended":
+			iConsole.log("Received sever-session-ended message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			improvedStorage.remove("token");
+			improvedStorage.set({ "iintra-server-session": false });
 			break;
 		case "options-changed":
 			if (isIncognitoPort(port)) {
@@ -102,24 +105,9 @@ function portMessageListener(msg, port) {
 			}
 			break;
 		case "intra-logout":
-			if (isIncognitoPort(port)) {
-				iConsole.warn("Received intra-logout message from incognito port!");
-			}
-			fetch("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping")
-				.then(function(response) {
-					if (response.ok) {
-						iConsole.log("Successfully logged out of the Improved Intra server");
-					}
-					else {
-						iConsole.error("Failed to log out of the Improved Intra server");
-					}
-				})
-				.catch(function(err) {
-					iConsole.error(err);
-				})
-				.finally(function() {
-					checkForIIServerSession(isIncognitoPort(port), false);
-				});
+			iConsole.log("Received intra-logout message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
+			improvedStorage.remove("token");
+			improvedStorage.set({ "iintra-server-session": false });
 			break;
 		default:
 			iConsole.log("Unknown action received over port: ", msg["action"]);

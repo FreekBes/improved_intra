@@ -80,4 +80,60 @@ function NetworkHandler(improvedStorage) {
 	this.head = async (url, headers) => {
 		return (await networkHandler.request(url, "HEAD", null, headers));
 	};
+
+
+	// fetch can only fetch using the normal context, not incognito context
+	// so instead we open a tab with the URL we want to fetch from
+	// and retrieve the contents from there, then close the tab again
+	// very hacky, but it works (on Chrome at least)
+	// on Firefox it could work using browser.windows.getAll(), but then the script execution fails
+	this.incognitoGet = async (url) => {
+		return new Promise((resolve, reject) => {
+			try {
+				chrome.windows.getAll().then(function(windows) {
+					for (const win of windows) {
+						if (win.incognito) {
+							chrome.tabs.create({
+								windowId: win.id,
+								url: url,
+								active: false
+							}, function(tab) {
+								chrome.scripting.executeScript({
+									target: { tabId: tab.id },
+									func: function() {
+										return (document.body.textContent);
+									}
+								}).then(function(res) {
+									chrome.tabs.remove(tab.id);
+									if (res.length < 1)	{
+										reject("Could not execute script in incognito tab");
+										return;
+									}
+									resolve(res[0].result);
+								});
+							})
+							break;
+						}
+					}
+				});
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+	};
+
+	this.incognitoGetJSON = async (url) => {
+		return new Promise((resolve, reject) => {
+			try {
+				const resp = this.incognitoGet(url);
+				if (!resp)
+					resolve(null);
+				resolve(JSON.parse(resp));
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+	};
 };

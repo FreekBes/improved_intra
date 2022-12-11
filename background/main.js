@@ -11,42 +11,42 @@
 /* ************************************************************************** */
 
 /**
+ * Display a badge on the extension icon to notify the user that the session is inactive
+ */
+function notifyUserOfInactiveSession() {
+	(chrome.action || chrome.browserAction).setBadgeBackgroundColor({color: '#df9539'});
+	(chrome.action || chrome.browserAction).setBadgeText({text: '!'});
+}
+
+/**
  * Check if a session is active on the iintra.freekb.es domain
  */
-function checkForIIServerSession(incognitoSession=false, doResyncOptions=true) {
+async function checkForExtToken(incognitoSession=false, doResyncOptions=true) {
 	const type = (incognitoSession ? "incognito" : "normal");
 	const improvedStorage = (incognitoSession ? incognitoStorage : normalStorage);
 
-	if (incognitoSession) {
-		return; // TODO: make compatible somehow?
-	}
-
-	iConsole.log("Checking for back-end server session...");
-	fetch("https://iintra.freekb.es/v2/ping")
-		.then(function(res) {
-			if (res.status < 200 || res.status > 299) {
-				iConsole.log("Back-end server session is inactive");
-				improvedStorage.set({ "iintra-server-session": false });
-				(chrome.action || chrome.browserAction).setBadgeBackgroundColor({color: '#df9539'});
-				(chrome.action || chrome.browserAction).setBadgeText({text: '!'});
-			}
-			else {
-				iConsole.log("Back-end server session is active");
+	improvedStorage.get("token").then(async function(data) {
+		if (data["token"]) {
+			// verify the token is still valid
+			const pong = await NetworkHandler.get("/v2/ping");
+			if (pong.status == 200) {
+				iConsole.log("Back-end server session is active for the " + type + " session");
 				improvedStorage.set({ "iintra-server-session": true });
 				(chrome.action || chrome.browserAction).setBadgeText({text: ''});
-
-				if (doResyncOptions) {
-					// now also resync options
-					resyncOptions();
-				}
 			}
-		})
-		.catch(function(err) {
-			iConsole.log("A fetch error occurred: " + err);
+			else {
+				iConsole.log("Extension token has expired for the " + type + " session");
+				improvedStorage.set({ "iintra-server-session": false });
+				improvedStorage.remove("token");
+				notifyUserOfInactiveSession();
+			}
+		}
+		else {
+			iConsole.log("No extension token is set in the improvedStorage for the " + type + " session");
 			improvedStorage.set({ "iintra-server-session": false });
-			(chrome.action || chrome.browserAction).setBadgeBackgroundColor({color: '#df9539'});
-			(chrome.action || chrome.browserAction).setBadgeText({text: '!'});
-		});
+			notifyUserOfInactiveSession();
+		}
+	});
 }
 
 function resyncOptions() {
@@ -59,13 +59,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == "install") {
 		iConsole.log("First install.");
 		resyncOptions();
-		checkForIIServerSession(false, false);
-		checkForIIServerSession(true, false);
+		checkForExtToken(false, false);
+		checkForExtToken(true, false);
 	}
 	else if (details.reason == "update") {
 		iConsole.log("An update has been installed.");
-		checkForIIServerSession(false, false);
-		checkForIIServerSession(true, false);
+		checkForExtToken(false, false);
+		checkForExtToken(true, false);
 		resetLastSyncTimestamp(normalStorage);
 		resetLastSyncTimestamp(incognitoStorage);
 		removeUnusedOptions();
@@ -73,4 +73,4 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	}
 });
 
-setInterval(checkForIIServerSession, 1800000); // check for back-end session every 30 minutes
+setInterval(checkForExtToken, 1800000); // check for back-end session every 30 minutes
