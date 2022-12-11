@@ -81,6 +81,7 @@ function NetworkHandler(improvedStorage) {
 	};
 
 	this.request = async (url, method = "GET", data = null, headers = {}) => {
+		iConsole.log("Fetching URL " + url + " in " + this.type + " context");
 		if (this.type != "INCOGNITO") {
 			const authHeader = await this.getAuthHeader();
 			if (authHeader)
@@ -88,7 +89,6 @@ function NetworkHandler(improvedStorage) {
 			const fetchOptions = {
 				method: method
 			};
-			iConsole.log("Fetching URL " + url + " in " + this.type + " context with options:", fetchOptions);
 			if (Object.keys(headers).length > 0) {
 				fetchOptions.headers = headers;
 			}
@@ -176,9 +176,9 @@ function NetworkHandler(improvedStorage) {
 // background scripts never run in incognito context.
 function getNetworkHandler() {
 	if (chrome.extension.inIncognitoContext) {
-		return (normalNetworkHandler);
+		return (incognitoNetworkHandler);
 	}
-	return (incognitoNetworkHandler);
+	return (normalNetworkHandler);
 }
 
 // set up network handler for both the normal and incognito context

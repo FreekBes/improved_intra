@@ -63,7 +63,7 @@ function resyncOnPortMessage(incognitoSession) {
 					messagePortsOfType(type, { action: "resynced" });
 				})
 				.catch(function(err) {
-					iConsole.error(err);
+					iConsole.error("Could not retrieve settings from server:", err);
 					resetOptions(improvedStorage).then(function() {
 						messagePortsOfType(type, { action: "resynced" });
 					});
@@ -95,6 +95,9 @@ async function portMessageListener(msg, port) {
 			iConsole.warn("Received server-session-ended message from " + (isIncognitoPort(port) ? "incognito" : "normal") + " port");
 			improvedStorage.remove("token");
 			improvedStorage.set({ "iintra-server-session": false });
+			if (!isIncognitoPort(port)) {
+				notifyUserOfInactiveSession();
+			}
 			break;
 		case "options-changed":
 			if (isIncognitoPort(port)) {
