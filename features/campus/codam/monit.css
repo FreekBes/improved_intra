@@ -20,6 +20,10 @@
 	cursor: pointer;
 }
 
+#monit-progress-text:hover span:not(#lt-emote) {
+	text-decoration: underline;
+}
+
 .profile-item #lt-emote {
 	vertical-align: middle;
 	margin-right: 0.5ch;
