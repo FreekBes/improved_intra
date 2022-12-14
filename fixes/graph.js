@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/14 17:21:33 by fbes          #+#    #+#                 */
-/*   Updated: 2022/12/14 18:44:00 by fbes          ########   odam.nl         */
+/*   Updated: 2022/12/14 18:57:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ function replaceHolyGraph() {
 								projects: APIData
 							}
 						}, '*');
+						break;
+					case "project_link_click":
+						window.location.href = event.data.href;
 						break;
 					case "error":
 						iConsole.error(event.data.message);
