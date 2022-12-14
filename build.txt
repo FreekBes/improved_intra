@@ -13,4 +13,4 @@ _locales/*
 promo/logo-wide.png
 fixes/*.css
 fixes/*.js
-# fixes/galaxygraph/build/*
+fixes/galaxygraph/build/*

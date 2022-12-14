@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:55:12 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:22:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/12/14 17:25:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,42 +52,4 @@ function setOptionalImprovements() {
 			});
 		}
 	}
-}
-
-/**
- * @param {RegExpExecArray} match
- */
-function setPageHolyGraphImprovements(match) {
-	improvedStorage.get("holygraph-morecursuses").then(function(data) {
-		if (optionIsActive(data, "holygraph-morecursuses")) {
-			const cursuses = [
-				{ id: 1, name: "42" },
-				{ id: 3, name: "Discovery Piscine" },
-				{ id: 4, name: "Piscine C" },
-				{ id: 6, name: "Piscine C décloisonnée" },
-				{ id: 7, name: "Piscine C à distance" },
-				{ id: 9, name: "C Piscine" },
-				{ id: 10, name: "Formation Pole Emploi" },
-				{ id: 11, name: "Bootcamp" },
-				{ id: 12, name: "Créa" },
-				{ id: 13, name: "42 Labs" },
-				{ id: 21, name: "42cursus" },
-				{ id: 53, name: "42.zip" },
-			];
-
-			const cursusSwitcher = document.querySelector('#graph_cursus');
-			const availableCursuses = [...cursusSwitcher.children].map(opt => parseInt(opt.getAttribute('value')));
-
-			cursuses.forEach(cursus => {
-				if (availableCursuses.indexOf(cursus.id) !== -1) {
-					return;
-				}
-
-				const option = document.createElement('option');
-				option.textContent = `${cursus.name} (Improved Intra)`;
-				option.setAttribute('value', cursus.id.toString());
-				cursusSwitcher.appendChild(option);
-			});
-		}
-	});
 }

@@ -31,7 +31,9 @@
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"generic/inject.js",
+				"options/options.html",
+				"fixes/galaxygraph/build/*.js",
+				"fixes/galaxygraph/www/*",
 				"features/themes/apply.css",
 				"features/themes/light.css",
 				"features/themes/dark.css",
@@ -41,7 +43,7 @@
 				"features/themes/colors/vela.css",
 				"features/themes/colors/windows.css",
 				"features/themes/colors/yellow.css",
-				"options/options.html"
+				"generic/inject.js"
 			],
 			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ]
 		}
@@ -60,7 +62,7 @@
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": [ "features/externalclustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
+			"js": [ "features/externalclustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/graph.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
 			"run_at": "document_end"
 		},
 		{
