@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/14 17:21:33 by fbes          #+#    #+#                 */
-/*   Updated: 2022/12/14 17:53:26 by fbes          ########   odam.nl         */
+/*   Updated: 2022/12/14 18:44:00 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ function addMoreCursuses() {
 
 function resizeGalaxyGraph(iframe) {
 	const headerHeight = document.querySelector(".main-navbar").offsetHeight;
-	const pageContentWidth = document.querySelector(".page-content").offsetWidth;
-	iframe.setAttribute("width", pageContentWidth + "px");
+	const sidebarWidth = document.querySelector(".page-sidebar").offsetWidth;
+	iframe.setAttribute("width", (document.body.offsetWidth - sidebarWidth) + "px");
 	iframe.setAttribute("height", (window.innerHeight - headerHeight) + "px");
 }
 
@@ -71,18 +71,68 @@ function replaceHolyGraph() {
 				clearInterval(removalInterval);
 			}, 2000);
 
+			// Remove the negative margin from the row
+			holyGraphContainer.style.marginLeft = "0px";
+			holyGraphContainer.style.marginRight = "0px";
+
 			// Add our own iframe with the Galaxy Graph
-			const headerHeight = document.querySelector(".main-navbar").offsetHeight;
 			const iframe = document.createElement("iframe");
 			iframe.setAttribute("id", "galaxy-graph-iframe");
-			iframe.src = chrome.runtime.getURL("fixes/galaxygraph/www/index.html");
-			iframe.style.border = "none";
 			resizeGalaxyGraph(iframe);
+			iframe.style.border = "none";
+
+			// Make sure the iframe is resized when it is loaded
+			// This is because a scrollbar will get added to the top window
+			iframe.addEventListener("load", function() {
+				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
+				iframe.contentWindow.postMessage({
+					type: "cursus_data",
+					cursi: [
+						{
+							id: 21,
+							name: "42cursus"
+						},
+						{
+							id: 9,
+							name: "C Piscine"
+						}
+					]
+				}, '*');
+			});
+
+			// Set the source to the Galaxy Graph page, hosted in the extension
+			iframe.src = chrome.runtime.getURL("fixes/galaxygraph/www/index.html?noCache=" + Date.now());
+
+			// Append the iframe to the holy graph container
 			holyGraphContainer.appendChild(iframe);
 
 			// Resize the iframe on window resize
 			window.addEventListener("resize", function() {
 				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
+			});
+
+			// Add event listener for communication with the iframe
+			window.addEventListener("message", function(event) {
+				switch (event.data.type) {
+					case "graph_data":
+						iframe.contentWindow.postMessage({
+							type: "graph_data",
+							graph: {
+								ranks: [ "done", "done", "in_progress", "unavailable" ],
+								projects: APIData
+							}
+						}, '*');
+						break;
+					case "error":
+						iConsole.error(event.data.message);
+						break;
+					case "warning":
+						iConsole.warn(event.data.message);
+						break;
+					default:
+						iConsole.warn("Unknown message type received from Galaxy Graph iframe: " + event.data);
+						break;
+				}
 			});
 		}
 		else {
