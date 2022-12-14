@@ -5,4 +5,4 @@
 [submodule "fixes/galaxygraph"]
 	path = fixes/galaxygraph
 	url = https://github.com/W2Wizard/GalaxyGraph.git
-	branch = master
+	branch = improved_intra
