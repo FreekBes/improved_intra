@@ -56,10 +56,17 @@ const noLongerUsedOptions = [ "sync", "codam-buildingtimes-chart", "codam-buildi
 
 function v1Translate(v2Options) {
 	const v1Options = {};
+
+	translateloop:
 	for (const v1key in v1Translations) {
 		let v2Value = v2Options;
 		// dive into the v2Options object for each v1Options key
+		diveloop:
 		for (const v2subkey of v1Translations[v1key]) {
+			if (!v2Value) {
+				v1Options[v1key] = '';
+				continue translateloop;
+			}
 			v2Value = v2Value[v2subkey];
 		}
 		if (v2Value === null) {
