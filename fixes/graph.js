@@ -41,6 +41,64 @@ function addMoreCursuses() {
 	});
 }
 
+function translateToGalaxyGraph(data) {
+	iConsole.log("[GalaxyGraph] Translating Holy Graph data to Galaxy Graph data...", data);
+
+	const graphData = [];
+
+	for (const project of data) {
+		try {
+			const iGraphProject = {
+				state: project["state"],
+				final_mark: project["final_mark"],
+				kind: project["kind"],
+				name: project["name"],
+				x: project["x"] - 2999,
+				y: project["y"] - 2999,
+				duration: project["duration"],
+				requirements: project["rules"],
+				description: project["description"],
+				url: window.location.origin + "/projects/" + project["slug"],
+				lines: []
+			};
+			for (const by of project["by"]) {
+				const line = {
+					source: {
+						x: by["points"][0][0] - 2999,
+						y: by["points"][0][1] - 2999,
+					},
+					target: {
+						x: by["points"][1][0] - 2999,
+						y: by["points"][1][1] - 2999,
+					}
+				};
+				iGraphProject.lines.push(line);
+			}
+			graphData.push(iGraphProject);
+		}
+		catch (err) {
+			iConsole.error("[GalaxyGraph] Could not translate Holy Graph data to Galaxy Graph data for project", err, project);
+		}
+	}
+
+	iConsole.log("[GalaxyGraph] Translated Holy Graph data to Galaxy Graph data!", graphData);
+	return (graphData);
+}
+
+function fetchGalaxyGraphData(cursusId, campusId, login) {
+	return new Promise((resolve, reject) => {
+		fetch(`https://projects.intra.42.fr/project_data.json?cursus_id=${cursusId}&campus_id=${campusId}&login=${login}`)
+			.then(response => response.json())
+			.then(data => translateToGalaxyGraph(data))
+			.then(graphData => {
+				resolve(graphData);
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
+}
+
 function resizeGalaxyGraph(iframe) {
 	const headerHeight = document.querySelector(".main-navbar").offsetHeight;
 	const sidebarWidth = document.querySelector(".page-sidebar").offsetWidth;
@@ -112,14 +170,16 @@ function replaceHolyGraph() {
 			});
 
 			// Add event listener for communication with the iframe
-			window.addEventListener("message", function(event) {
+			window.addEventListener("message", async function(event) {
 				switch (event.data.type) {
 					case "graph_data":
+						iConsole.log("[GalaxyGraph] Received request for graph data!", event.data);
+						const urlParams = new URLSearchParams(window.location.search);
 						iframe.contentWindow.postMessage({
 							type: "graph_data",
 							graph: {
-								ranks: [ "done", "done", "in_progress", "unavailable" ],
-								projects: APIData
+								ranks: [ "in_progress", "in_progress", "in_progress", "in_progress", "in_progress", "in_progress" ],
+								projects: await fetchGalaxyGraphData(event.data.id, 14, urlParams.get("login"))
 							}
 						}, '*');
 						break;
@@ -127,23 +187,23 @@ function replaceHolyGraph() {
 						window.location.href = event.data.href;
 						break;
 					case "error":
-						iConsole.error(event.data.message);
+						iConsole.error("[GalaxyGraph] " + event.data.message);
 						break;
 					case "warning":
-						iConsole.warn(event.data.message);
+						iConsole.warn("[GalaxyGraph] " + event.data.message);
 						break;
 					default:
-						iConsole.warn("Unknown message type received from Galaxy Graph iframe: " + event.data);
+						iConsole.warn("[GalaxyGraph] Unknown message type received from Galaxy Graph iframe: " + event.data);
 						break;
 				}
 			});
 		}
 		else {
-			iConsole.warn("Could not find the holy graph container to replace the Holy Graph in");
+			iConsole.warn("[GalaxyGraph] Could not find the holy graph container to replace the Holy Graph in");
 		}
 	}
 	else {
-		iConsole.warn("Could not find the page-content element to replace the Holy Graph in");
+		iConsole.warn("[GalaxyGraph] Could not find the page-content element to replace the Holy Graph in");
 	}
 }
 
