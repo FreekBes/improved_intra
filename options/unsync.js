@@ -37,6 +37,10 @@ setInterval(function() {
 
 syncPort.postMessage({ action: "intra-logout" });
 
+// Clear localstorage (GalaxyGraph)
+localStorage.clear();
+iConsole.log("Cleared localstorage");
+
 // const iintraLogoutWindow = window.open("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping", "iintra-logout", "width=10,height=10");
 // iintraLogoutWindow.addEventListener("load", function() {
 // 	iConsole.log("iintra.freekb.es logout window loaded. Closing it now.");
