@@ -104,8 +104,14 @@ function translateToGalaxyGraph(data) {
 
 let galaxyGraphFetchAbortController = null;
 function fetchGalaxyGraphData(cursusId, campusId, login) {
+	// Get logged in user. If it's the same as the user we're fetching data for, use localStorage for cache, otherwise use sessionStorage
+	const userMenuLoginSpan = document.querySelector(".main-navbar span[data-login]");
+	const loggedInUser = (userMenuLoginSpan ? userMenuLoginSpan.getAttribute("data-login") : "_"); // Fallback to _ if we can't find the user menu, so that everything is stored in sessionStorage
+	const cacheStorage = (loggedInUser == login ? localStorage : sessionStorage);
+	iConsole.log("[GalaxyGraph] Using " + (loggedInUser == login ? "localStorage" : "sessionStorage") + " for cache storage");
+
 	// Fetch cached data
-	const cachedStorageData = localStorage.getItem(`galaxy-graph-${cursusId}-${campusId}-${login}`);
+	const cachedStorageData = cacheStorage.getItem(`galaxy-graph-${cursusId}-${campusId}-${login}`);
 	let cachedData = null;
 	if (cachedStorageData) {
 		try {
@@ -131,7 +137,7 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 			.then(data => translateToGalaxyGraph(data))
 			.then(graphData => {
 				// Update cache
-				localStorage.setItem(`galaxy-graph-${cursusId}-${campusId}-${login}`, JSON.stringify(graphData));
+				cacheStorage.setItem(`galaxy-graph-${cursusId}-${campusId}-${login}`, JSON.stringify(graphData));
 				resolve(graphData);
 
 				// Remove the loading indicator and clear the abort controller
