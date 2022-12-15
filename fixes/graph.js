@@ -156,10 +156,15 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 }
 
 function resizeGalaxyGraph(iframe) {
+	if (!iframe) {
+		iframe = document.getElementById("galaxy-graph-iframe");
+	}
 	const headerHeight = document.querySelector(".main-navbar").offsetHeight;
-	const sidebarWidth = document.querySelector(".page-sidebar").offsetWidth;
-	iframe.setAttribute("width", (document.body.offsetWidth - sidebarWidth) + "px");
 	iframe.setAttribute("height", (window.innerHeight - headerHeight) + "px");
+	// const sidebarWidth = document.querySelector(".page-sidebar").offsetWidth;
+	// iframe.setAttribute("width", (document.body.offsetWidth - sidebarWidth) + "px");
+	// const pageContentWidth = document.querySelector(".page-content").offsetWidth;
+	iframe.setAttribute("width", "100%");
 }
 
 let removalInterval = null;
@@ -220,7 +225,7 @@ function replaceHolyGraph() {
 			// Make sure the iframe is resized when it is loaded
 			// This is because a scrollbar will get added to the top window
 			iframe.addEventListener("load", function() {
-				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
+				resizeGalaxyGraph();
 				iframe.contentWindow.postMessage({
 					type: "init_data",
 					cursi: cursi,
@@ -241,7 +246,7 @@ function replaceHolyGraph() {
 
 			// Resize the iframe on window resize
 			window.addEventListener("resize", function() {
-				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
+				resizeGalaxyGraph();
 			});
 
 			// Add event listener for communication with the iframe
