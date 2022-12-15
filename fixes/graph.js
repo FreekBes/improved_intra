@@ -102,6 +102,7 @@ function translateToGalaxyGraph(data) {
 	return (graphData);
 }
 
+let galaxyGraphFetchAbortController = null;
 function fetchGalaxyGraphData(cursusId, campusId, login) {
 	// Fetch cached data
 	const cachedStorageData = localStorage.getItem(`galaxy-graph-${cursusId}-${campusId}-${login}`);
@@ -116,21 +117,34 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 	}
 
 	// Return the cached data (or null) and a promise that resolves with the latest data
-	return [cachedData, new Promise((resolve, reject) => {
+	return [cachedData, new Promise( async (resolve, reject) => {
+		if (galaxyGraphFetchAbortController) {
+			iConsole.log("[GalaxyGraph] Another data fetch is already in progress, aborting this request...");
+			galaxyGraphFetchAbortController.abort();
+		}
+
+		// Fetch new data
 		galaxyGraphLoadingElement.classList.add("active");
-		fetch(`https://projects.intra.42.fr/project_data.json?cursus_id=${cursusId}&campus_id=${campusId}&login=${login}`)
+		galaxyGraphFetchAbortController = new AbortController();
+		fetch(`https://projects.intra.42.fr/project_data.json?cursus_id=${cursusId}&campus_id=${campusId}&login=${login}`, { signal: galaxyGraphFetchAbortController.signal })
 			.then(response => response.json())
 			.then(data => translateToGalaxyGraph(data))
 			.then(graphData => {
 				// Update cache
 				localStorage.setItem(`galaxy-graph-${cursusId}-${campusId}-${login}`, JSON.stringify(graphData));
 				resolve(graphData);
+
+				// Remove the loading indicator and clear the abort controller
+				galaxyGraphFetchAbortController = null;
+				galaxyGraphLoadingElement.classList.remove("active");
 			})
 			.catch(err => {
 				reject(err);
-			})
-			.finally(() => {
-				galaxyGraphLoadingElement.classList.remove("active");
+				// If the request was not aborted, remove the loading indicator and clear the abort controller
+				if (err.name !== "AbortError") {
+					galaxyGraphFetchAbortController = null;
+					galaxyGraphLoadingElement.classList.remove("active");
+				}
 			});
 	})];
 }
@@ -246,7 +260,9 @@ function replaceHolyGraph() {
 								}
 							}, '*');
 						}).catch(err => {
-							iConsole.error("[GalaxyGraph] Error while fetching graph data: " + err);
+							if (err.name != "AbortError") {
+								iConsole.error("[GalaxyGraph] Error while fetching graph data: " + err);
+							}
 						});
 						break;
 					case "project_link_click":
