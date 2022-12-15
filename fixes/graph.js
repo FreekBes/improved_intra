@@ -186,6 +186,10 @@ function replaceHolyGraph() {
 				});
 			}
 
+			// Fetch the campus available for this Holy Graph
+			const campusInput = holyGraphContainer.querySelector("#graph_campus");
+			const campusId = campusInput.value;
+
 			// Remove all children in the current holy graph
 			removeHolyGraph(holyGraphContainer);
 			removalInterval = setInterval(() => {
@@ -222,8 +226,8 @@ function replaceHolyGraph() {
 					cursi: cursi,
 					campi: [
 						{
-							id: 14,
-							name: "Amsterdam"
+							id: parseInt(campusId),
+							name: campusId.toString()
 						}
 					]
 				}, '*');
