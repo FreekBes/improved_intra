@@ -754,6 +754,42 @@ textarea,
 	padding-top: 2px !important;
 }
 
+/* GalaxyGraph loading element */
+#galaxy-graph-loading {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	font-size: 14px;
+	text-shadow: 0 0 2px #000;
+	color: #fff;
+	font-style: italic;
+	padding: 8px;
+	z-index: 999;
+	opacity: 0;
+	user-select: none;
+	will-change: opacity;
+	transition: opacity 0.2s ease-in-out;
+}
+
+#galaxy-graph-loading::before {
+	font-family: 'Font Awesome 5 Pro';
+	font-weight: 300;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	line-height: 1;
+	content: "";
+	margin-right: 4px;
+	animation: ii-spin 1.2s linear infinite;
+}
+
+#galaxy-graph-loading.active {
+	opacity: 0.75;
+}
+
 /* border-radius fix for dropdown menu rendered on mailer page */
 .select2-selection.select2-selection--multiple[aria-expanded="true"] {
 	border-bottom-left-radius: 0px;
@@ -856,4 +892,10 @@ textarea {
 li.scaleteam-list-item .comment {
 	word-break: break-word !important;
 	white-space: pre-wrap !important;
+}
+
+/* spinner animation for custom loading elements */
+@keyframes ii-spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }

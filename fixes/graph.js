@@ -41,6 +41,23 @@ function addMoreCursuses() {
 	});
 }
 
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                               GALAXY GRAPH                                 */
+/*                     A replacement for 42's Holy Graph                      */
+/*                                                                            */
+/*           The GalaxyGraph submodule used for this functionality            */
+/*                     is licensed under the MIT License                      */
+/*            Copyright (c) 2022 de la Hamette Leon Jean Laurenti             */
+/*                   https://github.com/W2Wizard/GalaxyGraph                  */
+/*                                                                            */
+/*                                                                            */
+/*                  Included into Improved Intra by Freek Bes                 */
+/*                          with the help of W2Wizard                         */
+/*                                                                            */
+/* ************************************************************************** */
+
 function translateToGalaxyGraph(data) {
 	iConsole.log("[GalaxyGraph] Translating Holy Graph data to GalaxyGraph data...", data);
 
@@ -100,6 +117,7 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 
 	// Return the cached data (or null) and a promise that resolves with the latest data
 	return [cachedData, new Promise((resolve, reject) => {
+		galaxyGraphLoadingElement.classList.add("active");
 		fetch(`https://projects.intra.42.fr/project_data.json?cursus_id=${cursusId}&campus_id=${campusId}&login=${login}`)
 			.then(response => response.json())
 			.then(data => translateToGalaxyGraph(data))
@@ -110,6 +128,9 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 			})
 			.catch(err => {
 				reject(err);
+			})
+			.finally(() => {
+				galaxyGraphLoadingElement.classList.remove("active");
 			});
 	})];
 }
@@ -124,7 +145,7 @@ function resizeGalaxyGraph(iframe) {
 let removalInterval = null;
 function removeHolyGraph(holyGraphContainer) {
 	for (const child of holyGraphContainer.children) {
-		if (child.getAttribute("id") != "galaxy-graph-iframe") {
+		if (!child.getAttribute("id") || child.getAttribute("id").indexOf("galaxy-graph-") != 0) {
 			child.remove();
 		}
 	}
@@ -149,10 +170,18 @@ function replaceHolyGraph() {
 			holyGraphContainer.style.marginRight = "0px";
 
 			// Add our own iframe with the GalaxyGraph
+			holyGraphContainer.style.position = "relative";
 			const iframe = document.createElement("iframe");
 			iframe.setAttribute("id", "galaxy-graph-iframe");
 			resizeGalaxyGraph(iframe);
 			iframe.style.border = "none";
+
+			// Add a loading element to the container which is displayed while fetching the Holy Graph data from the Intranet
+			galaxyGraphLoadingElement = document.createElement("div");
+			galaxyGraphLoadingElement.setAttribute("id", "galaxy-graph-loading");
+			galaxyGraphLoadingElement.setAttribute("class", "active");
+			galaxyGraphLoadingElement.innerText = "Fetching the latest data from Intra...";
+			holyGraphContainer.appendChild(galaxyGraphLoadingElement);
 
 			// Make sure the iframe is resized when it is loaded
 			// This is because a scrollbar will get added to the top window
