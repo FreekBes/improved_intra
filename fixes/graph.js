@@ -188,7 +188,7 @@ function replaceHolyGraph() {
 			iframe.addEventListener("load", function() {
 				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
 				iframe.contentWindow.postMessage({
-					type: "cursus_data",
+					type: "init_data",
 					cursi: [
 						{
 							id: 21,
@@ -197,6 +197,12 @@ function replaceHolyGraph() {
 						{
 							id: 9,
 							name: "C Piscine"
+						}
+					],
+					campi: [
+						{
+							id: 14,
+							name: "Amsterdam"
 						}
 					]
 				}, '*');
@@ -219,7 +225,7 @@ function replaceHolyGraph() {
 					case "graph_data":
 						iConsole.log("[GalaxyGraph] Received request for graph data!", event.data);
 						const urlParams = new URLSearchParams(window.location.search);
-						const galaxyGraphData = fetchGalaxyGraphData(event.data.id, 14, urlParams.get("login"));
+						const galaxyGraphData = fetchGalaxyGraphData(event.data.cursus_id, event.data.campus_id, urlParams.get("login"));
 						if (galaxyGraphData[0]) {
 							iConsole.log("[GalaxyGraph] Sending cached GalaxyGraph data while waiting for Intra to respond with latest data...")
 							iframe.contentWindow.postMessage({
