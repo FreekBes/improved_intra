@@ -176,6 +176,16 @@ function replaceHolyGraph() {
 	if (pageContent) {
 		const holyGraphContainer = pageContent.querySelector(".row .row"); // yes, twice...
 		if (holyGraphContainer) {
+			// Fetch the cursuses available for this Holy Graph
+			const cursusSelect = holyGraphContainer.querySelector("#graph_cursus");
+			const cursi = [];
+			for (const option of cursusSelect.children) {
+				cursi.push({
+					id: option.getAttribute("value"),
+					name: option.innerText,
+				});
+			}
+
 			// Remove all children in the current holy graph
 			removeHolyGraph(holyGraphContainer);
 			removalInterval = setInterval(() => {
@@ -209,16 +219,7 @@ function replaceHolyGraph() {
 				resizeGalaxyGraph(document.getElementById("galaxy-graph-iframe"));
 				iframe.contentWindow.postMessage({
 					type: "init_data",
-					cursi: [
-						{
-							id: 21,
-							name: "42cursus"
-						},
-						{
-							id: 9,
-							name: "C Piscine"
-						}
-					],
+					cursi: cursi,
 					campi: [
 						{
 							id: 14,
