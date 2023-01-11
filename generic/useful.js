@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 17:03:38 by fbes          #+#    #+#                 */
-/*   Updated: 2022/06/23 19:10:24 by fbes          ########   odam.nl         */
+/*   Updated: 2023/01/11 15:41:11 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,13 @@ function dateToInputDate(d) {
 // add bootstrap tooltip to holder (send to inject.js)
 function addToolTip(query) {
 	const evt = new CustomEvent("add-tooltip", { detail: query });
+	document.dispatchEvent(evt);
+}
+
+// apply the "hack" that was hardcoded by the Intra team to make the core render correctly in the Holy Graph
+// useful for the Galaxy Graph implementation
+function applyHolyGraphHardCodedShit(projects, cursus_id) {
+	const evt = new CustomEvent("apply-holy-graph-hardcoded-shit", { detail: { projects, cursus_id }});
 	document.dispatchEvent(evt);
 }
 

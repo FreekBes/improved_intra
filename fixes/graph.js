@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/14 17:21:33 by fbes          #+#    #+#                 */
-/*   Updated: 2023/01/11 13:49:47 by fbes          ########   odam.nl         */
+/*   Updated: 2023/01/11 15:48:29 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,63 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 		galaxyGraphFetchAbortController = new AbortController();
 		fetch(`https://projects.intra.42.fr/project_data.json?cursus_id=${cursusId}&campus_id=${campusId}&login=${login}`, { signal: galaxyGraphFetchAbortController.signal })
 			.then(response => response.json())
+			.then(async data => {
+				try {
+					// WARNING: You don't want to work with the code below. It is ugly as f*ck. But it works. Magically.
+					// It is a workaround for the fact that 42's API doesn't return the whole holy graph data for some reason.
+					// Part of it is hardcoded in a file called "hack.js" - we need to fetch this data somehow, to apply it to the Galaxy Graph.
+					// The way it works is as follows:
+					// - It calls a function to dispatch a custom event to an injected script
+					// - So that this injected script can call a function defined in the window object to some data
+					// - The injected script then dispatches a custom event with the data back to us
+					// - We wait for this event to occur in a promise and set a variable's contents to this return value
+					// - And then we patch the data with the hardcoded holy graph data
+					// Honestly, 42 should start adding this hardcoded shit to the API instead, so we only need to rely on the API
+
+					const hardcodedData = await new Promise((hcRes, hcRej) => {
+						// Event Listener to wait for the return value of the injected script below
+						window.addEventListener("hardcoded-holy-graph-shit-ret", function(ev) {
+							iConsole.log("[GalaxyGraph] Hardcoded holy graph data:", ev.detail.projects);
+							hcRes(ev.detail.projects);
+						});
+						window.addEventListener("hardcoded-holy-graph-shit-err", function(ev) {
+							hcRej(ev.detail.error);
+						});
+
+						// Get the hardcoded holy graph data from the window object
+						// We need to do this in an injected script because the window object is not available to us here
+						applyHolyGraphHardCodedShit(data, cursusId);
+					});
+
+					// Translation for inner project kinds to GalaxyGraph kinds
+					const kindTranslations = {
+						"inner_solo": "project",
+						"inner_linked": "project",
+						"inner_big": "big_project",
+						"inner_satellite": "module",
+						"inner_planet": "final_module",
+						"inner_exam": "exam"
+					}
+
+					// Apply the hardcoded data to the actual data, but only what we wish to keep
+					data.forEach(project => {
+						if (data["id"] in hardcodedData) {
+							project["x"] = hardcodedData[project["id"]]["x"];
+							project["y"] = hardcodedData[project["id"]]["y"];
+							project["by"] = hardcodedData[project["id"]]["by"];
+							if (hardcodedData[project["id"]]["kind"] in kindTranslations) {
+								project["kind"] = kindTranslations[hardcodedData[project["id"]]["kind"]];
+							}
+						}
+					});
+
+					return (data);
+				}
+				catch (e) {
+					iConsole.warn("[GalaxyGraph] Could not apply hardcoded shit to Galaxy Graph data. Using default API data instead. Error:", e);
+					return(data);
+				}
+			})
 			.then(data => translateToGalaxyGraph(data))
 			.then(graphData => {
 				// Update cache
@@ -293,7 +350,7 @@ function replaceHolyGraph() {
 						iConsole.warn("[GalaxyGraph] " + event.data.message);
 						break;
 					default:
-						iConsole.warn("[GalaxyGraph] Unknown message type received from GalaxyGraph iframe: " + event.data);
+						iConsole.warn("[GalaxyGraph] Unknown message type received from GalaxyGraph iframe: ", event.data);
 						break;
 				}
 			});
