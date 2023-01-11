@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/14 17:21:33 by fbes          #+#    #+#                 */
-/*   Updated: 2022/12/14 18:57:02 by fbes          ########   odam.nl         */
+/*   Updated: 2023/01/11 13:49:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ function translateToGalaxyGraph(data) {
 
 	for (const project of data) {
 		try {
+			const isModule = project["name"].toLowerCase().includes("module");
+			const isFinalModule = project["name"].endsWith("08"); // CPP only!
 			const iGraphProject = {
 				state: project["state"],
 				final_mark: project["final_mark"],
-				kind: project["kind"],
+				kind: (isModule ? (isFinalModule ? "final_module" : "module") : project["kind"]),
 				name: project["name"],
 				x: project["x"] - 2999,
 				y: project["y"] - 2999,
