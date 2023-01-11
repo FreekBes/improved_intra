@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/14 17:21:33 by fbes          #+#    #+#                 */
-/*   Updated: 2023/01/11 15:48:29 by fbes          ########   odam.nl         */
+/*   Updated: 2023/01/11 16:08:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,16 +175,19 @@ function fetchGalaxyGraphData(cursusId, campusId, login) {
 					}
 
 					// Apply the hardcoded data to the actual data, but only what we wish to keep
+					appliedHardcodedData = [];
 					data.forEach(project => {
-						if (data["id"] in hardcodedData) {
-							project["x"] = hardcodedData[project["id"]]["x"];
-							project["y"] = hardcodedData[project["id"]]["y"];
-							project["by"] = hardcodedData[project["id"]]["by"];
-							if (hardcodedData[project["id"]]["kind"] in kindTranslations) {
-								project["kind"] = kindTranslations[hardcodedData[project["id"]]["kind"]];
+						if (project["project_id"] in hardcodedData) {
+							appliedHardcodedData.push(project["name"]);
+							project["x"] = hardcodedData[project["project_id"]]["x"];
+							project["y"] = hardcodedData[project["project_id"]]["y"];
+							project["by"] = hardcodedData[project["project_id"]]["by"];
+							if (hardcodedData[project["project_id"]]["kind"] in kindTranslations) {
+								project["kind"] = kindTranslations[hardcodedData[project["project_id"]]["kind"]];
 							}
 						}
 					});
+					iConsole.log("[GalaxyGraph] Applied hardcoded Holy Graph data to the following projects:", appliedHardcodedData);
 
 					return (data);
 				}
