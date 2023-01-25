@@ -19,6 +19,7 @@ Describe what you expected the element to look like instead.
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows, macOS, Ubuntu, ...]
  - Browser [e.g. Chrome, Firefox, Brave, Opera, ...]
+ - Extension version: [e.g. 3.5.0] (find this [here](https://iintra.freekb.es/v2/options/help))
 
 **HTML source code**
 Adding HTML source code to this report makes it easier for the developer(s) to fix the bug described. In order to attach source code to the report, save the webpage in HTML format (right click anywhere on the page that is not an image, and choose for Save as) and drag the HTML file into this text field.
