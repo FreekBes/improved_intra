@@ -28,4 +28,5 @@ Adding HTML source code to this report makes it easier for the developer(s) to f
 
 **Desktop information (please complete the following information):**
  - OS: [e.g. macOS, Windows, Linux]
- - Browser [e.g. chrome, safari]
+ - Browser: [e.g. chrome, safari]
+ - Extension version: [e.g. 3.5.0] (find this [here](https://iintra.freekb.es/v2/options/help))
