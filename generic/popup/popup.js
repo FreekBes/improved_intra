@@ -126,7 +126,7 @@ improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
 		else {
 			switchMenus("session-menu");
 		}
-		document.getElementById("intra-login").innerText = ", " + data["username"] + "!";
+		document.getElementById("intra-logged-in-username").innerText = ", " + data["username"] + "!";
 	}
 	else {
 		switchMenus("login-menu");
