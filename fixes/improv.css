@@ -540,6 +540,12 @@ a[data-tooltip-login].student-kind-student::before,
 	overflow-wrap: break-word !important;
 }
 
+/* fix modal having a transparent line between the header and the content + add padding */
+.modal .modal-dialog .modal-content {
+	margin-top: -5px !important;
+	padding-top: 20px !important;
+}
+
 /* remove border radius from search page results (only user and video items) */
 .search-item.search-user-item .search-item-main,
 .search-item.search-video-item .search-item-main {
