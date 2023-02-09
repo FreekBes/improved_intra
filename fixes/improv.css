@@ -108,6 +108,11 @@ li.scaleteam-list-item .rating {
 	overflow: auto !important;
 }
 
+/* fix feedback logs margin left and right on profile pages */
+.profile-title a.simple-link[href*="/feedbacks"] {
+	margin-left: 0px !important;
+}
+
 /* bugfix overflow in achievements / projects selector on user profiles */
 .profile-title[data-toggle] {
 	text-align: center !important;
