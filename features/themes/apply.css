@@ -190,6 +190,10 @@ h6 small, h6 .small,
 	border-color: var(--container-background-color) !important;
 }
 
+.notification-list {
+	border-bottom-color: var(--theme-color) !important;
+}
+
 .notifications-container .menu-drop-list:empty:before {
 	color: var(--tertiary-text-color) !important;
 }
