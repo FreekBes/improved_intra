@@ -90,6 +90,15 @@ function setGeneralImprovements() {
 		eventLefts[i].insertBefore(dayNameElem, eventLefts[i].firstElementChild);
 	}
 
+	// add class to the agenda overview on dashboard for improved styling
+	const eventsList = document.getElementById("events-list");
+	if (eventsList) {
+		const agendaContainer = eventsList.closest(".container-inner-item.boxed");
+		if (agendaContainer) {
+			agendaContainer.classList.add("agenda-container");
+		}
+	}
+
 	// add hide button to sidebar menu if it exists on the page
 	// but not on the holy graph page (it bugs the canvas)
 	if (!window.location.pathname.startsWith("/projects/graph")) {

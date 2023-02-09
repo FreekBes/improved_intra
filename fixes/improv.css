@@ -159,13 +159,12 @@ li.scaleteam-list-item .rating {
 	font-size: 0.9em !important;
 }
 
-/* fix overflowable container item boxes on the dashboard */
-/* prevent this from applying to some containers on profiles with :not (marks, achievements, etc.) */
-.container-inner-item.boxed:not(.hide-overflow) {
+/* fix overflowable container item box for agenda on the dashboard */
+.container-inner-item.boxed.agenda-container {
 	display: flex;
 	flex-direction: column;
 }
-.container-fullsize .container-inner-item:not(.hide-overflow) .overflowable-item {
+.container-fullsize .container-inner-item.agenda-container .overflowable-item {
 	max-height: initial !important;
 	margin-bottom: 0px !important;
 }
@@ -601,6 +600,7 @@ a[data-tooltip-login].student-kind-student::before,
 }
 
 /* fix auth page height, useful for background colors */
+/* TODO: should apply this somehow to the OTP page */
 html.soft-background, body.authorization-layout {
 	height: 100%;
 }
