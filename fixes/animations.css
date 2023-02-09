@@ -20,7 +20,8 @@ input,
 .school-record-button.dropdown-toggle,
 a.simple-link,
 .profile-item .user-primary .user-infos .button-actions a,
-.main-navbar .main-navbar-user-nav > .dropdown > a > span {
+.main-navbar .main-navbar-user-nav > .dropdown > a > span,
+.chosen-container .chosen-results li {
 	transition: 0.075s ease-out !important;
 }
 
@@ -33,7 +34,8 @@ input:focus,
 .school-record-button.dropdown-toggle,
 a.simple-link:hover,
 .profile-item .user-primary .user-infos .button-actions a:hover,
-.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span {
+.main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
+.chosen-container .chosen-results li.highlighted {
 	transition: 0s ease-in !important;
 }
 
