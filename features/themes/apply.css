@@ -359,6 +359,10 @@ hr,
 	color: #ffffff !important;
 }
 
+.profile-item .user-primary .user-infos .button-actions a:hover {
+	color: var(--theme-color) !important;
+}
+
 .achievement-item .achievement-item--container .achievement-item--content h1 {
 	color: var(--text-color) !important;
 }
