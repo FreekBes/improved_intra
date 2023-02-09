@@ -1680,6 +1680,10 @@ textarea,
 	background: var(--list-hover-background-color) !important;
 }
 
+.bootstrap-datetimepicker-widget.top:after {
+	border-top-color: var(--container-background-color) !important;
+}
+
 .bootstrap-datetimepicker-widget td.today:before {
 	border-bottom-color: var(--theme-color) !important;
 }
