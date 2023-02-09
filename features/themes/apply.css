@@ -194,6 +194,11 @@ h6 small, h6 .small,
 	border-bottom-color: var(--theme-color) !important;
 }
 
+.notification-list .notification-item:hover,
+.notification-list .vertical-list-item.notification-item.unread:hover {
+	background: none !important;
+}
+
 .notifications-container .menu-drop-list:empty:before {
 	color: var(--tertiary-text-color) !important;
 }
