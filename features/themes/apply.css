@@ -194,6 +194,10 @@ h6 small, h6 .small,
 	color: var(--tertiary-text-color) !important;
 }
 
+.notification-item .notification-content .notification-title .title {
+	color: var(--theme-color) !important;
+}
+
 .chosen-container .chosen-results {
 	color: var(--text-color) !important;
 }
