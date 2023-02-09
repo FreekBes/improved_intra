@@ -804,6 +804,48 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background-color: var(--container-background-color) !important;
 }
 
+.shop-item {
+	background: var(--container-background-color) !important;
+	border-color: var(--general-border-color) !important;
+}
+
+.shop-item .shop-item--body span.name {
+	color: var(--text-color) !important;
+}
+
+.shop-item .shop-item--overlay {
+	background: none !important;
+}
+
+.shop-item .shop-item--image {
+	border-color: var(--general-border-color) !important;
+}
+
+/* The below accomodates for the fact that the theme color applied here is semi-transparent. */
+/* Since we do not have a value for this in our color definition, we simply a background element instead. Hacky. */
+.shop-item .shop-item--overlay::before {
+	background: var(--theme-color) !important;
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	height: calc(100% - 1px);
+	pointer-events: none;
+	z-index: 1;
+	opacity: 0.8;
+	border-top-left-radius: 1px;
+	border-top-right-radius: 1px;
+}
+.shop-item .shop-item--description {
+	z-index: 2 !important;
+	position: relative !important;
+}
+
 /* clustermap page */
 #cluster-map .map-container svg rect,
 #cluster-map .map-container svg image,
