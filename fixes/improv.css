@@ -586,7 +586,7 @@ a[data-tooltip-login].student-kind-student::before,
 	border-radius: 4px;
 	padding: 4px 8px;
 	background: rgba(0,0,0,0.75);
-	backdrop-filter: blur(2px);
+	backdrop-filter: blur(4px);
 }
 
 /* fix staff page graphs overflow */

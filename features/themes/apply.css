@@ -857,6 +857,7 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	opacity: 0.8;
 	border-top-left-radius: 1px;
 	border-top-right-radius: 1px;
+	backdrop-filter: blur(4px);
 }
 .shop-item .shop-item--description {
 	z-index: 2 !important;
