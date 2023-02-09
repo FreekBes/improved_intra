@@ -159,6 +159,17 @@ li.scaleteam-list-item .rating {
 	font-size: 0.9em !important;
 }
 
+/* fix overflowable container item boxes on the dashboard */
+/* prevent this from applying to some containers on profiles with :not (marks, achievements, etc.) */
+.container-inner-item.boxed:not(.hide-overflow) {
+	display: flex;
+	flex-direction: column;
+}
+.container-fullsize .container-inner-item:not(.hide-overflow) .overflowable-item {
+	max-height: initial !important;
+	margin-bottom: 0px !important;
+}
+
 /* custom day name element styling for agenda events on dashboard */
 .event-list .event-item .event-left .date-day-name {
 	color: #fff;
