@@ -220,6 +220,10 @@ h6 small, h6 .small,
 	background-color: var(--theme-color) !important;
 }
 
+.chosen-container-multi .chosen-drop .result-selected {
+	color: var(--tertiary-text-color) !important;
+}
+
 .broadcasts-tag {
 	color: var(--pure-white) !important;
 }
