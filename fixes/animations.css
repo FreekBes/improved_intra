@@ -50,6 +50,7 @@ a.simple-link:hover,
 	pointer-events: none !important;
 }
 
+.bootstrap-datetimepicker-widget.dropdown-menu,
 .open > .dropdown-menu,
 .tt-menu.tt-open,
 .notifications-container.open,
