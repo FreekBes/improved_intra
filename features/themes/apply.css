@@ -1672,6 +1672,35 @@ textarea,
 	background: var(--list-hover-background-color) !important;
 }
 
+.bootstrap-datetimepicker-widget td.today:before {
+	border-bottom-color: var(--theme-color) !important;
+}
+
+.bootstrap-datetimepicker-widget td span:hover,
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover,
+.bootstrap-datetimepicker-widget td.day:hover,
+.bootstrap-datetimepicker-widget td.hour:hover,
+.bootstrap-datetimepicker-widget td.minute:hover,
+.bootstrap-datetimepicker-widget td.second:hover {
+	background-color: var(--default-color) !important;
+}
+
+.bootstrap-datetimepicker-widget td.active,
+.bootstrap-datetimepicker-widget td.active:hover {
+	background-color: var(--theme-color) !important;
+	color: #ffffff !important;
+}
+
+.bootstrap-datetimepicker-widget .btn {
+	color: var(--theme-color) !important;
+}
+
+.bootstrap-datetimepicker-widget .btn:hover,
+.bootstrap-datetimepicker-widget .btn:focus,
+.bootstrap-datetimepicker-widget .btn.focus {
+	color: var(--theme-color-light) !important;
+}
+
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control,
