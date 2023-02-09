@@ -553,6 +553,21 @@ a[data-tooltip-login].student-kind-student::before,
 	text-decoration: none !important;
 }
 
+/* add extra element to make it clear an item is hidden from the shop */
+.shop-item .shop-item--image[style*="filter: grayscale("]::after {
+	display: inline-block;
+	position: relative;
+	content: "HIDDEN";
+	color: #ffffff;
+	font-size: small;
+	left: 8px;
+	top: 8px;
+	border-radius: 4px;
+	padding: 4px 8px;
+	background: rgba(0,0,0,0.75);
+	backdrop-filter: blur(2px);
+}
+
 /* fix staff page graphs overflow */
 .container-fluid:first-of-type {
 	height: 500px !important;
