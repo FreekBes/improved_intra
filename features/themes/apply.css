@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   apply.css                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fbes <fbes@student.codam.nl>               +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2022/11/26 13:29:19 by nsimon           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   apply.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
+/*   Updated: 2023/03/08 17:26:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1081,6 +1081,25 @@ pre[class*="language-"] {
 
 .current-article {
 	color: var(--text-color) !important;
+}
+
+/* patronages page */
+.patronages-list .patronage-item.active,
+.patronages-list .patronage-item:hover,
+.reports-list .report-item .report-title[data-toggle=collapse]:hover {
+	background: var(--choice-background-color) !important;
+	border-radius: 3px !important;
+}
+
+.reports-list .report-item,
+.reports-list {
+	border-color: var(--general-border-color) !important;
+}
+
+.reports-list .report-item .report-container .report-question-item .report-answer {
+	background: var(--input-background-color) !important;
+	color: var(--text-color) !important;
+	border-color: var(--input-border-color) !important;
 }
 
 /* companies page */
