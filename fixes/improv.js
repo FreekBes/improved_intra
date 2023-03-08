@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/07/02 15:15:12 by fbes          ########   odam.nl         */
+/*   Updated: 2023/03/08 17:30:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ const improvementsPerUrl = [
 	{
 		guard: () => /^projects\.intra\.42\.fr\/projects\/graph\/?$/.exec(pageUrl),
 		handler: setPageHolyGraphImprovements,
+	},
+	{
+		guard: () => /^companies\.intra\.42\.fr\/(?<lang>[a-z]+)\/administrations\/(?<administration_id>[0-9]+)\/?$/.exec(pageUrl),
+		handler: setInternshipAdministrationImprovements,
 	},
 	{ handler: setOptionalImprovements },
 ];

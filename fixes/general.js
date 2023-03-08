@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/10/25 10:31:40 by fbes          ########   odam.nl         */
+/*   Updated: 2023/03/08 17:32:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,23 @@ function setPageUserFeedbacksImprovements(match) {
 		item.innerText = item.textContent.trim();
 	});
 	iConsole.log("Trimmed all feedbacks found in page");
+}
+
+/**
+ * Order administration users select box by login alphabetically
+ * @param {RegExpExecArray} match
+ */
+function setInternshipAdministrationImprovements(match) {
+	const administrationSelectBox = document.getElementById("administrations_user_user_id");
+	if (administrationSelectBox) {
+		const administrationSelectBoxOptions = administrationSelectBox.querySelectorAll("option");
+		const administrationSelectBoxOptionsArray = Array.from(administrationSelectBoxOptions);
+		administrationSelectBoxOptionsArray.sort((a, b) => {
+			return a.text.localeCompare(b.text);
+		});
+		administrationSelectBoxOptionsArray.forEach(option => {
+			administrationSelectBox.appendChild(option);
+		});
+		iConsole.log("Sorted administration users select box by login alphabetically");
+	}
 }
