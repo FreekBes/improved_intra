@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2023/03/08 17:32:58 by fbes          ########   odam.nl         */
+/*   Updated: 2023/03/08 17:58:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,46 @@ function setInternshipAdministrationImprovements(match) {
 			administrationSelectBox.appendChild(option);
 		});
 		iConsole.log("Sorted administration users select box by login alphabetically");
+	}
+}
+
+/**
+ * Improvements for user profile pages
+ * @param {RegExpExecArray} match
+ */
+function setPageUserImprovements(match) {
+	// Sort marks listed by project name
+	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
+	if (projectItemsContainer) {
+		const projectItems = projectItemsContainer.querySelectorAll(".main-project-item, .collapsable");
+		const projectItemsArray = Array.from(projectItems);
+		projectItemsArray.sort((a, b) => {
+			return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
+		});
+		projectItemsArray.forEach(item => {
+			projectItemsContainer.appendChild(item);
+		});
+
+		// Place any ongoing project at the top (e.g. Internships)
+		// Ongoing projects are marked by an icon with the class "icon-clock"
+		const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
+		if (ongoingProjects.length > 0) {
+			const ongoingProject = ongoingProjects[0].closest(".main-project-item");
+			projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
+
+			// Add any collapsables for this ongoing project to the top as well
+			// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
+			const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.getAttribute("data-target"));
+			if (ongoingProjectCollapsables.length > 0) {
+				ongoingProjectCollapsables.forEach(collapsable => {
+					projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
+				});
+			}
+		}
+
+		iConsole.log("Sorted marks listed by project name");
+	}
+	else {
+		iConsole.warn("Could not find project items container (where marks are located). Unable to sort it.");
 	}
 }
