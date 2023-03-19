@@ -108,10 +108,8 @@ if (buttons.extSettings) {
 
 if (buttons.extSync) {
 	buttons.extSync.addEventListener("click", function(ev) {
-		chrome.windows.getCurrent().then(function(win){
-			popupPort.postMessage({ action: "resync", windowId: win.id, incognito: win.incognito });
-			window.close();
-		});
+		popupPort.postMessage({ action: "resync" });
+		window.close();
 	});
 }
 
