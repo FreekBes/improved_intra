@@ -64,6 +64,11 @@ function resyncOnPortMessage(incognitoSession) {
 				})
 				.catch(function(err) {
 					iConsole.error("Could not retrieve settings from server:", err);
+
+					// Check if the extension token was still valid
+					checkForExtToken(incognitoSession, true);
+
+					// Reset the options to the default values
 					resetOptions(improvedStorage).then(function() {
 						messagePortsOfType(type, { action: "resynced" });
 					});

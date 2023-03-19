@@ -220,6 +220,8 @@ function fetchUserSettings(improvedStorage) {
 			getSettingsFromSyncServer(improvedStorage, username)
 				.catch(function(err) {
 					iConsole.error("Could not fetch settings from sync server:", err);
+					// Check if the extension token was still valid
+					checkForExtToken(storageType == "incognito", true);
 				});
 		})
 		.then(function(settings) {
