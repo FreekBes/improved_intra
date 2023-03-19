@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "__MSG_appName__",
 	"short_name": "__MSG_shortAppName__",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"description": "__MSG_appDesc__",
 	"default_locale": "en",
 	"icons": {
@@ -18,7 +18,8 @@
 	"incognito": "spanning",
 	"browser_specific_settings": {
 		"gecko": {
-			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json"
+			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json",
+			"strict_min_version": "102.0"
 		}
 	},
 	"browser_action": {
