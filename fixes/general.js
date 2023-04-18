@@ -210,13 +210,24 @@ function setInternshipAdministrationImprovements(match) {
  * @param {RegExpExecArray} match
  */
 function setPageUserImprovements(match) {
-	// Sort marks listed by project name
+	// Sort marks listed by project name or by completion date
 	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
 	if (projectItemsContainer) {
 		const projectItems = projectItemsContainer.querySelectorAll(".main-project-item, .collapsable");
 		const projectItemsArray = Array.from(projectItems);
-		projectItemsArray.sort((a, b) => {
-			return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
+		improvedStorage.get("sort-projects-date").then(function(data) {
+			// Sort by completion date if the option is set
+			if (optionIsActive(data, "sort-projects-date")) {
+				projectItemsArray.sort((a, b) => {
+					return (Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate));
+				});
+			}
+			// Default to alphabetic sorting otherwise
+			else {
+				projectItemsArray.sort((a, b) => {
+					return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
+				});
+			}
 		});
 		projectItemsArray.forEach(item => {
 			projectItemsContainer.appendChild(item);
