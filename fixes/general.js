@@ -228,29 +228,29 @@ function setPageUserImprovements(match) {
 					return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
 				});
 			}
-		});
-		projectItemsArray.forEach(item => {
-			projectItemsContainer.appendChild(item);
-		});
-
-		// Place any ongoing project at the top (e.g. Internships)
-		// Ongoing projects are marked by an icon with the class "icon-clock"
-		const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
-		if (ongoingProjects.length > 0) {
-			const ongoingProject = ongoingProjects[0].closest(".main-project-item");
-			projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
-
-			// Add any collapsables for this ongoing project to the top as well
-			// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
-			const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.getAttribute("data-target"));
-			if (ongoingProjectCollapsables.length > 0) {
-				ongoingProjectCollapsables.forEach(collapsable => {
-					projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
-				});
+			projectItemsArray.forEach(item => {
+				projectItemsContainer.appendChild(item);
+			});
+	
+			// Place any ongoing project at the top (e.g. Internships)
+			// Ongoing projects are marked by an icon with the class "icon-clock"
+			const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
+			if (ongoingProjects.length > 0) {
+				const ongoingProject = ongoingProjects[0].closest(".main-project-item");
+				projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
+	
+				// Add any collapsables for this ongoing project to the top as well
+				// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
+				const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.getAttribute("data-target"));
+				if (ongoingProjectCollapsables.length > 0) {
+					ongoingProjectCollapsables.forEach(collapsable => {
+						projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
+					});
+				}
 			}
-		}
-
-		iConsole.log("Sorted marks listed by project name");
+	
+			iConsole.log("Sorted marks listed by project name");
+		});
 	}
 	else {
 		iConsole.warn("Could not find project items container (where marks are located). Unable to sort it.");
