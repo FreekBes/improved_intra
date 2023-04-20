@@ -227,8 +227,13 @@ function setPageUserImprovements(match) {
 			};
 
 			// Alphabetical sorter function (ascending)
-			const alphabeticalSorter = (a, b) => {
-				return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
+			const alphabeticalSorterAsc = (a, b) => {
+				return a.querySelector(".marked-title").textContent.localeCompare(b.querySelector(".marked-title").textContent);
+			};
+
+			// Alphabetical sorter function (descending)
+			const alphabeticalSorterDesc = (a, b) => {
+				return b.querySelector(".marked-title").textContent.localeCompare(a.querySelector(".marked-title").textContent);
 			};
 
 			// Sort by completion date if the option sort-projects-date is active
@@ -237,7 +242,7 @@ function setPageUserImprovements(match) {
 			}
 			// Default to alphabetic sorting otherwise
 			else {
-				mainProjectItems.sort(alphabeticalSorter);
+				mainProjectItems.sort(alphabeticalSorterAsc);
 			}
 
 			// Place main project items in the correct order
@@ -259,21 +264,24 @@ function setPageUserImprovements(match) {
 				}
 			});
 
-			// Place any ongoing project at the top (e.g. Internships)
-			// Ongoing projects are marked by an icon with the class "icon-clock"
-			const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
-			if (ongoingProjects.length > 0) {
-				const ongoingProject = ongoingProjects[0].closest(".main-project-item");
-				projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
+			// Place any "parent-item" project items at the top, like on regular Intra
+			const parentProjectItems = projectItemsContainer.querySelectorAll(".main-project-item.parent-item");
+			if (parentProjectItems.length > 0) {
+				parentProjectItems.forEach(parentProjectItem => {
+					projectItemsContainer.insertBefore(parentProjectItem, projectItemsContainer.firstChild);
 
-				// Add any collapsables for this ongoing project to the top as well
-				// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
-				const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.dataset.target);
-				if (ongoingProjectCollapsables.length > 0) {
-					ongoingProjectCollapsables.forEach(collapsable => {
-						projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
+					// Add any collapsables for this ongoing project to the top as well
+					// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
+					const parentProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(parentProjectItem.dataset.target));
+
+					// Sort collapsables by alphabetical order (descending, so that they will get appended to their corresponding main project item in the correct order)
+					parentProjectItemCollapsables.sort(alphabeticalSorterDesc);
+
+					// Place collapsables in the correct spot in the project items container
+					parentProjectItemCollapsables.forEach(collapsable => {
+						projectItemsContainer.insertBefore(collapsable, projectItemsContainer.firstChild.nextSibling);
 					});
-				}
+				});
 			}
 
 			iConsole.log("Sorted marks listed by project name");
