@@ -213,42 +213,69 @@ function setPageUserImprovements(match) {
 	// Sort marks listed by project name or by completion date
 	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
 	if (projectItemsContainer) {
-		const projectItems = projectItemsContainer.querySelectorAll(".main-project-item, .collapsable");
-		const projectItemsArray = Array.from(projectItems);
+		const mainProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item"));
+		const mainProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(".collapsable"));
 		improvedStorage.get("sort-projects-date").then(function(data) {
-			// Sort by completion date if the option is set
+			// Completion date sorter function (descending)
+			const completionDateSorterDesc = (a, b) => {
+				return (Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate));
+			};
+
+			// Completion date sorter function (ascending)
+			const completionDateSorterAsc = (a, b) => {
+				return (Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate));
+			};
+
+			// Alphabetical sorter function (ascending)
+			const alphabeticalSorter = (a, b) => {
+				return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
+			};
+
+			// Sort by completion date if the option sort-projects-date is active
 			if (optionIsActive(data, "sort-projects-date")) {
-				projectItemsArray.sort((a, b) => {
-					return (Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate));
-				});
+				mainProjectItems.sort(completionDateSorterDesc);
 			}
 			// Default to alphabetic sorting otherwise
 			else {
-				projectItemsArray.sort((a, b) => {
-					return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
-				});
+				mainProjectItems.sort(alphabeticalSorter);
 			}
-			projectItemsArray.forEach(item => {
+
+			// Place main project items in the correct order
+			mainProjectItems.forEach(item => {
 				projectItemsContainer.appendChild(item);
 			});
-	
+
+			// Sort collapsable project items by completion date (ascending, so that later on they will get appended to their corresponding main project item in the correct order)
+			mainProjectItemCollapsables.sort(completionDateSorterAsc);
+
+			// Place any collapsable project items under their corresponding main project item
+			mainProjectItemCollapsables.forEach(collapsable => {
+				// Find the main project item for this collapsable project item
+				// (where data-project equals the id attribute of the collapsable and data-cursus equals the data-cursus attribute of the collapsable's project-item element)
+				const collapsableProjectItem = collapsable.querySelector(".project-item");
+				const mainProjectItem = projectItemsContainer.querySelector(`.project-item[data-project="${collapsableProjectItem.id}"][data-cursus="${collapsableProjectItem.dataset.cursus}"]`);
+				if (mainProjectItem) {
+					mainProjectItem.parentNode.insertBefore(collapsable, mainProjectItem.nextElementSibling);
+				}
+			});
+
 			// Place any ongoing project at the top (e.g. Internships)
 			// Ongoing projects are marked by an icon with the class "icon-clock"
 			const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
 			if (ongoingProjects.length > 0) {
 				const ongoingProject = ongoingProjects[0].closest(".main-project-item");
 				projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
-	
+
 				// Add any collapsables for this ongoing project to the top as well
 				// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
-				const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.getAttribute("data-target"));
+				const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.dataset.target);
 				if (ongoingProjectCollapsables.length > 0) {
 					ongoingProjectCollapsables.forEach(collapsable => {
 						projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
 					});
 				}
 			}
-	
+
 			iConsole.log("Sorted marks listed by project name");
 		});
 	}
