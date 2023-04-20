@@ -213,7 +213,7 @@ function setPageUserImprovements(match) {
 	// Sort marks listed by project name or by completion date
 	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
 	if (projectItemsContainer) {
-		const mainProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item"));
+		const mainProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item:not(.parent-item)"));
 		const mainProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(".collapsable"));
 		improvedStorage.get("sort-projects-date").then(function(data) {
 			// Completion date sorter function (descending)
@@ -265,24 +265,27 @@ function setPageUserImprovements(match) {
 			});
 
 			// Place any "parent-item" project items at the top, like on regular Intra
-			const parentProjectItems = projectItemsContainer.querySelectorAll(".main-project-item.parent-item");
-			if (parentProjectItems.length > 0) {
-				parentProjectItems.forEach(parentProjectItem => {
-					projectItemsContainer.insertBefore(parentProjectItem, projectItemsContainer.firstChild);
+			const parentProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item.parent-item"));
 
-					// Add any collapsables for this ongoing project to the top as well
-					// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
-					const parentProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(parentProjectItem.dataset.target));
+			// Reverse the order of the parent project items because the first one will be placed at the top, while in fact the last one found should be placed at the top
+			parentProjectItems.reverse();
 
-					// Sort collapsables by alphabetical order (descending, so that they will get appended to their corresponding main project item in the correct order)
-					parentProjectItemCollapsables.sort(alphabeticalSorterDesc);
+			// Place parent project items in the correct spot in the project items container
+			parentProjectItems.forEach(parentProjectItem => {
+				projectItemsContainer.insertBefore(parentProjectItem, projectItemsContainer.firstChild);
 
-					// Place collapsables in the correct spot in the project items container
-					parentProjectItemCollapsables.forEach(collapsable => {
-						projectItemsContainer.insertBefore(collapsable, projectItemsContainer.firstChild.nextSibling);
-					});
+				// Add any collapsables for this ongoing project to the top as well
+				// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
+				const parentProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(parentProjectItem.dataset.target));
+
+				// Sort collapsables by alphabetical order (descending, so that they will get appended to their corresponding main project item in the correct order)
+				parentProjectItemCollapsables.sort(alphabeticalSorterDesc);
+
+				// Place collapsables in the correct spot in the project items container
+				parentProjectItemCollapsables.forEach(collapsable => {
+					projectItemsContainer.insertBefore(collapsable, projectItemsContainer.firstChild.nextSibling);
 				});
-			}
+			});
 
 			iConsole.log("Sorted marks listed by project name");
 		});
