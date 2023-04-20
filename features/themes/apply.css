@@ -706,6 +706,10 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	color: var(--secondary-text-color) !important;
 }
 
+.project-item.parent-item {
+	border-bottom-color: var(--general-border-color) !important;
+}
+
 .profile-menu {
 	border-color: var(--general-border-color) !important;
 }

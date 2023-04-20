@@ -210,36 +210,85 @@ function setInternshipAdministrationImprovements(match) {
  * @param {RegExpExecArray} match
  */
 function setPageUserImprovements(match) {
-	// Sort marks listed by project name
+	// Sort marks listed by project name or by completion date
 	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
 	if (projectItemsContainer) {
-		const projectItems = projectItemsContainer.querySelectorAll(".main-project-item, .collapsable");
-		const projectItemsArray = Array.from(projectItems);
-		projectItemsArray.sort((a, b) => {
-			return a.querySelector(".marked-title > a").textContent.localeCompare(b.querySelector(".marked-title > a").textContent);
-		});
-		projectItemsArray.forEach(item => {
-			projectItemsContainer.appendChild(item);
-		});
+		const mainProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item:not(.parent-item)"));
+		const mainProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(".collapsable"));
+		improvedStorage.get("sort-projects-date").then(function(data) {
+			// Completion date sorter function (descending)
+			const completionDateSorterDesc = (a, b) => {
+				return (Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate));
+			};
 
-		// Place any ongoing project at the top (e.g. Internships)
-		// Ongoing projects are marked by an icon with the class "icon-clock"
-		const ongoingProjects = projectItemsContainer.querySelectorAll(".main-project-item .icon-clock");
-		if (ongoingProjects.length > 0) {
-			const ongoingProject = ongoingProjects[0].closest(".main-project-item");
-			projectItemsContainer.insertBefore(ongoingProject, projectItemsContainer.firstChild);
+			// Completion date sorter function (ascending)
+			const completionDateSorterAsc = (a, b) => {
+				return (Date.parse(a.querySelector(".project-item-lighteable").dataset.longDate) - Date.parse(b.querySelector(".project-item-lighteable").dataset.longDate));
+			};
 
-			// Add any collapsables for this ongoing project to the top as well
-			// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
-			const ongoingProjectCollapsables = projectItemsContainer.querySelectorAll(ongoingProject.getAttribute("data-target"));
-			if (ongoingProjectCollapsables.length > 0) {
-				ongoingProjectCollapsables.forEach(collapsable => {
-					projectItemsContainer.insertBefore(collapsable, ongoingProject.nextElementSibling);
-				});
+			// Alphabetical sorter function (ascending)
+			const alphabeticalSorterAsc = (a, b) => {
+				return a.querySelector(".marked-title").textContent.localeCompare(b.querySelector(".marked-title").textContent);
+			};
+
+			// Alphabetical sorter function (descending)
+			const alphabeticalSorterDesc = (a, b) => {
+				return b.querySelector(".marked-title").textContent.localeCompare(a.querySelector(".marked-title").textContent);
+			};
+
+			// Sort by completion date if the option sort-projects-date is active
+			if (optionIsActive(data, "sort-projects-date")) {
+				mainProjectItems.sort(completionDateSorterDesc);
 			}
-		}
+			// Default to alphabetic sorting otherwise
+			else {
+				mainProjectItems.sort(alphabeticalSorterAsc);
+			}
 
-		iConsole.log("Sorted marks listed by project name");
+			// Place main project items in the correct order
+			mainProjectItems.forEach(item => {
+				projectItemsContainer.appendChild(item);
+			});
+
+			// Sort collapsable project items by completion date (ascending, so that later on they will get appended to their corresponding main project item in the correct order)
+			mainProjectItemCollapsables.sort(completionDateSorterAsc);
+
+			// Place any collapsable project items under their corresponding main project item
+			mainProjectItemCollapsables.forEach(collapsable => {
+				// Find the main project item for this collapsable project item
+				// (where data-project equals the id attribute of the collapsable and data-cursus equals the data-cursus attribute of the collapsable's project-item element)
+				const collapsableProjectItem = collapsable.querySelector(".project-item");
+				const mainProjectItem = projectItemsContainer.querySelector(`.project-item[data-project="${collapsableProjectItem.id}"][data-cursus="${collapsableProjectItem.dataset.cursus}"]`);
+				if (mainProjectItem) {
+					mainProjectItem.parentNode.insertBefore(collapsable, mainProjectItem.nextElementSibling);
+				}
+			});
+
+			// Place any "parent-item" project items at the top, like on regular Intra
+			const parentProjectItems = Array.from(projectItemsContainer.querySelectorAll(".main-project-item.parent-item"));
+
+			// Reverse the order of the parent project items because the first one will be placed at the top, while in fact the last one found should be placed at the top
+			parentProjectItems.reverse();
+
+			// Place parent project items in the correct spot in the project items container
+			parentProjectItems.forEach(parentProjectItem => {
+				projectItemsContainer.insertBefore(parentProjectItem, projectItemsContainer.firstChild);
+
+				// Add any collapsables for this ongoing project to the top as well
+				// otherwise they will be placed at the previous location of the ongoing project (when it was sorted alphabetically)
+				const parentProjectItemCollapsables = Array.from(projectItemsContainer.querySelectorAll(parentProjectItem.dataset.target));
+
+				// Sort collapsables by alphabetical order (descending, so that they will get appended to their corresponding main project item in the correct order)
+				parentProjectItemCollapsables.sort(alphabeticalSorterDesc);
+
+				// Place collapsables in the correct spot in the project items container
+				parentProjectItemCollapsables.forEach(collapsable => {
+					projectItemsContainer.insertBefore(collapsable, projectItemsContainer.firstChild.nextSibling);
+				});
+			});
+
+			iConsole.log("Sorted marks listed by project name");
+		});
 	}
 	else {
 		iConsole.warn("Could not find project items container (where marks are located). Unable to sort it.");
