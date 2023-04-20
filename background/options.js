@@ -27,6 +27,7 @@ const defaults = {
 	"old-blackhole": "false",
 	"outstandings": "true",
 	"show-custom-profiles": "true",
+	"sort-projects-date": "false",
 	"sync": "true",
 	"theme": "system"
 };
@@ -48,6 +49,7 @@ const v1Translations = {
 	"old-blackhole": ["settings", "old_blackhole"],
 	"outstandings": ["settings", "outstandings"],
 	"show-custom-profiles": ["settings", "show_custom_profiles"],
+	"sort-projects-date": ["settings", "sort_projects_date"],
 	"theme": ["settings", "theme", "internal_name"],
 	"username": ["user", "login"]
 }
