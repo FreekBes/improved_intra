@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:53:49 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:17:23 by fbes          ########   odam.nl         */
+/*   Updated: 2023/05/09 12:26:38 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ function fixProfileBanners() {
 	setStyleIfExists(".correction-point-btn", "color", getCoalitionColor(), true);
 
 	// fix black hole container issues, such as text color
-	if (document.getElementById("goals_container")) {
+	if (document.getElementById("goals-container")) {
 		fixBlackHoleContainer();
 	}
 
