@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:28:18 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 18:35:32 by fbes          ########   odam.nl         */
+/*   Updated: 2023/05/09 14:55:27 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 // and if old-blackhole setting is enabled, replace text with old countdown style
 function fixBlackHoleContainer() {
 	const bhColorTimer = setInterval(function() {
-		const bhDate = document.querySelector("#modern-bh-date");
-		if (bhDate) {
-			const bhDateTitleElem = bhDate.closest("[data-original-title]");
-			const bhDateTitle = bhDateTitleElem.getAttribute("data-original-title");
+		const bhTab = document.getElementById("blackhole-tab");
+		if (bhTab) {
+			const bhDate = bhTab.querySelector("[data-original-title]");
+			if (!bhDate) {
+				return;
+			}
+			const bhDateTitle = bhDate.getAttribute("data-original-title");
 			if (bhDate.innerText.indexOf("absorbed") > -1) {
 				clearInterval(bhColorTimer);
 				bhDate.style.color = "var(--fail-color)";
@@ -36,7 +39,7 @@ function fixBlackHoleContainer() {
 				iConsole.log("Black Hole days remaining: ", daysRemaining);
 				improvedStorage.get("old-blackhole").then(function(data) {
 					if (optionIsActive(data, "old-blackhole")) {
-						bhDateTitleElem.setAttribute("data-original-title", bhDate.innerText);
+						bhDate.setAttribute("data-original-title", bhDate.innerText);
 						bhDate.innerText = daysRemaining.toString() + " days left";
 
 						// add bootstrap tooltip to holder
