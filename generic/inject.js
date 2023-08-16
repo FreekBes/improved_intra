@@ -22,3 +22,13 @@ function addToolTip(query) {
 document.addEventListener("add-tooltip", function(event) {
 	addToolTip(event.detail);
 });
+
+if (location.pathname === '/clusters')
+{
+	window.addEventListener('load', () => {
+		if (!document.getElementById('cluster-map'))
+		{
+			location.reload();
+		}
+	})
+}
