@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   monit.js                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimonen <psimonen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbes <psimonen@student.codam.nl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 19:23:05 by fbes              #+#    #+#             */
 /*   Updated: 2023/08/16 12:46:18 by psimonen         ###   ########.fr       */

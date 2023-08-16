@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   logtimes.js                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimonen <psimonen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbes <fbes@student.codam.nl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 22:04:27 by fbes              #+#    #+#             */
 /*   Updated: 2023/08/16 14:36:49 by psimonen         ###   ########.fr       */
