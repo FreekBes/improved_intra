@@ -135,7 +135,7 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 			waitForLogTimesChartToLoad(ltSvg, settings);
 		}, 100);
 		return false;
-	};
+	}
 
 	// fix first month sometimes outside container
 	let viewBox = ltSvg.getAttribute("viewBox");
