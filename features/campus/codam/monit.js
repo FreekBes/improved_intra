@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   monit.js                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/25 16:16:04 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   monit.js                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psimonen <psimonen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/11 19:23:05 by fbes              #+#    #+#             */
+/*   Updated: 2023/08/16 12:46:18 by psimonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ const monit = {
 			monit.httpReq.addEventListener("error", function(err) {
 				reject(err);
 			});
-			monit.httpReq.open("GET", window.location.origin + "/users/" + username + "/locations_stats.json");
+			httpReq.withCredentials = true;
+			httpReq.open("GET", window.location.origin.replace("profile", "translate") + "/users/" + username + "/locations_stats.json");
 			monit.httpReq.send();
 		}));
 	},

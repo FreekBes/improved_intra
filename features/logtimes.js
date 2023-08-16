@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   logtimes.js                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/05 22:04:27 by fbes          #+#    #+#                 */
-/*   Updated: 2022/05/31 16:57:49 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   logtimes.js                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psimonen <psimonen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/05 22:04:27 by fbes              #+#    #+#             */
+/*   Updated: 2023/08/16 14:36:49 by psimonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ function getLogTimes(settings) {
 		httpReq.addEventListener("error", function(err) {
 			reject(err);
 		});
-		httpReq.open("GET", window.location.origin + "/users/" + getProfileUserName() + "/locations_stats.json");
+		httpReq.withCredentials = true;
+		httpReq.open("GET", window.location.origin.replace("profile", "translate") + "/users/" + getProfileUserName() + "/locations_stats.json");
 		httpReq.send();
 	});
 }
@@ -55,9 +56,15 @@ function sumMonthLogTime(ltMonths, settings) {
 					monthSums[mIndex] += parseLogTime(stats[date]);
 				}
 			}
+			const monthSumsNew = monthSums.map((val, idx)=>{
+				if (idx >= (monthSums.length / 2)) {
+					return (monthSums[idx - monthSums.length / 2]);
+				}
+				return (val);
+			})
 			for (let i = 0; i < ltMonths.length; i++) {
 				const oldX = parseInt(ltMonths[i].getAttribute("x"));
-				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSums[i]) + ")";
+				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSumsNew[i]) + ")";
 				const newBbox = ltMonths[i].getBBox();
 				// move element's x coordinate to the left to account for the width of the text added
 				ltMonths[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
@@ -81,7 +88,7 @@ function cumWeekLogTime(ltDays, settings) {
 		}
 		const tempLogTimes = [];
 
-		// parse individual logtimes
+		// parse individual logtimes`
 		for (j = 0; j < daysInWeek; j++) {
 			ltDay = ltDays[ltDays.length - r - 1];
 			if (!ltDay) {
@@ -110,16 +117,25 @@ function cumWeekLogTime(ltDays, settings) {
 	}
 }
 
+function notDublicates(ltMonths) {
+	if (ltMonths.length > 1)
+	{
+		arr = Array.from(ltMonths).map(val=>val.textContent).sort();
+		return (arr[0] !== arr[1]);
+	}
+	return (false);
+}
+
 function waitForLogTimesChartToLoad(ltSvg, settings) {
 	const ltDays = ltSvg.getElementsByTagName("g");
 	const ltMonths = ltSvg.querySelectorAll("svg > text");
-	if (ltDays.length == 0 || ltMonths.length == 0) {
+	if (ltDays.length == 0 || ltMonths.length == 0 || notDublicates(ltMonths)) {
 		// logtimes chart hasn't finished loading yet, try again in 100ms
 		setTimeout(function() {
 			waitForLogTimesChartToLoad(ltSvg, settings);
 		}, 100);
 		return false;
-	}
+	};
 
 	// fix first month sometimes outside container
 	let viewBox = ltSvg.getAttribute("viewBox");
