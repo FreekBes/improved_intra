@@ -56,7 +56,7 @@ function sumMonthLogTime(ltMonths, settings) {
 					monthSums[mIndex] += parseLogTime(stats[date]);
 				}
 			}
-			const monthSumsNew = monthSums.map((val, idx)=>{
+			const monthSumsUpdated = monthSums.map((val, idx)=>{
 				if (idx >= (monthSums.length / 2)) {
 					return (monthSums[idx - monthSums.length / 2]);
 				}
@@ -64,7 +64,7 @@ function sumMonthLogTime(ltMonths, settings) {
 			})
 			for (let i = 0; i < ltMonths.length; i++) {
 				const oldX = parseInt(ltMonths[i].getAttribute("x"));
-				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSumsNew[i]) + ")";
+				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSumsUpdated[i]) + ")";
 				const newBbox = ltMonths[i].getBBox();
 				// move element's x coordinate to the left to account for the width of the text added
 				ltMonths[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
@@ -88,7 +88,7 @@ function cumWeekLogTime(ltDays, settings) {
 		}
 		const tempLogTimes = [];
 
-		// parse individual logtimes`
+		// parse individual logtimes
 		for (j = 0; j < daysInWeek; j++) {
 			ltDay = ltDays[ltDays.length - r - 1];
 			if (!ltDay) {
