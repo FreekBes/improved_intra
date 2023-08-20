@@ -17,28 +17,26 @@ function codamMonitHelper(settings, logTime) {
 	return ("");
 }
 
-function getLogTimes(settings) {
-	return new Promise(function(resolve, reject) {
-		const httpReq = new XMLHttpRequest();
-		httpReq.addEventListener("load", function() {
-			try {
-				resolve(JSON.parse(this.responseText));
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-		httpReq.addEventListener("error", function(err) {
-			reject(err);
-		});
-		httpReq.open("GET", window.location.origin + "/users/" + getProfileUserName() + "/locations_stats.json");
-		httpReq.send();
-	});
+// Use the same HTML session to get the logtime
+async function getLogTimes(settings) {
+    try {
+        const response = await fetch('https://translate.intra.42.fr/users/' + getProfileUserName() + '/locations_stats.json', {
+            method: 'GET',
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            iConsole.error("Couldnt get LogTime");
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        iConsole.error(error);
+        throw error;
+    }
 }
 
-// month logtime has to be calculated from the web since some days may be missing from the logtimes chart
 function sumMonthLogTime(ltMonths, settings) {
-	ltMonths = Array.from(ltMonths).reverse();
+	//ltMonths = Array.from(ltMonths).reverse();	// Month doesnt need to be reversed anymore
 	getLogTimes(settings)
 		.then(function(stats) {
 			const dates = Object.keys(stats);
@@ -55,17 +53,59 @@ function sumMonthLogTime(ltMonths, settings) {
 					monthSums[mIndex] += parseLogTime(stats[date]);
 				}
 			}
-			for (let i = 0; i < ltMonths.length; i++) {
-				const oldX = parseInt(ltMonths[i].getAttribute("x"));
-				ltMonths[i].textContent = ltMonths[i].textContent + " (" + logTimeToString(monthSums[i]) + ")";
-				const newBbox = ltMonths[i].getBBox();
-				// move element's x coordinate to the left to account for the width of the text added
-				ltMonths[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
+
+			// Since we are using an External Json call to get the Json data now, we need to modify the website another way
+
+			// Define the months array
+			const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+			// Get all <text> elements with an x attribute
+			const textElements = document.querySelectorAll('text[x]');
+
+			// Create an array to store the matching elements
+			const matchingElements = [];
+
+			// Create a set to keep track of seen month names
+			const seenMonths = new Set();
+
+			// Loop through the elements and check their text content
+			for (let i = 0; i < textElements.length; i++) {
+				const textContent = textElements[i].textContent;
+
+				// Check if any of the months are present in the text content, for some reason there is duplicates
+				for (let j = 0; j < months.length; j++) {
+					if (textContent.includes(months[j])) {
+
+					// Check if this month has already been added
+					if (!seenMonths.has(months[j])) {
+
+						// Add the matching element to the array
+						matchingElements.push(textElements[i]);
+						seenMonths.add(months[j]);
+					} else {
+						// Replace the duplicaate text with an empty string
+						textElements[i].textContent = "";
+					}
+					break;
+					}
+				}
+			}
+			
+			// We modify the remaining Month elements for [month + time value]
+			for (let i = 0; i < matchingElements.length; i++) {
+				const oldX = parseInt(matchingElements[i].getAttribute("x"));
+				matchingElements[i].getAttribute("x").textContent = "";
+				matchingElements[i].textContent = matchingElements[i].textContent + " (" + logTimeToString(monthSums[i]) + ")";
+				const newBbox = matchingElements[i].getBBox();
+				// Move element's x coordinate to the left to account for the width of the text added
+				matchingElements[i].setAttribute("x", Math.round(oldX - newBbox.width * 0.5));
 			}
 		})
 		.catch(function(err) {
 			iConsole.error(err);
 		});
+
+
 }
 
 function cumWeekLogTime(ltDays, settings) {
