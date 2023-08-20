@@ -22,7 +22,7 @@ async function getLogTimes(settings) {
     try {
         const response = await fetch('https://translate.intra.42.fr/users/' + getProfileUserName() + '/locations_stats.json', {
             method: 'GET',
-            credentials: 'include',
+            credentials: 'include'
         });
         if (!response.ok) {
             iConsole.error("Couldnt get LogTime");
@@ -54,6 +54,7 @@ function sumMonthLogTime(ltMonths, settings) {
 				}
 			}
 
+			
 			// Since we are using an External Json call to get the Json data now, we need to modify the website another way
 
 			// Define the months array
@@ -61,10 +62,13 @@ function sumMonthLogTime(ltMonths, settings) {
 
 			// Get all <text> elements with an x attribute
 			const textElements = document.querySelectorAll('text[x]');
-
+			
 			// Create an array to store the matching elements
 			const matchingElements = [];
 
+			// To make sure we really remove the months duplicate
+			let Duplicate = 0
+			
 			// Create a set to keep track of seen month names
 			const seenMonths = new Set();
 
@@ -85,12 +89,21 @@ function sumMonthLogTime(ltMonths, settings) {
 					} else {
 						// Replace the duplicaate text with an empty string
 						textElements[i].textContent = "";
+						Duplicate++;
 					}
 					break;
 					}
 				}
 			}
-			
+
+			// logtimes chart hasn't finished loading yet, try again in 100ms
+			if (Duplicate == 0) {
+				setTimeout(function() {
+					sumMonthLogTime(ltMonths, settings);
+				}, 100);
+				return false;
+			}
+		
 			// We modify the remaining Month elements for [month + time value]
 			for (let i = 0; i < matchingElements.length; i++) {
 				const oldX = parseInt(matchingElements[i].getAttribute("x"));
