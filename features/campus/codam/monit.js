@@ -139,7 +139,8 @@ const monit = {
 			monit.httpReq.addEventListener("error", function(err) {
 				reject(err);
 			});
-			monit.httpReq.open("GET", window.location.origin + "/users/" + username + "/locations_stats.json");
+			httpReq.withCredentials = true;
+			httpReq.open("GET", window.location.origin.replace("profile", "translate") + "/users/" + username + "/locations_stats.json");
 			monit.httpReq.send();
 		}));
 	},
