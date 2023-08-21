@@ -11,16 +11,15 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 ## A small list of features added by this extension:
 - Dark Theme! Finally, your eyes can rest when working at night.
 - Customizable user profiles! Now you can show a bit of your personality through your user page: add a custom banner image to your profile, visible to everyone with the extension installed, or add a link to your GitHub-page.
-- An option to use the old Black Hole countdown instead of showing one's absorption date.
 - View how many outstanding flags were given to a user's work on their Intra profiles.
+- An option to use the old Black Hole countdown instead of showing one's absorption date.
 - Removal of the broadcasts button, which is unused by most campuses.
-- Replacement of the Black Hole for Codam students, simply showing the progress towards their monitoring system instead.
 
 You can find the full list of features in the [Wiki](https://github.com/FreekBes/improved_intra/wiki/Features).
 
 
 ## Installation
-Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/). If you are using a Mac at Codam, you'll find that any extensions you install often get removed after logging out. I wrote a small script for this, which fixes this issue by forcefully installing the extension to your macOS profile. You can find this script [here](https://github.com/FreekBes/codam_auto_extension_installer).
+Available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/).
 
 For Firefox, please see the [Releases](https://github.com/FreekBes/improved_intra/releases) page. Mozilla has decided to no longer host this extension due to it being for a "limited/non-public audience" (your loss, Mozilla). The extension **should** still automatically update using GitHub.
 

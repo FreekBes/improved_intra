@@ -152,7 +152,6 @@ function optionIsActive(improvedStorageData, optionKey) {
 function profileFromCodam() {
 	if (window.location.pathname.indexOf("/users/") == 0) {
 		// user profile. check if user loaded is from Amsterdam campus
-		// if not, do not display monitoring system progress (return)
 		const iconLocation = document.getElementsByClassName("icon-location");
 		if (iconLocation.length == 0) {
 			return (false);
@@ -162,8 +161,7 @@ function profileFromCodam() {
 		}
 	}
 	if (window.location.pathname == "/") {
-		// dashboard page. check if user logged in is from Amsterdam campus
-		// if not, do not display monitoring system progress (return)
+		// dashboard page. check if user logged in is from Amsterdam campus.
 		// check by checking the school record button, should contain Codam
 		// if the button is not there (before handing in Libft), check coalition
 		const schoolRecordButton = document.querySelector(".school-record-button");
