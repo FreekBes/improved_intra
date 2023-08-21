@@ -25,31 +25,36 @@ let targetHost = window.location.hash.substring(1);
 function markTargetHost() {
 	const clustermap = document.querySelector("#cluster-map");
 	if (clustermap) {
-		const targetElem = clustermap.querySelector("#"+targetHost);
-		if (targetElem) {
-			if (highlightInterval) {
-				clearInterval(highlightInterval);
+		if (targetHost.length > 0) {
+			const targetElem = clustermap.querySelector("#"+targetHost);
+			if (targetElem) {
+				if (highlightInterval) {
+					clearInterval(highlightInterval);
+				}
+				let tabPane = targetElem;
+				while (!tabPane.classList.contains("tab-pane")) {
+					tabPane = tabPane.parentElement;
+				}
+				if (tabPane.nodeName != "DIV") {
+					iConsole.warn("Could not find the tab pane for clustermap host focus");
+					return;
+				}
+				const childIndex = Array.from(tabPane.parentNode.children).indexOf(tabPane);
+				const tab = clustermap.querySelectorAll(".nav.nav-pills li[role='presentation']")[childIndex];
+				if (!tab) {
+					iConsole.warn("Could not find the tab from the pane for clustermap host focus");
+					return;
+				}
+				tab.children[0].click();
+				targetElem.scrollIntoView(false);
+				iConsole.log("Found clustermap host focus target");
 			}
-			let tabPane = targetElem;
-			while (!tabPane.classList.contains("tab-pane")) {
-				tabPane = tabPane.parentElement;
+			else {
+				iConsole.warn("Target element not found!");
 			}
-			if (tabPane.nodeName != "DIV") {
-				iConsole.warn("Could not find the tab pane for clustermap host focus");
-				return;
-			}
-			const childIndex = Array.from(tabPane.parentNode.children).indexOf(tabPane);
-			const tab = clustermap.querySelectorAll(".nav.nav-pills li[role='presentation']")[childIndex];
-			if (!tab) {
-				iConsole.warn("Could not find the tab from the pane for clustermap host focus");
-				return;
-			}
-			tab.children[0].click();
-			targetElem.scrollIntoView(false);
-			iConsole.log("Found clustermap host focus target");
 		}
 		else {
-			iConsole.warn("Target element not found!");
+			iConsole.log("No host to focus");
 		}
 	}
 	else {
