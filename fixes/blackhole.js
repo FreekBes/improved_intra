@@ -57,7 +57,7 @@ function fixBlackHoleContainer() {
 							bhDate.style.color = "var(--warning-color)";
 							smiley.style.color = "var(--warning-color)";
 						}
-						bhDate.parentNode.insertBefore(smiley, bhDate);
+						bhDate.insertBefore(smiley, bhDate.firstChild);
 					}
 					else {
 						if (daysRemaining > 30) {
