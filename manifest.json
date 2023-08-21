@@ -96,8 +96,7 @@
 		{
 			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
 			"exclude_matches": [ "*://signin.intra.42.fr/users/sign_in" ],
-			"js": [ "features/profiles.js", "features/campus/codam/monit.js", "features/logtimes.js", "features/campus/codam/coa-titles.js" ],
-			"css": [ "features/campus/codam/monit.css" ],
+			"js": [ "features/profiles.js", "features/logtimes.js", "features/campus/codam/coa-titles.js" ],
 			"run_at": "document_idle"
 		},
 		{
