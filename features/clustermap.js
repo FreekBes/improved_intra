@@ -10,6 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+window.addEventListener('load', function() {
+	try {
+		JSON.parse(document.body.textContent);
+		window.location.reload(); // we got here, so the page is a JSON response, reload to show actual clustermap
+	}
+	catch (err) {
+		// all is good, page is not actually a JSON response (which is not intended to happen)
+	}
+});
+
 let targetHost = window.location.hash.substring(1);
 
 function markTargetHost() {
