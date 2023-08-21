@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/11 19:23:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/25 16:16:04 by fbes          ########   odam.nl         */
+/*   Updated: 2023/05/09 11:53:01 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ const monit = {
 		if (!profileFromCodam()) {
 			return;
 		}
-		this.bhContainer = document.getElementById("goals_container");
+		this.bhContainer = document.getElementById("goals-container");
 		if (!this.bhContainer) {
 			return;
 		}

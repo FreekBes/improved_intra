@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:55:12 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:22:28 by fbes          ########   odam.nl         */
+/*   Updated: 2023/05/09 12:26:53 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ function setOptionalImprovements() {
 	}
 
 	// hide black hole container
-	const goalsContainer = document.getElementById("goals_container");
+	const goalsContainer = document.getElementById("goals-container");
 	if (goalsContainer) {
 		improvedStorage.get("hide-goals").then(function(data) {
 			if (optionIsActive(data, "hide-goals")) {
