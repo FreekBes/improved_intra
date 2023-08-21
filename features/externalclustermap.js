@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:38:32 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/12 13:14:48 by codam         ########   odam.nl         */
+/*   Updated: 2023/08/21 22:11:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,7 @@ function openClusterMap(event) {
 			url = "https://locatepeer.vercel.app/"+location;
 			break;
 		default: {
-			if (event.target.textContent.indexOf(".codam.nl") > -1) {
-				url = "https://codamhero.dev/v2/clusters.php";
-				highlightAfter = true;
-			}
-			else {
-				url = "https://meta.intra.42.fr/clusters#"+location.replaceAll(".", "");
-			}
+			url = "https://meta.intra.42.fr/clusters#"+location.replaceAll(".", "");
 			break;
 		}
 	}
