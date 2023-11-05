@@ -413,15 +413,17 @@ li.scaleteam-list-item .rating {
 
 
 /* custom titles for contributors */
-a[data-tooltip-login="pde-bakk"]::before,
+a[data-tooltip-login="pde-bakk"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="pde-bakk"]::before,
-a[data-tooltip-login="lde-la-h"]::before,
+a[data-tooltip-login="lde-la-h"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="lde-la-h"]::before,
-a[data-tooltip-login="nsimon"]::before,
+a[data-tooltip-login="nsimon"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="nsimon"]::before,
-a[data-tooltip-login="hsmits"]::before,
+a[data-tooltip-login="hsmits"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="hsmits"]::before,
-a[data-tooltip-login="jkoers"]::before,
+a[data-tooltip-login="psimonen"]:not(.student-kind-student)::before,
+.profile-name span.login[data-login="psimonen"]::before,
+a[data-tooltip-login="jkoers"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="jkoers"]::before,
 a[data-tooltip-login="jlensing"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="jlensing"]::before {
@@ -435,7 +437,7 @@ a[data-tooltip-login="ieilat"]:not(.student-kind-student)::before,
 }
 
 /* custom title for creator */
-a[data-tooltip-login="fbes"]::before,
+a[data-tooltip-login="fbes"]:not(.student-kind-student)::before,
 .profile-name span.login[data-login="fbes"]::before {
 	content: 'Improved Intra Creator ';
 }
