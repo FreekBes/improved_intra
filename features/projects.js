@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/14 10:19:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/26 15:43:55 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 21:06:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,13 @@ function addProjectExtrasContainer() {
 	const projectExtras = document.createElement("div");
 	projectExtras.className = "project-summary-item";
 
+	const projectExtrasTitle = document.createElement("span");
+	projectExtrasTitle.innerText = "Useful tools (added by Improved Intra)";
+	projectExtrasTitle.style.whiteSpace = "nowrap"; // simply looks better
+	projectExtras.appendChild(projectExtrasTitle);
+
 	const extrasList = document.createElement("div");
 	extrasList.className = "project-attachments-list";
-
 	projectExtras.appendChild(extrasList);
 
 	const intraAttachments = projectSummary.querySelector(".project-attachments-list");
