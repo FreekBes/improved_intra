@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 19:08:42 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:48:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1140,7 +1140,8 @@ pre[class*="language-"] {
 .quests-list,
 .quest-item .quest-item-header,
 .quests-list .quests-header,
-.quest-status {
+.quest-status,
+.quest-item .quest-item-main {
 	border-color: var(--general-border-color) !important;
 }
 
@@ -1150,6 +1151,28 @@ pre[class*="language-"] {
 
 .quest-wrapper.validated .quest-item-header {
 	color: var(--theme-color) !important;
+	background-image: linear-gradient(to bottom, var(--theme-color) 100%, rgba(255,255,255,0) 0%) !important;
+}
+
+.quest-wrapper.validated .quest-status {
+	background-color: var(--theme-color) !important;
+}
+
+.quest-child-item span.validated {
+	color: var(--theme-color) !important;
+}
+
+.quest-child-item {
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjQ5Ljk5OTk5OTk5OTk5OTk5IiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogPCEtLSBDcmVhdGVkIHdpdGggTWV0aG9kIERyYXcgLSBodHRwOi8vZ2l0aHViLmNvbS9kdW9waXhlbC9NZXRob2QtRHJhdy8gLS0+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IHg9Ii0xIiB5PSItMSIgd2lkdGg9IjMuOTAxMTM1IiBoZWlnaHQ9IjMuMTQwNjgxIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGZpbGw9Im5vbmUiLz4KIDwvZz4KIDxnPgogIDx0aXRsZT5MYXllciAxPC90aXRsZT4KICA8cmVjdCBpZD0ic3ZnXzEiIGhlaWdodD0iMjYuODAyOTY2IiB3aWR0aD0iNTYuNjUwMDM4IiB5PSItMTIiIHg9IjEiIGZpbGwtb3BhY2l0eT0ibnVsbCIgc3Ryb2tlLW9wYWNpdHk9Im51bGwiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMmQzMTNjIi8+CiAgPHJlY3QgaWQ9InN2Z18yIiBoZWlnaHQ9IjQwLjE5NDkxOSIgd2lkdGg9IjMyLjE3MDkzMyIgeT0iLTMuNDg0NTg1IiB4PSIyNS4yNTgyNDMiIHN0cm9rZS1vcGFjaXR5PSJudWxsIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZT0iIzJkMzEzYyIgZmlsbD0iIzFkMjAyOCIvPgogPC9nPgo8L3N2Zz4K) !important;
+	border-left-color: var(--general-border-color) !important;
+}
+
+.quest-child-item span.quest-child-status {
+	background-color: var(--input-background-color) !important;
+	border-color: var(--input-border-color) !important;
+}
+.quest-child-item span.quest-child-status.iconf-check-4 {
+	color: var(--success-color) !important;
 }
 
 /* resume page */
@@ -1707,8 +1730,9 @@ textarea,
 	border-top-color: var(--input-border-color) !important;
 }
 
-.quest-item .quest-item-header:hover {
-	background: var(--list-hover-background-color) !important;
+.quest-item .quest-item-header:hover,
+.quest-item-header[aria-expanded="true"] {
+	background-color: var(--list-hover-background-color) !important;
 }
 
 .bootstrap-datetimepicker-widget.top:after {

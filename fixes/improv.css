@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/10/25 10:36:12 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:50:59 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,6 +610,11 @@ html.soft-background, body.authorization-layout {
 /* fix user profile picture on auth page */
 .main-authorization-page .user-image-picture {
 	background-size: cover !important;
+}
+
+/* remove opacity of completed quests on the quests page */
+.quests-list[data-status=validated] {
+	opacity: 1 !important;
 }
 
 /* improved text shadow on API page */
