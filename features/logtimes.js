@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/05 22:04:27 by fbes          #+#    #+#                 */
-/*   Updated: 2022/05/31 16:57:49 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:06:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,27 +110,15 @@ function cumWeekLogTime(ltDays, settings) {
 	}
 }
 
-function notDublicates(ltMonths) {
-	if (ltMonths.length > 1)
-	{
+function notDuplicates(ltMonths) {
+	if (ltMonths.length > 1) {
 		arr = Array.from(ltMonths).map(val=>val.textContent).sort();
 		return (arr[0] !== arr[1]);
 	}
 	return (false);
 }
 
-function waitForLogTimesChartToLoad(ltSvg, settings) {
-	const ltDays = ltSvg.getElementsByTagName("g");
-	const ltMonths = ltSvg.querySelectorAll("svg > text");
-	if (ltDays.length == 0 || ltMonths.length == 0 || notDublicates(ltMonths)) {
-		// logtimes chart hasn't finished loading yet, try again in 100ms
-		setTimeout(function() {
-			waitForLogTimesChartToLoad(ltSvg, settings);
-		}, 100);
-		return false;
-	}
-
-	// fix first month sometimes outside container
+function fixFirstMonthOutOfBounds(ltSvg) {
 	let viewBox = ltSvg.getAttribute("viewBox");
 	if (viewBox) {
 		const firstText = ltSvg.querySelector("text");
@@ -149,15 +137,14 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 			ltSvg.setAttribute("viewBox", viewBox.join(" "));
 		}
 	}
+}
 
-	// add date attribute to all days in svg
-	// useful for Improved Intra but also other extensions!
-	const days = ltSvg.getElementsByTagName("g");
+function addDateToAllDays(ltSvg, ltDays) {
 	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	let month = 0;
 	let date = 0;
 	let year = 0;
-	for (const day of days) {
+	for (const day of ltDays) {
 		if (day.previousElementSibling.nodeName.toUpperCase() == "TEXT") {
 			month = months.indexOf(day.previousElementSibling.textContent.substring(0, 3)) + 1;
 			if (today.getMonth() == 0 && (month == 10 || month == 11 || month == 12)) {
@@ -169,8 +156,49 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 			date = 1;
 		}
 		day.setAttribute("data-iidate", year.toString()+'-'+month.toString().padStart(2, '0')+'-'+date.toString().padStart(2, '0'));
+		day.setAttribute("data-iiweekday", new Date(year, month - 1, date - 1).getDay() + 1); // +1 to fix monday = 0 & sunday = 6
 		date++;
 	}
+}
+
+function localizeFirstDayOfWeek(ltSvg, ltDays) {
+	// Check whether the first day of the week is Monday or Sunday from the user's locale
+	// Fallback to "1" (Monday) if the weekInfo attribute is missing (e.g. in Firefox)
+	const locale = new Intl.Locale(window.navigator.language);
+	const firstDayOfWeek = "weekInfo" in locale && "firstDay" in locale.weekInfo ? locale.weekInfo.firstDay : 1;
+	if (firstDayOfWeek == 7) {
+		// Nothing to do here, the first day of the week is already Sunday
+		return;
+	}
+	// First day of the week is not Sunday, assume it is Monday.
+	// While other first days of the week might exist, they are not supported by this extension.
+	for (const day of ltDays) {
+		const dayWidth = parseInt(day.children[0].getAttribute("width"));
+		if (day.getAttribute("data-iiweekday") == 7) {
+			// Move Sunday to the end and up one week
+			const dayHeight = parseInt(day.children[0].getAttribute("height"));
+			day.setAttribute("transform", `translate(${dayWidth * 6}, -${dayHeight})`);
+		}
+		else {
+			// Move every other day one to the left
+			day.setAttribute("transform", `translate(-${dayWidth}, 0)`);
+		}
+	}
+}
+
+function applyLogTimeChartFixes(ltSvg, settings) {
+	const ltDays = ltSvg.getElementsByTagName("g");
+	const ltMonths = ltSvg.querySelectorAll("svg > text");
+
+	// fix first month sometimes outside container
+	fixFirstMonthOutOfBounds(ltSvg);
+
+	// add date attribute to all days in svg
+	// useful for Improved Intra but also other extensions!
+	addDateToAllDays(ltSvg, ltDays);
+
+	// localize first day of week
+	localizeFirstDayOfWeek(ltSvg, ltDays);
 
 	if (optionIsActive(settings, "logsum-month")) {
 		sumMonthLogTime(ltMonths, settings);
@@ -183,8 +211,24 @@ function waitForLogTimesChartToLoad(ltSvg, settings) {
 if (window.location.pathname == "/" || window.location.pathname.indexOf("/users/") == 0) {
 	const ltSvg = document.getElementById("user-locations");
 	if (ltSvg) { // check if logtimes chart is on page
-		improvedStorage.get(["logsum-month", "logsum-week", "codam-monit"]).then(function(settings) {
-			waitForLogTimesChartToLoad(ltSvg, settings);
+		// wait until the logtimes chart is loaded before doing anything
+		const observer = new MutationObserver(function(mutationsList, observer) {
+			for (let mutation of mutationsList) {
+				if (mutation.type == "childList" && mutation.removedNodes.length > 0) {
+					// check if element with "user-locations-loading-overlay" was removed.
+					// if so, the logtimes chart is loaded and we can continue
+					for (let i = 0; i < mutation.removedNodes.length; i++) {
+						if (mutation.removedNodes[i].id == "user-locations-loading-overlay") {
+							improvedStorage.get(["logsum-month", "logsum-week"]).then(function(settings) {
+								applyLogTimeChartFixes(ltSvg, settings);
+							});
+							observer.disconnect();
+							break;
+						}
+					}
+				}
+			}
 		});
+		observer.observe(ltSvg.parentNode, { childList: true });
 	}
 }
