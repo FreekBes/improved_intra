@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2023/03/08 17:26:01 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 19:08:42 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -876,7 +876,8 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	transform-box: fill-box !important;
 }
 
-#cluster-map .map-container svg :target {
+#cluster-map .map-container svg :target,
+#cluster-map .map-container svg .target-location {
 	stroke: var(--theme-color) !important;
 	fill: var(--theme-color-light) !important;
 	animation: postblink 0.6s 12 !important;
@@ -895,7 +896,8 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	transform: scale(0.7);
 }
 
-#cluster-map .map-container svg :target + image + circle {
+#cluster-map .map-container svg :target + image + circle,
+#cluster-map .map-container svg .target-location + image + circle {
 	stroke: var(--theme-color-light) !important;
 }
 
