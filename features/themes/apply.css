@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 20:48:56 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:53:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -869,6 +869,11 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 }
 
 /* clustermap page */
+ul.clusters-state li,
+ul.activity-list li.activity-log {
+	border-color: var(--general-border-color) !important;
+}
+
 #cluster-map .map-container svg rect,
 #cluster-map .map-container svg image,
 #cluster-map .map-container svg circle {
