@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2023/03/08 17:37:28 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:21:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ improvPort.onMessage.addListener(function(msg) {
 			iConsole.log("Settings changed. Enabling settings that can be enabled. Settings that must be disabled, will disable after a refresh.");
 			checkThemeSetting();
 			setOptionalImprovements();
-			colorizeLogtimeChart();
 			if (typeof setCustomProfile != "undefined") {
 				setCustomProfile();
 			}

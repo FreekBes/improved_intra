@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2023/03/08 17:58:31 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:12:48 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ function setGeneralImprovements() {
 	// colorize logtime chart based on color scheme
 	const ltSvg = document.getElementById("user-locations");
 	if (ltSvg) {
-		colorizeLogtimeChart();
-		ltSvg.addEventListener("load", colorizeLogtimeChart);
+		colorizeNewLogTimeDays();
+		ltSvg.addEventListener("load", colorizeNewLogTimeDays);
 	}
 
 	// add titles to achievement names and descriptions for better readability

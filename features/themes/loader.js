@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 18:53:24 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 20:25:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ function disableTheme(theme, colors) {
 	if (colors !== false && themeColorsLink) {
 		themeColorsLink.remove();
 		themeColorsLink = null;
+		reColorizeLogTimeChart();
 	}
 }
 
@@ -44,6 +45,9 @@ function enableTheme(theme, colors) {
 			document.getElementsByTagName("head")[0].appendChild(themeColorsLink);
 		}
 		themeColorsLink.setAttribute("href", chrome.runtime.getURL("features/themes/colors/"+colors+".css"));
+		setTimeout(function() {
+			reColorizeLogTimeChart();
+		}, 100);
 	}
 	else {
 		disableTheme(false, true);
@@ -70,9 +74,33 @@ function checkThemeSetting() {
 	});
 }
 
+function reColorizeLogTimeChart() {
+	const ltSvg = document.getElementById("user-locations");
+	if (!ltSvg) {
+		return;
+	}
+	const days = ltSvg.getElementsByTagName("g"); // Fetch all days
+	for (let i = 0; i < days.length; i++) {
+		const rect = days[i].querySelector("rect");
+		if (!rect) { // Skip if no rect found in the added element
+			continue;
+		}
+		const fill = rect.getAttribute("fill");
+		if (fill.indexOf("rgba") > -1) {
+			const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color'); // using theme color, not 24h color (24h color is for text)
+			if (col24hex !== "") {
+				const col24rgb = hexToRgb(col24hex.trim());
+				const opacity = fill.replace(/^.*,(.+)\)/, '$1');
+				rect.setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
+			}
+		}
+	}
+}
+
+
 // colorize logtimes chart based on selected color scheme
 // use MutationObserver to identify when the SVG chart is loaded
-function colorizeLogtimeChart(event) {
+function colorizeNewLogTimeDays() {
 	const ltSvg = document.getElementById("user-locations");
 	if (!ltSvg) {
 		return;
