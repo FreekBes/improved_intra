@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 18:48:56 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 18:53:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ function checkThemeSetting() {
 // use MutationObserver to identify when the SVG chart is loaded
 function colorizeLogtimeChart(event) {
 	const ltSvg = document.getElementById("user-locations");
+	if (!ltSvg) {
+		return;
+	}
 	const observer = new MutationObserver(function(mutationsList, observer) {
 		for (let mutation of mutationsList) {
 			if (mutation.type == "childList") {
