@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 20:12:48 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 21:00:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,17 @@ function setGeneralImprovements() {
 		const agendaContainer = eventsList.closest(".container-inner-item.boxed");
 		if (agendaContainer) {
 			agendaContainer.classList.add("agenda-container");
+
+			// Add button to sync calendar to Google Calendar with Improved Intra
+			const syncButton = document.createElement("a");
+			syncButton.className = "btn simple-link";
+			syncButton.href = "https://iintra.freekb.es/v2/options/calendar";
+			syncButton.innerText = "Set up sync";
+			const pullRight = agendaContainer.querySelector(".pull-right");
+			if (pullRight) {
+				// Insert before filters button
+				pullRight.insertBefore(syncButton, pullRight.lastElementChild);
+			}
 		}
 	}
 
