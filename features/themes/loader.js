@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:49:05 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/28 19:05:18 by fbes          ########   odam.nl         */
+/*   Updated: 2024/01/17 18:48:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,36 @@ function checkThemeSetting() {
 }
 
 // colorize logtimes chart based on selected color scheme
+// use MutationObserver to identify when the SVG chart is loaded
 function colorizeLogtimeChart(event) {
-	setTimeout(function() {
-		const ltSvg = document.getElementById("user-locations");
-		if (!ltSvg) {
-			return;
-		}
-		const ltDays = ltSvg.getElementsByTagName("rect");
-		const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color'); // using theme color, not 24h color (24h color is for text)
-		if (col24hex !== "") {
-			const col24rgb = hexToRgb(col24hex.trim());
-			for (let i = 0; i < ltDays.length; i++) {
-				const fill = ltDays[i].getAttribute("fill");
-				if (fill.indexOf("rgba") > -1) {
-					const opacity = fill.replace(/^.*,(.+)\)/, '$1');
-					ltDays[i].setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
+	const ltSvg = document.getElementById("user-locations");
+	const observer = new MutationObserver(function(mutationsList, observer) {
+		for (let mutation of mutationsList) {
+			if (mutation.type == "childList") {
+				const nodes = mutation.addedNodes;
+				for (let i = 0; i < nodes.length; i++) {
+					if (nodes[i].nodeType !== 1) { // Skip if not an element node
+						continue;
+					}
+					const rect = nodes[i].querySelector("rect");
+					if (!rect) { // Skip if no rect found in the added element
+						continue;
+					}
+					const fill = rect.getAttribute("fill");
+					if (fill.indexOf("rgba") > -1) {
+						const col24hex = getComputedStyle(document.documentElement).getPropertyValue('--theme-color'); // using theme color, not 24h color (24h color is for text)
+						if (col24hex !== "") {
+							const col24rgb = hexToRgb(col24hex.trim());
+							const opacity = fill.replace(/^.*,(.+)\)/, '$1');
+							rect.setAttribute("fill", "rgba("+col24rgb.r+","+col24rgb.g+","+col24rgb.b+","+opacity+")");
+						}
+					}
 				}
 			}
 		}
-	}, 250);
+	});
+	observer.observe(ltSvg, { childList: true });
+	// TODO: maybe disconnect the observer somehow after data for the chart is loaded?
 }
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function() {
