@@ -147,7 +147,7 @@ function addDateToAllDays(ltSvg, ltDays) {
 	for (const day of ltDays) {
 		if (day.previousElementSibling.nodeName.toUpperCase() == "TEXT") {
 			month = months.indexOf(day.previousElementSibling.textContent.substring(0, 3)) + 1;
-			if (today.getMonth() == 0 && (month == 10 || month == 11 || month == 12)) {
+			if (today.getMonth() >= 0 && today.getMonth() < 6 && (month == 10 || month == 11 || month == 12)) {
 				year = today.getFullYear() - 1;
 			}
 			else {
@@ -156,7 +156,9 @@ function addDateToAllDays(ltSvg, ltDays) {
 			date = 1;
 		}
 		day.setAttribute("data-iidate", year.toString()+'-'+month.toString().padStart(2, '0')+'-'+date.toString().padStart(2, '0'));
-		day.setAttribute("data-iiweekday", new Date(year, month - 1, date - 1).getDay() + 1); // +1 to fix monday = 0 & sunday = 6
+		const dayOfWeek = new Date(year, month - 1, date).getDay();
+		iConsole.log("dayOfWeek:", dayOfWeek, "year:", year, "month:", month, "date:", date, "jsDate:", new Date(year, month - 1, date));
+		day.setAttribute("data-iiweekday", dayOfWeek == 0 ? 7 : dayOfWeek);
 		date++;
 	}
 }
