@@ -157,7 +157,6 @@ function addDateToAllDays(ltSvg, ltDays) {
 		}
 		day.setAttribute("data-iidate", year.toString()+'-'+month.toString().padStart(2, '0')+'-'+date.toString().padStart(2, '0'));
 		const dayOfWeek = new Date(year, month - 1, date).getDay();
-		iConsole.log("dayOfWeek:", dayOfWeek, "year:", year, "month:", month, "date:", date, "jsDate:", new Date(year, month - 1, date));
 		day.setAttribute("data-iiweekday", dayOfWeek == 0 ? 7 : dayOfWeek);
 		date++;
 	}
