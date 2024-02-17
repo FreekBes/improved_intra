@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cocoa.css                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbourgea <rbourgea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/17 03:12:10 by rbourgea          #+#    #+#             */
+/*   Updated: 2024/02/17 03:15:55 by rbourgea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+	/* main colors */
+	--theme-color: #fff;
+	
+	/* background colors */
+	--body-background-color: #1b1b1b;
+	--container-background-color: #0e0e0e;
+	--list-odd-background-color: #0e0e0e;
+	--nav-hover-color: #fff;
+	
+	/* border colors */
+	--general-border-color: #252424;
+
+	/* text colors */
+	--text-color: #fff;
+	
+	/* navbar styling */
+	--top-navbar-background-color: #1b1b1b;
+	--left-navbar-background-color: #1b1b1b;
+	--left-navbar-icon-color: #5c5c5c;
+	--left-navbar-icon-color-hover: #fff;
+	--left-navbar-icon-color-active: #fff;
+}
+
+body {
+	font-family: "Poppins", sans-serif !important;
+	transition: 0.3s !important;
+}
+
+.improved-intra-banner,
+.profile-banner,
+.profile-on-users,
+.profile-item,
+.profile-title,
+.event-item,
+.event-left,
+.event-metadata,
+.modal-content,
+.container-inner-item,
+.notification-list,
+.btn,
+.simple-link {
+	border-radius: 20px !important;
+}
+
+.event-item:hover,
+.event-left:hover,
+.event-metadata:hover {
+	color: #5c5c5c;
+}
+
+.event-overflow {
+	padding-right: 15px !important;
+}
+
+.simple-link {
+	background: #0e0e0e !important;
+}
