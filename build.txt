@@ -3,14 +3,8 @@ manifest.json
 LICENSE
 PRIVACY-POLICY.md
 sw.js
-background/*
-features/*
-generic/*
-options/*.html
-options/*.js
+src/*
+options.html
 images/logo*.png
 _locales/*
-promo/logo-wide.png
-fixes/*.css
-fixes/*.js
-# fixes/galaxygraph/build/*
+images/promo/logo-wide.png

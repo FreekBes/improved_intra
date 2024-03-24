@@ -17,14 +17,10 @@
 
 try {
 	importScripts(
-		"generic/console.js",
-		"background/main.js",
-		"generic/lib/storage.js",
-		"generic/lib/network.js",
-		"background/comm.js",
-		"background/options.js",
-		"background/omnibox.js"
+		"src/utils/console.js",
+		"src/background/omnibox.js"
 	);
+	iConsole.log("Improved Intra background scripts loaded.");
 }
 catch (err) {
 	iConsole.error(err);

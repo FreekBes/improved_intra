@@ -24,26 +24,6 @@ function switchMenus(newMenu) {
 }
 
 
-// communication with background scripts
-let popupPort = chrome.runtime.connect({ name: portName });
-popupPort.onDisconnect.addListener(function() {
-	iConsole.log("Disconnected from service worker");
-});
-popupPort.onMessage.addListener(function(msg) {
-	switch (msg["action"]) {
-		case "pong":
-			iConsole.log("pong");
-			break;
-		case "error":
-			iConsole.error(msg["message"]);
-			break;
-	}
-});
-setInterval(function() {
-	popupPort.disconnect();
-	popupPort = chrome.runtime.connect({ name: portName });
-}, 250000);
-
 
 // buttons setup
 const buttons = {
@@ -112,21 +92,3 @@ if (buttons.extSync) {
 		window.close();
 	});
 }
-
-// get extension settings and show items accordingly
-improvedStorage.get(["username", "iintra-server-session"]).then(function(data) {
-	// if logged in at 42, continue
-	if (data["username"]) {
-		// if authenticated with Improved Intra 42 back-end, show main menu
-		if (data["iintra-server-session"]) {
-			switchMenus("main-menu");
-		}
-		else {
-			switchMenus("session-menu");
-		}
-		document.getElementById("intra-logged-in-username").innerText = ", " + data["username"] + "!";
-	}
-	else {
-		switchMenus("login-menu");
-	}
-});
