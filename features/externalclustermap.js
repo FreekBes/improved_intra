@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   externalclustermap.js                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/28 18:38:32 by fbes          #+#    #+#                 */
-/*   Updated: 2023/08/21 22:11:32 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   externalclustermap.js                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/28 18:38:32 by fbes              #+#    #+#             */
+/*   Updated: 2024/03/27 11:11:35 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ function openClusterMap(event) {
 			break;
 		case "Kuala Lumpur":
 			url = "https://locatepeer.vercel.app/"+location;
+			break;
+		case "\nYerevan\n":
+			url = "https://dashboard-42yerevan.onrender.com/";
 			break;
 		default: {
 			url = "https://meta.intra.42.fr/clusters#"+location.replaceAll(".", "");
