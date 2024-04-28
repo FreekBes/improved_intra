@@ -10,6 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+function addBackgroundToDays(ltDays) {
+  for (let i = 0; i < ltDays.length; i++) {
+    let originalTitle = ltDays[i].getAttribute("data-original-title");
+    if (!originalTitle.includes("0h00")) {
+      let rect = ltDays[i].getElementsByTagName("rect")[0];
+      let alpha = Math.floor((parseFloat(originalTitle.charAt(0)) / 24) * 255)
+        .toString(16);
+      if (alpha.length < 2) {
+        alpha = "0" + alpha;
+      }
+      rect.setAttribute("fill",
+        getComputedStyle(rect).getPropertyValue("--theme-color")
+        + alpha);
+    }
+  }
+}
+
 function getLogTimes(settings) {
 	return new Promise(function(resolve, reject) {
 		const httpReq = new XMLHttpRequest();
@@ -207,6 +224,9 @@ function applyLogTimeChartFixes(ltSvg, settings) {
 	if (optionIsActive(settings, "logsum-week")) {
 		cumWeekLogTime(ltDays, settings);
 	}
+
+  // fill day background
+  addBackgroundToDays(ltDays);
 }
 
 if (window.location.pathname == "/" || window.location.pathname.indexOf("/users/") == 0) {
