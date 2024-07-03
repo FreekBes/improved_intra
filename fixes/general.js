@@ -34,7 +34,7 @@ function setGeneralImprovements() {
 		fixProfileBanners();
 	}
 
-	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
+	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu-drop-list']");
 	if (userMenu) {
 		// add link to extension options in account/user menu
 		const intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
