@@ -22,7 +22,7 @@ html {
 
 /* Windows Futura font-family fix */
 .futura {
-	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif !important;
 }
 
 /* Windows Futura font family fix (BOLD) */
@@ -31,7 +31,7 @@ html {
 .exam-modal .head h4,
 #admin-user h3,
 .app-sidebar-left .marked-title {
-	font-family: "Futura PT", "Futura", "futura", "Helvetica", Verdana, Arial, Sans-Serif !important;
+	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif !important;
 	font-weight: 700 !important;
 }
 
