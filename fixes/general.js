@@ -37,11 +37,7 @@ function setGeneralImprovements() {
 	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
 	if (userMenu) {
 		// add link to extension options in account/user menu
-		// find existing settings link (link with text Settings)
-		const intraSettingsOption = userMenu.querySelector(`a[href*='https://profile.intra.42.fr/users/${getProfileUserName()}/edit']`);
-
-		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
-		createMenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", intraSettingsOption.closest("li").nextSibling);
+		createMenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", userMenu.lastElementChild);
 
 		// add view my profile link if it seems to be missing from the menu
 		if (!userMenu.querySelector("a[href*='https://profile.intra.42.fr/users/']")) {
