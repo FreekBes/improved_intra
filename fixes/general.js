@@ -214,6 +214,29 @@ function setInternshipAdministrationImprovements(match) {
 }
 
 /**
+ * Improvements for Intra v3 early access page (add note that v3 is not supported by Improved Intra)
+ * @param {RegExpExecArray} match
+ */
+function setEarlyAccessImprovements(match) {
+	const earlyAccessContainer = document.getElementById("profile-v3-early-access-container");
+	if (earlyAccessContainer) {
+		const earlyAccessNote = document.createElement("p");
+		earlyAccessNote.className = "alert alert-warning";
+		earlyAccessNote.style.marginTop = "6rem";
+		earlyAccessNote.style.fontWeight = "bold";
+		earlyAccessNote.style.whiteSpace = "pre-wrap"; // make sure the note line breaks on \r\n
+		earlyAccessNote.innerText = "Improved Intra does not support Intra v3 and probably never will.\r\n This is due to the fact the new Intra is impossible to work with for extensions because of its heavy use of elements without specific ids or classes.\r\n\r\nIf you want to use Improved Intra without issues, keep using Intra v2. If you want to use v3, it is recommended to disable the Improved Intra extension.";
+		earlyAccessContainer.appendChild(earlyAccessNote);
+
+		// replace the container class with container-inner-item class to prevent the container from going out of bounds
+		while (wrongContainerUse = earlyAccessContainer.closest(".container")) {
+			iConsole.log("Replaced container class with container-inner-item class", wrongContainerUse);
+			wrongContainerUse.classList.replace("container", "container-inner-item");
+		}
+	}
+}
+
+/**
  * Improvements for user profile pages
  * @param {RegExpExecArray} match
  */

@@ -59,6 +59,10 @@ const improvementsPerUrl = [
 		guard: () => /^companies\.intra\.42\.fr\/(?<lang>[a-z]+)\/administrations\/(?<administration_id>[0-9]+)\/?$/.exec(pageUrl),
 		handler: setInternshipAdministrationImprovements,
 	},
+	{
+		guard: () => /^profile\.intra\.42\.fr\/v3_early_access\/?$/.exec(pageUrl),
+		handler: setEarlyAccessImprovements,
+	},
 	{ handler: setOptionalImprovements },
 ];
 
