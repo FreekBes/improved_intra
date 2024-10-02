@@ -34,10 +34,11 @@ function setGeneralImprovements() {
 		fixProfileBanners();
 	}
 
-	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu-drop-list']");
+	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
 	if (userMenu) {
 		// add link to extension options in account/user menu
-		const intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
+		// find existing settings link (link with text Settings)
+		const intraSettingsOption = userMenu.querySelector(`a[href*='https://profile.intra.42.fr/users/${getProfileUserName()}/edit']`);
 
 		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
 		createMenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", intraSettingsOption.closest("li").nextSibling);
