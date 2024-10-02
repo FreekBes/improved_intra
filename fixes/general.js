@@ -29,6 +29,10 @@ function createMenuLink(userMenu, href, text, position) {
 }
 
 function setGeneralImprovements() {
+	if (isIntraV3) {
+		return;
+	}
+
 	// fix things on profile banners
 	if (hasProfileBanner()) {
 		fixProfileBanners();
@@ -225,7 +229,7 @@ function setEarlyAccessImprovements(match) {
 		earlyAccessNote.style.marginTop = "6rem";
 		earlyAccessNote.style.fontWeight = "bold";
 		earlyAccessNote.style.whiteSpace = "pre-wrap"; // make sure the note line breaks on \r\n
-		earlyAccessNote.innerText = "Improved Intra does not support Intra v3 and probably never will.\r\n This is due to the fact the new Intra is impossible to work with for extensions because of its heavy use of elements without specific ids or classes.\r\n\r\nIf you want to use Improved Intra without issues, keep using Intra v2. If you want to use v3, it is recommended to disable the Improved Intra extension.";
+		earlyAccessNote.innerText = "Improved Intra is not compatible with Intra v3 and probably never will be.\r\n\r\nThis is because the new Intra is impossible to work with for extensions due to its heavy use of elements without specific ids or classes (blame poorly used frameworks).\r\nIf you want to use Improved Intra without issues, keep using Intra v2. If you want to use v3, it is recommended to disable the Improved Intra extension.";
 		earlyAccessContainer.appendChild(earlyAccessNote);
 
 		// replace the container class with container-inner-item class to prevent the container from going out of bounds
@@ -241,6 +245,10 @@ function setEarlyAccessImprovements(match) {
  * @param {RegExpExecArray} match
  */
 function setPageUserImprovements(match) {
+	if (isIntraV3) {
+		return;
+	}
+
 	// Sort marks listed by project name or by completion date
 	const projectItemsContainer = document.querySelector("#marks .overflowable-item");
 	if (projectItemsContainer) {

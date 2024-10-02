@@ -30,6 +30,11 @@ body.bg-white {
 	color: var(--text-color) !important;
 }
 
+/* somewhat of a fix for Intra v3: don't apply text colors, since the background does not change */
+body #root .App {
+	color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
 a:not([style*="color:"]):not(.btn),
 a.iconf-setting-gear:not([style*="color:"]) {
 	color: var(--theme-color) !important;
