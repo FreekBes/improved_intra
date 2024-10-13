@@ -3,7 +3,7 @@ A browser extension which adds many improvements to 42's Intranet at https://int
 
 
 ## Quick Download
-[<img src="https://lh4.ggpht.com/x-plP9YZXhCaiDkTKQ5S29PwLmdi4feEKrMOtQle4NuoOaUgKUMH9pPWIg91da3anhSmw-G8erEIuU0d" width="128" alt="Google Chrome" title="Download for Google Chrome">](https://chrome.google.com/webstore/detail/hmflgigeigiejaogcgamkecmlibcpdgo/)
+[<img src="https://lh4.ggpht.com/x-plP9YZXhCaiDkTKQ5S29PwLmdi4feEKrMOtQle4NuoOaUgKUMH9pPWIg91da3anhSmw-G8erEIuU0d" width="128" alt="Google Chrome" title="Download for Google Chrome">](https://chromewebstore.google.com/detail/improved-intra-42/hmflgigeigiejaogcgamkecmlibcpdgo)
 [<img src="https://www.mozilla.org/media/img/structured-data/logo-firefox-browser.fbc7ffbb50fd.png" width="128" alt="Mozilla Firefox" title="Download for Mozilla Firefox">](https://github.com/FreekBes/improved_intra/releases/latest/download/firefox.xpi)
 [<img src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/text-x-script-icon.png" width="128" alt="Google Chrome (macOS User Profile Script)" title="Use a script to add the extension to your macOS profile, to not have to reinstall it every login">](https://github.com/FreekBes/codam_auto_extension_installer/)
 
