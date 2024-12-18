@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   profiles.js                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/09 01:01:42 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/01 19:49:24 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   profiles.js                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
+/*   Updated: 2024/12/18 17:19:32 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,12 @@ async function showOutstandings() {
 				const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
 				if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
 					mainProjMark.classList.remove("icon-check-1");
-					mainProjMark.classList.add((json["data"][projectsUserId]["best"] >= 3 ? "icon-star-8" : "icon-star-1"));
+					if (json["data"][projectsUserId]["best"] >= 3)
+						mainProjMark.classList.add("icon-star-8");
+					else if (json["data"][projectsUserId]["best"] >= 2)
+						mainProjMark.classList.add("icon-2stars");
+					else
+						mainProjMark.classList.add("icon-star-1");
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
 
@@ -205,7 +210,12 @@ async function showOutstandings() {
 					const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
 					if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
 						otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
-						otherProjMark.classList.add((json["data"][projectsUserId]["all"][i] >= 3 ? "icon-star-8" : "icon-star-1"));
+						if (json["data"][projectsUserId]["best"] >= 3)
+							mainProjMark.classList.add("icon-star-8");
+						else if (json["data"][projectsUserId]["best"] >= 2)
+							mainProjMark.classList.add("icon-2stars");
+						else
+							mainProjMark.classList.add("icon-star-1");
 						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 					}
 				}
