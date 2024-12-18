@@ -78,7 +78,7 @@ h6:not(.profile-name) {
 .text-dark h4,
 .text-dark h5,
 .text-dark h6 {
-	color: #343a40 !important
+	color: var(--quaternary-text-color) !important;
 }
 
 h1 small, h1 .small,
@@ -821,6 +821,12 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 
 .coalition-messages #coalition-message {
 	background: var(--container-background-color) !important;
+}
+
+/* terms and conditions page */
+.scrollable-content-box {
+	background-color: var(--container-background-color) !important;
+	border-color: var(--general-border-color) !important;
 }
 
 /* shop page */
