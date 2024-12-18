@@ -20,8 +20,8 @@ function openClusterMap(event) {
 			highlightAfter = true;
 			break;
 		case "Paris":
-			const headerLoginName = getProfileUserName();
-			url = "https://stud42.fr/clusters/" + headerLoginName;
+			const cluster = location.split("-")[0]; // e.g. "bess-f2r4s9"
+			url = "https://friends42.fr/?cluster=" + encodeURIComponent(cluster) + "&p=" + encodeURIComponent(location);
 			break;
 		case "Kuala Lumpur":
 			url = "https://locatepeer.vercel.app/"+location;
