@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 21:00:05 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:12:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,21 +134,6 @@ function setGeneralImprovements() {
 				ev.currentTarget.blur();
 			});
 			sidebarMenu.insertBefore(hideButton, sidebarMenu.firstChild);
-		}
-	}
-}
-
-/**
- * Enable April Fools easter egg
- */
-function setAprilFools() {
-	iConsole.log("It's april first! Using Comic Sans everywhere");
-	const elements = document.querySelectorAll("body, a, .user-primary, text, .name, .login, .modal-header, h4, h3");
-	for (let i = 0; i < elements.length; i++) {
-		if (elements[i].nodeName === "TEXT") {
-			elements[i].setAttribute("font-family", "\"Comic Sans MS\", \"Comic Sans\", fantasy");
-		} else {
-			elements[i].style.fontFamily = "\"Comic Sans MS\", \"Comic Sans\", fantasy";
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 20:21:06 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:11:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ const pageUrl = getRawPageURL();
  */
 const improvementsPerUrl = [
 	{ handler: setGeneralImprovements },
-	{
-		guard: () => today.getMonth() === 3 && today.getDate() === 1,
-		handler: setAprilFools,
-	},
 	{
 		guard: () => window.location.hash === '#haha',
 		handler: setEasterEgg,
