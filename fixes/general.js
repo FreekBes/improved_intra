@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:27:40 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:38:50 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,13 +209,31 @@ function setInternshipAdministrationImprovements(match) {
 function setPageSlotsImprovements(match) {
 	const calendar = document.getElementById("calendar");
 	if (calendar) {
+		// Fix dates to be in local date format
+		const fcDayHeaders = calendar.querySelectorAll(".fc-day-header");
+		for (const fcDayHeader of fcDayHeaders) {
+			const dataDate = fcDayHeader.getAttribute("data-date");
+			const date = new Date(dataDate);
+			const dayOfWeek = dayToString(date.getDay()).substring(0, 3);
+			fcDayHeader.innerText = dayOfWeek + " " + date.toLocaleDateString([], {
+				day: "2-digit",
+				month: "2-digit",
+			});
+		}
+
+		// Fix times to be in local time format
 		const fcSlats = calendar.querySelector(".fc-slats");
 		if (fcSlats) {
 			const timeRows = fcSlats.querySelectorAll("tr[data-time]:not(.fc-minor)");
 			for (const timeRow of timeRows) {
+				const dataTime = timeRow.getAttribute("data-time");
+				const date = new Date("2023-01-01T" + dataTime);
 				const timeSpan = timeRow.querySelector(".fc-time span");
 				if (timeSpan) {
-					timeSpan.innerText = timeRow.getAttribute("data-time").substring(0, 5);
+					timeSpan.innerText = date.toLocaleTimeString([], {
+						hour: "2-digit",
+						minute: "2-digit",
+					});
 				}
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 17:03:38 by fbes          #+#    #+#                 */
-/*   Updated: 2022/06/23 19:10:24 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:37:36 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,28 @@ function parseLogTime(logTimeText) {
 // convert an amount of minutes into logtime text (HHhMM)
 function logTimeToString(logTime) {
 	return (Math.floor(logTime / 60) + "h" + (logTime % 60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+}
+
+// convert a Date.getDay() to a string
+function dayToString(day) {
+	switch (day) {
+		case 0:
+			return ("Sunday");
+		case 1:
+			return ("Monday");
+		case 2:
+			return ("Tuesday");
+		case 3:
+			return ("Wednesday");
+		case 4:
+			return ("Thursday");
+		case 5:
+			return ("Friday");
+		case 6:
+			return ("Saturday");
+		default:
+			return (null);
+	}
 }
 
 // convert a JS date to a string a date input would accept
