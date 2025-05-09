@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:38:50 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:48:39 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,49 @@ function setPageSlotsImprovements(match) {
 				}
 			}
 		}
+
+		// Function to fix a slot's displayed time to be in local time format
+		function slotTimeToLocalFormat(slot) {
+			const fcTime = slot.querySelector(".fc-time");
+			if (fcTime) {
+				const dataFull = fcTime.getAttribute("data-full");
+				const timeStart = dataFull.split(" - ")[0];
+				const timeEnd = dataFull.split(" - ")[1];
+				iConsole.log("Slot time start", timeStart);
+				iConsole.log("Slot time end", timeEnd);
+				const dateStart = new Date("2023-01-01 " + timeStart);
+				const dateEnd = new Date("2023-01-01 " + timeEnd);
+				const timespanSpan = fcTime.querySelector("span:first-child");
+				if (timespanSpan) {
+					timespanSpan.innerText = dateStart.toLocaleTimeString([], {
+						hour: "2-digit",
+						minute: "2-digit",
+					}) + " - " + dateEnd.toLocaleTimeString([], {
+						hour: "2-digit",
+						minute: "2-digit",
+					});
+				}
+			}
+		}
+
+		// Listen for newly created slots (class fc-time-grid-event is added to the slot)
+		const observer = new MutationObserver(function(mutations) {
+			for (const mutation of mutations) {
+				if (mutation.type === "childList") {
+					const addedNodes = mutation.addedNodes;
+					for (const node of addedNodes) {
+						if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("fc-time-grid-event")) {
+							iConsole.log("Found a slot", node);
+							slotTimeToLocalFormat(node);
+						}
+					}
+				}
+			}
+		});
+		observer.observe(calendar, {
+			childList: true,
+			subtree: true,
+		});
 	}
 }
 
