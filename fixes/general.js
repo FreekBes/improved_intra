@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:48:39 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:55:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,9 +209,8 @@ function setInternshipAdministrationImprovements(match) {
 function setPageSlotsImprovements(match) {
 	const calendar = document.getElementById("calendar");
 	if (calendar) {
-		// Fix dates to be in local date format
-		const fcDayHeaders = calendar.querySelectorAll(".fc-day-header");
-		for (const fcDayHeader of fcDayHeaders) {
+		// Function to fix header dates to be in local date format
+		function dayHeaderToLocalFormat(fcDayHeader) {
 			const dataDate = fcDayHeader.getAttribute("data-date");
 			const date = new Date(dataDate);
 			const dayOfWeek = dayToString(date.getDay()).substring(0, 3);
@@ -221,20 +220,31 @@ function setPageSlotsImprovements(match) {
 			});
 		}
 
-		// Fix times to be in local time format
+		// Apply the function to all existing day headers
+		const fcDayHeaders = calendar.querySelectorAll(".fc-day-header");
+		for (const fcDayHeader of fcDayHeaders) {
+			dayHeaderToLocalFormat(fcDayHeader);
+		}
+
+		// Function to fix first column times to be in local time format
+		function firstColumnTimeToLocalFormat(timeRow) {
+			const dataTime = timeRow.getAttribute("data-time");
+			const date = new Date("2023-01-01T" + dataTime);
+			const timeSpan = timeRow.querySelector(".fc-time span");
+			if (timeSpan) {
+				timeSpan.innerText = date.toLocaleTimeString([], {
+					hour: "2-digit",
+					minute: "2-digit",
+				});
+			}
+		}
+
+		// Apply the function to all existing first column times
 		const fcSlats = calendar.querySelector(".fc-slats");
 		if (fcSlats) {
 			const timeRows = fcSlats.querySelectorAll("tr[data-time]:not(.fc-minor)");
 			for (const timeRow of timeRows) {
-				const dataTime = timeRow.getAttribute("data-time");
-				const date = new Date("2023-01-01T" + dataTime);
-				const timeSpan = timeRow.querySelector(".fc-time span");
-				if (timeSpan) {
-					timeSpan.innerText = date.toLocaleTimeString([], {
-						hour: "2-digit",
-						minute: "2-digit",
-					});
-				}
+				firstColumnTimeToLocalFormat(timeRow);
 			}
 		}
 
@@ -262,15 +272,31 @@ function setPageSlotsImprovements(match) {
 			}
 		}
 
-		// Listen for newly created slots (class fc-time-grid-event is added to the slot)
+		// Listen for newly created date/time elements in the calendar, including slots.
+		// When the week view is reloaded due to switching weeks, the calendar will create new elements
+		// for the header and the first column too, so we also listen for those.
 		const observer = new MutationObserver(function(mutations) {
 			for (const mutation of mutations) {
-				if (mutation.type === "childList") {
-					const addedNodes = mutation.addedNodes;
-					for (const node of addedNodes) {
-						if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("fc-time-grid-event")) {
-							iConsole.log("Found a slot", node);
-							slotTimeToLocalFormat(node);
+				if (mutation.type !== "childList") {
+					continue;
+				}
+				for (const node of mutation.addedNodes) {
+					if (node.nodeType !== Node.ELEMENT_NODE) {
+						continue;
+					}
+					if (node.classList.contains("fc-time-grid-event")) {
+						iConsole.log("Found a slot", node);
+						slotTimeToLocalFormat(node);
+					}
+					else if (node.classList.contains("fc-day-header")) {
+						iConsole.log("Found a day header", node);
+						dayHeaderToLocalFormat(node);
+					}
+					else if (node.classList.contains("fc-slats")) {
+						iConsole.log("Found a \"slats\"", node);
+						const timeRows = node.querySelectorAll("tr[data-time]:not(.fc-minor)");
+						for (const timeRow of timeRows) {
+							firstColumnTimeToLocalFormat(timeRow);
 						}
 					}
 				}
