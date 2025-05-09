@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:12:02 by fbes          ########   odam.nl         */
+/*   Updated: 2025/05/09 13:27:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,26 @@ function setInternshipAdministrationImprovements(match) {
 			administrationSelectBox.appendChild(option);
 		});
 		iConsole.log("Sorted administration users select box by login alphabetically");
+	}
+}
+
+/**
+ * Improvements for the Manage slots page
+ * @param {*} match
+ */
+function setPageSlotsImprovements(match) {
+	const calendar = document.getElementById("calendar");
+	if (calendar) {
+		const fcSlats = calendar.querySelector(".fc-slats");
+		if (fcSlats) {
+			const timeRows = fcSlats.querySelectorAll("tr[data-time]:not(.fc-minor)");
+			for (const timeRow of timeRows) {
+				const timeSpan = timeRow.querySelector(".fc-time span");
+				if (timeSpan) {
+					timeSpan.innerText = timeRow.getAttribute("data-time").substring(0, 5);
+				}
+			}
+		}
 	}
 }
 
