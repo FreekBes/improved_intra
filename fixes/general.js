@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:55:46 by fbes          ########   odam.nl         */
+/*   Updated: 2025/06/01 17:29:26 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,13 +368,9 @@ function setPageUserImprovements(match) {
 			};
 
 			// Sort by completion date if the option sort-projects-date is active
-			if (optionIsActive(data, "sort-projects-date")) {
-				mainProjectItems.sort(completionDateSorterDesc);
-			}
-			// Default to alphabetic sorting otherwise
-			else {
-				mainProjectItems.sort(alphabeticalSorterAsc);
-			}
+			// else sort by alphabetical order
+			const sortProjectsDate = optionIsActive(data, "sort-projects-date");
+			mainProjectItems.sort((sortProjectsDate ? completionDateSorterDesc : alphabeticalSorterAsc));
 
 			// Place main project items in the correct order
 			mainProjectItems.forEach(item => {
@@ -418,7 +414,7 @@ function setPageUserImprovements(match) {
 				});
 			});
 
-			iConsole.log("Sorted marks listed by project name");
+			iConsole.log(`Sorted marks listed by ${sortProjectsDate ? "completion date" : "project name"}`);
 		});
 	}
 	else {
