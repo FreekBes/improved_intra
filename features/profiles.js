@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/01 18:01:23 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/01 18:15:22 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,25 @@ async function setCustomProfile() {
 	}
 }
 
+function addStarsToMark(markElem, value) {
+	if (!markElem) return;
+	markElem.classList.remove("icon-check-1");
+
+	if (value >= 3) {
+		markElem.classList.add("icon-star-8");
+	} else if (value >= 2) {
+		markElem.classList.add("icon-2stars");
+		const star1 = document.createElement("span");
+		star1.className = "icon-star-1";
+		const star2 = document.createElement("span");
+		star2.className = "icon-star-1";
+		markElem.insertBefore(star2, markElem.firstChild);
+		markElem.insertBefore(star1, markElem.firstChild);
+	} else if (value >= 1) {
+		markElem.classList.add("icon-star-1");
+	}
+}
+
 async function showOutstandings() {
 	if (optionIsActive(gExtSettings, "outstandings")) {
 		// add checkmarks and x for collapsed projects
@@ -207,19 +226,7 @@ async function showOutstandings() {
 				// apply best mark outstandings
 				const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
 				if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
-					mainProjMark.classList.remove("icon-check-1");
-					if (json["data"][projectsUserId]["best"] >= 3)
-						mainProjMark.classList.add("icon-star-8");
-					else if (json["data"][projectsUserId]["best"] >= 2) {
-						mainProjMark.classList.add("icon-2stars");
-						const star1 = document.createElement("span");
-						star1.className = "icon-star-1";
-						const star2 = document.createElement("span");
-						star2.className = "icon-star-1";
-						mainProjMark.insertBefore(star2, mainProjMark.firstChild);
-						mainProjMark.insertBefore(star1, mainProjMark.firstChild);
-					} else
-						mainProjMark.classList.add("icon-star-1");
+					addStarsToMark(mainProjMark, json["data"][projectsUserId]["best"]);
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
 
@@ -229,18 +236,7 @@ async function showOutstandings() {
 					const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
 					if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
 						otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
-						if (json["data"][projectsUserId]["best"] >= 3)
-							otherProjMark.classList.add("icon-star-8");
-						else if (json["data"][projectsUserId]["best"] >= 2) {
-							otherProjMark.classList.add("icon-2stars");
-							const star1 = document.createElement("span");
-							star1.className = "icon-star-1";
-							const star2 = document.createElement("span");
-							star2.className = "icon-star-1";
-							otherProjMark.insertBefore(star2, otherProjMark.firstChild);
-							otherProjMark.insertBefore(star1, otherProjMark.firstChild);
-						} else
-							otherProjMark.classList.add("icon-star-1");
+						addStarsToMark(otherProjMark, json["data"][projectsUserId]["best"]);
 						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 					}
 				}
