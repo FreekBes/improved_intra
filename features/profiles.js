@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2024/12/18 17:19:32 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/01 13:41:56 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,14 +181,27 @@ async function showOutstandings() {
 			}
 			else for (const projectsUserId in json["data"]) {
 				let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
+				let is_subproject = false;
+				
 				if (!mainProjItem) {
-					iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
-					continue;
+					mainProjItem = document.querySelector(".parent.project-item a[href*='/projects_users/"+projectsUserId+"']");
+
+					if (mainProjItem) is_subproject = true;
+					else {
+						iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
+						continue;
+					}
 				}
 
 				// go up to main project item
-				while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
-					mainProjItem = mainProjItem.parentNode;
+				if (is_subproject) {
+					while (!mainProjItem.classList.contains("project-item") && mainProjItem.parentNode) {
+						mainProjItem = mainProjItem.parentNode;
+					}
+				} else {		
+					while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
+						mainProjItem = mainProjItem.parentNode;
+					}
 				}
 
 				// apply best mark outstandings
@@ -197,9 +210,10 @@ async function showOutstandings() {
 					mainProjMark.classList.remove("icon-check-1");
 					if (json["data"][projectsUserId]["best"] >= 3)
 						mainProjMark.classList.add("icon-star-8");
-					else if (json["data"][projectsUserId]["best"] >= 2)
+					else if (json["data"][projectsUserId]["best"] >= 2) {
 						mainProjMark.classList.add("icon-2stars");
-					else
+						mainProjMark.innerHTML = '<span class="icon-star-1"></span><span class="icon-star-1"></span>' + mainProjMark.innerHTML;
+					} else
 						mainProjMark.classList.add("icon-star-1");
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
@@ -211,11 +225,12 @@ async function showOutstandings() {
 					if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
 						otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
 						if (json["data"][projectsUserId]["best"] >= 3)
-							mainProjMark.classList.add("icon-star-8");
-						else if (json["data"][projectsUserId]["best"] >= 2)
-							mainProjMark.classList.add("icon-2stars");
-						else
-							mainProjMark.classList.add("icon-star-1");
+							otherProjMark.classList.add("icon-star-8");
+						else if (json["data"][projectsUserId]["best"] >= 2) {
+							otherProjMark.classList.add("icon-2stars");
+    						otherProjMark.innerHTML = '<span class="icon-star-1"></span><span class="icon-star-1"></span>' + otherProjMark.innerHTML;
+						} else
+							otherProjMark.classList.add("icon-star-1");
 						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 					}
 				}

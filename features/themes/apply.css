@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2024/12/18 17:07:44 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/01 13:39:27 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -740,14 +740,23 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	background-color: var(--list-hover-background-color) !important;
 }
 
-.icon-2stars::before {
-	content: "\e09d\e09d";
-	font-size: 11px;
-	height: 20px;
-	padding-top: 6px;
-	letter-spacing: -2px;
-	font-weight: 900 !important;
-	transform: translateX(-1px);
+.icon-2stars {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	overflow: hidden;
+	vertical-align: middle;
+}
+.icon-2stars .icon-star-1 {
+	font-size: 0.7em;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	transform: translateX(-3px);
+}
+.icon-2stars .icon-star-1:last-child {
+	margin-right: 0;
 }
 
 /* slots page */
