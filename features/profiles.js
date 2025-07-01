@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/01 13:41:56 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/01 18:01:23 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,12 @@ async function showOutstandings() {
 						mainProjMark.classList.add("icon-star-8");
 					else if (json["data"][projectsUserId]["best"] >= 2) {
 						mainProjMark.classList.add("icon-2stars");
-						mainProjMark.innerHTML = '<span class="icon-star-1"></span><span class="icon-star-1"></span>' + mainProjMark.innerHTML;
+						const star1 = document.createElement("span");
+						star1.className = "icon-star-1";
+						const star2 = document.createElement("span");
+						star2.className = "icon-star-1";
+						mainProjMark.insertBefore(star2, mainProjMark.firstChild);
+						mainProjMark.insertBefore(star1, mainProjMark.firstChild);
 					} else
 						mainProjMark.classList.add("icon-star-1");
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
@@ -228,7 +233,12 @@ async function showOutstandings() {
 							otherProjMark.classList.add("icon-star-8");
 						else if (json["data"][projectsUserId]["best"] >= 2) {
 							otherProjMark.classList.add("icon-2stars");
-    						otherProjMark.innerHTML = '<span class="icon-star-1"></span><span class="icon-star-1"></span>' + otherProjMark.innerHTML;
+							const star1 = document.createElement("span");
+							star1.className = "icon-star-1";
+							const star2 = document.createElement("span");
+							star2.className = "icon-star-1";
+							otherProjMark.insertBefore(star2, otherProjMark.firstChild);
+							otherProjMark.insertBefore(star1, otherProjMark.firstChild);
 						} else
 							otherProjMark.classList.add("icon-star-1");
 						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));

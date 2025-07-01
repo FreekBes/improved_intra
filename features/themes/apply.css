@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/01 13:39:27 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/01 18:02:36 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -745,7 +745,6 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 	align-items: center;
 	justify-content: center;
 	width: 1em;
-	overflow: hidden;
 	vertical-align: middle;
 }
 .icon-2stars .icon-star-1 {
