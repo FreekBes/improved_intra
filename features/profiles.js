@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/02 10:24:58 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/02 10:44:18 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ async function showOutstandings() {
 				let is_subproject = false;
 				
 				if (!mainProjItem) {
+					// if we don't find the project we try again for the subprojetcs (rushes for example)
 					mainProjItem = document.querySelector(".parent.project-item a[href*='/projects_users/"+projectsUserId+"']");
 
 					if (mainProjItem) is_subproject = true;
@@ -212,7 +213,7 @@ async function showOutstandings() {
 					}
 				}
 
-				// go up to main project item
+				// go up to main project item (different parent class if it is a main or subproject)
 				if (is_subproject) {
 					while (!mainProjItem.classList.contains("project-item") && mainProjItem.parentNode) {
 						mainProjItem = mainProjItem.parentNode;
@@ -230,6 +231,7 @@ async function showOutstandings() {
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
 
+				// a subproject can't have more subprojects so we continue
 				if (is_subproject) continue ;
 
 				// apply outstandings for other efforts
