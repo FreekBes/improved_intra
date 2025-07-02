@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/01 18:15:22 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/02 10:24:58 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ async function showOutstandings() {
 					addStarsToMark(mainProjMark, json["data"][projectsUserId]["best"]);
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
+
+				if (is_subproject) continue ;
 
 				// apply outstandings for other efforts
 				const otherProjItems = document.querySelectorAll(".project-item:not(.main-project-item) a[href*='/projects_users/"+projectsUserId+"']");
