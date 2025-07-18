@@ -16,8 +16,7 @@ function openClusterMap(event) {
 	let highlightAfter = false;
 	switch (getCampus()) {
 		case "Amsterdam":
-			url = "https://codamhero.dev/v2/clusters.php";
-			highlightAfter = true;
+			url = "https://hero.codam.nl/clustermap/live#" + encodeURIComponent(location);
 			break;
 		case "Paris":
 			const cluster = location.split("-")[0]; // e.g. "bess-f2r4s9"
