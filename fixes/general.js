@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
-/*   Updated: 2025/06/01 17:29:26 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/18 18:45:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,74 @@ function setPageSlotsImprovements(match) {
 			childList: true,
 			subtree: true,
 		});
+	}
+}
+
+/**
+ * Improvements for evaluations listed in upcoming evaluations container on profiles and the Intra dashboard
+ * @param {*} match If on a user profile page, the login of the user in question
+ */
+async function setPageEvaluationsImprovements(match) {
+	// Find the evaluations container
+	const collapseEvaluations = document.getElementById("collapseEvaluations");
+	if (!collapseEvaluations) {
+		iConsole.warn("Could not find evaluations container. Unable to create links to projects to evaluate. ");
+		return;
+	}
+
+	const evaluations = collapseEvaluations.querySelectorAll(".project-item");
+	for (const evaluation of evaluations) {
+		// Check if this is not a feedback reminder
+		if (evaluation.innerText.includes("left to feedback")) {
+			iConsole.log("Skipping creating a link to the project for an evaluation because it is a feedback reminder: ", evaluation);
+			continue;
+		}
+
+		// Get the text container of the evaluation reminder
+		const projectItemText = evaluation.querySelector(".project-item-text");
+		if (!projectItemText) {
+			iConsole.warn("Could not find project item text in evaluation. Unable to create a link to project to evaluate. Evaluation container: ", evaluation);
+			continue;
+		}
+
+		// Get the last text node in the project item text
+		const textNodes = Array.from(projectItemText.childNodes).filter(node => node.nodeType === Node.TEXT_NODE);
+		if (textNodes.length === 0) {
+			iConsole.warn("Could not find text nodes in project item text. Unable to create a link to project to evaluate. Evaluation container: ", evaluation);
+			continue;
+		}
+		const lastTextNode = textNodes[textNodes.length - 1];
+
+		// Find the project to be evaluated (after the word "on")
+		const projectMatch = lastTextNode.textContent.match(/(\s+.+)?on (.+)/);
+		if (!projectMatch) {
+			iConsole.warn(`Could not find project to be evaluated in evaluation text "${lastTextNode.textContent}". Unable to make the project clickable. Evaluation container: `, evaluation);
+			continue;
+		}
+
+		// Find the slug of the project to be evaluated.
+		// Example: "Work Experience I-Work Experience I - Company Final Evaluation"
+		// Becomes: "https://projects.intra.42.fr/projects/work-experience-i-work-experience-i-company-final-evaluation"
+		// Try reaching the slug page first to see if it exists, if it does not, attempt with the "42cursus-" prefix.
+		const projectName = projectMatch[2].trim();
+		let projectSlug = projectName.replace(/ - /g, "-").replace(/ /g, "-").toLowerCase();
+		iConsole.log("Found project to be evaluated, checking if page exists for ", projectName, projectSlug);
+		if (!(await urlExists(`https://projects.intra.42.fr/projects/${projectSlug}`))) {
+			iConsole.log(`Project slug ${projectSlug} does not exist, trying with 42cursus prefix without checking if it really works.`);
+			projectSlug = `42cursus-${projectSlug}`;
+		}
+
+		// Replace the text in the text node with a link to the project
+		const projectLink = document.createElement("a");
+		projectLink.href = `https://projects.intra.42.fr/projects/${projectSlug}`;
+		projectLink.textContent = projectName;
+		projectLink.className = "project-item-link";
+		projectItemText.insertBefore(projectLink, lastTextNode);
+
+		// Remove text node, can't update it.
+		// Create a new text node that contains the old text before "on", "on" and no project name.
+		lastTextNode.remove();
+		projectItemText.insertBefore(document.createTextNode(projectMatch[1] + " on "), projectLink);
 	}
 }
 

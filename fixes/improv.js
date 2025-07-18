@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2025/05/09 13:18:56 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/18 16:02:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ const improvementsPerUrl = [
 	{
 		guard: () => /^profile\.intra\.42\.fr\/slots\/?$/.exec(pageUrl),
 		handler: setPageSlotsImprovements,
+	},
+	{
+		guard: () => /^profile\.intra\.42\.fr\/?(users\/(?<login>[a-z0-9-_]+)\/?)?$/.exec(pageUrl),
+		handler: setPageEvaluationsImprovements,
 	},
 	{
 		guard: () => /^profile\.intra\.42\.fr\/v3_early_access\/?$/.exec(pageUrl),
