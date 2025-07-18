@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   apply.css                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/01 18:02:36 by lilefebv         ###   ########lyon.fr   */
+/*                                                        ::::::::            */
+/*   apply.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
+/*   Updated: 2025/07/18 15:37:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -738,24 +738,6 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 #partnerships .partnership-item:hover,
 #accreditations .partnership-item:hover {
 	background-color: var(--list-hover-background-color) !important;
-}
-
-.icon-2stars {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 1em;
-	vertical-align: middle;
-}
-.icon-2stars .icon-star-1 {
-	font-size: 0.7em;
-	line-height: 1;
-	margin: 0;
-	padding: 0;
-	transform: translateX(-3px);
-}
-.icon-2stars .icon-star-1:last-child {
-	margin-right: 0;
 }
 
 /* slots page */

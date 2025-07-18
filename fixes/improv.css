@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2024/01/17 20:50:59 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/18 15:41:10 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,25 @@ li.scaleteam-list-item .rating {
 	text-align: center !important;
 	width: 54px !important;
 	white-space: nowrap !important;
+}
+
+/* 2 stars for outstanding projects with 2 outstanding flags */
+.icon-2stars {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	transform: translateX(-3px); /* to make sure the mark aligns */
+}
+.icon-2stars .icon-star-1 {
+	font-size: 0.7em;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	transform: translateX(-3px);
+}
+.icon-2stars .icon-star-1:last-child {
+	margin-right: 0;
 }
 
 /* horizontally align collapsed project-item marks (on user profiles) */
