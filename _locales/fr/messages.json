@@ -1,10 +1,10 @@
 {
 	"appName": {
-		"message": "Intra Amélioré (École 42)",
+		"message": "Improved Intra 42",
 		"description": "The name of the extension"
 	},
 	"shortAppName": {
-		"message": "Intra Améliore (42)",
+		"message": "Improved Intra 42",
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
