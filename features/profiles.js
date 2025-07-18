@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2024/12/18 17:19:32 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/07/02 10:44:18 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,25 @@ async function setCustomProfile() {
 	}
 }
 
+function addStarsToMark(markElem, value) {
+	if (!markElem) return;
+	markElem.classList.remove("icon-check-1");
+
+	if (value >= 3) {
+		markElem.classList.add("icon-star-8");
+	} else if (value >= 2) {
+		markElem.classList.add("icon-2stars");
+		const star1 = document.createElement("span");
+		star1.className = "icon-star-1";
+		const star2 = document.createElement("span");
+		star2.className = "icon-star-1";
+		markElem.insertBefore(star2, markElem.firstChild);
+		markElem.insertBefore(star1, markElem.firstChild);
+	} else if (value >= 1) {
+		markElem.classList.add("icon-star-1");
+	}
+}
+
 async function showOutstandings() {
 	if (optionIsActive(gExtSettings, "outstandings")) {
 		// add checkmarks and x for collapsed projects
@@ -181,28 +200,39 @@ async function showOutstandings() {
 			}
 			else for (const projectsUserId in json["data"]) {
 				let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
+				let is_subproject = false;
+				
 				if (!mainProjItem) {
-					iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
-					continue;
+					// if we don't find the project we try again for the subprojetcs (rushes for example)
+					mainProjItem = document.querySelector(".parent.project-item a[href*='/projects_users/"+projectsUserId+"']");
+
+					if (mainProjItem) is_subproject = true;
+					else {
+						iConsole.warn("Element .main-project-item belonging to ProjectsUser " + projectsUserId + " not found");
+						continue;
+					}
 				}
 
-				// go up to main project item
-				while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
-					mainProjItem = mainProjItem.parentNode;
+				// go up to main project item (different parent class if it is a main or subproject)
+				if (is_subproject) {
+					while (!mainProjItem.classList.contains("project-item") && mainProjItem.parentNode) {
+						mainProjItem = mainProjItem.parentNode;
+					}
+				} else {		
+					while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
+						mainProjItem = mainProjItem.parentNode;
+					}
 				}
 
 				// apply best mark outstandings
 				const mainProjMark = mainProjItem.querySelector(".pull-right.text-success"); // only if mark is considered a success
 				if (mainProjMark && json["data"][projectsUserId]["best"] > 0) {
-					mainProjMark.classList.remove("icon-check-1");
-					if (json["data"][projectsUserId]["best"] >= 3)
-						mainProjMark.classList.add("icon-star-8");
-					else if (json["data"][projectsUserId]["best"] >= 2)
-						mainProjMark.classList.add("icon-2stars");
-					else
-						mainProjMark.classList.add("icon-star-1");
+					addStarsToMark(mainProjMark, json["data"][projectsUserId]["best"]);
 					mainProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["best"] + " outstanding" + (json["data"][projectsUserId]["best"] > 1 ? "s" : ""));
 				}
+
+				// a subproject can't have more subprojects so we continue
+				if (is_subproject) continue ;
 
 				// apply outstandings for other efforts
 				const otherProjItems = document.querySelectorAll(".project-item:not(.main-project-item) a[href*='/projects_users/"+projectsUserId+"']");
@@ -210,12 +240,7 @@ async function showOutstandings() {
 					const otherProjMark = otherProjItems[i].parentNode.querySelector(".pull-right.text-success"); // only if mark is considered a success
 					if (otherProjMark && json["data"][projectsUserId]["all"][i] > 0) {
 						otherProjMark.classList.remove("icon-check-1"); // should actually not be here, but for just in case try to remove it anyways
-						if (json["data"][projectsUserId]["best"] >= 3)
-							mainProjMark.classList.add("icon-star-8");
-						else if (json["data"][projectsUserId]["best"] >= 2)
-							mainProjMark.classList.add("icon-2stars");
-						else
-							mainProjMark.classList.add("icon-star-1");
+						addStarsToMark(otherProjMark, json["data"][projectsUserId]["best"]);
 						otherProjMark.setAttribute("title", "Received " + json["data"][projectsUserId]["all"][i] + " outstanding" + (json["data"][projectsUserId]["all"][i] > 1 ? "s" : ""));
 					}
 				}

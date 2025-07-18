@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   apply.css                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 00:38:03 by fbes              #+#    #+#             */
-/*   Updated: 2024/12/18 17:07:44 by lilefebv         ###   ########lyon.fr   */
+/*                                                        ::::::::            */
+/*   apply.css                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
+/*   Updated: 2025/07/18 15:37:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -738,16 +738,6 @@ li.scaleteam-list-item .rating:not([data-positive=""]) {
 #partnerships .partnership-item:hover,
 #accreditations .partnership-item:hover {
 	background-color: var(--list-hover-background-color) !important;
-}
-
-.icon-2stars::before {
-	content: "\e09d\e09d";
-	font-size: 11px;
-	height: 20px;
-	padding-top: 6px;
-	letter-spacing: -2px;
-	font-weight: 900 !important;
-	transform: translateX(-1px);
 }
 
 /* slots page */
