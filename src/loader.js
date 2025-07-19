@@ -2,6 +2,7 @@ iConsole.log("Loading Improved Intra...");
 
 const INTRA_VERSION = Utils.detectIntraVersion();
 const RAW_PAGE_URL = Utils.getRawPageUrl();
+const EXT_ICONS_PATH_PREFIX = "images/icons/";
 
 /**
  * Definition of the improvements that can be loaded on a specific URL

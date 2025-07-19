@@ -49,7 +49,9 @@
 		},
 		{
 			"resources": [
-				"images/*.png"
+				"images/*.png",
+				"images/icons/*.png",
+				"images/icons/*.svg"
 			],
 			"matches": [ "<all_urls>" ]
 		}

@@ -192,6 +192,153 @@ const ProfileV3 = {
 	},
 
 	/**
+	 * Add a piece of information to the list of user info in the profile header.
+	 * @param {*} userInfosList The element containing the user info list.
+	 * @param {*} itemId The ID of the item to add.
+	 * @param {*} itemTitle The hover title of the item.
+	 * @param {*} itemIcon A URL to an icon to use for the item.
+	 * @param {*} itemContent The displayable text content of the item.
+	 * @param {*} itemLink If the item should be a link, the URL to link to. If null, the item will not be a link.
+	 * @returns A newly created, already added button element.
+	 */
+	addProfileInfosItem: (userInfosList, itemId, itemTitle, itemIcon, itemContent, itemLink=null) => {
+		const button = document.createElement("button");
+		button.setAttribute("data-state", "closed");
+		button.classList.add("cursor-default", "iintra-profile-infos-item");
+		button.setAttribute("data-iintra-profile-info-item-id", itemId);
+		button.setAttribute("title", itemTitle); // TODO: use Intra's tooltip system
+
+		const innerButton = document.createElement("div");
+		innerButton.classList.add("flex", "flex-row", "items-center", "gap-1");
+		button.appendChild(innerButton);
+
+		const icon = document.createElement("img");
+		icon.setAttribute("width", "15");
+		icon.setAttribute("height", "15");
+		icon.classList.add("mr-2");
+		icon.setAttribute("src", itemIcon);
+		innerButton.appendChild(icon);
+
+		const text = document.createElement("div");
+		text.classList.add("text-white");
+		if (!itemLink) {
+			text.innerText = itemContent;
+		}
+		else {
+			const linkWrapper = document.createElement("div"); // Why, you may ask? Because Intra does this too.
+			linkWrapper.classList.add("flex", "flex-row", "items-center", "gap-1");
+			text.appendChild(linkWrapper);
+
+			const link = document.createElement("a");
+			link.classList.add("hover:underline", "decoration-[hsl(var(--legacy-main)]");
+			link.setAttribute("href", itemLink);
+			link.setAttribute("target", "_blank");
+			// TODO: set color to coalition color
+			link.innerText = itemContent;
+			linkWrapper.appendChild(link);
+		}
+		innerButton.appendChild(text);
+
+		userInfosList.appendChild(button);
+		return button;
+	},
+
+	setupProfileLinks: (header, profileData) => {
+		// Find the last box in the header
+		const userInfosColumn = header.parentElement.querySelector("header > div > div:last-child");
+		if (!userInfosColumn) {
+			iConsole.error("No user info column found in the profile header to apply links.");
+			return;
+		}
+		if (userInfosColumn.children.length != 2) {
+			iConsole.error("Unexpected number of children in the user info column, expected 2 but found " + userInfosColumn.children.length);
+			return;
+		}
+		const userInfosBox = userInfosColumn.children[1];
+		if (!userInfosBox || !userInfosBox.firstElementChild) {
+			iConsole.error("No user info box found in the profile header to apply links.");
+			return;
+		}
+
+		// Make sure the links are not too close to the edge
+		userInfosBox.style.paddingTop = "24px";
+		userInfosBox.style.paddingBottom = "24px";
+
+		const userInfosList = userInfosBox.firstElementChild;
+		// Create link to user's git profile
+		try {
+			if (profileData.link_git) {
+				// linkGit is not a direct url, it is actually a combination of a platform and a username
+				// e.g. github.com@FreekBes or gitlab.com@FreekBes
+				// this is to prevent people from using random websites as their "git profile"
+				if (profileData.link_git.indexOf("@") > -1) {
+					linkGit = profileData.link_git.split("@");
+					if (linkGit.length == 2) {
+						linkGit[0] = linkGit[0].toLowerCase();
+						const gitPlatforms = {
+							"github.com": {
+								"name": "GitHub",
+								"profile_url": "https://www.github.com/",
+								"icon": chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "github.svg")
+							},
+							"gitlab.com": {
+								"name": "GitLab",
+								"profile_url": "https://www.gitlab.com/",
+								"icon": chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "gitlab.svg")
+							},
+							"bitbucket.org": {
+								"name": "Bitbucket",
+								"profile_url": "https://www.bitbucket.org/",
+								"icon": chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "bitbucket.svg")
+							},
+							"codeberg.org": {
+								"name": "Codeberg",
+								"profile_url": "https://www.codeberg.org/",
+								"icon": chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "git.svg")
+							},
+							"sr.ht": {
+								"name": "SourceHut",
+								"profile_url": "https://www.sr.ht/",
+								"icon": chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "git.svg")
+							}
+						};
+						if (!(linkGit[0] in gitPlatforms)) {
+							throw "Unknown git platform: " + linkGit[0];
+						}
+						const link = ProfileV3.addProfileInfosItem(userInfosList, "git", "Git", gitPlatforms[linkGit[0]]["icon"], gitPlatforms[linkGit[0]]["name"], gitPlatforms[linkGit[0]]["profile_url"] + linkGit[1]);
+					}
+					else {
+						throw "Length of split on '@' variable linkGit in setGitHubLink() did not equal 2";
+					}
+				}
+				else {
+					throw "Unexpected value for link_git: " + linkGit;
+				}
+			}
+		}
+		catch (error) {
+			iConsole.error("Failed to set up Git link in profile header: " + error);
+		}
+
+		// Create link to user's website
+		try {
+			if (profileData.link_web) {
+				const linkWebItem = ProfileV3.addProfileInfosItem(userInfosList, "web", "Personal website", chrome.runtime.getURL(EXT_ICONS_PATH_PREFIX + "globe.svg"), "Personal website", profileData.link_web);
+				linkWebItem.querySelector("a").addEventListener("click", function(ev) {
+					ev.preventDefault();
+					const doOpen = confirm(gUName + "'s personal website is set to a page hosted on the following domain:\n\n" + ev.currentTarget.hostname + "\n\nAre you sure you want to open it?");
+					if (doOpen) {
+						window.open(ev.currentTarget.href);
+					}
+				});
+			}
+		}
+		catch (error) {
+			iConsole.error("Failed to set up website link in profile header: " + error);
+		}
+	},
+
+	/**
 	 * Setup the profile header with the necessary improvements.
 	 * @param {Element} header The header element to improve.
 	 * @returns {void}
@@ -206,6 +353,10 @@ const ProfileV3 = {
 			}
 			iConsole.log("Setting up profile header for " + login, profileData);
 			ProfileV3.setupProfileBannerImage(header, profileData);
+			ProfileV3.setupProfileLinks(header, profileData);
+
+			// Prevent the header from being limited in height
+			header.classList.remove("xl:h-72");
 		} catch (error) {
 			iConsole.error("Error setting up profile for " + login, error);
 		}
