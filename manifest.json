@@ -31,34 +31,58 @@
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"options/options.html"
+				"options/options.html",
+				"src/shared/styling/fonts.css"
 			],
-			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ]
+			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*" ]
+		},
+		{
+			"resources": [
+				"src/shared/styling/themes/dark.css",
+				"src/shared/styling/themes/light.css",
+				"src/shared/styling/themes/placeholder.css",
+				"src/shared/styling/themes/colors/*.css",
+				"src/v2/themes/apply.css",
+				"src/v3/themes/apply.css"
+			],
+			"matches": [ "*://*.intra.42.fr/*" ]
+		},
+		{
+			"resources": [
+				"images/*.png"
+			],
+			"matches": [ "<all_urls>" ]
 		}
 	],
 	"content_scripts": [
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"css": [ "src/shared/styling/fonts.css" ],
-			"js": [ "src/utils/utils.js", "src/utils/console.js" ],
+			"js": [ "src/utils/utils.js", "src/utils/console.js", "src/utils/storage.js" ],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://iintra.freekb.es/*" ],
-			"js": [ "src/utils/utils.js", "src/utils/console.js" ],
+			"js": [ "src/utils/utils.js", "src/utils/console.js", "src/utils/storage.js" ],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://profile-v3.intra.42.fr/*" ],
-			"exclude_matches": [ "*://profile-v3.intra.42.fr/users/*" ],
-			"css": [ "src/v3/dashboard/styles.css" ],
-			"js": [ "src/v3/dashboard/scripts.js" ],
-			"run_at": "document_end"
+			"matches": [ "*://*.intra.42.fr/*" ],
+			"js": [ "src/shared/styling/themes/themeloader.js", "src/v2/themes/apply.js", "src/v3/themes/apply.js" ],
+			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "src/shared/common.css" ],
-			"js": [ "src/shared/common.js", "src/loader.js" ],
+			"js": [
+				"src/v3/dashboard/scripts.js",
+				"src/v3/profiles/scripts.js"
+			],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [ "*://*.intra.42.fr/*" ],
+			"css": [ "src/shared/common/common.css", "src/v2/fixes.css", "src/v3/fixes.css" ],
+			"js": [ "src/shared/common/common.js", "src/loader.js" ],
 			"run_at": "document_end"
 		}
 	],

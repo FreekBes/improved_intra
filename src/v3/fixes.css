@@ -1,0 +1,20 @@
+/*
+Remove the pointer cursor from the days in the logtime chart.
+Who the fuck decided it was a good idea to make every logtime day a button.
+Clicking on them leads nowhere. What the fuck.
+*/
+.iintra-v3 .iintra-dashboard-box-logtime td > button,
+.iintra-v3 .iintra-dashboard-box-logtime td.cursor-pointer,
+.iintra-v3 .iintra-profile-box-logtime td > button,
+.iintra-v3 .iintra-profile-box-logtime td.cursor-pointer {
+	cursor: default !important;
+}
+
+/*
+Set the border color of the days in the logtime chart to transparent, like they should be.
+No white border colors on white background colors. Useless.
+*/
+.iintra-v3 .iintra-dashboard-box-logtime td,
+.iintra-v3 .iintra-profile-box-logtime td {
+	border-color: transparent !important;
+}

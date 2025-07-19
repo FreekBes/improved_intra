@@ -13,6 +13,18 @@ const RAW_PAGE_URL = Utils.getRawPageUrl();
  */
 const IMPROVEMENTS = [
 	{
+		name: "Theme Applier V2",
+		intraVersions: ["v2"],
+		guard: null, // Always load the theme applier
+		handler: ThemeApplyV2.apply
+	},
+	{
+		name: "Theme Applier V3",
+		intraVersions: ["v3"],
+		guard: null, // Always load the theme applier
+		handler: ThemeApplyV3.apply
+	},
+	{
 		name: "Haha Easter Egg",
 		intraVersions: ["v2", "v3"],
 		guard: () => window.location.hash === "#haha",
@@ -23,6 +35,12 @@ const IMPROVEMENTS = [
 		intraVersions: ["v3"],
 		guard: () => /^profile-v3\.intra\.42\.fr\/?$/.exec(RAW_PAGE_URL),
 		handler: DashboardV3.init
+	},
+	{
+		name: "Profile V3",
+		intraVersions: ["v3"],
+		guard: () => /^profile-v3\.intra\.42\.fr\/users\/(.+)\/?$/.exec(RAW_PAGE_URL),
+		handler: ProfileV3.init
 	}
 ];
 
@@ -31,6 +49,7 @@ const Loader = {
 	 * Load an improvement
 	 * @param {Object} improvement The improvement to load
 	 * @param {any} pipe The output of the guard function, if any
+	 * @returns {void}
 	 */
 	loadImprovement: (improvement, pipe) => {
 		iConsole.log(`Loading improvement: ${improvement.name}`);
@@ -44,18 +63,24 @@ const Loader = {
 	detectImprovementsToLoad: () => {
 		IMPROVEMENTS.forEach((improvement) => {
 			if (!improvement.intraVersions.includes(INTRA_VERSION)) {
+				iConsole.log(`Skipping improvement '${improvement.name}' for Intra version '${INTRA_VERSION}'`);
 				return;
 			}
-			if (improvement.guard) {
-				// Guard present, only load the improvement if the guard returns anything that ==true in Javascript.
-				const pipe = improvement.guard();
-				if (pipe) {
-					Loader.loadImprovement(improvement, pipe);
+			try {
+				if (improvement.guard) {
+					// Guard present, only load the improvement if the guard returns anything that ==true in Javascript.
+					const pipe = improvement.guard();
+					if (pipe) {
+						Loader.loadImprovement(improvement, pipe);
+					}
+				}
+				else {
+					// No guard, always load the improvement
+					Loader.loadImprovement(improvement, null);
 				}
 			}
-			else {
-				// No guard, always load the improvement
-				Loader.loadImprovement(improvement, null);
+			catch (err) {
+				iConsole.error(`Error loading improvement '${improvement.name}':`, err);
 			}
 		});
 	}

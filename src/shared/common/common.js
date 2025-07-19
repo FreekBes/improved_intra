@@ -1,4 +1,10 @@
 const Common = {
+
+	/**
+	 * Enable the Haha Easter Egg (random rotation of elements on the page)
+	 * This will apply a random rotation to all elements on the page and any future elements added
+	 * @returns {void}
+	 */
 	enableHahaEasterEgg: () => {
 		const applyEasterEggToElement = function(element) {
 			element.classList.add("funnyhaha");

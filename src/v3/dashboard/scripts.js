@@ -1,19 +1,19 @@
 const DashboardV3 = {
 	dashboard_boxes_found: 0,
 	dashboard_boxes: [
-		{
-			name: "Announcements",
-			element: null,
-			loadDetector: (node) => {
-				// Check if any element in this node has the class "slider-container"
-				if (node.nodeType !== Node.ELEMENT_NODE) return false;
-				const sliderContainer = node.querySelector(".slider-container");
-				return sliderContainer;
-			},
-			improve() {
-				iConsole.log("Improving Announcements box");
-			},
-		},
+		// {
+		// 	name: "Announcements",
+		// 	element: null,
+		// 	loadDetector: (node) => {
+		// 		// Check if any element in this node has the class "slider-container"
+		// 		if (node.nodeType !== Node.ELEMENT_NODE) return false;
+		// 		const sliderContainer = node.querySelector(".slider-container");
+		// 		return sliderContainer;
+		// 	},
+		// 	improve() {
+		// 		iConsole.log("Improving Announcements box");
+		// 	},
+		// },
 		{
 			name: "Agenda",
 			element: null,
@@ -25,7 +25,7 @@ const DashboardV3 = {
 			},
 		},
 		{
-			name: "Pending Evaluations",
+			name: "Evaluations",
 			element: null,
 			loadDetector: (node) => {
 				return DashboardV3.findBoxWithHeader(node, "pending evaluations");
@@ -45,7 +45,7 @@ const DashboardV3 = {
 			},
 		},
 		{
-			name: "Last Achievements",
+			name: "Achievements",
 			element: null,
 			loadDetector: (node) => {
 				return DashboardV3.findBoxWithHeader(node, "last achievements");
@@ -94,7 +94,7 @@ const DashboardV3 = {
 	 */
 	findBoxWithHeader: (node, headerText) => {
 		if (node.nodeType !== Node.ELEMENT_NODE) return false;
-		const allElements = node.querySelectorAll("*");
+		const allElements = node.querySelectorAll(".font-bold.uppercase");
 		for (let i = 0; i < allElements.length; i++) {
 			if (allElements[i].innerText && allElements[i].innerText.toLowerCase() === headerText) {
 				// Find the boxelement by looking for the grid parent
@@ -103,6 +103,7 @@ const DashboardV3 = {
 					boxElement = boxElement.parentElement;
 				}
 				if (!boxElement) continue; // In case the text appears in a different context
+				allElements[i].classList.add("iintra-dashboard-box-header");
 				return boxElement;
 			}
 		}
@@ -138,6 +139,13 @@ const DashboardV3 = {
 									iConsole.log("All Dashboard V3 boxes found, disconnecting observer");
 									observer.disconnect();
 								}
+
+								// Apply iintra-dashboard-bg class to the container of the boxes
+								let boxContainer = boxElement.parentElement;
+								while (!boxContainer.classList.contains("grid") && boxContainer.parentElement) {
+									boxContainer = boxContainer.parentElement;
+								}
+								boxContainer.classList.add("iintra-dashboard-bg");
 							}
 						});
 					});

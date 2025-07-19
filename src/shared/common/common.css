@@ -1,0 +1,131 @@
+/* START ANIMATIONS */
+/* transition timing for hover end */
+a,
+button,
+input,
+.iintra-v2 .user-poste-infos.improved,
+.iintra-v2 .school-record-button.dropdown-toggle,
+.iintra-v2 a.simple-link,
+.iintra-v2 .profile-item .user-primary .user-infos .button-actions a,
+.iintra-v2 .main-navbar .main-navbar-user-nav > .dropdown > a > span,
+.iintra-v2 .chosen-container .chosen-results li,
+.iintra-v3 [class*="hover:"] {
+	transition: 0.075s ease-out !important;
+}
+
+/* transition timing for hover start */
+a:hover,
+button:hover,
+input:hover,
+input:focus,
+.iintra-v2 .user-poste-infos.improved:hover,
+.iintra-v2 .school-record-button.dropdown-toggle,
+.iintra-v2 a.simple-link:hover,
+.iintra-v2 .profile-item .user-primary .user-infos .button-actions a:hover,
+.iintra-v2 .main-navbar .main-navbar-user-nav > .dropdown > a:hover > span,
+.iintra-v2 .chosen-container .chosen-results li.highlighted,
+.iintra-v3 [class*="hover:"]:hover {
+	transition: 0s ease-in !important;
+}
+/* END ANIMATIONS */
+
+/* START DROPDOWN MENU ANIMATION */
+.iintra-v2 .dropdown-menu,
+.iintra-v2 .tt-menu,
+.iintra-v2 .notifications-container,
+.iintra-v2 .chosen-drop {
+	transition: 0.05s ease-in !important;
+	display: block !important;
+	transform-origin: top;
+	transform: scaleY(0);
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+.iintra-v2 .bootstrap-datetimepicker-widget.dropdown-menu,
+.iintra-v2 .open > .dropdown-menu,
+.iintra-v2 .tt-menu.tt-open,
+.iintra-v2 .notifications-container.open,
+.iintra-v2 .chosen-container-active > .chosen-drop {
+	display: block !important;
+	transform: scaleY(1);
+	opacity: 1 !important;
+	pointer-events: all !important;
+}
+
+.iintra-v2 .tt-menu[aria-expanded="false"] {
+	display: block !important;
+	opacity: 0 !important;
+}
+/* END DROPDOWN MENU ANIMATION */
+
+/* START ANIMATIONS FOR COALITION FLAGS */
+.iintra-v2 a .coalition-flag .coalition-flag--flag,
+.iintra-v2 a .coalition-flag-mini .coalition-flag--flag,
+.iintra-v2 a .coalition-flag .coalition-flag--icon,
+.iintra-v2 a .coalition-flag-mini .coalition-flag--icon {
+	transition: 0.2s ease-out !important;
+}
+
+.iintra-v2 a .coalition-flag-mini:hover .coalition-flag--flag,
+.iintra-v2 a .coalition-flag-mini:hover .coalition-flag--icon,
+.iintra-v2 a .coalition-flag:hover .coalition-flag--flag,
+.iintra-v2 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag,
+.iintra-v2 a .coalition-flag:hover .coalition-flag--icon,
+.iintra-v2 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
+	transition: 0.1s ease-in !important;
+}
+
+.iintra-v2 a .coalition-flag .coalition-flag--flag,
+.iintra-v2 a .coalition-flag-mini .coalition-flag--flag {
+	transform: scaleY(1) !important;
+}
+
+.iintra-v2 a .coalition-flag .coalition-flag--icon,
+.iintra-v2 a .coalition-flag-mini .coalition-flag--icon {
+	transform: translateY(0px) !important;
+}
+
+.iintra-v2 a .coalition-flag-mini:hover .coalition-flag--flag {
+	transform: scaleY(1.15) !important;
+}
+
+.iintra-v2 a .coalition-flag-mini:hover .coalition-flag--icon {
+	transform: translateY(4px) !important;
+}
+
+.iintra-v2 a .coalition-flag:hover .coalition-flag--flag,
+.iintra-v2 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--flag {
+	transform: scaleY(1.05) !important;
+}
+
+.iintra-v2 a .coalition-flag:hover .coalition-flag--icon,
+.iintra-v2 .coalitions-index-banner a.opacity-hover:hover .coalition-flag--icon {
+	transform: translateY(3px) !important;
+}
+
+.iintra-v2 .coalitions-index-banner {
+	overflow: hidden !important;
+}
+/* END ANIMATIONS FOR COALITION FLAGS */
+
+/* START HAHA EASTER EGG */
+.funnyhaha {
+	animation: funny;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+html.funnyhaha,
+body.funnyhaha,
+.page.funnyhaha,
+.page-content.funnyhaha {
+	overflow: hidden !important;
+	animation: none !important;
+}
+
+@keyframes funny {
+	0% { transform: rotate3d(-1, 1, 1, 0deg); }
+	100% { transform: rotate3d(-1, 1, 1, 360deg); }
+}
+/* END HAHA EASTER EGG */

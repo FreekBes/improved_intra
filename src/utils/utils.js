@@ -94,10 +94,13 @@ const Utils = {
 	 * @returns {string} The version of Intra being used (.e.g. v2, v3)
 	 */
 	detectIntraVersion() {
+		document.body.classList.remove("iintra-v2", "iintra-v3", "iintra-vunknown");
+
 		// Check if an element with the class "page" exists in the root of the body.
 		// This element is only present in Intra v2.
 		if (document.querySelector("body > .page")) {
 			iConsole.log("Detected Intra v2");
+			document.body.classList.add("iintra-v2");
 			return "v2";
 		}
 
@@ -105,10 +108,13 @@ const Utils = {
 		// This element is only present in Intra v3.
 		if (document.querySelector("body > #root")) {
 			iConsole.log("Detected Intra v3");
+			document.body.classList.add("iintra-v3");
 			return "v3";
 		}
 
 		iConsole.warn("Could not detect Intra version, fallback to v2");
+		document.body.classList.add("iintra-v2");
+		document.body.classList.add("iintra-vunknown");
 		return "v2";
 	},
 

@@ -1,0 +1,88 @@
+/**
+ * This CSS file loads all colors defined by the themes and color schemes.
+ * First, the theme colors are loaded, then the color scheme overrules some colors.
+ * Finally, apply.css is loaded. It overrules any rule set in improv.css.
+ */
+
+/* Hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
+@media (prefers-color-scheme: dark) {
+	html, body {
+		background-color: #12141a !important;
+	}
+}
+
+/* Set the background and text color of the body and the root element */
+body, #root {
+	background-color: var(--body-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+/* Update the general border color for all elements */
+/* We use the * selector like Intra does, not my idea */
+/* *, :before, :after {
+	border-color: var(--general-border-color) !important;
+} */
+
+/* Set the hover background color of anything with a gray hover */
+.hover\:bg-gray-300:hover {
+	background-color: var(--nav-hover-color) !important;
+}
+
+/* Set the background color of the Dashboard and Profile boxes container parent */
+.iintra-profile-bg,
+.iintra-dashboard-bg {
+	background-color: var(--body-background-color) !important;
+}
+
+/* Set the background color of Dashboard and Profile boxes */
+.iintra-profile-box,
+.iintra-dashboard-box {
+	background-color: var(--container-background-color) !important;
+}
+
+/* Make sure the header of Dashboard and Profile boxes are colored white */
+.iintra-dashboard-box-header,
+.iintra-profile-box-header {
+	color: var(--text-color) !important;
+}
+
+/* Remove the white background color from overflowing elements in Dashboard and Profile container boxes */
+.iintra-profile-box .overflow-y-auto,
+.iintra-dashboard-box .overflow-y-auto {
+	background-color: transparent !important;
+}
+
+/* Make sure the header of any overflowing elements in Dashboard and Profile boxes are colored white */
+.iintra-profile-box .overflow-y-auto .flex-col .font-bold.uppercase,
+.iintra-dashboard-box .overflow-y-auto .flex-col .font-bold.uppercase {
+	color: var(--text-color) !important;
+}
+
+/* Apply the general border color to any borders in Dashboard and Profile boxes */
+.iintra-profile-box *:not(a), :before, :after,
+.iintra-dashboard-box *:not(a), :before, :after {
+	border-color: var(--general-border-color) !important;
+}
+
+/* Set the border color of buttons in Dashboard and Profile boxes */
+.iintra-profile-box a.border-legacy-main,
+.iintra-dashboard-box a.border-legacy-main {
+	border-color: var(--theme-color) !important;
+	color: var(--theme-color) !important;
+}
+
+/* Make sure buttons in Dashboard and Profile boxes appear gray on hover */
+.iintra-profile-box a.border-legacy-main:hover,
+.iintra-profile-box a.border-legacy-main:active,
+.iintra-dashboard-box a.border-legacy-main:hover,
+.iintra-dashboard-box a.border-legacy-main:active {
+	border-color: var(--tertiary-text-color) !important;
+	color: var(--tertiary-text-color) !important;
+}
+
+/* Set the background color of achievements in the Profile achievements box */
+/* Note: this box is the same one as the Marks box on the Profile, so this rule applies to both */
+.iintra-profile-box-marks .auto-rows-auto > .flex-row .bg-zinc-100,
+.iintra-dashboard-box-achievements .auto-rows-auto > .flex-row .bg-zinc-100 {
+	background-color: var(--general-border-color) !important;
+}
