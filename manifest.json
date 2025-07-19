@@ -49,8 +49,8 @@
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/*" ],
-			"exclude_matches": [ "*://profile.intra.42.fr/users/*" ],
+			"matches": [ "*://profile-v3.intra.42.fr/*" ],
+			"exclude_matches": [ "*://profile-v3.intra.42.fr/users/*" ],
 			"css": [ "src/v3/dashboard/styles.css" ],
 			"js": [ "src/v3/dashboard/scripts.js" ],
 			"run_at": "document_end"

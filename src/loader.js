@@ -21,7 +21,7 @@ const IMPROVEMENTS = [
 	{
 		name: "Dashboard V3",
 		intraVersions: ["v3"],
-		guard: () => /^profile\.intra\.42\.fr\/?$/.exec(RAW_PAGE_URL),
+		guard: () => /^profile-v3\.intra\.42\.fr\/?$/.exec(RAW_PAGE_URL),
 		handler: DashboardV3.init
 	}
 ];
