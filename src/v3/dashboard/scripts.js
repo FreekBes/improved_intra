@@ -25,7 +25,7 @@ const DashboardV3 = {
 			},
 		},
 		{
-			name: "Evaluations",
+			name: "Pending Evaluations",
 			element: null,
 			loadDetector: (node) => {
 				return DashboardV3.findBoxWithHeader(node, "pending evaluations");
@@ -45,7 +45,7 @@ const DashboardV3 = {
 			},
 		},
 		{
-			name: "Achievements",
+			name: "Last Achievements",
 			element: null,
 			loadDetector: (node) => {
 				return DashboardV3.findBoxWithHeader(node, "last achievements");
@@ -126,6 +126,7 @@ const DashboardV3 = {
 							const boxElement = box.loadDetector(node);
 							if (boxElement) {
 								// Box found, make the element easily accessible and improve it.
+								iConsole.log(`Found Dashboard V3 box: ${box.name}`);
 								box.element = boxElement;
 								box.element.classList.add("iintra-dashboard-box");
 								box.element.classList.add("iintra-dashboard-box-" + box.name.replaceAll(" ", "-").toLowerCase());
