@@ -93,7 +93,7 @@ a.text-legacy-main:focus {
 }
 
 /* Set the hover background color of anything with a gray hover */
-[class*="hover:"]:hover {
+[class*="hover:bg-"]:hover {
 	color: var(--text-color) !important;
 	background-color: var(--list-hover-background-color) !important;
 }
