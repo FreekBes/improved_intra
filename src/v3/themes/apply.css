@@ -4,6 +4,12 @@
  * Finally, apply.css is loaded. It overrules any rule set in improv.css.
  */
 
+
+/* Overwrite the appropriate Intra V3 root variables */
+:root {
+	--background: var(--body-background-color);
+}
+
 /* Hacky fix flash of white before theme-dark is loaded, only works if system is set to dark mode */
 @media (prefers-color-scheme: dark) {
 	html, body {

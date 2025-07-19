@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/03 16:39:11 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/03 18:56:31 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/19 18:04:31 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,10 @@
 
 	/* logtime chart styling (text colors) */
 	--logtime-chart-24h-color: #68b8e4;
+}
+
+/* Intra v3 colors in HSL, derived from above colors */
+.iintra-v3 {
+	--legacy-main: 201.2 69.1% 54.3%; /* derived from --theme-color */
+	--legacy-main-muted: 200.8 67.7% 37.6%; /* derived from --theme-color-dark */
 }

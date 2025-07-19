@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 20:36:29 by fbes          #+#    #+#                 */
-/*   Updated: 2022/08/09 12:08:31 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/19 18:02:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,17 @@
 	/* override event colors */
 	--event-meet: var(--theme-color);
 	--event-dark-meet: var(--theme-color-dark);
+}
+
+/* Intra v3 colors in HSL, derived from above colors */
+.iintra-v3 {
+	--background: 0 0% 98%; /* derived from --body-background-color */
+	--foreground: 240 4% 18%; /* derived from --text-color */
+	--border: 0 0% 97%; /* derived from --general-border-color */
+	--input: 0 0% 97%; /* same as --border */
+	--legacy-main: 182 100% 36%; /* derived from --theme-color */
+	--legacy-main-muted: 180 97% 25%; /* derived from --theme-color-dark */
+}
+.iintra-v3 .prose {
+	--tw-prose-body: var(--text-color);
 }

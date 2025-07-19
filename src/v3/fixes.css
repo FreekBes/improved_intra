@@ -24,3 +24,10 @@ No white border colors on white background colors. Useless.
 .iintra-v3 [data-state="delayed-open"] {
 	cursor: default !important;
 }
+
+/* Add hover effect to legacy buttons */
+/* Derived from non-hover color (--legacy-main in hsl format) */
+button.bg-legacy-main:hover,
+button.bg-legacy-main:focus {
+	background-color: hsl(var(--legacy-main-muted)) !important;
+}
