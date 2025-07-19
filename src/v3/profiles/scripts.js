@@ -133,6 +133,31 @@ const ProfileV3 = {
 	},
 
 	/**
+	 * Get the campus of the profile currently being viewed.
+	 * @param {Element | null} header The header of the current profile. Can be null, then it is fetched from the document (however it might not exist yet).
+	 * @returns {string} The campus of the profile.
+	 */
+	getProfileCampus: (header) => {
+		header = header || document.querySelector("header");
+		if (!header) {
+			iConsole.error("No header found in the profile page to get campus from.");
+			return "Unknown";
+		}
+		const userInfosList = ProfileV3.findUserInfosList(header);
+		const campusItem = userInfosList.children[1];
+		if (!campusItem || !campusItem.innerText) {
+			iConsole.error("No campus item found in the profile infos list.");
+			return "Unknown";
+		}
+		const campusText = campusItem.innerText.trim();
+		if (!campusText) {
+			iConsole.error("Campus item text is empty.");
+			return "Unknown";
+		}
+		return campusText;
+	},
+
+	/**
 	 * Get a user's profile settings from the Improved Intra server.
 	 * @param {string} login The username of the user to retrieve the profile of.
 	 * @returns {Promise<Object>} A promise that resolves with the user's profile data or rejects with an error message.
@@ -192,6 +217,43 @@ const ProfileV3 = {
 	},
 
 	/**
+	 * Find the profile infos list element within the header, containing user information like campus, email, etc.
+	 * @param {Element} header The header element to search within.
+	 * @returns The profile infos list element or null if not found.
+	 */
+	findUserInfosList: (header) => {
+		let userInfosList = header.querySelector(".iintra-profile-infos-list");
+		if (userInfosList) {
+			iConsole.log("Found existing profile infos list in the header.");
+			return userInfosList;
+		}
+
+		// Find the last box in the header
+		const userInfosColumn = header.parentElement.querySelector("header > div > div:last-child");
+		if (!userInfosColumn) {
+			iConsole.error("No user info column found in the profile header to apply links.");
+			return;
+		}
+		if (userInfosColumn.children.length != 2) {
+			iConsole.error("Unexpected number of children in the user info column, expected 2 but found " + userInfosColumn.children.length);
+			return;
+		}
+		const userInfosBox = userInfosColumn.children[1];
+		if (!userInfosBox || !userInfosBox.firstElementChild) {
+			iConsole.error("No user info box found in the profile header to apply links.");
+			return;
+		}
+
+		// Make sure the links are not too close to the edge
+		userInfosBox.style.paddingTop = "24px";
+		userInfosBox.style.paddingBottom = "24px";
+
+		userInfosList = userInfosBox.firstElementChild;
+		userInfosList.classList.add("iintra-profile-infos-list");
+		return userInfosList;
+	},
+
+	/**
 	 * Add a piece of information to the list of user info in the profile header.
 	 * @param {*} userInfosList The element containing the user info list.
 	 * @param {*} itemId The ID of the item to add.
@@ -243,28 +305,15 @@ const ProfileV3 = {
 		return button;
 	},
 
+	/**
+	 * Set up links to external websites (git profile, personal website) in the profile header.
+	 * @param {*} header The header element to apply links to.
+	 * @param {*} profileData The profile data containing the links to set up.
+	 * @returns {void}
+	 */
 	setupProfileLinks: (header, profileData) => {
-		// Find the last box in the header
-		const userInfosColumn = header.parentElement.querySelector("header > div > div:last-child");
-		if (!userInfosColumn) {
-			iConsole.error("No user info column found in the profile header to apply links.");
-			return;
-		}
-		if (userInfosColumn.children.length != 2) {
-			iConsole.error("Unexpected number of children in the user info column, expected 2 but found " + userInfosColumn.children.length);
-			return;
-		}
-		const userInfosBox = userInfosColumn.children[1];
-		if (!userInfosBox || !userInfosBox.firstElementChild) {
-			iConsole.error("No user info box found in the profile header to apply links.");
-			return;
-		}
+		const userInfosList = ProfileV3.findUserInfosList(header);
 
-		// Make sure the links are not too close to the edge
-		userInfosBox.style.paddingTop = "24px";
-		userInfosBox.style.paddingBottom = "24px";
-
-		const userInfosList = userInfosBox.firstElementChild;
 		// Create link to user's git profile
 		try {
 			if (profileData.link_git) {
@@ -338,6 +387,56 @@ const ProfileV3 = {
 		}
 	},
 
+	makeLocationClickable: (header) => {
+		// Find the first column of the header
+		const firstColumn = header.querySelector("div > div:first-child");
+		if (!firstColumn) {
+			iConsole.error("No first column found in the profile header to make location clickable.");
+			return;
+		}
+
+		// Create a MutationObserver to wait for the location element to be added
+		const locationObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.addedNodes) {
+					mutation.addedNodes.forEach((node) => {
+						if (!(node instanceof Element)) return; // Only process Element nodes
+						if (node.classList.contains("absolute") && node.classList.contains("top-2") && node.classList.contains("right-4")) {
+							// This is the location element we are looking for
+							const locationElement = node;
+							locationObserver.disconnect(); // Stop observing once the location element is found
+							iConsole.log("Location element found in profile header, checking if we can make it clickable.", locationElement);
+							locationElement.classList.add("iintra-profile-location");
+
+							// Make the location element clickable if the user is logged in.
+							// We can identify this by checking if the text color of the element is white.
+							const activeLocation = locationElement.querySelector("div.text-white");
+							if (!activeLocation) {
+								iConsole.log("Not making, location clickable because the user is not logged in.");
+								locationElement.classList.add("iintra-profile-location-unavailable");
+								return;
+							}
+
+							// TODO: replace with an A element for accessibility?
+							locationElement.classList.add("iintra-profile-location-available");
+							locationElement.setAttribute("title", "Click to open the Clustermap for this location");
+							locationElement.addEventListener("click", async (ev) => {
+								const location = ev.currentTarget.innerText;
+								const campus = ProfileV3.getProfileCampus(header);
+								iConsole.log("Location clicked: " + location + " on campus " + campus);
+								Utils.openClustermap(campus, location);
+							});
+						}
+					});
+				}
+			});
+		});
+
+		// Start observing the header for changes
+		locationObserver.observe(firstColumn, { childList: true, subtree: true });
+	},
+
+
 	/**
 	 * Setup the profile header with the necessary improvements.
 	 * @param {Element} header The header element to improve.
@@ -346,6 +445,8 @@ const ProfileV3 = {
 	setupProfileHeader: async (header) => {
 		const login = ProfileV3.getProfileLogin();
 		try {
+			ProfileV3.findUserInfosList(header);
+			ProfileV3.makeLocationClickable(header);
 			const profileData = await ProfileV3.getUserProfile(login);
 			if (!profileData) {
 				iConsole.error("Failed to retrieve profile data for " + login);

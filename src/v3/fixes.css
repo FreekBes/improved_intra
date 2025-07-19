@@ -32,6 +32,14 @@ button.bg-legacy-main:focus {
 	background-color: hsl(var(--legacy-main-muted)) !important;
 }
 
+/* Clickable profile location */
+.iintra-profile-location-available {
+	cursor: pointer !important;
+}
+.iintra-profile-location-available:hover {
+	text-decoration: underline !important;
+}
+
 /* Custom profile banners */
 .iintra-profile-banner {
 	background-size: cover !important;
