@@ -88,6 +88,7 @@ a.text-legacy-main:focus {
 
 /* Set the hover background color of anything with a gray hover */
 .hover\:bg-gray-300:hover {
+	color: var(--text-color) !important;
 	background-color: var(--nav-hover-color) !important;
 }
 
@@ -148,4 +149,21 @@ a.text-legacy-main:focus {
 .iintra-profile-box-marks .auto-rows-auto > .flex-row .bg-zinc-100,
 .iintra-dashboard-box-achievements .auto-rows-auto > .flex-row .bg-zinc-100 {
 	background-color: var(--general-border-color) !important;
+}
+
+/* Set the background color of any popover menu */
+.bg-popover,
+div[data-radix-popper-content-wrapper] {
+	background-color: var(--input-background-color) !important;
+	border-color: var(--input-border-color) !important;
+	color: var(--text-color) !important;
+}
+.bg-popover div[role="menuitem"][data-highlighted],
+div[data-radix-popper-content-wrapper] > div[role="menuitem"][data-highlighted] {
+	background-color: var(--list-hover-background-color) !important;
+	color: var(--text-color) !important;
+}
+.bg-popover [role="separator"],
+div[data-radix-popper-content-wrapper] [role="separator"] {
+	background-color: var(--input-border-color) !important;
 }
