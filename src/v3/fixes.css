@@ -45,3 +45,12 @@ header div.bg-ft-gray\/50 {
 	background: rgba(32, 32, 38, 0.75) !important;
 	backdrop-filter: blur(4px) !important;
 }
+
+/* fix backdrop-filter not being supported in Firefox for the blurry containers in front of profile banners */
+/* includes the .profile-item-top rule to work around the importance of customized profile rules */
+@supports not (backdrop-filter: none) {
+	header div.bg-ft-gray\/50 {
+		background: rgba(32, 32, 38, 0.88) !important;
+		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
+	}
+}
