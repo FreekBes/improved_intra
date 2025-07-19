@@ -1,1 +1,839 @@
-/* EMPTY */
+/**
+ * This CSS file is used for general improvements on Intra. It is always loaded,
+ * whether in dark or light mode does not matter.
+ */
+
+/* Windows Futura font-family fix */
+.iintra-v2 .futura {
+	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif !important;
+}
+
+/* Windows Futura font family fix (BOLD) */
+.iintra-v2 .modal-v2 .modal-header,
+.iintra-v2 .event-modal .head h4,
+.iintra-v2 .exam-modal .head h4,
+.iintra-v2 #admin-user h3,
+.iintra-v2 .app-sidebar-left .marked-title {
+	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif !important;
+	font-weight: 700 !important;
+}
+
+/* warning for Intra v3 incompatibility */
+.iintra-v2 #improved-intra-v3-incompatibility-warning {
+	position: fixed;
+	bottom: 0;
+	left: 80px;
+	width: calc(100% - 80px);
+	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif;
+	background-color: #fcf8e3;
+	color: #8a6d3b;
+	text-align: center;
+	padding: 8px;
+	font-weight: bold;
+	font-size: 14px;
+	box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+	z-index: 9999;
+}
+.iintra-v2 #improved-intra-v3-incompatibility-warning a,
+.iintra-v2 #improved-intra-v3-incompatibility-warning-close {
+	color: #b17e27 !important;
+	cursor: pointer !important;
+}
+.iintra-v2 #improved-intra-v3-incompatibility-warning a:hover,
+.iintra-v2 #improved-intra-v3-incompatibility-warning a:focus {
+	color: #c27e08 !important;
+	text-decoration: underline !important;
+}
+.iintra-v2 #improved-intra-v3-incompatibility-warning-close:hover,
+.iintra-v2 #improved-intra-v3-incompatibility-warning-close:focus {
+	color: #c27e08 !important;
+	text-shadow: 0 0 1px #8a6d3b !important;
+}
+
+/* off-screen account dropdown menu fix for short usernames */
+.iintra-v2 .main-navbar-user-nav .dropdown .dropdown-menu {
+	left: unset !important;
+	right: 0px !important;
+}
+
+/* fix 100 % scores on ratings on feedback page */
+.iintra-v2 li.scaleteam-list-item .rating {
+	flex-basis: 50px !important;
+}
+
+/* set default cursor for tooltips */
+.iintra-v2 .tooltip {
+	cursor: default !important;
+}
+
+/* add box shadow to tooltips */
+.iintra-v2 .tooltip-content {
+	box-shadow: 0px 0px 1px -1px #000 !important;
+}
+
+/* fix border radius for tooltip user images */
+.iintra-v2 .tooltip-content .tooltip-img.rounded[style*="intra.42.fr/users/"] {
+	background-size: cover !important;
+	width: 60px !important;
+	height: 60px !important;
+	border-radius: 30px !important;
+}
+
+/* force user profile pictures to always cover the whole element */
+.iintra-v2 .user-profile-picture {
+	background-size: cover !important;
+}
+
+/* add blur to profile banners behind containers */
+.iintra-v2 .profile-item .user-progress .progress,
+.iintra-v2 .profile-item .user-header-box,
+.iintra-v2 .profile-item .user-primary .user-infos .user-infos-sub,
+.iintra-v2 .profile-item .user-primary .user-infos .button-actions {
+	background: rgba(32, 32, 38, 0.75) !important;
+	backdrop-filter: blur(4px) !important;
+	border-radius: 4px !important;
+}
+
+/* slightly changed opacity for customized profiles */
+.iintra-v2 .profile-item .profile-banner.customized .user-progress .progress,
+.iintra-v2 .profile-item .profile-banner.customized .user-header-box,
+.iintra-v2 .profile-item .profile-banner.customized .user-primary .user-infos .user-infos-sub,
+.iintra-v2 .profile-item .profile-banner.customized .user-primary .user-infos .button-actions {
+	background: rgba(32, 32, 38, 0.6) !important;
+}
+
+/* fix z-index for tooltips on action buttons in user banners */
+.iintra-v2 .profile-item .user-primary .user-infos .button-actions {
+	z-index: 1;
+	margin-right: 10px !important;
+}
+
+/* fix hover color for profile actions in profile banners */
+.iintra-v2 .profile-item .user-primary .user-infos .button-actions a:hover {
+	color: inherit !important;
+}
+
+/* fix vertical alignment for login name on user banners */
+.iintra-v2 .profile-name .login {
+	margin-top: 17px !important;
+}
+
+/* scrollbar fix for main page overview */
+.iintra-v2 .home-middle-td {
+	overflow: auto !important;
+}
+
+/* fix feedback logs margin left and right on profile pages */
+.iintra-v2 .profile-title a.simple-link[href*="/feedbacks"] {
+	margin-left: 0px !important;
+}
+
+/* bugfix overflow in achievements / projects selector on user profiles */
+.iintra-v2 .profile-title[data-toggle] {
+	text-align: center !important;
+	padding-top: 8px !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+/* fix font-weight for project description headers */
+.iintra-v2 .project-desc-item h4 {
+	font-weight: bold !important;
+}
+
+/* hide empty project description elements (not working if newline is there, which is often the case) */
+.iintra-v2 .project-desc-item:empty,
+.iintra-v2 .project-desc-item:blank {
+	display: none !important;
+}
+
+/* horizontally align main project-item marks (on user profiles) */
+.iintra-v2 .main-project-item .pull-right {
+	text-align: center !important;
+	width: 54px !important;
+	white-space: nowrap !important;
+}
+
+/* 2 stars for outstanding projects with 2 outstanding flags */
+.iintra-v2 .icon-2stars {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	transform: translateX(-3px); /* to make sure the mark aligns */
+}
+.iintra-v2 .icon-2stars .icon-star-1 {
+	font-size: 0.7em;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	transform: translateX(-3px);
+}
+.iintra-v2 .icon-2stars .icon-star-1:last-child {
+	margin-right: 0;
+}
+
+/* horizontally align collapsed project-item marks (on user profiles) */
+.iintra-v2 .project-item[data-project-occurence] .pull-right {
+	text-align: center !important;
+	width: 40px !important;
+	white-space: nowrap !important;
+}
+
+/* horizontally align project-item mark icons (on user profiles) */
+.iintra-v2 .main-project-item .pull-right::before,
+.iintra-v2 .project-item[data-project-occurence] .pull-right::before {
+	float: left !important;
+	line-height: inherit !important;
+}
+
+/* make x project-item mark icon slightly smaller */
+.iintra-v2 .main-project-item .pull-right.icon-cross-1::before,
+.iintra-v2 .project-item[data-project-occurence] .pull-right.icon-cross-1::before {
+	font-size: 0.9em !important;
+}
+
+/* fix overflowable container item box for agenda on the dashboard */
+.iintra-v2 .container-inner-item.boxed.agenda-container {
+	display: flex;
+	flex-direction: column;
+}
+.iintra-v2 .container-fullsize .container-inner-item.agenda-container .overflowable-item {
+	max-height: initial !important;
+	margin-bottom: 0px !important;
+}
+
+/* custom day name element styling for agenda events on dashboard */
+.iintra-v2 .event-list .event-item .event-left .date-day-name {
+	color: #fff;
+	font-size: 1em;
+	line-height: 1em;
+}
+
+/* reset school record button background */
+.iintra-v2 .school-record-button {
+	background-color: initial !important;
+}
+
+/* add dropdown arrow to school record button, since it opens a dropdown menu */
+.iintra-v2 .school-record-button::after {
+	content: ' ▾';
+}
+
+/* make achievement item container backgrounds transparent */
+.iintra-v2 .achievement-item.stacked .achievement-item--container {
+	background-color: rgba(0,0,0,0) !important;
+}
+
+/* hide border from p element in achievements */
+.iintra-v2 .achievements-nav .achievements-nav-item input.kind-filter + label p {
+	border-color: rgba(0,0,0,0) !important;
+}
+
+/* fix achievement container size issues */
+.iintra-v2 .achievement-item .achievement-item--container .achievement-item--content {
+	width: 76% !important;
+}
+.iintra-v2 .achievement-item .achievement-item--container.mini .achievement-item--content {
+	width: 81% !important;
+}
+
+/* fix achievement name overflow on wide screens */
+.iintra-v2 .achievement-item .achievement-item--container .achievement-item--content h1 {
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+/* fix achievement description overflow */
+.iintra-v2 .achievement-item .achievement-item--container .achievement-item--content p {
+	overflow: hidden !important;
+	display: -webkit-box !important;
+	-webkit-line-clamp: 2 !important;
+	line-clamp: 2 !important;
+	-webkit-box-orient: vertical !important;
+	text-overflow: ellipsis !important;
+}
+
+/* fix achievement image container issues */
+.iintra-v2 .achievement-item .achievement-item--container .achievement-item--image {
+	max-width: 25% !important;
+	overflow: hidden !important;
+}
+
+/* fix achievement image container issues but only on acievement page */
+.iintra-v2 #achievement-list--container .achievement-item .achievement-item--container .achievement-item--image {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	text-align: center !important;
+}
+
+/* limit achievement image sizes */
+.iintra-v2 .achievement-item--image img {
+	min-width: 28px !important;
+	max-width: 36px !important;
+	display: block !important;
+	margin: 0 auto !important;
+}
+
+/* fix position of trophy icon on achievements */
+.iintra-v2 .achievement-item .achievement-item--container .achievement-item--content .iconf-trophy {
+	position: absolute !important;
+	top: 14px !important;
+	right: 10px !important;
+}
+
+/* fix border radius on buttons that have an element to the right of it */
+.iintra-v2 .input-group .form-control:first-child,
+.iintra-v2 .input-group-addon:first-child,
+.iintra-v2 .input-group-btn:first-child > .btn,
+.iintra-v2 .input-group-btn:first-child > .btn-group>.btn,
+.iintra-v2 .input-group-btn:first-child > .dropdown-toggle,
+.iintra-v2 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.iintra-v2 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+	border-bottom-right-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+}
+
+/* fix cursor for input group addon */
+.iintra-v2 .input-group-addon {
+	cursor: pointer !important;
+}
+
+/* fix project attachment names causing overflow */
+.iintra-v2 .project-attachment-item .attachment-name {
+	white-space: nowrap !important;
+}
+
+/* fix give up button stretching the project page */
+.iintra-v2 .team-actions .btn.btn-block.btn-danger {
+	white-space: normal !important;
+}
+
+/* make background of skill chart and logtime goal meter transparent */
+.iintra-v2 #skill-chart svg .highcharts-background,
+.iintra-v2 #logtime_goal svg .highcharts-background {
+	fill: rgba(255, 255, 255, 0) !important;
+}
+
+/* remove text shadow from labels in highchart containers */
+.iintra-v2 .highcharts-container svg > text,
+.iintra-v2 .highcharts-data-labels > g > text,
+.iintra-v2 .highcharts-stack-labels > text {
+	text-shadow: none !important;
+}
+
+/* force default cursor for logtime overview (for better accuracy) */
+.iintra-v2 #user-locations g > rect,
+.iintra-v2 #user-locations g > text {
+	cursor: default !important;
+}
+
+/* fix vertical text spacing of evaluation points amount in profile banner */
+.iintra-v2 .user-correction-point-value {
+	height: 1.5em !important;
+}
+
+/* fix background banner repeating on small screens */
+.iintra-v2 .profile-banner,
+.iintra-v2 .improved-intra-banner {
+	background-size: cover !important;
+}
+
+/* fix background position of background banner, but not on customized profiles */
+.iintra-v2 .profile-banner:not(.customized) {
+	background-position: center center !important;
+}
+
+/* make text without background more readable in profile banners */
+.iintra-v2 .profile-banner .coalition-name,
+.iintra-v2 .profile-banner .name,
+.iintra-v2 .profile-banner .login {
+	text-shadow: 0 0 3px #000000 !important;
+}
+
+/* bugfix for vertical text alignment in dashboard banner on title selection button */
+.iintra-v2 .profile-banner .btn-group.margin-top-15 {
+	margin-top: 23px !important;
+}
+
+/* bugfix for dropdown menu cursus select in dashboard banner */
+.iintra-v2 .profile-item .profile-item-top.home-banner .profile-right-box .cursus-user-select {
+	background-color: rgba(0,0,0,0) !important;
+	padding-right: 8px !important;
+}
+
+/* bugfix for text alignment dropdown menu cursus select in profile banners */
+.iintra-v2 .profile-item .user-primary .user-infos .cursus-user-select {
+	background-color: rgba(0,0,0,0) !important;
+	text-align: center !important;
+}
+
+/* fix text alignment for user badges (groups/tags) */
+.iintra-v2 .profile-item .user-primary .user-infos .profile-name span.user-badge {
+	margin-top: -4px !important;
+	margin-bottom: -4px !important;
+}
+
+/* fix coalition banner vertical alignment */
+.iintra-v2 .profile-name .mini-banner,
+.iintra-v2 .profile-name .user-banner {
+	align-self: start !important;
+}
+
+/* remove border radius on right info box in profile banner */
+.iintra-v2 .profile-on-users.profile-item .user-header-box.infos {
+	border-radius: 0px !important;
+}
+
+/* fix height of profile banner containers */
+.iintra-v2 .profile-item .location {
+	min-height: 183px !important;
+}
+
+/* fix height of profile banner containers for screens of <1900px wide */
+@media (max-width: 1900px) {
+	.iintra-v2 .profile-item .location {
+		min-height: 188px !important;
+	}
+}
+
+/* set margin to top of level bar the same as in between other containers */
+.iintra-v2 .profile-item .user-progress .cursus-progress-item .progress-container {
+	margin-top: 10px !important;
+}
+
+/* fix border radius on smaller screens */
+@media (max-width: 992px) {
+	.iintra-v2 .profile-item .user-header-box {
+		border-radius: 4px 4px 4px 4px !important;
+	}
+
+	.iintra-v2 .profile-item .user-header-box:not(:last-of-type):first-of-type {
+		border-radius: 4px 4px 0 0 !important;
+	}
+
+	.iintra-v2 .profile-item .user-header-box:not(:first-of-type):last-of-type {
+		border-radius: 0 0 4px 4px !important;
+	}
+}
+
+/* styles for when cluster map links are enabled in profile banners */
+.iintra-v2 .profile-item .location .user-poste-infos.improved {
+	cursor: pointer !important;
+}
+
+/* hover styles for when cluster map links are enabled in profile banners */
+.iintra-v2 .profile-item .location .user-poste-infos.improved:hover {
+	text-decoration: underline !important;
+}
+
+/* fix color of pool donation button */
+.iintra-v2 .correction-point-btn:not([style*="color:"]):not(.btn) {
+	color: #f2f2f2 !important;
+}
+
+/* remove underline from pool donation button */
+.iintra-v2 .correction-point-btn:not([style*="color:"]):not(.btn):hover, .iintra-v2 .correction-point-btn:not([style*="color:"]):not(.btn):focus {
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+/* fix pool donation amount selector cursor */
+.iintra-v2 .rb-spot,
+.iintra-v2 .rb-spot > * {
+	cursor: pointer !important;
+}
+
+/* set position relative for profile banner to customize absolute positions based on this element */
+.iintra-v2 .container-inner-item.profile-item-top.profile-banner {
+	position: relative;
+}
+
+/* set z-index for all elements in the profile banner to accustom for the custom banner */
+.iintra-v2 .container-inner-item.profile-item-top.profile-banner > *:not(.improved-intra-banner) {
+	z-index: 1 !important;
+}
+
+/* custom banner element */
+.iintra-v2 .improved-intra-banner.customized {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	z-index: 0 !important;
+}
+
+/* fix width of user profile infos box */
+.iintra-v2 .profile-item .user-header-box.infos .profile-infos-bottom {
+	width: 100% !important;
+}
+
+/* fix profile infos item text overflow */
+.iintra-v2 .profile-item .profile-infos-item {
+	width: 100% !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: hidden !important;
+}
+
+/* fix vertical align of profile infos icons and text */
+.iintra-v2 .profile-item .profile-infos-item *,
+.iintra-v2 .profile-item .profile-infos-item [class^="icon-"]:before, .iintra-v2 .profile-item .profile-infos-item [class*=" icon-"]:before {
+	vertical-align: middle !important;
+}
+.iintra-v2 .profile-item .profile-infos-item [class^="icon-"]:before, .iintra-v2 .profile-item .profile-infos-item [class*=" icon-"]:before {
+	display: inline-block;
+	height: 1.2em;
+}
+
+/* fix link text overflowing outside of modal in modal bodies */
+.iintra-v2 .modal-body p {
+	overflow-wrap: break-word !important;
+}
+
+/* fix modal having a transparent line between the header and the content + add padding */
+.iintra-v2 .modal .modal-dialog .modal-content {
+	margin-top: -5px !important;
+	padding-top: 20px !important;
+}
+
+/* remove border radius from search page results (only user and video items) */
+.iintra-v2 .search-item.search-user-item .search-item-main,
+.iintra-v2 .search-item.search-video-item .search-item-main {
+	border-radius: 0px;
+}
+
+/* remove text decoration from img on search results (used in alt text) */
+.iintra-v2 .search-item.search-user-item:hover > img,
+.iintra-v2 .search-item.search-video-item:hover > img,
+.iintra-v2 .student-item .student-login {
+	text-decoration: none !important;
+}
+
+/* add extra element to make it clear an item is hidden from the shop */
+.iintra-v2 .shop-item .shop-item--image[style*="filter: grayscale("]::after {
+	display: inline-block;
+	position: relative;
+	content: "HIDDEN";
+	color: #ffffff;
+	font-size: small;
+	left: 8px;
+	top: 8px;
+	border-radius: 4px;
+	padding: 4px 8px;
+	background: rgba(0,0,0,0.75);
+	backdrop-filter: blur(4px);
+}
+
+/* fix staff page graphs overflow */
+.iintra-v2 .container-fluid:first-of-type {
+	height: 500px !important;
+}
+
+/* fix height of api docs page after above rule */
+.iintra-v2 .space-ship-background > .container-fluid:first-of-type {
+	height: auto !important;
+}
+
+/* fix auth page height, useful for background colors */
+/* TODO: should apply this somehow to the OTP page */
+.iintra-v2 html.soft-background, .iintra-v2 body.authorization-layout {
+	height: 100%;
+}
+
+/* fix user profile picture on auth page */
+.iintra-v2 .main-authorization-page .user-image-picture {
+	background-size: cover !important;
+}
+
+/* remove opacity of completed quests on the quests page */
+.iintra-v2 .quests-list[data-status=validated] {
+	opacity: 1 !important;
+}
+
+/* improved text shadow on API page */
+.iintra-v2 .main-summary,
+.iintra-v2 .intro-header h1 {
+	text-shadow: 0 0 3px #000000 !important;
+}
+
+/* no text shadow on main content container or resource items */
+.iintra-v2 .blue-background .main-content-container,
+.iintra-v2 .resource-item {
+	text-shadow: none !important;
+}
+
+/* indent data levels in params list on API documentation pages */
+.iintra-v2 tr[data-level="0"] { --data-level: 0; }
+.iintra-v2 tr[data-level="1"] { --data-level: 1; }
+.iintra-v2 tr[data-level="2"] { --data-level: 2; }
+.iintra-v2 tr[data-level="3"] { --data-level: 3; }
+.iintra-v2 tr[data-level="4"] { --data-level: 4; }
+.iintra-v2 .documentation table > tbody > tr[data-level] > td:first-child {
+	padding-left: calc(12px * var(--data-level) + 8px) !important;
+}
+
+/* add level character to each data level in params list on API documentation pages */
+.iintra-v2 .documentation table > tbody > tr[data-level]:not([data-level="0"]) > td:first-child::before {
+	content: '└' !important;
+	padding-right: 0.5ch !important;
+}
+
+/* hide button for left sidebar menu. Color is set in themes/apply.css */
+.iintra-v2 .sidebar-hide-button {
+	display: block;
+	position: absolute;
+	top: 70px;
+	right: 0px;
+	float: right;
+	width: 36px;
+	height: 36px;
+	line-height: 32px;
+	padding: 4px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	z-index: 999;
+}
+
+/* sidebar transition for hiding */
+.iintra-v2 .app-sidebar-left,
+.iintra-v2 .app-sidebar-right {
+	will-change: left, padding-right, overflow !important;
+	left: 0% !important;
+	transition-duration: 0.2s !important;
+	transition-timing-function: ease-in-out !important;
+	transition-property: left, padding-right !important;
+	transition-delay: 0 !important;
+}
+
+/* sidebar-fix transition for hiding */
+.iintra-v2 .left-sidebar-fix,
+.iintra-v2 .right-sidebar-fix {
+	will-change: flex-basis, flex !important;
+	transition: flex-basis 0.2s ease-in-out !important;
+}
+
+/* hide left sidebar if class is present */
+.iintra-v2 .app-sidebar-hidden {
+	left: -288px !important;
+	padding-right: 32px !important;
+	overflow: hidden !important;
+}
+@media (max-width: 1900px) {
+	.iintra-v2 .app-sidebar-hidden {
+		left: -238px !important;
+	}
+}
+@media (max-width: 1600px) {
+	.iintra-v2 .app-sidebar-hidden {
+		left: -188px !important;
+	}
+}
+
+/* hide more button for sidebar items */
+.iintra-v2 .app-sidebar-hidden .project-item .pull-right {
+	display: none !important;
+}
+
+/* change sidebar fix width if sidebar is hidden */
+.iintra-v2 .left-sidebar-fix.sidebar-fix-hidden,
+.iintra-v2 .right-sidebar-fix.sidebar-fix-hidden {
+	flex-basis: 47px !important;
+}
+@media (max-width: 1599px) {
+	.iintra-v2 .left-sidebar-fix.sidebar-fix-hidden,
+	.iintra-v2 .right-sidebar-fix.sidebar-fix-hidden {
+		flex-basis: 25px !important;
+	}
+}
+@media (max-width: 992px) {
+	.iintra-v2 .left-sidebar-fix.sidebar-fix-hidden,
+	.iintra-v2 .right-sidebar-fix.sidebar-fix-hidden {
+		flex-basis: 33px !important;
+	}
+}
+
+/* make sure sidebar titles occupy the same height as the sidebar-hide button */
+.iintra-v2 .app-sidebar-left .marked-title {
+	line-height: 24px !important;
+}
+
+/* hide Feedback link from API documentation page (it points to nowhere) */
+.iintra-v2 .documentation #container .nav a[href="#disqus_thread"] {
+	display: none !important;
+}
+
+/* small border radius for code elements in webhooks doc page */
+.iintra-v2 .webhooks-doc_p code {
+	border-radius: 3px !important;
+}
+
+/* remove set cursor for webhooks doc button text */
+.iintra-v2 .webhooks-doc_event-container .webhooks-doc_label {
+	cursor: inherit !important;
+}
+
+/* add word-break for code blocks in webhooks doc */
+.iintra-v2 .webhooks-doc_code-container {
+	word-break: break-all !important;
+}
+
+/* reduce size of everything in the companies page */
+.iintra-v2 .page-companies .page-content {
+	zoom: 0.9;
+}
+
+/* color fix for header inside of anchor */
+.iintra-v2 a h1:not(.profile-name),
+.iintra-v2 a h2:not(.profile-name),
+.iintra-v2 a h3:not(.profile-name),
+.iintra-v2 a h4:not(.profile-name),
+.iintra-v2 a h5:not(.profile-name) {
+	color: inherit !important;
+}
+
+/* hide double black hole date */
+.iintra-v2 #blackhole-date:last-of-type {
+	display: none !important;
+}
+
+/* remove eval sheet background */
+.iintra-v2 .scale-question-answers,
+.iintra-v2 .scale-div {
+	background: rgba(0,0,0,0) !important;
+}
+
+/* add not-allowed cursor to disabled buttons */
+.iintra-v2 .btn[disabled],
+.iintra-v2 .fc-state-disabled {
+	cursor: not-allowed !important;
+}
+
+/* add small border radius to input fields */
+.iintra-v2 input[type="text"]:not(.search-input),
+.iintra-v2 input[type="password"],
+.iintra-v2 input[type="number"],
+.iintra-v2 input[type="date"],
+.iintra-v2 input[type="datetime-local"],
+.iintra-v2 input[type="time"],
+.iintra-v2 input[type="email"],
+.iintra-v2 select,
+.iintra-v2 textarea,
+.iintra-v2 .form-control,
+.iintra-v2 .Select-control,
+.iintra-v2 .Select-menu-outer,
+.iintra-v2 .Select-menu {
+	border-radius: 3px !important;
+}
+
+/* fix for holy graph dropdown menu text partially out of boundaries */
+.iintra-v2 #graph_cursus {
+	padding-top: 2px !important;
+}
+
+/* border-radius fix for dropdown menu rendered on mailer page */
+.iintra-v2 .select2-selection.select2-selection--multiple[aria-expanded="true"] {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+/* border-radius fix for dropdown menu item hover on mailer page */
+.iintra-v2 .select2-container--default .select2-results__option--highlighted[aria-selected]:last-child {
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+/* add max width to textareas to make them unable to be resized outside of their container */
+.iintra-v2 textarea {
+	max-width: 100% !important;
+}
+
+@media (min-width: 1600px) {
+	/* fix vertical alignment of coalition name in user profile banner on screens >1600px wide */
+	.iintra-v2 .profile-banner .coalition-name {
+		margin-top: 8px !important;
+	}
+
+	/* fix achievement image size on screens >1600px wide */
+	.iintra-v2 .achievement-item .achievement-item--container .achievement-item--image {
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+	}
+}
+
+/* fix profile infos bottom box width on smaller screens */
+@media (max-width: 1120px) {
+	.iintra-v2 .profile-item .user-header-box.infos .profile-infos-bottom {
+		width: 60% !important;
+		max-width: 400px !important;
+		min-width: 250px !important;
+	}
+}
+
+/* remove weird margin from profile banner containers */
+@media (max-width: 991px) {
+	.iintra-v2 .profile-item .profile-item-top.home-banner .profile-right-box {
+		margin: 10px 15px 0 15px !important;
+	}
+
+	.iintra-v2 .profile-item .user-progress,
+	.iintra-v2 .profile-item .user-primary .user-infos .button-actions,
+	.iintra-v2 .profile-item .user-header-box {
+		margin-right: 0px !important;
+	}
+}
+
+@media (max-width: 768px) {
+	/* fix month overview on smaller screens */
+	.iintra-v2 .event-list .event-item .event-left .date-month {
+		margin: 0 auto !important;
+		text-align: center !important;
+		overflow: hidden !important;
+		text-overflow: clip !important;
+		max-width: 3ch !important;
+	}
+
+	/* fix padding-top on user-infos (looks bad with coalition banner) */
+	.iintra-v2 .user-primary .user-infos {
+		padding-top: 0px !important;
+	}
+}
+
+@media (max-width: 480px) {
+	/* fix padding on profile name etc. */
+	.iintra-v2 .user-primary .user-infos.padding-left-30 {
+		padding-left: 15px !important;
+	}
+	.iintra-v2 .user-primary .coalition-name.margin-right-10,
+	.iintra-v2 .user-primary .coalition-name .margin-right-10 {
+		margin-right: 0px !important;
+	}
+
+	/* remove background color for profile infos box in header */
+	.iintra-v2 .profile-item .profile-infos {
+		background-color: unset !important;
+	}
+}
+
+/* fix backdrop-filter not being supported in Firefox for the blurry containers in front of profile banners */
+/* includes the .profile-item-top rule to work around the importance of customized profile rules */
+@supports not (backdrop-filter: none) {
+	.iintra-v2 .profile-item .profile-banner.profile-item-top .user-progress .progress,
+	.iintra-v2 .profile-item .profile-banner.profile-item-top .user-header-box,
+	.iintra-v2 .profile-item .profile-banner.profile-item-top .user-primary .user-infos .user-infos-sub,
+	.iintra-v2 .profile-item .profile-banner.profile-item-top .user-primary .user-infos .button-actions {
+		background: rgba(32, 32, 38, 0.88) !important;
+		text-shadow: 0 0 2px rgba(32, 32, 38, 0.8) !important;
+	}
+}
+
+/* Display line breaks and break words in feedback comments accordingly */
+.iintra-v2 .correction-item .corrected-item .correction-comment-item > span,
+.iintra-v2 #scales-list-container .feedback-item > span,
+.iintra-v2 li.scaleteam-list-item .comment {
+	word-break: break-word !important;
+	white-space: pre-wrap !important;
+}
