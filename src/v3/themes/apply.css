@@ -93,9 +93,9 @@ a.text-legacy-main:focus {
 }
 
 /* Set the hover background color of anything with a gray hover */
-.hover\:bg-gray-300:hover {
+[class*="hover:"]:hover {
 	color: var(--text-color) !important;
-	background-color: var(--nav-hover-color) !important;
+	background-color: var(--list-hover-background-color) !important;
 }
 
 /* Set the background color of the Dashboard and Profile boxes container parent */
