@@ -74,6 +74,7 @@
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"js": [
+				"src/v3/nav/scripts.js",
 				"src/v3/dashboard/scripts.js",
 				"src/v3/profiles/scripts.js"
 			],

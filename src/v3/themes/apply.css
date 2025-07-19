@@ -17,11 +17,74 @@ body, #root {
 	color: var(--text-color) !important;
 }
 
-/* Update the general border color for all elements */
-/* We use the * selector like Intra does, not my idea */
-/* *, :before, :after {
+/* Set the color of all links */
+.text-legacy-main {
+	color: var(--theme-color) !important;
+}
+a.text-legacy-main {
+	color: var(--theme-color) !important;
+}
+a.text-legacy-main:hover,
+a.text-legacy-main:focus {
+	color: var(--theme-color-dark) !important;
+}
+
+/* Apply the theme to the top navigation bar */
+.iintra-top-navbar .bg-white {
+	background-color: var(--top-navbar-background-color) !important;
+	color: var(--text-color) !important;
+}
+.iintra-top-navbar input[type="search"] {
+	background-color: var(--top-navbar-input-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+/* Apply the theme to the search results from the top navigation bar */
+.iintra-top-navbar .border {
+	border-color: var(--top-navbar-background-color) !important;
+}
+.iintra-top-navbar .border-t {
 	border-color: var(--general-border-color) !important;
-} */
+}
+.iintra-top-navbar a.hover\:bg-slate-100:hover {
+	background-color: var(--list-hover-background-color) !important;
+}
+
+/* Color of the search icon in the top navigation bar */
+.iintra-top-navbar svg path {
+	stroke: var(--tertiary-text-color) !important;
+}
+
+/* Apply the theme to the left navigation bar */
+.iintra-left-navbar > .bg-\[\#4E5566\],
+.iintra-left-navbar > .sidebar-animation > .bg-\[\#4E5566\] {
+	background-color: var(--left-navbar-background-color) !important;
+	color: var(--text-color) !important;
+}
+.iintra-left-navbar a {
+	opacity: 1 !important;
+	color: var(--left-navbar-icon-color) !important;
+}
+.iintra-left-navbar a:hover,
+.iintra-left-navbar a:focus {
+	color: var(--left-navbar-icon-color-active) !important;
+}
+.iintra-left-navbar a svg path {
+	stroke: var(--left-navbar-icon-color) !important;
+}
+.iintra-left-navbar a:hover svg path,
+.iintra-left-navbar a:focus svg path {
+	stroke: var(--left-navbar-icon-color-active) !important;
+}
+
+/* Always color the profile link of the left navbar active, since it's the link to profile */
+/* and only Profile is currently supported on Intra V3 */
+.iintra-left-navbar a[href*="profile-v3.intra.42.fr"] {
+	color: var(--left-navbar-icon-color-active) !important;
+}
+.iintra-left-navbar a[href*="profile-v3.intra.42.fr"] svg path {
+	stroke: var(--left-navbar-icon-color-active) !important;
+}
 
 /* Set the hover background color of anything with a gray hover */
 .hover\:bg-gray-300:hover {
@@ -65,17 +128,17 @@ body, #root {
 }
 
 /* Set the border color of buttons in Dashboard and Profile boxes */
-.iintra-profile-box a.border-legacy-main,
-.iintra-dashboard-box a.border-legacy-main {
+.iintra-profile-box .border-legacy-main,
+.iintra-dashboard-box .border-legacy-main {
 	border-color: var(--theme-color) !important;
 	color: var(--theme-color) !important;
 }
 
 /* Make sure buttons in Dashboard and Profile boxes appear gray on hover */
-.iintra-profile-box a.border-legacy-main:hover,
-.iintra-profile-box a.border-legacy-main:active,
-.iintra-dashboard-box a.border-legacy-main:hover,
-.iintra-dashboard-box a.border-legacy-main:active {
+.iintra-profile-box .border-legacy-main:hover,
+.iintra-profile-box .border-legacy-main:active,
+.iintra-dashboard-box .border-legacy-main:hover,
+.iintra-dashboard-box .border-legacy-main:active {
 	border-color: var(--tertiary-text-color) !important;
 	color: var(--tertiary-text-color) !important;
 }

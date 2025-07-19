@@ -25,6 +25,12 @@ const IMPROVEMENTS = [
 		handler: ThemeApplyV3.apply
 	},
 	{
+		name: "Navigation Bars V3",
+		intraVersions: ["v3"],
+		guard: null, // Always handle the navigation bars, they're always present
+		handler: NavV3.init
+	},
+	{
 		name: "Haha Easter Egg",
 		intraVersions: ["v2", "v3"],
 		guard: () => window.location.hash === "#haha",

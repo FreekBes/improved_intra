@@ -1,3 +1,8 @@
+/* remove horizontal scrollbar, as it causes visual glitches anyways */
+html {
+	overflow-x: hidden !important;
+}
+
 /* START ANIMATIONS */
 /* transition timing for hover end */
 a,

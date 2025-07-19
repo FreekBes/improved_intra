@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/13 00:38:03 by fbes          #+#    #+#                 */
-/*   Updated: 2024/02/20 13:20:33 by fbes          ########   odam.nl         */
+/*   Updated: 2025/07/19 17:13:21 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,6 @@ body,
 body.bg-white {
 	background-color: var(--body-background-color) !important;
 	color: var(--text-color) !important;
-}
-
-/* tailwind text color Intra v3 */
-.text-black {
-	color: var(--text-color) !important;
-}
-
-/* tailwind body background Intra v3 */
-.bg-zinc-50 {
-	background-color: var(--body-background-color) !important;
-}
-
-/* tailwind backgrounds Intra v3 */
-.bg-white {
-	background-color: var(--container-background-color) !important;
-}
-
-/* tailwind borders Intra v3 */
-.border-neutral-200,
-.border-white {
-	border-color: var(--general-border-color) !important;
-}
-
-/* achievement Intra v3 */
-.bg-zinc-100 {
-	background-color: var(--general-border-color) !important;
 }
 
 a:not([style*="color:"]):not(.btn),
@@ -119,6 +93,10 @@ h6 small, h6 .small,
 
 .main-navbar {
 	background: var(--top-navbar-background-color) !important;
+}
+
+.main-navbar .twitter-typeahead .tt-dataset .tt-cursor {
+	background: var(--list-hover-background-color) !important;
 }
 
 .main-navbar .main-navbar-logo,

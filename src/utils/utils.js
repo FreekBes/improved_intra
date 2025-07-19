@@ -94,6 +94,10 @@ const Utils = {
 	 * @returns {string} The version of Intra being used (.e.g. v2, v3)
 	 */
 	detectIntraVersion() {
+		if (!document.body) {
+			iConsole.warn("Could not detect Intra version, document body not available");
+			return "v2"; // Fallback to v2
+		}
 		document.body.classList.remove("iintra-v2", "iintra-v3", "iintra-vunknown");
 
 		// Check if an element with the class "page" exists in the root of the body.

@@ -18,3 +18,9 @@ No white border colors on white background colors. Useless.
 .iintra-v3 .iintra-profile-box-logtime td {
 	border-color: transparent !important;
 }
+
+/* Remove pointer cursor from tooltippable items */
+.iintra-v3 [data-state="closed"],
+.iintra-v3 [data-state="delayed-open"] {
+	cursor: default !important;
+}
