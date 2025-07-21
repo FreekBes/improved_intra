@@ -459,7 +459,7 @@ const ProfileV3 = {
 			// Prevent the header from being limited in height
 			header.classList.remove("xl:h-72");
 		} catch (error) {
-			iConsole.error("Error setting up profile for " + login, error);
+			iConsole.error("Error setting up header for " + login, error);
 		}
 	},
 }

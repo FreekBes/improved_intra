@@ -130,6 +130,20 @@ const Utils = {
 		return (window.location.hostname + window.location.pathname);
 	},
 
+	/**
+	 * Get the login of the current user from the top nav bar
+	 * @returns {string} The login of the current user
+	 */
+	getUserLogin: () => {
+		const userLoginElement = document.querySelector("span[data-login]");
+		return userLoginElement ? userLoginElement.getAttribute("data-login") : null;
+	},
+
+	/**
+	 * Open a campus's clustermap and highlight a specific location
+	 * @param {string} campus The campus of the location to open the clustermap for
+	 * @param {string} location The hostname of the location (e.g. "bess-f2r4s9")
+	 */
 	openClustermap: (campus, location) => {
 		let url = null;
 		let highlightAfter = false;

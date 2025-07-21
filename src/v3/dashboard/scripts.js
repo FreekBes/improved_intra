@@ -119,7 +119,7 @@ const DashboardV3 = {
 
 		// Check for newly created nodes with a MutationObserver.
 		// Compare every node created with the loadDetector of each box.
-		const observer = new MutationObserver((mutations) => {
+		const boxesObserver = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
 				if (mutation.addedNodes) {
 					mutation.addedNodes.forEach((node) => {
@@ -137,7 +137,7 @@ const DashboardV3 = {
 								DashboardV3.dashboard_boxes_found++;
 								if (DashboardV3.dashboard_boxes_found === DashboardV3.dashboard_boxes.length) {
 									iConsole.log("All Dashboard V3 boxes found, disconnecting observer");
-									observer.disconnect();
+									boxesObserver.disconnect();
 								}
 
 								// Apply iintra-dashboard-bg class to the container of the boxes
@@ -153,7 +153,42 @@ const DashboardV3 = {
 			});
 		});
 
+		// Check for newly created header nodes with a MutationObserver.
+		const headerObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.addedNodes) {
+					mutation.addedNodes.forEach((node) => {
+						const header = node.querySelector("header");
+						if (header) {
+							iConsole.log("Profile header has been added to the page!");
+							// Header has been added, disconnect the MutationObserver.
+							headerObserver.disconnect();
+							DashboardV3.setupProfileHeader(header);
+						}
+					});
+				}
+			});
+		});
+
 		// Start observing the body for changes.
-		observer.observe(document.body, { childList: true, subtree: true });
+		boxesObserver.observe(document.body, { childList: true, subtree: true });
+		headerObserver.observe(document.body, { childList: true, subtree: true });
+	},
+
+	/**
+	 * Setup the profile header with the necessary improvements.
+	 * @param {Element} header The header element to improve.
+	 * @returns {void}
+	 */
+	setupProfileHeader: async (header) => {
+		const login = Utils.getUserLogin();
+		iConsole.log("Setting up dashboard header for", login);
+		try {
+			// TODO set up profile banner with banner_img from the synchronized settings
+			// iConsole.log("Setting up profile header for " + login, profileData);
+			// DasboardV3.setupProfileBannerImage(header, profileData);
+		} catch (error) {
+			iConsole.error("Error setting up dashboard header", error);
+		}
 	},
 }
