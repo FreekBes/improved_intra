@@ -60,17 +60,16 @@
 		{
 			"matches": [ "*://*.intra.42.fr/*" ],
 			"css": [ "src/shared/styling/fonts.css" ],
-			"js": [ "src/utils/utils.js", "src/utils/console.js", "src/utils/storage.js" ],
+			"js": [
+				"src/utils/utils.js", "src/utils/console.js", "src/utils/storage.js",
+				"src/shared/styling/themes/themeloader.js", "src/v2/themes/apply.js",
+				"src/v3/themes/apply.js"
+			],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://iintra.freekb.es/*" ],
 			"js": [ "src/utils/utils.js", "src/utils/console.js", "src/utils/storage.js" ],
-			"run_at": "document_start"
-		},
-		{
-			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": [ "src/shared/styling/themes/themeloader.js", "src/v2/themes/apply.js", "src/v3/themes/apply.js" ],
 			"run_at": "document_start"
 		},
 		{
