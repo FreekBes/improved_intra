@@ -19,6 +19,28 @@ const ProfileV3 = {
 			},
 			improve() {
 				iConsole.log("Improving Marks box (shared with Achievements)");
+
+				// Listen for tab content changes with a MutationObserver.
+				// Any time the tab loads or is changed, check if it's the Marks tab.
+				const tabContainer = ProfileV3.findBoxTabContainer(this.element);
+				const marksTabObserver = new MutationObserver((mutations) => {
+					mutations.forEach((mutation) => {
+						iConsole.warn("Mutation observed", mutation);
+						if (mutation.addedNodes) {
+							mutation.addedNodes.forEach((node) => {
+								if (!(node instanceof Element)) return; // Only process Element nodes
+								if (node.classList.contains("iintra-profile-box-marks")) {
+									iConsole.log("Marks box content changed, checking for outstanding flags");
+									ProfileV3.showOutstandingFlags(node);
+								}
+							});
+						}
+					});
+				});
+
+				// Start observing the box for changes
+				// TODO: make it listen to the first mutation as well! Right now it only works if we switch tabs.
+				marksTabObserver.observe(tabContainer, { childList: true, subtree: false });
 			},
 		},
 		{
@@ -55,6 +77,43 @@ const ProfileV3 = {
 			}
 		}
 		return null;
+	},
+
+	/**
+	 * Find a tab selector in a profile box by its header text
+	 * @param {Element} boxNode The profile box element.
+	 * @param {string} headerText The header text of the tab to find
+	 * @returns {Element | null} The tab selector element if found, null otherwise
+	 */
+	findBoxTabSelector: (boxNode, headerText) => {
+		if (boxNode.nodeType !== Node.ELEMENT_NODE) return false;
+		const tabSelectors = boxNode.querySelectorAll(".flex .cursor-pointer.uppercase");
+		for (let i = 0; i < tabSelectors.length; i++) {
+			if (tabSelectors[i].innerText && tabSelectors[i].innerText.toLowerCase() === headerText) {
+				return tabSelectors[i];
+			}
+		}
+		return null;
+	},
+
+	/**
+	 * Find the tab container in a profile box, holding the contents of the tab.
+	 * @param {Element} boxNode The profile box element.
+	 * @returns {Element | null} The tab container element if found, null otherwise
+	 */
+	findBoxTabContainer: (boxNode) => {
+		if (boxNode.nodeType !== Node.ELEMENT_NODE) return false;
+		return boxNode.querySelector(".w-full");
+	},
+
+	/**
+	 * Get the content of a specific tab in a profile box.
+	 * @param {Element} boxNode The profile box element.
+	 * @returns {Element | null} The content element of the tab, or null if not found.
+	 */
+	findBoxTabContent: (boxNode) => {
+		if (boxNode.nodeType !== Node.ELEMENT_NODE) return false;
+		return boxNode.querySelector(".w-full .flex .h-full");
 	},
 
 	/**
@@ -155,45 +214,6 @@ const ProfileV3 = {
 			return "Unknown";
 		}
 		return campusText;
-	},
-
-	/**
-	 * Get a user's profile settings from the Improved Intra server.
-	 * @param {string} login The username of the user to retrieve the profile of.
-	 * @returns {Promise<Object>} A promise that resolves with the user's profile data or rejects with an error message.
-	 */
-	getUserProfile: (login) => {
-		return new Promise(async function(resolve, reject) {
-			iConsole.log("Retrieving profile of login " + login);
-			try {
-				const res = await fetch("https://iintra.freekb.es/v2/profile/" + login + ".json", {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Accept": "application/json",
-					},
-				});
-				if (!res.ok) {
-					if (res.status === 404) {
-						reject(`No profile found for login ${login}, user is likely not an Improved Intra user.`);
-						return;
-					}
-
-					reject("Failed to fetch profile data: " + res.status + " " + res.statusText);
-					return;
-				}
-				const json = await res.json();
-				if (json["type"] == "success") {
-					resolve(json["data"]);
-				}
-				else {
-					reject(json["message"]);
-				}
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
 	},
 
 	setupProfileBannerImage: (header, profileData) => {
@@ -436,7 +456,6 @@ const ProfileV3 = {
 		locationObserver.observe(firstColumn, { childList: true, subtree: true });
 	},
 
-
 	/**
 	 * Setup the profile header with the necessary improvements.
 	 * @param {Element} header The header element to improve.
@@ -447,7 +466,7 @@ const ProfileV3 = {
 		try {
 			ProfileV3.findUserInfosList(header);
 			ProfileV3.makeLocationClickable(header);
-			const profileData = await ProfileV3.getUserProfile(login);
+			const profileData = await Utils.fetchUserProfile(login);
 			if (!profileData) {
 				iConsole.error("Failed to retrieve profile data for " + login);
 				return;
@@ -461,5 +480,28 @@ const ProfileV3 = {
 		} catch (error) {
 			iConsole.error("Error setting up header for " + login, error);
 		}
+	},
+
+	showOutstandingFlags: async (marksBox) => {
+		const marksContainer = ProfileV3.findBoxTabContent(marksBox, "marks");
+		if (!marksContainer) {
+			iConsole.error("Could not find marks tab content in the Marks profile box.");
+			return;
+		}
+		const projectList = marksContainer.querySelector(".flex.flex-col");
+		if (!projectList) {
+			iConsole.error("Could not find project list in the Marks tab of the Marks box.");
+			return;
+		}
+		iConsole.log("List of projects:", projectList);
+		// Loop over all direct projects
+		const mainProjects = projectList.querySelectorAll("a.text-legacy-main");
+		iConsole.log("Found " + mainProjects.length + " main projects in the Marks tab of the Marks box.");
+
+
+		// Loop over all collapsable projects (with retries)
+
+
+		// Loop over all rushes
 	},
 }

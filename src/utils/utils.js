@@ -183,4 +183,82 @@ const Utils = {
 			}, 5000);
 		}
 	},
+
+	/**
+	 * Get a user's profile settings from the Improved Intra server.
+	 * @param {string} login The username of the user to retrieve the profile of.
+	 * @returns {Promise<Object>} A promise that resolves with the user's profile data or rejects with an error message.
+	 */
+	fetchUserProfile: (login) => {
+		return new Promise(async function(resolve, reject) {
+			iConsole.log("Retrieving profile of login " + login);
+			try {
+				const res = await fetch("https://iintra.freekb.es/v2/profile/" + login + ".json", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json",
+					},
+				});
+				if (!res.ok) {
+					if (res.status === 404) {
+						reject(`No profile found for login ${login}, user is likely not an Improved Intra user.`);
+						return;
+					}
+
+					reject("Failed to fetch profile data: " + res.status + " " + res.statusText);
+					return;
+				}
+				const json = await res.json();
+				if (json["type"] == "success") {
+					resolve(json["data"]);
+				}
+				else {
+					reject(json["message"]);
+				}
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+	},
+
+	/**
+	 * Fetch the amount of outstanding flags for each attempt of a project for a user.
+	 * @param {string} login The login of the user to fetch outstanding flags for.
+	 * @returns {Promise<Object>} A promise that resolves with the user's outstanding flags per project_user or rejects with an error message.
+	 */
+	fetchUserOutstandings: (login) => {
+		return new Promise(async function(resolve, reject) {
+			iConsole.log("Retrieving profile of login " + login);
+			try {
+				const res = await fetch("https://iintra.freekb.es/outstandings.php?username=" + encodeURIComponent(login), {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json",
+					},
+				});
+				if (!res.ok) {
+					if (res.status === 404) {
+						reject(`No profile found for login ${login}, user is likely not an Improved Intra user.`);
+						return;
+					}
+
+					reject("Failed to fetch profile data: " + res.status + " " + res.statusText);
+					return;
+				}
+				const json = await res.json();
+				if (json["type"] == "success") {
+					resolve(json["data"]);
+				}
+				else {
+					reject(json["message"]);
+				}
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+	},
 }
