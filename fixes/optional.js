@@ -21,6 +21,21 @@ function setOptionalImprovements() {
 		});
 	}
 
+	// hide help button ('Have a problem?' button in header)
+	const helpButtonWrapper = document.querySelector(".main-navbar-user-nav .help-btn-wrapper");
+	if (helpButtonWrapper) {
+		improvedStorage.get("hide-help").then(function(data) {
+			if (optionIsActive(data, "hide-help")) {
+				helpButtonWrapper.style.display = "none";
+				// Hide nav-seperator next to wrapper too
+				const navSeparator = helpButtonWrapper.previousElementSibling;
+				if (navSeparator && navSeparator.classList.contains("nav-separator")) {
+					navSeparator.style.display = "none";
+				}
+			}
+		});
+	}
+
 	// hide black hole container
 	const goalsContainer = document.getElementById("goals-container");
 	if (goalsContainer) {

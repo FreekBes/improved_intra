@@ -18,6 +18,7 @@ const defaults = {
 	"custom-banner-url": "",
 	"custom-banner-pos": "center-center",
 	"hide-broadcasts": "false",
+	"hide-help": "false",
 	"hide-goals": "false",
 	"holygraph-morecursuses": "false",
 	"link-github": "",
@@ -41,6 +42,7 @@ const v1Translations = {
 	"custom-banner-pos": ["profile", "banner_pos", "internal_name"],
 	"hide-broadcasts": ["settings", "hide_broadcasts"],
 	"hide-goals": ["settings", "hide_goals"],
+	"hide-help": ["settings", "hide_help"],
 	"holygraph-morecursuses": ["settings", "holygraph_more_cursuses"],
 	"link-github": ["profile", "link_git"],
 	"link-web": ["profile", "link_web"],
@@ -75,11 +77,12 @@ function v1Translate(v2Options) {
 			v2Value = '';
 		}
 		if (v2Value !== undefined) {
-			console.log("v1Translate: " + v1key + " -> '" + v2Value + "'");
+			iConsole.log("v1Translate: " + v1key + " -> '" + v2Value + "'");
 			v1Options[v1key] = v2Value;
 		}
 		else {
-			console.warn("Could not translate v1Option " + v1key + " from v2Option");
+			iConsole.warn("Could not translate v1Option " + v1key + " from v2Option, using default value");
+			v1Options[v1key] = defaults[v1key];
 		}
 	}
 	return (v1Options);
