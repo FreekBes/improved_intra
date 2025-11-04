@@ -91,7 +91,7 @@ function v1Translate(v2Options) {
 async function tryFetchIntraUsername(improvedStorage) {
 	const networkHandler = (improvedStorage.getType() == "incognito" ? incognitoNetworkHandler : normalNetworkHandler);
 	return new Promise(function (resolve, reject) {
-		networkHandler.get("https://meta.intra.42.fr/")
+		networkHandler.get("https://intra.42.fr/")
 			.then(function(response) {
 				if (!response.ok) {
 					throw new Error("HTTP Response is not OK: " + response.status);
