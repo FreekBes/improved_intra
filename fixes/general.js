@@ -54,6 +54,29 @@ function setGeneralImprovements() {
 		}
 	}
 
+	// fix href of "Have a problem?" button in header next to user menu
+	const problemButtonWrapper = document.querySelector(".main-navbar-user-nav > .help-btn-wrapper");
+	if (problemButtonWrapper) {
+		iConsole.log("'Have a problem?' button found, moving href attribute to button instead of inner text");
+		const problemButton = problemButtonWrapper.querySelector(".btn-danger");
+		const problemButtonLink = problemButton.querySelector("a");
+		if (problemButtonLink) {
+			// create new a element for a new button
+			const newProblemButton = document.createElement("a");
+			newProblemButton.setAttribute("href", problemButtonLink.getAttribute("href"));
+			newProblemButton.setAttribute("target", "_blank");
+			newProblemButton.classList.add("btn", "btn-danger", "text-white", "help-btn");
+			newProblemButton.innerText = "Have a problem?";
+
+			// replace old button with new button
+			problemButtonWrapper.replaceChild(newProblemButton, problemButton);
+		}
+		else {
+			iConsole.log("Could not find inner link of 'Have a problem?' button, unable to fix it.");
+		}
+	}
+
+
 	// colorize logtime chart based on color scheme
 	const ltSvg = document.getElementById("user-locations");
 	if (ltSvg) {
