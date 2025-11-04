@@ -371,9 +371,9 @@ async function setPageEvaluationsImprovements(match) {
 		projectItemText.insertBefore(projectLink, lastTextNode);
 
 		// Remove text node, can't update it.
-		// Create a new text node that contains the old text before "on", "on" and no project name.
+		// Create a new text node that contains the old text before "on" if it exists, "on" and no project name.
 		lastTextNode.remove();
-		projectItemText.insertBefore(document.createTextNode(projectMatch[1] + " on "), projectLink);
+		projectItemText.insertBefore(document.createTextNode((projectMatch[1]? projectMatch[1] : "") + " on "), projectLink);
 	}
 }
 
