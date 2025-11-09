@@ -51,6 +51,9 @@ const NavV3 = {
 					}
 					if (NavV3.topNavbar && NavV3.leftNavbar) {
 						iConsole.log("Both navigation bars found, disconnecting observer");
+						document.dispatchEvent(new CustomEvent("iintra:nav-ready", {
+							detail: { top: NavV3.topNavbar, left: NavV3.leftNavbar }
+						}));
 						observer.disconnect();
 						break; // Exit the loop as we found both navigation bars
 					}
