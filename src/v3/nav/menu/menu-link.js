@@ -64,11 +64,11 @@ const MenuLink = {
 	injectObserverNow() {
 		const topbar = NavV3.topNavbar || NavV3.findTopNavbar();
 		if (!topbar) {
-			iConsole.warn("[Improved Intra] topbar still missing, skip for now");
+			iConsole.warn("Topbar still missing, skipping Improved Intra settings link injection for now");
 			return;
 		}
 
-		console.log("[Improved Intra] Link injected in the menu", topbar);
+		iConsole.log("Improved Intra settings link injected in the user menu", topbar);
 		const button = topbar.querySelectorAll("button")[1];
 
 		const observer = new MutationObserver((mutations) => {
