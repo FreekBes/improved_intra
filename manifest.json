@@ -32,8 +32,7 @@
 		{
 			"resources": [
 				"options/options.html",
-				"src/shared/styling/fonts.css",
-				"src/v3/nav/menu/menu-link.html"
+				"src/shared/styling/fonts.css"
 			],
 			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*" ]
 		},
