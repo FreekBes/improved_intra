@@ -69,7 +69,7 @@ const MenuLink = {
 		}
 
 		iConsole.log("Improved Intra settings link injected in the user menu", topbar);
-		const button = topbar.querySelectorAll("button")[1];
+		const userAccountButton = topbar.querySelectorAll("button")[1];
 
 		const observer = new MutationObserver((mutations) => {
 			for (const mutation of mutations) {
@@ -80,7 +80,7 @@ const MenuLink = {
 			}
 		});
 
-		observer.observe(button, { attributes: true, attributeFilter: ["data-state", "aria-expanded"] });
+		observer.observe(userAccountButton, { attributes: true, attributeFilter: ["data-state", "aria-expanded"] });
 	},
 
 	/**
