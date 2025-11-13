@@ -32,6 +32,12 @@ const IMPROVEMENTS = [
 		handler: NavV3.init
 	},
 	{
+		name: "Menu Link v3",
+		intraVersions: ["v3"],
+		guard: null, // Always handle the Menu link, it needs to be injected on nav load
+		handler: MenuLink.injectMenuObserver
+	},
+	{
 		name: "Haha Easter Egg",
 		intraVersions: ["v2", "v3"],
 		guard: () => window.location.hash === "#haha",
