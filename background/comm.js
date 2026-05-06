@@ -16,15 +16,27 @@ const incognitoPorts = [];
 
 // message only ports in non-incognito context
 function messageNormalPorts(msg) {
-	for (let i = 0; i < normalPorts.length; i++) {
-		normalPorts[i].postMessage(msg);
+	for (let i = normalPorts.length - 1; i >= 0; i--) {
+		try {
+			normalPorts[i].postMessage(msg);
+		}
+		catch (err) {
+			iConsole.warn("Dropping disconnected normal port:", err);
+			normalPorts.splice(i, 1);
+		}
 	}
 }
 
 // message only ports in incognito context
 function messageIncognitoPorts(msg) {
-	for (let i = 0; i < incognitoPorts.length; i++) {
-		incognitoPorts[i].postMessage(msg);
+	for (let i = incognitoPorts.length - 1; i >= 0; i--) {
+		try {
+			incognitoPorts[i].postMessage(msg);
+		}
+		catch (err) {
+			iConsole.warn("Dropping disconnected incognito port:", err);
+			incognitoPorts.splice(i, 1);
+		}
 	}
 }
 
@@ -49,6 +61,10 @@ function isIncognitoPort(port) {
 	return (port.name == incognitoPortName);
 }
 
+function isSyncAuthError(err) {
+	return (typeof err == "string" && err.toLowerCase().indexOf("invalid ext_token") > -1);
+}
+
 // resync on port message function
 function resyncOnPortMessage(incognitoSession) {
 	const type = (incognitoSession ? "incognito" : "normal");
@@ -63,6 +79,13 @@ function resyncOnPortMessage(incognitoSession) {
 					messagePortsOfType(type, { action: "resynced" });
 				})
 				.catch(function(err) {
+					if (isSyncAuthError(err)) {
+						iConsole.warn("Improved Intra sync server is not authenticated. Keeping local settings.");
+						improvedStorage.set({ "iintra-server-session": false });
+						messagePortsOfType(type, { action: "resynced" });
+						checkForExtToken(incognitoSession, false);
+						return;
+					}
 					iConsole.error("Could not retrieve settings from server:", err);
 
 					// Check if the extension token was still valid

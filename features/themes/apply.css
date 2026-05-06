@@ -30,9 +30,75 @@ body.bg-white {
 	color: var(--text-color) !important;
 }
 
-/* somewhat of a fix for Intra v3: don't apply text colors, since the background does not change */
-body #root .App {
-	color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+/* tailwind text color Intra v3 */
+.text-black,
+#root .text-black {
+	color: var(--text-color) !important;
+}
+
+/* tailwind body background Intra v3 */
+.bg-zinc-50,
+#root,
+#root .App,
+#root .content,
+#root .bg-zinc-50 {
+	background-color: var(--body-background-color) !important;
+}
+
+/* tailwind backgrounds Intra v3 */
+.bg-white,
+#root .bg-white,
+#root .bg-popover,
+#root .bg-zinc-100,
+#root .bg-stone-300 {
+	background-color: var(--container-background-color) !important;
+}
+
+/* tailwind borders Intra v3 */
+.border-neutral-200,
+.border-white,
+#root .border-neutral-200,
+#root .border-neutral-600,
+#root .border-white,
+#root .border-input {
+	border-color: var(--general-border-color) !important;
+}
+
+/* achievement Intra v3 */
+.bg-zinc-100,
+#root .hover\:bg-zinc-100:hover,
+#root .focus\:bg-zinc-100:focus {
+	background-color: var(--general-border-color) !important;
+}
+
+/* Intra v3 app shell */
+#root .w-full.top-0.fixed.z-40 .bg-white,
+#root input[type="search"],
+#root [role="menu"] {
+	background-color: var(--top-navbar-background-color) !important;
+	color: var(--text-color) !important;
+}
+
+#root input[type="search"]::placeholder {
+	color: var(--secondary-text-color) !important;
+}
+
+#root .w-full.top-0.fixed.z-40 svg,
+#root .w-full.top-0.fixed.z-40 svg path,
+#root .w-full.top-0.fixed.z-40 svg line {
+	color: var(--text-color) !important;
+	stroke: var(--text-color) !important;
+}
+
+#root .justify-center.flex.flex-col.gap-4.text-sm.text-gray-500 {
+	background-color: var(--body-background-color) !important;
+	color: var(--secondary-text-color) !important;
+}
+
+#root .text-gray-500,
+#root .text-neutral-400,
+#root .text-stone-500 {
+	color: var(--secondary-text-color) !important;
 }
 
 a:not([style*="color:"]):not(.btn),

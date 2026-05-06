@@ -12,11 +12,51 @@
 
 iConsole.log("auth2.js script running now...");
 
-let authPort = chrome.runtime.connect({ name: portName });
-authPort.onDisconnect.addListener(function() {
-	iConsole.log("Disconnected from service worker");
-});
-authPort.onMessage.addListener(function(msg) {
+let authPort = null;
+let authPortInterval = null;
+let authPortClosed = false;
+
+function connectAuthPort() {
+	if (authPortClosed) {
+		return false;
+	}
+	authPort = chrome.runtime.connect({ name: portName });
+	authPort.onDisconnect.addListener(function() {
+		iConsole.log("Disconnected from service worker");
+		authPort = null;
+	});
+	authPort.onMessage.addListener(handleAuthPortMessage);
+	return true;
+}
+
+function disconnectAuthPort() {
+	authPortClosed = true;
+	if (authPortInterval) {
+		clearInterval(authPortInterval);
+		authPortInterval = null;
+	}
+	if (authPort) {
+		authPort.disconnect();
+		authPort = null;
+	}
+}
+
+function postAuthPortMessage(msg) {
+	if (authPortClosed) {
+		return;
+	}
+	if (!authPort && !connectAuthPort()) {
+		return;
+	}
+	try {
+		authPort.postMessage(msg);
+	}
+	catch (err) {
+		iConsole.warn("Could not message service worker:", err);
+	}
+}
+
+function handleAuthPortMessage(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			iConsole.log("pong");
@@ -25,11 +65,20 @@ authPort.onMessage.addListener(function(msg) {
 			iConsole.error(msg["message"]);
 			break;
 	}
-});
-setInterval(function() {
-	authPort.disconnect();
-	authPort = chrome.runtime.connect({ name: portName });
+}
+
+connectAuthPort();
+authPortInterval = setInterval(function() {
+	if (authPortClosed) {
+		return;
+	}
+	if (authPort) {
+		authPort.disconnect();
+		authPort = null;
+	}
+	connectAuthPort();
 }, 250000);
+window.addEventListener("pagehide", disconnectAuthPort);
 
 async function checkSendSessionStatus(closeAfter = false) {
 	iConsole.log("Checking if the user is authenticated...");
@@ -37,7 +86,7 @@ async function checkSendSessionStatus(closeAfter = false) {
 	iConsole.log("iintra-server-session:", serverSession);
 	if (!serverSession) {
 		iConsole.log("(New) authenticated session detected, notifying extension...");
-		authPort.postMessage({ action: "server-session-started" });
+		postAuthPortMessage({ action: "server-session-started" });
 	}
 	if (closeAfter) {
 		iConsole.log("Closing the tab...");
@@ -67,5 +116,5 @@ else if (window.location.pathname == '/v2/ping' && document.body.textContent.toL
 else if (window.location.pathname.startsWith('/v2/disconnect')) {
 	// session actually ended
 	iConsole.log("Notifying extension that the back-end session ended...");
-	authPort.postMessage({ action: "server-session-ended" });
+	postAuthPortMessage({ action: "server-session-ended" });
 }

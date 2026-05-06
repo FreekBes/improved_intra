@@ -28,8 +28,64 @@ function createMenuLink(userMenu, href, text, position) {
 	}
 }
 
+function createV3MenuLink(userMenu, href, text, position) {
+	const menuItem = document.createElement("div");
+	const existingMenuItem = userMenu.querySelector("[role='menuitem']");
+	menuItem.setAttribute("role", "menuitem");
+	menuItem.setAttribute("tabindex", "-1");
+	menuItem.className = existingMenuItem ? existingMenuItem.className : "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors";
+	menuItem.innerText = text;
+	menuItem.addEventListener("click", function() {
+		window.location.href = href;
+	});
+	menuItem.addEventListener("keyup", function(event) {
+		if (event.key == "Enter" || event.key == " ") {
+			window.location.href = href;
+		}
+	});
+	if (position && typeof position == "object") {
+		userMenu.insertBefore(menuItem, position);
+	}
+	else {
+		userMenu.appendChild(menuItem);
+	}
+}
+
+function improveV3UserMenu(userMenu) {
+	if (!userMenu || userMenu.dataset.improvedIntraMenu == "true") {
+		return;
+	}
+	userMenu.dataset.improvedIntraMenu = "true";
+	if (![...userMenu.querySelectorAll("[role='menuitem']")].some(item => item.textContent.trim() == "Improved Intra Settings")) {
+		const settingsItem = [...userMenu.querySelectorAll("[role='menuitem']")].find(item => item.textContent.trim() == "Settings");
+		createV3MenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", settingsItem);
+	}
+}
+
+function watchV3UserMenu() {
+	if (window.location.hostname != "profile-v3.intra.42.fr") {
+		return;
+	}
+	document.querySelectorAll("[data-radix-menu-content][role='menu']").forEach(improveV3UserMenu);
+	const observer = new MutationObserver(function(mutations) {
+		for (const mutation of mutations) {
+			for (const addedNode of mutation.addedNodes) {
+				if (!(addedNode instanceof HTMLElement)) {
+					continue;
+				}
+				if (addedNode.matches("[data-radix-menu-content][role='menu']")) {
+					improveV3UserMenu(addedNode);
+				}
+				addedNode.querySelectorAll?.("[data-radix-menu-content][role='menu']").forEach(improveV3UserMenu);
+			}
+		}
+	});
+	observer.observe(document.body, { childList: true, subtree: true });
+}
+
 function setGeneralImprovements() {
 	if (isIntraV3) {
+		watchV3UserMenu();
 		return;
 	}
 
@@ -41,7 +97,13 @@ function setGeneralImprovements() {
 	const userMenu = document.querySelector(".main-navbar-user-nav ul[role='menu']");
 	if (userMenu) {
 		// add link to extension options in account/user menu
-		createMenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", userMenu.lastElementChild);
+		const intraSettingsOption = userMenu.querySelector("a[href='https://profile.intra.42.fr/languages']");
+		const intraSettingsPosition = intraSettingsOption ? intraSettingsOption.closest("li")?.nextSibling : userMenu.lastElementChild || "bottom";
+
+		// extensionSettingsLink.setAttribute("href", chrome.runtime.getURL('options/options.html'));
+		if (!userMenu.querySelector("a[href='https://iintra.freekb.es/v2/options']")) {
+			createMenuLink(userMenu, "https://iintra.freekb.es/v2/options", "Improved Intra Settings", intraSettingsPosition);
+		}
 
 		// add view my profile link if it seems to be missing from the menu
 		if (!userMenu.querySelector("a[href*='https://profile.intra.42.fr/users/']")) {
@@ -53,6 +115,7 @@ function setGeneralImprovements() {
 			createMenuLink(userMenu, "https://profile.intra.42.fr/slots", "Manage slots");
 		}
 	}
+	watchV3UserMenu();
 
 	// fix href of "Have a problem?" button in header next to user menu
 	const problemButtonWrapper = document.querySelector(".main-navbar-user-nav > .help-btn-wrapper");
@@ -400,23 +463,12 @@ async function setPageEvaluationsImprovements(match) {
 	}
 }
 
-/**
- * Improvements for Intra v3 early access page (add note that v3 is not supported by Improved Intra)
- * @param {RegExpExecArray} match
- */
 function setEarlyAccessImprovements(match) {
 	const earlyAccessContainer = document.getElementById("profile-v3-early-access-container");
 	if (earlyAccessContainer) {
-		const earlyAccessNote = document.createElement("p");
-		earlyAccessNote.className = "alert alert-warning";
-		earlyAccessNote.style.marginTop = "6rem";
-		earlyAccessNote.style.fontWeight = "bold";
-		earlyAccessNote.style.whiteSpace = "pre-wrap"; // make sure the note line breaks on \r\n
-		earlyAccessNote.innerText = "Improved Intra is not compatible with Intra v3 and probably never will be.\r\n\r\nThis is because the new Intra is impossible to work with for extensions due to its heavy use of elements without specific ids or classes (blame poorly used frameworks).\r\nIf you want to use Improved Intra without issues, keep using Intra v2. If you want to use v3, it is recommended to disable the Improved Intra extension.";
-		earlyAccessContainer.appendChild(earlyAccessNote);
-
 		// replace the container class with container-inner-item class to prevent the container from going out of bounds
-		while (wrongContainerUse = earlyAccessContainer.closest(".container")) {
+		let wrongContainerUse;
+		while ((wrongContainerUse = earlyAccessContainer.closest(".container"))) {
 			iConsole.log("Replaced container class with container-inner-item class", wrongContainerUse);
 			wrongContainerUse.classList.replace("container", "container-inner-item");
 		}

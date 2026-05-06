@@ -35,38 +35,6 @@ html {
 	font-weight: 700 !important;
 }
 
-/* warning for Intra v3 incompatibility */
-#improved-intra-v3-incompatibility-warning {
-	position: fixed;
-	bottom: 0;
-	left: 80px;
-	width: calc(100% - 80px);
-	font-family: "Futura PT", "Futura", "futura", "futura-pt", "Helvetica", Verdana, Arial, Sans-Serif;
-	background-color: #fcf8e3;
-	color: #8a6d3b;
-	text-align: center;
-	padding: 8px;
-	font-weight: bold;
-	font-size: 14px;
-	box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-	z-index: 9999;
-}
-#improved-intra-v3-incompatibility-warning a,
-#improved-intra-v3-incompatibility-warning-close {
-	color: #b17e27 !important;
-	cursor: pointer !important;
-}
-#improved-intra-v3-incompatibility-warning a:hover,
-#improved-intra-v3-incompatibility-warning a:focus {
-	color: #c27e08 !important;
-	text-decoration: underline !important;
-}
-#improved-intra-v3-incompatibility-warning-close:hover,
-#improved-intra-v3-incompatibility-warning-close:focus {
-	color: #c27e08 !important;
-	text-shadow: 0 0 1px #8a6d3b !important;
-}
-
 /* off-screen account dropdown menu fix for short usernames */
 .main-navbar-user-nav .dropdown .dropdown-menu {
 	left: unset !important;
@@ -533,8 +501,18 @@ a[data-tooltip-login].student-kind-student::before,
 	position: relative;
 }
 
+.improved-intra-v3-profile-banner {
+	position: relative;
+	overflow: hidden;
+}
+
 /* set z-index for all elements in the profile banner to accustom for the custom banner */
 .container-inner-item.profile-item-top.profile-banner > *:not(.improved-intra-banner) {
+	z-index: 1 !important;
+}
+
+.improved-intra-v3-profile-banner > *:not(.improved-intra-banner) {
+	position: relative;
 	z-index: 1 !important;
 }
 

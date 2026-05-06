@@ -55,7 +55,14 @@ function getThemeColor() {
 function getCoalitionColor() {
 	let color = getThemeColor(); // fallback
 	try {
-		color = document.getElementsByClassName("coalition-span")[0].style.color;
+		const coalitionSpan = document.getElementsByClassName("coalition-span")[0];
+		const v3CoalitionFlag = document.querySelector("header a[href*='/coalitions/'] svg[fill]");
+		if (coalitionSpan && coalitionSpan.style.color) {
+			color = coalitionSpan.style.color;
+		}
+		else if (v3CoalitionFlag && v3CoalitionFlag.getAttribute("fill")) {
+			color = v3CoalitionFlag.getAttribute("fill");
+		}
 	}
 	catch (err) {
 		iConsole.warn("Could not get coalition color, using theme color instead.");
@@ -77,11 +84,22 @@ function getCampus() {
 // get the username from a profile
 function getProfileUserName() {
 	try {
-		return (document.querySelector(".login[data-login]").getAttribute("data-login"));
+		const userMatch = window.location.pathname.match(/^\/users\/([^/]+)/);
+		if (userMatch && userMatch[1] != "me") {
+			return (userMatch[1]);
+		}
+		const login = document.querySelector(".login[data-login], [data-login]");
+		if (login) {
+			return (login.getAttribute("data-login"));
+		}
+		if (userMatch) {
+			return (userMatch[1] == "me" ? null : userMatch[1]);
+		}
 	}
 	catch (err) {
 		return (null);
 	}
+	return (null);
 }
 
 // convert hex color to rgb color object
@@ -113,7 +131,7 @@ function unsetCoalitionTextColor(event) {
 
 // returns true if the current webpage has a profile banner
 function hasProfileBanner() {
-	return (window.location.pathname.indexOf("/users/") == 0 || (window.location.hostname == "profile.intra.42.fr" && window.location.pathname == "/"));
+	return (window.location.pathname.indexOf("/users/") == 0 || ((window.location.hostname == "profile.intra.42.fr" || window.location.hostname == "profile-v3.intra.42.fr") && window.location.pathname == "/"));
 }
 
 // get the URL of the current webpage without the hash and query

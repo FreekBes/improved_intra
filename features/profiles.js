@@ -307,6 +307,9 @@ function addProfileInfosItem(userInfos, itemId, itemTitle, itemIcon, itemContent
 function immediateProfileChanges() {
 	// add custom banner image container
 	if (gProfileBanner) {
+		if (window.location.hostname == "profile-v3.intra.42.fr") {
+			gProfileBanner.classList.add("improved-intra-v3-profile-banner");
+		}
 		gCustomBanner = document.createElement("div");
 		gCustomBanner.className = "improved-intra-banner";
 		gProfileBanner.insertBefore(gCustomBanner, gProfileBanner.children[0]);
@@ -346,7 +349,7 @@ function immediateProfileChanges() {
 }
 
 gUName = getProfileUserName();
-gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner");
+gProfileBanner = document.querySelector(".container-inner-item.profile-item-top.profile-banner, .content header");
 immediateProfileChanges();
 improvedStorage.get(["username", "show-custom-profiles", "outstandings"]).then(function(data) {
 	gExtSettings = data;

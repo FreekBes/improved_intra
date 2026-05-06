@@ -19,11 +19,51 @@ function getLoggedInUserName() {
 	}
 }
 
-let syncPort = chrome.runtime.connect({ name: portName });
-syncPort.onDisconnect.addListener(function() {
-	iConsole.log("Disconnected from service worker");
-});
-syncPort.onMessage.addListener(function(msg) {
+let syncPort = null;
+let syncPortInterval = null;
+let syncPortClosed = false;
+
+function connectSyncPort() {
+	if (syncPortClosed) {
+		return false;
+	}
+	syncPort = chrome.runtime.connect({ name: portName });
+	syncPort.onDisconnect.addListener(function() {
+		iConsole.log("Disconnected from service worker");
+		syncPort = null;
+	});
+	syncPort.onMessage.addListener(handleSyncPortMessage);
+	return true;
+}
+
+function disconnectSyncPort() {
+	syncPortClosed = true;
+	if (syncPortInterval) {
+		clearInterval(syncPortInterval);
+		syncPortInterval = null;
+	}
+	if (syncPort) {
+		syncPort.disconnect();
+		syncPort = null;
+	}
+}
+
+function postSyncPortMessage(msg) {
+	if (syncPortClosed) {
+		return;
+	}
+	if (!syncPort && !connectSyncPort()) {
+		return;
+	}
+	try {
+		syncPort.postMessage(msg);
+	}
+	catch (err) {
+		iConsole.warn("Could not message service worker:", err);
+	}
+}
+
+function handleSyncPortMessage(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			iConsole.log("pong");
@@ -35,11 +75,20 @@ syncPort.onMessage.addListener(function(msg) {
 			iConsole.error(msg["message"]);
 			break;
 	}
-});
-setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: portName });
+}
+
+connectSyncPort();
+syncPortInterval = setInterval(function() {
+	if (syncPortClosed) {
+		return;
+	}
+	if (syncPort) {
+		syncPort.disconnect();
+		syncPort = null;
+	}
+	connectSyncPort();
 }, 250000);
+window.addEventListener("pagehide", disconnectSyncPort);
 
 improvedStorage.get(["last-sync", "username"]).then(function(data) {
 	const curUsername = getLoggedInUserName();
@@ -50,7 +99,7 @@ improvedStorage.get(["last-sync", "username"]).then(function(data) {
 		// a new user logged in!
 		improvedStorage.set({"username": curUsername}).then(function() {
 			iConsole.log("Intra username stored in local storage, now resyncing settings...");
-			syncPort.postMessage({ action: "resync" });
+			postSyncPortMessage({ action: "resync" });
 		});
 	}
 	else {

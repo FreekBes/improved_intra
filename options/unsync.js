@@ -16,11 +16,51 @@ improvedStorage.remove("username").then(function() {
 	iConsole.log("Signed out from Intra, so removed the username to synchronize with. Settings will be kept locally, until another person signs in.");
 });
 
-let syncPort = chrome.runtime.connect({ name: portName });
-syncPort.onDisconnect.addListener(function() {
-	iConsole.log("Disconnected from service worker");
-});
-syncPort.onMessage.addListener(function(msg) {
+let syncPort = null;
+let syncPortInterval = null;
+let syncPortClosed = false;
+
+function connectSyncPort() {
+	if (syncPortClosed) {
+		return false;
+	}
+	syncPort = chrome.runtime.connect({ name: portName });
+	syncPort.onDisconnect.addListener(function() {
+		iConsole.log("Disconnected from service worker");
+		syncPort = null;
+	});
+	syncPort.onMessage.addListener(handleSyncPortMessage);
+	return true;
+}
+
+function disconnectSyncPort() {
+	syncPortClosed = true;
+	if (syncPortInterval) {
+		clearInterval(syncPortInterval);
+		syncPortInterval = null;
+	}
+	if (syncPort) {
+		syncPort.disconnect();
+		syncPort = null;
+	}
+}
+
+function postSyncPortMessage(msg) {
+	if (syncPortClosed) {
+		return;
+	}
+	if (!syncPort && !connectSyncPort()) {
+		return;
+	}
+	try {
+		syncPort.postMessage(msg);
+	}
+	catch (err) {
+		iConsole.warn("Could not message service worker:", err);
+	}
+}
+
+function handleSyncPortMessage(msg) {
 	switch (msg["action"]) {
 		case "pong":
 			iConsole.log("pong");
@@ -29,13 +69,22 @@ syncPort.onMessage.addListener(function(msg) {
 			iConsole.error(msg["message"]);
 			break;
 	}
-});
-setInterval(function() {
-	syncPort.disconnect();
-	syncPort = chrome.runtime.connect({ name: portName });
-}, 250000);
+}
 
-syncPort.postMessage({ action: "intra-logout" });
+connectSyncPort();
+syncPortInterval = setInterval(function() {
+	if (syncPortClosed) {
+		return;
+	}
+	if (syncPort) {
+		syncPort.disconnect();
+		syncPort = null;
+	}
+	connectSyncPort();
+}, 250000);
+window.addEventListener("pagehide", disconnectSyncPort);
+
+postSyncPortMessage({ action: "intra-logout" });
 
 // const iintraLogoutWindow = window.open("https://iintra.freekb.es/v2/disconnect?continue=/v2/ping", "iintra-logout", "width=10,height=10");
 // iintraLogoutWindow.addEventListener("load", function() {
