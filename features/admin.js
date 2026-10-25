@@ -19,7 +19,7 @@ Also for some additional features and fixes on admin pages
 
 window.addEventListener("load", function(event) {
 	const improvedIntraPageLink = document.createElement("a");
-	improvedIntraPageLink.setAttribute("href", "https://iintra.freekb.es/imagery.php");
+	improvedIntraPageLink.setAttribute("href", "https://iintra.freekb.es/v2/banners");
 	improvedIntraPageLink.setAttribute("target", "_self");
 	improvedIntraPageLink.setAttribute("class", "sidebar-item-link");
 
